@@ -22,14 +22,14 @@ export const getStaticProps = async (ctx) => {
   const { data } = await api.get<Getter<GetterBooks[]>>('books')
   if (data.statusCode === 200) {
     return {
-      revalidate: 100,
+      unstable_revalidate: 100,
       props: {
         books: data.data,
       },
     }
   }
   return {
-    revalidate: 100,
+    unstable_revalidate: 100,
     props: {
       books: [],
     },
