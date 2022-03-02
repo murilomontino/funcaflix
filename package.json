@@ -12,7 +12,7 @@
     "expo-random": "~12.1.1",
     "js-brasil": "^2.5.1",
     "moment": "^2.29.1",
-    "next": "9.3.5",
+    "next": "^10.2.3",
     "next-fonts": "^1.5.1",
     "next-images": "^1.8.4",
     "next-optimized-images": "^2.6.2",
