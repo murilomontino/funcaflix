@@ -1,8 +1,9 @@
 import React, { memo, useEffect, useMemo, useState } from 'react'
-import { Text } from 'react-native'
+import { Text, View } from 'react-native'
 
 import { FinancialResources } from '@/types'
 
+import DatePickerCustom from '@/components/atom/date-picker'
 import GetImageButton from '@/components/atom/get-image-button'
 import InputTextArea from '@/components/molecule/input-text-area'
 import InputTopic from '@/components/molecule/input-topic'
@@ -17,6 +18,7 @@ import {
   useFormExhibitionTitle,
 } from '@/forms/Product/product-exhibition/hooks'
 
+import { Important } from '../../../styles'
 import { Title, Container } from '../artist/styles'
 
 const ItemsFinancialResources = [
@@ -78,7 +80,7 @@ const Exhibition = () => {
   return (
     <Container>
       <Title>Dados do Exposição:</Title>
-
+      <Important>* Campos Obrigatórios</Important>
       <GetImageButton
         image={thumbnail}
         onChangeImage={onChangeThumbnail}
@@ -130,6 +132,28 @@ const Exhibition = () => {
         value={description}
         widthContainer={'70%'}
       />
+      <View
+        style={{
+          zIndex: 10,
+          flexDirection: 'row',
+        }}
+      >
+        <DatePickerCustom
+          topic="Data de Início"
+          requered
+          onChangeValue={onChangeStartDateState}
+          value={startDateState}
+          colorIcon={'#000'}
+        />
+        <DatePickerCustom
+          disabled={disabled}
+          topic="Data de Fim"
+          onChangeValue={onChangeEndDateState}
+          minimumDate={memoDateMinimum}
+          value={endDateState}
+          colorIcon={'#000'}
+        />
+      </View>
     </Container>
   )
 }

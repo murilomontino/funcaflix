@@ -12,6 +12,7 @@ import {
   useFormExhibitionPhotoOfArtist,
 } from '@/forms/Product/product-exhibition/hooks'
 
+import { Important } from '../../../styles'
 import { Container, Title } from './styles'
 
 const Artist = () => {
@@ -30,6 +31,7 @@ const Artist = () => {
   return (
     <Container>
       <Title>Dados do Artista:</Title>
+      <Important>* Campos Obrigatórios</Important>
       <GetImageButton
         image={photoOfArtist}
         onChangeImage={onChangePhotoOfArtist}

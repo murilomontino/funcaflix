@@ -1,31 +1,19 @@
 import React, { useState } from 'react'
 import {
-  Text,
-  StyleSheet,
-  TouchableOpacity,
   StyleProp,
   ViewStyle,
   TextStyle,
-  Platform,
   View,
+  StyleSheet,
+  Text,
 } from 'react-native'
+import { FontAwesome5 } from 'react-web-vector-icons'
 
-import DatePicker from '@react-native-community/datetimepicker'
-
-import { FontAwesome5 } from '@expo/vector-icons'
+import DatePicker from '../react-date-picker/entry'
 
 import colors from '@/global/colors'
 
-import { FormatDate } from '@/utils/format-date'
-
-type Props = {
-  value: Date
-  onChangeValue: (text: Date) => void
-  colorIcon?: string
-  styleTitleButton?: StyleProp<TextStyle>
-  containerButton?: StyleProp<ViewStyle>
-  disabled?: boolean
-} & {
+interface Props {
   value: Date
   onChangeValue: (text: Date) => void
   colorIcon?: string
@@ -40,99 +28,96 @@ type Props = {
   minimumDate?: Date
 }
 
-const PickerTecno = ({
+const DatePickerCustom = ({
   value,
   onChangeValue,
   containerButton,
-  disabled = false,
   styleTitleButton,
+  topic,
+  disabled = false,
+  stylesViewTitle,
+  maxWidthTitle = 150,
+  styleTopic,
+  requered = false,
+  minimumDate = new Date(new Date().getFullYear() - 105, 0, 1),
   colorIcon = colors.white,
 }: Props) => {
-  const [modalVisible, setModalVisible] = useState(false)
+  const [date, setDate] = useState<Date>(value)
 
-  const onChange = (_: any, selectedDate: any) => {
-    const currentDate = selectedDate || value
-    setModalVisible(Platform.OS === 'ios')
-    onChangeValue(currentDate)
+  const onChangeDate = (date: Date) => {
+    onChangeValue(date)
+    setDate(date)
   }
 
   return (
-    <View>
-      {modalVisible && (
-        <DatePicker
-          value={value}
-          mode="date"
-          display="default"
-          onChange={onChange}
-          disabled={disabled}
-          minimumDate={new Date(new Date().getFullYear() - 105, 0, 1)}
-          maximumDate={new Date()}
-        />
+    <View
+      style={{
+        zIndex: 10,
+        margin: 8,
+        padding: 4,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+      }}
+    >
+      {!!topic && (
+        <View
+          style={[
+            styles.viewTitle,
+            stylesViewTitle,
+            {
+              width: maxWidthTitle,
+            },
+          ]}
+        >
+          <Text style={[styles.topicForm, styleTopic]}>{topic}</Text>
+          {requered && <Text style={styles.topicRequered}>*</Text>}
+        </View>
       )}
-      <TouchableOpacity
-        onPress={() => {
-          setModalVisible(true)
-        }}
-        style={[styles.containerButton, containerButton]}
-      >
-        <FontAwesome5 name="calendar-alt" color={colorIcon} />
-        <Text style={[styles.textButton, styleTitleButton]}>
-          {FormatDate(value)}
-        </Text>
-      </TouchableOpacity>
+      <DatePicker
+        value={date}
+        onChange={onChangeDate}
+        className={
+          !disabled
+            ? 'date-picker-container date-picker'
+            : 'date-picker-container date-picker-disabled'
+        }
+        calendarAriaLabel="calendar"
+        required
+        disableCalendar={disabled}
+        disabled={disabled}
+        locale="pt-BR"
+        calendarIcon={
+          <FontAwesome5 name="calendar-alt" size={24} color={colorIcon} />
+        }
+        minDate={minimumDate}
+        maxDate={new Date(new Date().getFullYear() + 10, 0, 1)}
+      />
     </View>
   )
 }
 
-export default PickerTecno
+export default DatePickerCustom
 
-const styles = StyleSheet.create({
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 22,
-  },
-  button: {
-    borderRadius: 20,
-    padding: 8,
-  },
-  titleStyle: {
-    color: colors.black,
+export const styles = StyleSheet.create({
+  topicForm: {
     fontWeight: 'bold',
-    padding: 4,
-    marginBottom: 4,
-    textAlign: 'center',
+    color: '#f1f1f1',
+    paddingVertical: 4,
+    textAlign: 'right',
   },
-  textStyle: {
-    color: colors.white,
+  topicRequered: {
     fontWeight: 'bold',
-    textAlign: 'center',
+    color: colors.redSecondary,
+    fontSize: 18,
+    textAlign: 'right',
+    paddingLeft: 2,
   },
-  modalText: {
-    marginBottom: 16,
-    textAlign: 'center',
-  },
-  text: {
-    fontSize: 14,
-    marginLeft: 10,
-  },
-  containerButton: {
+  viewTitle: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: colors.button,
-    borderRadius: 0,
-    textDecorationColor: colors.button_secondary,
-    borderWidth: 1,
-    justifyContent: 'center',
-    padding: 8,
+    paddingRight: 8,
+    justifyContent: 'flex-end',
     alignItems: 'center',
-  },
-  textButton: {
-    padding: 4,
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: colors.white,
-    margin: 2,
   },
 })

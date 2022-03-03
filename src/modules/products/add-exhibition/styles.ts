@@ -1,13 +1,22 @@
+import theme from '@/theme'
 import styled from 'styled-components/native'
 
-export const ContainerMenu = styled.View`
+export const ContainerButton = styled.View`
+  max-height: 100px;
   flex-direction: row;
-  width: 100%;
-  justify-content: center;
   align-items: center;
+  justify-content: space-evenly;
+  z-index: -1;
 `
 
 export const Container = styled.View`
-  justify-content: center;
-  align-items: center;
+  margin-right: 8px;
+`
+
+export const Important = styled.Text`
+  max-height: 20px;
+  font-size: 16px;
+  text-align: center;
+  margin-bottom: 2px;
+  color: ${theme.COLORS.IMPORTANT};
 `
