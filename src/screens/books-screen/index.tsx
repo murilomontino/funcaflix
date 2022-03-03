@@ -21,10 +21,10 @@ type Props = {
 
 const ScreenBooks = ({ books }: Props) => {
   const [loading, setLoading] = useState(true)
-  const { size, web } = useSize()
+  const { size } = useSize()
 
   useEffect(() => {
-    if (books.length > 0) {
+    if (books?.length > 0) {
       setLoading(false)
     }
   }, [books])
