@@ -27,6 +27,16 @@ const nextConfig = {
     }
   },
   distDir: '.next',
+  // webpack configurado pra moti e react-reanimated v2
+  webpack: (config, other) => {
+    return {
+      ...config,
+      node: {
+        Buffer: false,
+        process: false,
+      },
+    }
+  },
 }
 
 const config = withPlugins(

@@ -5,6 +5,7 @@ module.exports = {
     presets: ['@expo/next-adapter/babel'],
     plugins: [
       "@babel/plugin-transform-modules-commonjs",
+      'react-native-reanimated/plugin',
       [
         'module-resolver',
         {

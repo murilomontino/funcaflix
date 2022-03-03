@@ -8,6 +8,7 @@ import {
 } from 'react-native'
 
 import { GetterBooks } from '@/types'
+import { MotiView } from 'moti'
 
 import CardBooks from './components/organism/card-book'
 
@@ -39,11 +40,11 @@ const ScreenBooks = ({ books }: Props) => {
 
   return (
     <View style={styles.container}>
-      <View
+      <MotiView
         style={{
           width: size.width,
         }}
-      ></View>
+      ></MotiView>
 
       <FlatList
         style={{ marginBottom: 40, minHeight: 300 }}

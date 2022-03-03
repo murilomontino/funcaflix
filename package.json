@@ -38,6 +38,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "@babel/preset-typescript": "^7.16.7",
     "@expo/next-adapter": "~3.1.20",
     "@testing-library/react-native": "^9.0.0",
     "@types/react": "~17.0.38",
