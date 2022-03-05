@@ -30,6 +30,7 @@ const GetImageButton = ({
           name: image.current.name,
           type: image.current.type,
           uri: image.current.uri,
+          mimeType: image.current.mimeType,
         }
       }
       return null

@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import { Image, TouchableOpacity } from 'react-native'
 import { useScaledSize } from 'react-native-web-hooks'
 
@@ -14,12 +14,20 @@ const LogoFuncap: React.FC<Props> = ({ size }) => {
   const fontSize = useScaledSize(size)
   const link = 'https://www.funcap.se.gov.br/'
 
+  const [logo, setLogo] = useState(LogoFuncapImg)
+
+  useEffect(() => {
+    return () => {
+      setLogo(null)
+    }
+  }, [])
+
   return (
     <TouchableOpacity>
       <Link href={link}>
         <Image
           source={{
-            uri: LogoFuncapImg,
+            uri: logo,
           }}
           style={{
             resizeMode: 'contain',

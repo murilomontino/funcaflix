@@ -1,3 +1,4 @@
+/* eslint-disable import-helpers/order-imports */
 declare module '*.svg' {
   import React from 'react'
   import * as React from 'react'

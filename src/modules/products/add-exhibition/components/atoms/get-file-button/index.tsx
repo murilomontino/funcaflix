@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 
 import * as DocumentPicker from 'expo-document-picker'
 import { DocumentResult } from 'expo-document-picker'
@@ -20,7 +20,7 @@ type Props = {
   type: mimeType[]
   multiple?: boolean
   onChangeFiles: (files: Document[]) => void
-  files: Document[]
+  selectedLabel?: string
 }
 
 export const GetFileButton = ({
@@ -28,12 +28,12 @@ export const GetFileButton = ({
   message = 'Selecione um arquivo',
   type,
   multiple = false,
-  files,
+  selectedLabel,
   onChangeFiles,
 }: Props) => {
   // Busca um arquivo no formato PDF
 
-  function fileReader(fileList: unknown) {
+  const fileReader = useCallback((fileList) => {
     return Promise.all(
       Object.keys(fileList).map(
         (_key, i) =>
@@ -55,9 +55,9 @@ export const GetFileButton = ({
           })
       )
     )
-  }
+  }, [])
 
-  const onChangeFile = async () => {
+  const onChangeFile = useCallback(async () => {
     try {
       const documents: DocumentResult = await DocumentPicker.getDocumentAsync({
         type: type,
@@ -75,12 +75,12 @@ export const GetFileButton = ({
     } catch (error) {
       return false
     }
-  }
+  }, [])
 
   return (
     <Container onPress={onChangeFile}>
       <ContainerCentered>
-        <Text>{!multiple ? files[0]?.name || message : message}</Text>
+        <Text>{!multiple ? selectedLabel || message : message}</Text>
         {requered && <TextRequered>*</TextRequered>}
       </ContainerCentered>
     </Container>

@@ -138,20 +138,27 @@ export const useFormExhibitionFiles = () => {
     FormProductExhibitionContext,
     (value) => value.mapFiles
   )
-  const onChangeFiles = useContextSelector(
+
+  const onChangeMapFiles = useContextSelector(
+    FormProductExhibitionContext,
+    (value) => value.onChangeMapFiles
+  )
+
+  const onChangeFile = useContextSelector(
     FormProductExhibitionContext,
     (value) => value.onChangeFile
   )
 
-  const files = useContextSelector(
+  const onRemovePhoto = useContextSelector(
     FormProductExhibitionContext,
-    (value) => value.file
+    (value) => value.onRemovePhoto
   )
 
   return {
-    files,
     mapFiles,
-    onChangeFiles,
+    onChangeMapFiles,
+    onChangeFile,
+    onRemovePhoto,
   }
 }
 
@@ -226,22 +233,48 @@ export const useFormExhibitionLocation = () => {
 }
 
 export const useFormExhibitionAttrsPhotos = () => {
-  const onChangeAttrsPhotos = useContextSelector(
+  const onChangeAttrDatePhoto = useContextSelector(
     FormProductExhibitionContext,
-    (value) => value.onChangeAttrPhotos
+    (value) => value.onChangeAttrDatePhoto
   )
-  return {
-    onChangeAttrsPhotos,
-  }
-}
 
-export const useFormExhibitionRemovePhoto = () => {
-  const removePhoto = useContextSelector(
+  const onChangeAttrTitlePhoto = useContextSelector(
     FormProductExhibitionContext,
-    (value) => value.onRemovePhoto
+    (value) => value.onChangeAttrTitlePhoto
   )
+
+  const onChangeAttrDescriptionPhoto = useContextSelector(
+    FormProductExhibitionContext,
+    (value) => value.onChangeAttrDescriptionPhoto
+  )
+
+  const onChangeAttrTypePhoto = useContextSelector(
+    FormProductExhibitionContext,
+    (value) => value.onChangeAttrTypePhoto
+  )
+  const onChangeAttrErrorPhoto = useContextSelector(
+    FormProductExhibitionContext,
+    (value) => value.onChangeAttrErrorPhoto
+  )
+
+  const photoValidator = useContextSelector(
+    FormProductExhibitionContext,
+    (value) => value.photoValidator
+  )
+
+  const countValidatedFiles = useContextSelector(
+    FormProductExhibitionContext,
+    (value) => value.countValidatedFiles
+  )
+
   return {
-    removePhoto,
+    photoValidator,
+    countValidatedFiles,
+    onChangeAttrDatePhoto,
+    onChangeAttrErrorPhoto,
+    onChangeAttrTitlePhoto,
+    onChangeAttrDescriptionPhoto,
+    onChangeAttrTypePhoto,
   }
 }
 

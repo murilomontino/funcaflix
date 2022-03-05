@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { View } from 'react-native'
+import { AntDesign } from 'react-web-vector-icons'
 
+import theme from '@/theme'
 import { ExhibitionPhotosTypes } from '@/types'
 
 import CacheImage from '@/components/atom/cache-image'
+import DatePicker from '@/components/atom/date-picker'
+import DropdownComponent from '@/components/molecule/dropdown'
 import InputTextArea from '@/components/molecule/input-text-area'
 import InputTopic from '@/components/molecule/input-topic'
 
-import { keys } from '@/forms/Product/product-exhibition/type'
+import { mapTypeExhibitionPhoto } from '@/forms/Product/types'
+
+import useHooks from './hooks'
+import { Container, ContainerButtonIcon } from './styles'
 
 import colors from '@/global/colors'
 
@@ -16,69 +23,87 @@ type Props = {
   title: string
   date: string
   description: string
-  typeOfPhoto: string
-  error: string
-  index: number
-  onRemovePhoto?: (index: number) => void
-  onChangeAttrs: (text: string, index: number, key: keys) => void
+  typeOfPhoto: ExhibitionPhotosTypes
+  error: boolean
+  onRemovePhoto?: () => void
+  onChangeAttrTitlePhoto: (value: string) => void
+  onChangeAttrDatePhoto: (value: Date) => void
+  onChangeAttrDescriptionPhoto: (value: string) => void
+  onChangeAttrTypePhoto: (value: ExhibitionPhotosTypes) => void
+  onChangeAttrErrorPhoto: (value: boolean) => void
+  photoValidator: (value: number) => void
 }
 
 const CardPhotoOfEvent = ({
-  onChangeAttrs,
+  onChangeAttrTitlePhoto,
+  onChangeAttrDatePhoto,
+  onChangeAttrDescriptionPhoto,
+  onChangeAttrTypePhoto,
+  onChangeAttrErrorPhoto,
   onRemovePhoto,
   title,
+  photoValidator,
   description,
   typeOfPhoto,
   uri,
-  index,
+  date,
   error,
 }: Props) => {
-  const [err, setErr] = useState(() => {
-    if (error === 'true') {
-      return true
-    }
-    return false
+  const {
+    validatedPhoto,
+    dateState,
+    descriptionState,
+    setDate,
+    setDescription,
+    setTitle,
+    setTypeOfPhoto,
+    titleState,
+    typeOfPhotoState,
+  } = useHooks({
+    defaultDate: date,
+    defaultDescription: description,
+    defaultTitle: title,
+    defaultTypeOfPhoto: typeOfPhoto,
   })
+
+  const [err, setErr] = useState(error)
 
   useEffect(() => {
     setErr(() => {
-      if (error === 'true') {
-        return true
+      if (validatedPhoto) {
+        photoValidator(1)
+      } else {
+        photoValidator(-1)
       }
-      return false
+      return validatedPhoto
     })
-  }, [error])
+    onChangeAttrErrorPhoto(validatedPhoto)
+  }, [validatedPhoto])
 
-  const onChangeTitle = (text: string) => {
-    onChangeAttrs(text, index, 'titulo')
+  const onChangeTitle = (value: string) => {
+    setTitle(value)
+    onChangeAttrTitlePhoto(value)
   }
 
-  const onChangeTypeOfPhoto = (type: ExhibitionPhotosTypes) => {
-    onChangeAttrs(`${type}`, index, 'tipo_de_foto')
+  const onChangeTypeOfPhoto = (value: ExhibitionPhotosTypes) => {
+    setTypeOfPhoto(value)
+    onChangeAttrTypePhoto(value)
   }
 
-  const onChangeDate = (text: Date) => {
-    onChangeAttrs(text?.toISOString(), index, 'data')
+  const onChangeDate = (value: Date) => {
+    setDate(value)
+    onChangeAttrDatePhoto(value)
   }
 
-  const onChangeDescription = (text: string) => {
-    onChangeAttrs(text, index, 'descricao')
-  }
-
-  const onRemovePhotoEvent = () => {
-    if (onRemovePhoto) {
-      onRemovePhoto(index)
-    }
+  const onChangeDescription = (value: string) => {
+    setDescription(value)
+    onChangeAttrDescriptionPhoto(value)
   }
 
   return (
-    <View
+    <Container
       style={[
         {
-          flex: 1,
-          margin: 10,
-          backgroundColor: 'rgba(0,0,0,0.3)',
-          borderRadius: 2,
           shadowColor: '#000',
           shadowOffset: {
             width: 0,
@@ -87,42 +112,25 @@ const CardPhotoOfEvent = ({
           shadowRadius: 3.84,
           elevation: 5,
         },
-        err && {
+        !err && {
           borderWidth: 1,
           borderColor: colors.redPrimary,
         },
       ]}
     >
-      <CacheImage
-        uri={uri}
-        resizeMode={'stretch'}
-        width={'100%'}
-        height={140}
-      />
+      <ContainerButtonIcon onPress={onRemovePhoto}>
+        <AntDesign
+          name="close"
+          size={theme.FONTS.SIZE.SMALL}
+          color={theme.COLORS.ICON_SECONDARY}
+        />
+      </ContainerButtonIcon>
+      <CacheImage uri={uri} resizeMode={'cover'} width={'100%'} height={160} />
+
       <InputTopic
         requered
-        stylesViewTitle={{
-          marginVertical: 8,
-          padding: 4,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-        styleTopic={{
-          fontSize: 16,
-          color: '#fff',
-          fontWeight: 'bold',
-          textAlign: 'center',
-        }}
-        styleViewContainer={{
-          flexDirection: 'column',
-        }}
-        styleViewInput={{
-          flex: 1,
-          width: '95%',
-          paddingHorizontal: 8,
-        }}
         onChangeText={onChangeTitle}
-        value={title}
+        value={titleState}
         placeholder={'Título da foto*'}
         topic=""
       />
@@ -130,29 +138,36 @@ const CardPhotoOfEvent = ({
       <InputTextArea
         topic=""
         placeholder="Descrição da foto"
-        value={description}
+        value={descriptionState}
         onChangeValue={onChangeDescription}
         height={80}
         maxLength={1500}
         numberLines={4}
-        widthContainer={'95%'}
       />
       <View
-        style={{
-          zIndex: 10,
-          flexDirection: 'row',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
+        style={{ zIndex: 2, justifyContent: 'center', alignItems: 'center' }}
       >
-        {/* <DatePicker
+        <DatePicker
           topic=""
           onChangeValue={onChangeDate}
-          value={new Date()}
-          colorIcon={colors.black}
-        /> */}
+          value={dateState}
+          colorIcon={theme.COLORS.ICON_SECONDARY}
+        />
       </View>
-    </View>
+
+      <View
+        style={{ zIndex: 1, justifyContent: 'center', alignItems: 'center' }}
+      >
+        <DropdownComponent
+          label="Tipo de Foto"
+          onChange={onChangeTypeOfPhoto}
+          value={typeOfPhotoState}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          options={mapTypeExhibitionPhoto as any}
+          placeholder="Tipo de Foto"
+        />
+      </View>
+    </Container>
   )
 }
 

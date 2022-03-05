@@ -5,6 +5,7 @@ import { FinancialResources } from '@/types'
 
 import DatePickerCustom from '@/components/atom/date-picker'
 import GetImageButton from '@/components/atom/get-image-button'
+import DropdownComponent from '@/components/molecule/dropdown'
 import InputTextArea from '@/components/molecule/input-text-area'
 import InputTopic from '@/components/molecule/input-topic'
 
@@ -87,7 +88,13 @@ const Exhibition = () => {
         height={200}
         width={200}
       />
-
+      <DropdownComponent
+        value={financialResources}
+        options={ItemsFinancialResources as any}
+        placeholder="Recursos Financeiros"
+        onChange={onChangeFinancialResources}
+        label={'Recursos'.toUpperCase()}
+      />
       <Text
         style={{
           fontSize: 20,
@@ -130,7 +137,7 @@ const Exhibition = () => {
         requered
         onChangeValue={onChangeDescription}
         value={description}
-        widthContainer={'70%'}
+        styleViewContainer={{ width: '70%' }}
       />
       <View
         style={{

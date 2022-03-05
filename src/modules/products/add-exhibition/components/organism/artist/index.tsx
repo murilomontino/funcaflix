@@ -66,7 +66,9 @@ const Artist = () => {
         requered
         onChangeValue={onChangeBiography}
         value={biography}
-        widthContainer={'70%'}
+        styleViewContainer={{
+          width: '70%',
+        }}
       />
     </Container>
   )

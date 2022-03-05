@@ -3,10 +3,10 @@ import { ActivityIndicator, FlatList, View } from 'react-native'
 
 import Button from '@/components/atom/button'
 
-import Artist from './components/molecules/artist'
-import Exhibition from './components/molecules/exhibition'
-import PhotosOfEvent from './components/molecules/photos-of-event'
-import SendExhibition from './components/molecules/send-exhibition'
+import Artist from './components/organism/artist'
+import Exhibition from './components/organism/exhibition'
+import PhotosOfEvent from './components/organism/photos-of-event'
+import SendExhibition from './components/organism/send-exhibition'
 import { Container, ContainerButton } from './styles'
 
 import { useSize } from '@/hooks/use-size'

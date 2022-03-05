@@ -3,6 +3,7 @@ export type exhibition = {
   id?: number
   produtoId: number
   titulo: string
+  nome_unico: string
   data_de_inicio: string
   data_de_fim: string
   local: string
@@ -23,7 +24,7 @@ export type exhibitionPhotos = {
 }
 
 export enum ExhibitionPhotosTypes {
-  foto_de_montagem,
+  foto_de_montagem = 1,
   foto_de_artista,
   foto_de_local,
   foto_de_evento,

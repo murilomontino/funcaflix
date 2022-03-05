@@ -125,3 +125,7 @@
   min-width: 150 !important;
   z-index: -1;
 }
+
+.dropdown-menu {
+  z-index: 998;
+}

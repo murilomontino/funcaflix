@@ -28,6 +28,7 @@ const GetImageButton = ({
       return {
         name: image.name,
         type: image.type,
+        mimeType: image.mimeType,
         uri: image.uri,
       }
     }
@@ -50,10 +51,12 @@ const GetImageButton = ({
         name: img.name,
         type: img.type,
         uri: img.uri,
+        mimeType: img.mimeType,
       })
       onChangeImage({
         name: img.name,
         type: img.type,
+        mimeType: img.mimeType,
         uri: img.uri,
       })
     }

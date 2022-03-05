@@ -6,7 +6,7 @@ export const Title = styled.Text`
   color: ${theme.COLORS.TEXT};
   font-size: ${theme.FONTS.SIZE.MEDIUM};
   text-align: left;
-  font-family: ${theme.FONTS.TITLE_900};
+  font-family: ${theme.FONTS.TITLE_BOLD};
   margin-bottom: 8px;
   width: 70%;
   text-transform: uppercase;
