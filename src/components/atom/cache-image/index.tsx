@@ -41,6 +41,11 @@ const CacheImage = ({
     if (capa) {
       getImgStorage(capa)
     }
+
+    // Se não tiver capa, seta a imagem como a capa padrão
+    if (!capa) {
+      setImg(NotCapa)
+    }
   }, [uri, capa])
 
   const getImgStorage = async (capa: string) => {

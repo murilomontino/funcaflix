@@ -4,7 +4,7 @@ import styled from 'styled-components/native'
 export const Container = styled.View`
   flex: 1;
   margin: 10px;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: ${theme.COLORS.CARD_BACKGROUND};
   border-radius: 2px;
   width: 100%;
 `

@@ -5,7 +5,10 @@ export default {
     BUTTON_800: '#1A5E8A',
     BUTTON_700: '#2A7ABE',
     BUTTON_SECONDARY: '#265c66',
+    CARD_BACKGROUND: 'rgba(0, 0, 0, 0.3)',
+    CARD_BACKGROUND_SECONDARY: '#f5f5f5',
     TEXT: '#fff',
+    TEXT_SECONDARY: '#13181c',
     ICON_PRIMARY: '#fff',
     ICON_SECONDARY: '#333333',
     WHITE: '#d9d9d9',
@@ -18,6 +21,8 @@ export default {
     BACKGROUND_INPUT: '#d9d9d9',
     BACKGROUND_FOOTER: 'rgba(18, 65, 95, 1)',
     BAR_HEADER: '#1b2f3d',
+    BORDER_LIGHT: '#d9d9d9',
+    SKELETON: '#d9d9d9',
   },
   FONTS: {
     SIZE: {

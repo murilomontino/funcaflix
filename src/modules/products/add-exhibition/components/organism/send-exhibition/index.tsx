@@ -1,6 +1,7 @@
 import React from 'react'
 
 import CheckingErrs from '@/components/molecule/checking-errs'
+import InputTags from '@/components/molecule/input-tags'
 
 import {
   useFormExhibitionTags,
@@ -15,6 +16,8 @@ const SendExhibition = () => {
   const { tags, onChangeTags } = useFormExhibitionTags()
   return (
     <ContainerSendForm>
+      <InputTags tags={tags} onChangeTags={onChangeTags} />
+
       <SendFormExhibitionButton
         onSubmit={onSubmit}
         reset={reset}

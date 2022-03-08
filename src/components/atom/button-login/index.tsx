@@ -12,8 +12,8 @@ type Props = {
 }
 
 const ButtonLogin = ({ textVisible = true }: Props) => {
-  const fontSize = useScaledSize(0.7)
-  const iconSize = useScaledSize(1.2)
+  const fontSize = useScaledSize(1)
+  const iconSize = useScaledSize(1.3)
 
   const ref = useRef(null)
   const hover = useHover(ref)

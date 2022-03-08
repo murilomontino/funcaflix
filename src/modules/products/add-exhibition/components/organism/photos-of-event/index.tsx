@@ -3,8 +3,6 @@ import { View } from 'react-native'
 
 import { ExhibitionPhotosTypes } from '@/types'
 
-import Button from '@/components/atom/button'
-
 import {
   useFormExhibitionAttrsPhotos,
   useFormExhibitionFiles,
@@ -113,7 +111,6 @@ const PhotosOfEvent = () => {
       >
         {renderMapPhotos()}
       </View>
-      <Button text="Enviar" onPress={onSubmit} />
     </Container>
   )
 }

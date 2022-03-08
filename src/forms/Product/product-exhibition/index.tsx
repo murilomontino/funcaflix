@@ -129,8 +129,8 @@ const FormProductExhibitionProvider: React.FC = ({ children }) => {
       titulo: titleExhibition,
       local: location.current,
       recurso: financialResources,
-      capa: thumbnail.uri ?? undefined,
-      tipo_capa: (thumbnail.mimeType as TypeImgCapa) ?? undefined,
+      capa: thumbnail?.uri ?? undefined,
+      tipo_capa: (thumbnail?.mimeType as TypeImgCapa) ?? undefined,
     })
 
     if (response.statusCode === 200) {

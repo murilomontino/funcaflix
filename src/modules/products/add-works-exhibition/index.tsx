@@ -1,0 +1,74 @@
+import React, { useState } from 'react'
+import { View, FlatList, Text } from 'react-native'
+
+import { GettersExhibitions } from '@/types'
+
+import CardExhibition from './organism/card-exhibition'
+import WorkPanel from './organism/work-panel'
+
+import { useSize } from '@/hooks/use-size'
+
+type Props = {
+  exhibitions: GettersExhibitions[]
+}
+
+const WIDTH_CARD = 400
+
+const Main = ({ exhibitions }: Props) => {
+  const { size } = useSize()
+
+  const [selected, setSelected] = useState<GettersExhibitions>(null)
+
+  const handleSelect = (exhibition: GettersExhibitions) => {
+    setSelected(exhibition)
+  }
+
+  return (
+    <View
+      style={{
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flex: 1,
+      }}
+    >
+      <FlatList
+        data={exhibitions}
+        style={{
+          flex: 1,
+          maxHeight: size.height,
+          width: size.width - 40,
+          backgroundColor: 'rgba(0,0,0,0.2)',
+        }}
+        horizontal
+        ListEmptyComponent={() => (
+          <View>
+            <Text>Nenhuma exposição cadastrada</Text>
+          </View>
+        )}
+        renderItem={({ item }) => (
+          <CardExhibition
+            item={item}
+            onPress={() => handleSelect(item)}
+            style={{
+              width: WIDTH_CARD,
+            }}
+          />
+        )}
+        keyExtractor={(item) => item.id.toString()}
+      />
+
+      <View
+        style={{
+          flex: 2,
+          justifyContent: 'center',
+          width: '100%',
+        }}
+      >
+        {selected && <WorkPanel item={selected} />}
+      </View>
+    </View>
+  )
+}
+
+export default Main

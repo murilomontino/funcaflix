@@ -149,7 +149,7 @@ const FieldCPFandCNPJGeneric = ({
         >
           <FontAwesome
             style={{ marginRight: 5, color: border.borderColor }}
-            name="close"
+            name={isValid ? 'check' : 'close'}
             size={14}
           />
         </ContainerIcon>
