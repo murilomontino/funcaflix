@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
-import './styles.css'
-import './DatePicker.css'
-import 'raf/polyfill'
+import '../styles/globals.css'
+import '../styles/date-picker.css'
 
+import 'raf/polyfill'
 import 'setimmediate'
 
 import LoadingContextProvider from '@/context/LoadingModal'

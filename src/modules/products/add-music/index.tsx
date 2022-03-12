@@ -5,7 +5,7 @@ import Details from './components/organism/details'
 import Left from './components/organism/left'
 import Right from './components/organism/right'
 
-import { useSize } from '@/hooks/use-size'
+import { useSize } from '@/hooks/utils/use-size'
 
 const Main = () => {
   const { size } = useSize()

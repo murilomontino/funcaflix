@@ -10,7 +10,7 @@ import BookFooter from '../../molecules/book-footer'
 import BookSinopse from '../../molecules/book-sinopse'
 import { viewStyles } from '../../styles'
 
-import { useSize } from '@/hooks/use-size'
+import { useSize } from '@/hooks/utils/use-size'
 
 type Props = {
   item: GetterBooks

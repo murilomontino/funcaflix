@@ -1,16 +1,21 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
 
-import AboutTheWork from '@/modules/products/add-works-exhibition/molecule/about-the-work'
+import NewWorksBox from '@/modules/products/add-works-exhibition/organism/new-works-box'
 import theme from '@/theme'
 
-const about =
-  'loren ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+import { useResources } from '@/hooks/utils/use-resources'
 
 const Lab = () => {
+  const { isFontReady } = useResources()
+
+  if (!isFontReady) {
+    return null
+  }
+
   return (
     <View style={styles.containerCenter}>
-      <AboutTheWork about={about} />
+      <NewWorksBox />
     </View>
   )
 }
@@ -20,9 +25,11 @@ export default Lab
 const styles = StyleSheet.create({
   containerCenter: {
     flex: 1,
+    height: 500,
+    width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: theme.COLORS.BACKGROUND_FRONTEND,
+    backgroundColor: theme.COLORS.BACKGROUND_BUTTON,
   },
 
   text: {

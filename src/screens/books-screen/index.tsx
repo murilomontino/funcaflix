@@ -13,7 +13,7 @@ import CardBooks from './components/organism/card-book'
 
 import colors from '@/global/colors'
 import constants from '@/global/constants'
-import { useSize } from '@/hooks/use-size'
+import { useSize } from '@/hooks/utils/use-size'
 
 type Props = {
   books: GetterBooks[]

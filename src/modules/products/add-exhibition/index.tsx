@@ -9,7 +9,7 @@ import PhotosOfEvent from './components/organism/photos-of-event'
 import SendExhibition from './components/organism/send-exhibition'
 import { Container, ContainerButton } from './styles'
 
-import { useSize } from '@/hooks/use-size'
+import { useSize } from '@/hooks/utils/use-size'
 
 const Main = () => {
   const { size } = useSize()

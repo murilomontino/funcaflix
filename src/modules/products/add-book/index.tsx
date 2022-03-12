@@ -5,7 +5,7 @@ import Left from './components/organism/left'
 import Right from './components/organism/right'
 import { Container } from './styles'
 
-import { useSize } from '@/hooks/use-size'
+import { useSize } from '@/hooks/utils/use-size'
 
 const Main = () => {
   const { SCREEN_SMALLER_THAN_LARGE_SIZE } = useSize()

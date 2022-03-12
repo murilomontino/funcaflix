@@ -13,7 +13,7 @@ import {
 import InputsFormsLiterature from '../../molecules/inputs-forms-literature'
 
 import colors from '@/global/colors'
-import { useSize } from '@/hooks/use-size'
+import { useSize } from '@/hooks/utils/use-size'
 
 const Details = () => {
   const { size, web, SCREEN_SMALLER_THAN_LARGE_SIZE } = useSize()

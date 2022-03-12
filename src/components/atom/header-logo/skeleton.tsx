@@ -5,7 +5,7 @@ import theme from '@/theme'
 
 import { ContainerLogo, ContainerTitle, Container } from './styles'
 
-import { useSize } from '@/hooks/use-size'
+import { useSize } from '@/hooks/utils/use-size'
 
 import 'react-loading-skeleton/dist/skeleton.css'
 

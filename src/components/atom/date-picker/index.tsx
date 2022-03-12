@@ -9,7 +9,7 @@ import {
 } from 'react-native'
 import { FontAwesome } from 'react-web-vector-icons'
 
-import DatePicker from '../react-date-picker/entry'
+import DatePicker from './react-date-picker/entry'
 
 import colors from '@/global/colors'
 

@@ -13,7 +13,7 @@ import { GetFileButton } from '../../atoms/get-file-button'
 import CardPhotoOfEvent from '../../molecules/card-photo-of-event'
 import { Container } from '../artist/styles'
 
-import { useSize } from '@/hooks/use-size'
+import { useSize } from '@/hooks/utils/use-size'
 
 const PhotosOfEvent = () => {
   const {

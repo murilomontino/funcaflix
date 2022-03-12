@@ -6,7 +6,7 @@ import theme from '@/theme'
 
 import { Container, ContainerInfo } from './styles'
 
-import { useSize } from '@/hooks/use-size'
+import { useSize } from '@/hooks/utils/use-size'
 
 import 'react-loading-skeleton/dist/skeleton.css'
 
@@ -90,6 +90,7 @@ const SkeletonTemplate = () => {
   return (
     <View
       style={{
+        flexDirection: 'row',
         width: size.width,
         minHeight: 800,
       }}

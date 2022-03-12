@@ -1,4 +1,5 @@
 import theme from '@/theme'
+import web from 'styled-components'
 import styled from 'styled-components/native'
 
 export const Container = styled.View`
@@ -18,4 +19,10 @@ export const ContainerButtonIcon = styled.TouchableHighlight`
   border-radius: 50%;
   margin: 8px;
   padding: 4px;
+`
+
+export const ContainerDropdown = web.div`
+  z-index: 1;
+  justify-content: center; 
+  align-items: center; 
 `

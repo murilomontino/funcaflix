@@ -14,6 +14,7 @@ type Props = {
   width?: number
   height?: number
   placeholder?: string
+  resizeMode?: 'cover' | 'contain' | 'stretch' | 'repeat' | 'center'
 }
 
 const GetImageButton = ({
@@ -21,6 +22,7 @@ const GetImageButton = ({
   onChangeImage,
   width = 150,
   height = 200,
+  resizeMode = 'cover',
   placeholder = 'Escolher uma Capa',
 }: Props) => {
   const [imageState, setImageState] = useState<Document>(() => {
@@ -65,7 +67,7 @@ const GetImageButton = ({
   const imageStyle: StyleProp<ImageStyle> = {
     width: width,
     height: height,
-    resizeMode: 'cover',
+    resizeMode: resizeMode,
   }
 
   return (

@@ -4,9 +4,8 @@ import styled from 'styled-components/native'
 export const Container = styled.TouchableOpacity`
   flex: 1;
   width: 80%;
-  min-height: 50px;
+  height: 50px;
   max-width: 250px;
-  max-height: 50px;
   margin: 8px;
   background-color: ${theme.COLORS.BUTTON_900};
   border-width: 2px;

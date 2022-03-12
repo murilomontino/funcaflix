@@ -1,9 +1,8 @@
 import theme from '@/theme'
 import styled from 'styled-components/native'
 
-export const Container = styled.TouchableOpacity`
-  flex-direction: row;
-  align-items: center;
+export const Container = styled.View`
+  flex: 1;
   justify-content: space-between;
   margin: 12px;
   padding: 8px;
@@ -13,12 +12,12 @@ export const Container = styled.TouchableOpacity`
 `
 
 export const ContainerInfo = styled.View`
-  flex: 1;
+  flex: 2;
+  height: 100%;
 `
 
 export const ContainerBlock = styled.View`
   flex: 1;
-  margin-left: 10px;
 `
 
 export const ContainerBlocksInfos = styled.View`
@@ -28,19 +27,27 @@ export const ContainerBlocksInfos = styled.View`
 
 export const Title = styled.Text`
   padding: 8px;
+  margin-bottom: 4px;
   text-align: center;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: bold;
-  font-family: ${theme.FONTS.TITLE_SEMI_BOLD};
+  text-transform: uppercase;
+  font-family: ${theme.FONTS.TITLE_BOLD};
   color: ${theme.COLORS.TEXT};
 `
-export const Info = styled.Text`
-  font-size: 10px;
-  font-weight: 500;
-  padding: 4px;
-  color: ${theme.COLORS.TEXT};
+export const Info = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 `
 
 export const Topic = styled(Info)`
   font-weight: bold;
+  font-size: 14px;
+  color: ${theme.COLORS.TEXT};
+  min-width: 100px;
+  width: 100px;
+  text-align: center;
+  justify-content: flex-end;
+  align-items: flex-end;
 `

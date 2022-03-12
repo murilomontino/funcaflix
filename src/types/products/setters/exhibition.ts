@@ -8,8 +8,12 @@ import {
 import { SettersGenericProduct } from './products'
 
 export interface SettersExhibitions
-  extends Omit<SettersGenericProduct, 'nome_cultural'>,
-    Omit<exhibition, 'produtoId' | 'id'> {
+  extends Omit<
+      SettersGenericProduct,
+      'nome_cultural' | 'tipo' | 'arquivo' | 'nome_arquivo'
+    >,
+    Omit<exhibition, 'produtoId' | 'id' | 'nome_unico'> {
+  nome_unico?: string
   categoria: Category.Exhibition
 }
 

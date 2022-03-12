@@ -9,7 +9,7 @@ const useMoveBoxAnimation = () => {
 
   const upMove = () => {
     Animated.timing(animation, {
-      toValue: -100,
+      toValue: -50,
       duration: 500,
       useNativeDriver: false,
     }).start()

@@ -3,10 +3,10 @@ import { View, FlatList, Text } from 'react-native'
 
 import { GettersExhibitions } from '@/types'
 
-import CardExhibition from './organism/card-exhibition'
-import WorkPanel from './organism/work-panel'
+import CardExhibition from './molecule/card-exhibition'
+import WorkPanel from './template/work-panel'
 
-import { useSize } from '@/hooks/use-size'
+import { useSize } from '@/hooks/utils/use-size'
 
 type Props = {
   exhibitions: GettersExhibitions[]
@@ -49,8 +49,9 @@ const Main = ({ exhibitions }: Props) => {
         renderItem={({ item }) => (
           <CardExhibition
             item={item}
+            horizontal
             onPress={() => handleSelect(item)}
-            style={{
+            ContainerStyle={{
               width: WIDTH_CARD,
             }}
           />

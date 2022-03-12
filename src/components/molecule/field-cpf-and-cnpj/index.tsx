@@ -10,7 +10,7 @@ import Topic from '@/components/atom/topic'
 import { MaskedInput, ContainerIcon, Container } from './styles'
 
 import colors from '@/global/colors'
-import useDebounce from '@/hooks/use-debounce'
+import useDebounce from '@/hooks/utils/use-debounce'
 
 type Props = {
   value: string

@@ -6,7 +6,7 @@ import { useFormBookTags } from '@/forms/Product/product-book/hooks'
 import SendFormBookButton from '../../atoms/send-form-book-button'
 import BookContent from '../../molecules/book-content'
 
-import { useSize } from '@/hooks/use-size'
+import { useSize } from '@/hooks/utils/use-size'
 
 const Right = () => {
   const { web, size, SCREEN_SMALLER_THAN_LARGE_SIZE } = useSize()

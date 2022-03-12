@@ -16,7 +16,7 @@ import {
 
 import GetFileButton from '../../atoms/get-file-button'
 
-import { useSize } from '@/hooks/use-size'
+import { useSize } from '@/hooks/utils/use-size'
 
 const ItemsTypesProducts = [
   { label: 'MP3', value: TypesProducts.MP3 },

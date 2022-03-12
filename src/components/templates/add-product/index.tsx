@@ -11,8 +11,8 @@ import Header from '@/components/organism/header'
 
 import { ContainerLogo, ContainerBackground, Container } from './styles'
 
-import { useResources } from '@/hooks/use-resources'
-import { useSize } from '@/hooks/use-size'
+import { useResources } from '@/hooks/utils/use-resources'
+import { useSize } from '@/hooks/utils/use-size'
 
 const TemplateAddProduct: React.FC = ({ children }) => {
   const { isFontReady } = useResources()

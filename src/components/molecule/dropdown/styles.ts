@@ -1,8 +1,11 @@
 import styled from 'styled-components/native'
 
 export const DropdownContainer = styled.View`
-  z-index: 10;
+  z-index: 1;
   padding: 16px;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
 `
 export const Label = styled.Text`
   position: absolute;

@@ -39,7 +39,7 @@
     "metro.config.ts",
     "jest.config.js",
     "next.config.ts",
-    "src/components/atom/react-date-picker/**/*",
+    "src/components/atom/date-picker/react-date-picker/**/*",
   ],
   "extends": "expo/tsconfig.base",
   "rules": [

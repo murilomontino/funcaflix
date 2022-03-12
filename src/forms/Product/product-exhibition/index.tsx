@@ -10,7 +10,7 @@ import { createContext } from 'use-context-selector'
 
 import { Getter } from '@/services/config/types'
 
-import { FormProductExhibition, keys } from './type'
+import { FormProductExhibition } from './type'
 
 import { useAttrsExhibition } from '@/hooks/use-attrs-exhibition'
 import { useAttrsExhibitionFiles } from '@/hooks/use-attrs-exhibition-files'
@@ -116,7 +116,7 @@ const FormProductExhibitionProvider: React.FC = ({ children }) => {
     })
   }
 
-  const onSubmitExhibition = async (): Promise<Getter<GettersExhibitions>> => {
+  const onSubmit = async (): Promise<Getter<GettersExhibitions>> => {
     const response = await submit({
       artista: culturalName,
       categoria: Category.Exhibition,
@@ -163,43 +163,40 @@ const FormProductExhibitionProvider: React.FC = ({ children }) => {
     exibicaoId: number
     produtoId: number
   }) => {
-    onChangeMapFiles((state: Map<keys, unknown>[]) => {
-      const fn = async (photo: Map<keys, unknown>) => {
-        const { statusCode } = await submitPhoto({
-          artista: culturalName,
-          arquivo: photo.get('uri') as string,
-          descricao: photo.get('descricao') as string,
-          nome_arquivo: photo.get('name') as string,
-          tipo_de_imagem: photo.get('mimeType') as string,
-          tipo_de_foto: photo.get('tipo_de_foto') as ExhibitionPhotosTypes,
-          titulo: photo.get('titulo') as string,
-          data: photo.get('data') as string,
-          nome_exibicao: nome_exibicao,
-          exibicaoId: exibicaoId,
-          produtoId: produtoId,
-        })
-
-        if (statusCode !== 200) {
-          photo.set('error', true)
-          return true
-        }
-
-        return false
+    const errMapFiles = []
+    for await (const photo of mapFiles) {
+      const _photo = {
+        artista: culturalName,
+        arquivo: photo.get('uri') as string,
+        descricao: photo.get('descricao') as string,
+        nome_arquivo: photo.get('name') as string,
+        tipo_de_imagem: photo.get('mimeType') as string,
+        tipo_de_foto: photo.get('tipo_de_foto') as ExhibitionPhotosTypes,
+        titulo: photo.get('titulo') as string,
+        data: photo.get('data') as string,
+        nome_exibicao: nome_exibicao,
+        exibicaoId: exibicaoId,
+        produtoId: produtoId,
       }
 
-      return state.filter((photo) => {
-        return fn(photo).then((bool: boolean) => {
-          return bool
-        })
-      })
-    })
+      const { statusCode } = await submitPhoto(_photo)
 
-    return { statusCode: 400 }
+      if (statusCode !== 200) {
+        errMapFiles.push(photo)
+      }
+    }
+
+    onChangeMapFiles(errMapFiles)
+
+    if (errMapFiles.length > 0) {
+      return { statusCode: 400, error: errMapFiles.map((e) => e.nome_arquivo) }
+    }
+
+    return { statusCode: 200, data: [] }
   }
 
-  const onSubmit = onSubmitExhibition
-
-  // Objeto tendo todos os validated que deram false, e o segundo é o boolean que representa se todos os fields foram validados
+  // Objeto tendo todos os validated que deram false,
+  // e o segundo é o boolean que representa se todos os fields foram validados
   const validated = useMemo(() => {
     const validateCpfOrCnpj = cpfOrCnpj.length > 0 && cpfOrCnpjIsValid
 

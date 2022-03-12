@@ -3,8 +3,6 @@ import { Category, GettersExhibitions, SettersExhibitions } from '@/types'
 import api from '@/services'
 import { Getter } from '@/services/config/types'
 
-type SetterOmit = Omit<SettersExhibitions, 'nome_unico'>
-
 export const useSubmitExhibition = () => {
   const submit = async ({
     artista,
@@ -18,8 +16,8 @@ export const useSubmitExhibition = () => {
     capa,
     tags,
     tipo_capa,
-  }: SetterOmit): Promise<Getter<GettersExhibitions>> => {
-    const document: SetterOmit = {
+  }: SettersExhibitions): Promise<Getter<GettersExhibitions>> => {
+    const document: SettersExhibitions = {
       artista: artista,
       categoria: Category.Exhibition,
       cpfOrCnpj: cpfOrCnpj,

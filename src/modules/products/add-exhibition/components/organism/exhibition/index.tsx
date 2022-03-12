@@ -86,7 +86,8 @@ const Exhibition = () => {
         image={thumbnail}
         onChangeImage={onChangeThumbnail}
         height={200}
-        width={200}
+        width={400}
+        resizeMode={'stretch'}
       />
       <DropdownComponent
         value={financialResources}

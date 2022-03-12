@@ -5,7 +5,7 @@ import { ExhibitionPhotosTypes } from '@/types'
 type Props = {
   defaultTitle: string
   defaultDescription: string
-  defaultTypeOfPhoto: string
+  defaultTypeOfPhoto: ExhibitionPhotosTypes
   defaultDate: string
 }
 function useHooks({
@@ -23,7 +23,7 @@ function useHooks({
   const [typeOfPhotoState, setTypeOfPhoto] = useState<ExhibitionPhotosTypes>(
     () => {
       if (defaultTypeOfPhoto) {
-        return parseInt(defaultTypeOfPhoto)
+        return defaultTypeOfPhoto
       }
 
       return 0

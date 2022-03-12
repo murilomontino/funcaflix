@@ -9,6 +9,8 @@ import { getCache, setCache } from '@/utils/CacheStorageLocal'
 
 type Props = {
   capa?: string
+  name?: string
+  id?: string
   height?: number | string
   width?: number | string
   resizeMode?: 'cover' | 'contain' | 'stretch' | 'repeat' | 'center'
@@ -18,6 +20,8 @@ type Props = {
 
 const CacheImage = ({
   capa,
+  name,
+  id,
   uri,
   height = 200,
   width = 150,
@@ -55,8 +59,13 @@ const CacheImage = ({
     const cache = await getCache(arrayCapa[0])
 
     if (!cache) {
-      const { data } = await api.get(`image/${capa}`)
-
+      const { data } = await api.get(`image`, {
+        params: {
+          image: capa,
+          name,
+          id,
+        },
+      })
       setCache(arrayCapa[0], {
         data: data,
       })

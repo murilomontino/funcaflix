@@ -5,7 +5,7 @@ import LogoFuncap from '@/components/atom/logo-funcap'
 
 import { ContainerLogo, ContainerTitle, TitleLogo, Container } from './styles'
 
-import { useSize } from '@/hooks/use-size'
+import { useSize } from '@/hooks/utils/use-size'
 
 const HeaderLogo = () => {
   const { size } = useSize()

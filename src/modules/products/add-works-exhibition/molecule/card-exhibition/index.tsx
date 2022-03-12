@@ -1,10 +1,13 @@
 import React from 'react'
-import { TouchableOpacityProps } from 'react-native'
+import { TouchableOpacityProps, ViewStyle } from 'react-native'
 
 import { GettersExhibitions, mapFinancialResources } from '@/types'
+import { cpf, cnpj } from 'cpf-cnpj-validator'
 
 import CacheImage from '@/components/atom/cache-image'
+import CardTag from '@/components/atom/card-tag'
 
+import AboutTheWork from '../about-the-work'
 import {
   ContainerInfo,
   Title,
@@ -21,15 +24,23 @@ type Props = {
   item: GettersExhibitions
   onPress?: (item: GettersExhibitions) => void
   all?: boolean
+  horizontal?: boolean
+  ContainerStyle?: ViewStyle | ViewStyle[]
 } & TouchableOpacityProps
 
-const CardExhibition = ({ item, all, ...rest }: Props) => {
+const CardExhibition = ({
+  item,
+  all,
+  horizontal = false,
+  ContainerStyle,
+  ...rest
+}: Props) => {
   const renderCPF = () => {
     if (item.cpf) {
       return (
         <Info key={item.cpf}>
           <Topic>CPF:</Topic>
-          {item.cpf}
+          {cpf.format(item.cpf)}
         </Info>
       )
     }
@@ -40,7 +51,7 @@ const CardExhibition = ({ item, all, ...rest }: Props) => {
       return (
         <Info key={item.cnpj}>
           <Topic>CNPJ:</Topic>
-          {item.cnpj}
+          {cnpj.format(item.cnpj)}
         </Info>
       )
     }
@@ -72,31 +83,21 @@ const CardExhibition = ({ item, all, ...rest }: Props) => {
     )
   }
 
-  const renderInfo = () => {
-    const keysValid = ['sobre a obra', 'tags']
-
-    return Object.keys(item).map((key) => {
-      if (keysValid.includes(key)) {
-        return (
-          <Info key={key}>
-            <Topic>{key}:</Topic>
-            {item[key]}
-          </Info>
-        )
-      }
-      return null
-    })
-  }
+  const flexDirection = horizontal ? 'row' : 'column'
+  const width = horizontal ? 200 : '100%'
+  const height = horizontal ? '100%' : 200
 
   return (
-    <Container {...rest}>
+    <Container style={[ContainerStyle, { flexDirection }]} {...rest}>
       <CacheImage
         capa={item.image}
-        height={140}
-        width={140}
-        resizeMode={'cover'}
+        height={height}
+        width={width}
+        resizeMode={'stretch'}
       />
-      <ContainerInfo style={{ flex: 1 }}>
+      <ContainerInfo
+        style={{ flex: 1, width: '100%', justifyContent: 'space-between' }}
+      >
         <Title>{item.titulo}</Title>
         <ContainerBlocksInfos style={{ flex: 1, flexDirection: 'row' }}>
           <ContainerBlock>
@@ -120,6 +121,12 @@ const CardExhibition = ({ item, all, ...rest }: Props) => {
           {all && renderAllInfo()}
         </ContainerBlocksInfos>
       </ContainerInfo>
+      {!horizontal && (
+        <ContainerInfo style={{ flex: 2, paddingBottom: 10, width: '100%' }}>
+          <CardTag tags={item.tags} />
+          <AboutTheWork about={item.sobre_a_obra} />
+        </ContainerInfo>
+      )}
     </Container>
   )
 }

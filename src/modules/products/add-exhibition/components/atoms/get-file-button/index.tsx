@@ -7,6 +7,8 @@ import { Document } from '@/forms/Product/types'
 
 import { Container, TextRequered, ContainerCentered, Text } from './styles'
 
+import useFileReader from '@/hooks/utils/use-file-reader'
+
 type mimeType =
   | 'application/pdf'
   | 'image/jpeg'
@@ -33,29 +35,7 @@ export const GetFileButton = ({
 }: Props) => {
   // Busca um arquivo no formato PDF
 
-  const fileReader = useCallback((fileList) => {
-    return Promise.all(
-      Object.keys(fileList).map(
-        (_key, i) =>
-          new Promise((resolve) => {
-            const reader = new FileReader()
-            const file = fileList[i]
-
-            reader.onload = () => {
-              resolve({
-                type: 'success',
-                uri: reader.result as string,
-                name: file.name,
-                size: file.size,
-                mimeType: file.type,
-              })
-            }
-
-            reader.readAsDataURL(file as unknown as Blob)
-          })
-      )
-    )
-  }, [])
+  const fileReader = useFileReader()
 
   const onChangeFile = useCallback(async () => {
     try {

@@ -24,6 +24,7 @@ module.exports = {
             '@/services': './src/services',
             '@/types': './src/types',
             '@/utils': './src/utils',
+            '@/animations': './src/animations',
           },
         },
       ],

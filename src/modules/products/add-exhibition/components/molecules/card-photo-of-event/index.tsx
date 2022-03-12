@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { View } from 'react-native'
+import { useHover } from 'react-native-web-hooks'
 import { AntDesign } from 'react-web-vector-icons'
 
 import theme from '@/theme'
@@ -68,6 +69,26 @@ const CardPhotoOfEvent = ({
 
   const [err, setErr] = useState(error)
 
+  const refDropDown = useRef()
+  const hoverDropdown = useHover(refDropDown)
+
+  const zIndexDropdown = useMemo(() => {
+    if (hoverDropdown) {
+      return 10
+    }
+    return 1
+  }, [hoverDropdown])
+
+  const refDate = useRef()
+  const hoverDate = useHover(refDate)
+
+  const zIndexDate = useMemo(() => {
+    if (hoverDate) {
+      return 10
+    }
+    return 2
+  }, [hoverDate])
+
   useEffect(() => {
     setErr(() => {
       if (validatedPhoto) {
@@ -126,7 +147,23 @@ const CardPhotoOfEvent = ({
         />
       </ContainerButtonIcon>
       <CacheImage uri={uri} resizeMode={'cover'} width={'100%'} height={160} />
-
+      <View
+        ref={refDropDown}
+        style={{
+          zIndex: zIndexDropdown,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <DropdownComponent
+          label="Tipo de Foto"
+          onChange={onChangeTypeOfPhoto}
+          value={typeOfPhotoState}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          options={mapTypeExhibitionPhoto as any}
+          placeholder="Tipo de Foto"
+        />
+      </View>
       <InputTopic
         requered
         onChangeText={onChangeTitle}
@@ -145,26 +182,18 @@ const CardPhotoOfEvent = ({
         numberLines={4}
       />
       <View
-        style={{ zIndex: 2, justifyContent: 'center', alignItems: 'center' }}
+        ref={refDate}
+        style={{
+          zIndex: zIndexDate,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
       >
         <DatePicker
           topic=""
           onChangeValue={onChangeDate}
           value={dateState}
           colorIcon={theme.COLORS.ICON_SECONDARY}
-        />
-      </View>
-
-      <View
-        style={{ zIndex: 1, justifyContent: 'center', alignItems: 'center' }}
-      >
-        <DropdownComponent
-          label="Tipo de Foto"
-          onChange={onChangeTypeOfPhoto}
-          value={typeOfPhotoState}
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          options={mapTypeExhibitionPhoto as any}
-          placeholder="Tipo de Foto"
         />
       </View>
     </Container>
