@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, memo } from 'react'
 import { Image, ImageStyle, StyleProp } from 'react-native'
 
 import api from '@/services'
@@ -37,7 +37,7 @@ const CacheImage = ({
     }
 
     // Se a capa for uma url, seta a imagem como a capa
-    if (capa && capa.includes('http')) {
+    if (capa && capa?.includes('http')) {
       setImg(capa)
       return
     }
@@ -93,4 +93,4 @@ const CacheImage = ({
   )
 }
 
-export default CacheImage
+export default memo(CacheImage)
