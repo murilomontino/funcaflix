@@ -53,9 +53,7 @@ export const useAttrsExhibitionFiles = () => {
     (id: string) => {
       return (value: Date) => {
         setMapFiles((state) => {
-          state
-            .find((item) => item.get('id') === id)
-            ?.set('data', value.toISOString())
+          state.find((item) => item.get('id') === id)?.set('data', value.toISOString())
           return state
         })
       }
@@ -79,9 +77,7 @@ export const useAttrsExhibitionFiles = () => {
     (id: string) => {
       return (value: ExhibitionPhotosTypes) => {
         setMapFiles((state) => {
-          state
-            .find((item) => item.get('id') === id)
-            ?.set('tipo_de_foto', value)
+          state.find((item) => item.get('id') === id)?.set('tipo_de_foto', value)
           return state
         })
       }
