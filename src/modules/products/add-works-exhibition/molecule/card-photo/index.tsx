@@ -15,6 +15,8 @@ import {
   ContainerBlocksInfos,
 } from './styles'
 
+import { useSize } from '@/hooks/utils/use-size'
+
 import FormatDate from '@/utils/format-date'
 
 type Props = {
@@ -33,7 +35,14 @@ const CardPhoto = ({
 
   ...rest
 }: Props) => {
-  const flexDirection = horizontal ? 'row' : 'column'
+  const { SCREEN_SMALLER_THAN_MEDIUM_SIZE } = useSize()
+
+  const flexDirection = SCREEN_SMALLER_THAN_MEDIUM_SIZE
+    ? 'column'
+    : horizontal
+    ? 'row'
+    : 'column'
+
   const width = horizontal ? 200 : '100%'
   const height = horizontal ? 200 : 200
 

@@ -15,6 +15,8 @@ import {
   ContainerBlocksInfos,
 } from './styles'
 
+import { useSize } from '@/hooks/utils/use-size'
+
 type Props = {
   item: GettersExhibitionsWorks
   onPress?: (item: GettersExhibitionsWorks) => void
@@ -23,15 +25,11 @@ type Props = {
   idExhibition?: string
 } & TouchableOpacityProps
 
-const CardWork = ({
-  item,
-  idExhibition,
-  horizontal = false,
-  ContainerStyle,
+const CardWork = ({ item, idExhibition, horizontal = false, ContainerStyle, ...rest }: Props) => {
+  const { SCREEN_SMALLER_THAN_MEDIUM_SIZE } = useSize()
 
-  ...rest
-}: Props) => {
-  const flexDirection = horizontal ? 'row' : 'column'
+  const flexDirection = SCREEN_SMALLER_THAN_MEDIUM_SIZE ? 'column' : horizontal ? 'row' : 'column'
+
   const width = horizontal ? 200 : '100%'
   const height = horizontal ? 200 : 200
 
@@ -45,9 +43,7 @@ const CardWork = ({
         width={width}
         resizeMode={'stretch'}
       />
-      <ContainerInfo
-        style={{ flex: 1, width: '100%', justifyContent: 'space-between' }}
-      >
+      <ContainerInfo style={{ flex: 1, width: '100%', justifyContent: 'space-between' }}>
         <Title>{item.titulo}</Title>
         <ContainerBlocksInfos style={{ flex: 1, flexDirection: 'row' }}>
           <ContainerBlock>
@@ -58,7 +54,7 @@ const CardWork = ({
               <Topic>Artista:</Topic> {item.artista}
             </Info>
             <Info>
-              <Topic>Dimensão:</Topic> {item.dimencao}
+              <Topic>Dimensão:</Topic> {item.dimensao}
             </Info>
           </ContainerBlock>
           <ContainerBlock>

@@ -1,79 +1,50 @@
-import React, { useCallback, useMemo, useState } from 'react'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React from 'react'
 import { StyleSheet, View } from 'react-native'
 
 import theme from '@/theme'
-import { TypesProducts } from '@/types'
 
-import Button from '@/components/atom/button'
 import DragDrop from '@/components/atom/drag-drop'
-import BoxToConfirmModal from '@/components/molecule/box-to-confirm-modal'
 
-import CardWorkInput from '../../molecule/card-work-input'
-import { ContainerButton } from './styles'
+import {
+  useFormWorks,
+  useFormWorksAttrs,
+  useFormWorksSubmit,
+} from '@/forms/Product/product-works/hooks'
 
-type keysWorks =
-  | 'id'
-  | 'artista'
-  | 'titulo'
-  | 'ano'
-  | 'dimencao'
-  | 'edicao'
-  | 'impressao'
-  | 'moldura'
-  | 'obra_original'
-  | 'tecnica'
-  | 'arquivo'
+import CardWorkInput from '../card-work-input'
 
 type Props = {
   idExhibition: string
 }
 
 const NewWorksBox = ({ idExhibition }: Props) => {
-  const [works, setWorks] = useState<Map<keysWorks, unknown>[]>([])
-  const [visibleConfirm, setVisibleConfirm] = useState(false)
-  const [visibleWarning, setVisibleWarning] = useState(false)
+  const { works, onChangeWorks } = useFormWorks()
+  const { submit } = useFormWorksSubmit()
+  const {
+    onChangeAttrArtistWork,
+    onChangeAttrDimensionWork,
+    onChangeAttrEditionWork,
+    onChangeAttrMoldWork,
+    onChangeAttrOriginalWork,
+    onChangeAttrPrintWork,
+    onChangeAttrTechniqueWork,
+    onChangeAttrTitleWork,
+    onChangeAttrYearWork,
+  } = useFormWorksAttrs()
+  /* const [visibleConfirm, setVisibleConfirm] = useState(false)
+  const [visibleWarning, setVisibleWarning] = useState(false) */
 
-  const onChangeVisibilityConfirm = (visible: boolean) => {
+  /*   const onChangeVisibilityConfirm = (visible: boolean) => {
     setVisibleConfirm(visible)
   }
   const onChangeVisibilityWarning = (visible: boolean) => {
     setVisibleWarning(visible)
-  }
+  } */
 
-  const onChangeFile = useCallback(
-    (fileList: FileList) => {
-      const files = Array.from(fileList)
-
-      const arrayMap = files.map((item, index) => {
-        const map = new Map<keysWorks, unknown>()
-        map.set('arquivo', item)
-        map.set('ano', '')
-        map.set('artista', '')
-        map.set('titulo', '')
-        map.set('dimencao', '')
-        map.set('edicao', '')
-        map.set('impressao', '')
-        map.set('moldura', '')
-        map.set('obra_original', false)
-        map.set('tecnica', '')
-        map.set('id', index)
-
-        return map
-      })
-
-      setWorks((state) => [...state, ...arrayMap])
-    },
-    [works]
-  )
-
-  const data = useMemo(() => {
-    return works
-  }, [works])
-
-  const disabled = useMemo(() => {
+  /*  const disabled = useMemo(() => {
     return works.length === 0
-  }, [works])
-
+  }, [works]) */
   return (
     <View
       style={{
@@ -84,30 +55,28 @@ const NewWorksBox = ({ idExhibition }: Props) => {
         height: 500,
       }}
     >
-      {data.map((work) => (
+      {works.map((work) => (
         <CardWorkInput
           horizontal
           key={1}
-          item={{
-            artista: work.get('artista') as string,
-            titulo: work.get('titulo') as string,
-            ano: work.get('ano') as string,
-            dimencao: work.get('dimencao') as string,
-            edicao: work.get('edicao') as string,
-            impressao: work.get('impressao') as string,
-            moldura: work.get('moldura') as string,
-            obra_original: work.get('obra_original') as boolean,
-            tecnica: work.get('tecnica') as string,
-            arquivo: URL.createObjectURL(work.get('arquivo') as File),
-            nome_arquivo: (work.get('arquivo') as File).name,
-            tipo_de_arquivo: TypesProducts.PHOTOS,
-          }}
+          item={work}
           idExhibition={idExhibition}
+          image={URL.createObjectURL(work.get('arquivo') as File)}
+          onChangeAttrArtistWork={onChangeAttrArtistWork(work.get('id') as string)}
+          onChangeAttrDimensionWork={onChangeAttrDimensionWork(work.get('id') as string)}
+          onChangeAttrEditionWork={onChangeAttrEditionWork(work.get('id') as string)}
+          onChangeAttrMoldWork={onChangeAttrMoldWork(work.get('id') as string)}
+          onChangeAttrOriginalWork={onChangeAttrOriginalWork(work.get('id') as any)}
+          onChangeAttrPrintWork={onChangeAttrPrintWork(work.get('id') as string)}
+          onChangeAttrTechniqueWork={onChangeAttrTechniqueWork(work.get('id') as string)}
+          onChangeAttrTitleWork={onChangeAttrTitleWork(work.get('id') as string)}
+          onChangeAttrYearWork={onChangeAttrYearWork(work.get('id') as string)}
+          submit={submit}
         />
       ))}
-      <DragDrop onChangeFile={onChangeFile} />
+      <DragDrop onChangeFile={onChangeWorks} />
 
-      <ContainerButton>
+      {/*  <ContainerButton>
         <Button
           disabled={disabled}
           text="Aplicar"
@@ -128,9 +97,9 @@ const NewWorksBox = ({ idExhibition }: Props) => {
             onChangeVisibilityWarning(true)
           }}
         />
-      </ContainerButton>
+      </ContainerButton> */}
 
-      <BoxToConfirmModal
+      {/* <BoxToConfirmModal
         type="warning"
         onChangeVisibility={onChangeVisibilityWarning}
         onPressCancel={() => {
@@ -152,7 +121,7 @@ const NewWorksBox = ({ idExhibition }: Props) => {
           onChangeVisibilityConfirm(false)
         }}
         visible={visibleConfirm}
-      />
+      /> */}
     </View>
   )
 }

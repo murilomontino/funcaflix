@@ -3,6 +3,8 @@ import styled from 'styled-components/native'
 
 export const Container = styled.View`
   flex: 1;
+  width: 179vh;
+  max-width: 179vh;
   justify-content: space-between;
   margin: 12px;
   padding: 8px;
@@ -16,13 +18,12 @@ export const ContainerInfo = styled.View`
   height: 100%;
 `
 
-export const ContainerBlock = styled.View`
-  flex: 1;
-`
+export const ContainerBlock = styled.View``
 
 export const ContainerBlocksInfos = styled.View`
   flex: 1;
   flex-direction: row;
+  justify-content: space-evenly;
 `
 
 export const Title = styled.Text`
@@ -41,7 +42,7 @@ export const Info = styled.View`
   align-items: center;
 `
 
-export const Topic = styled(Info)`
+export const Topic = styled.Text`
   font-weight: bold;
   font-size: 14px;
   color: ${theme.COLORS.TEXT};

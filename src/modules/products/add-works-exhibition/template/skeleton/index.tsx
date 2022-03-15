@@ -11,12 +11,13 @@ import { useSize } from '@/hooks/utils/use-size'
 import 'react-loading-skeleton/dist/skeleton.css'
 
 export const CardSkeleton = () => {
-  const WIDTH_CARD_INFO = 160
+  const WIDTH_CARD_INFO = 100
 
-  const WIDTH_CARD_LOGO = 140
+  const WIDTH_CARD_LOGO = 200
+  const HEIGHT_CARD_LOGO = 160
 
-  const WIDTH_CARD = WIDTH_CARD_INFO + WIDTH_CARD_LOGO + 100
-  const HEIGHT_CARD = 170
+  const WIDTH_CARD = WIDTH_CARD_INFO + WIDTH_CARD_LOGO + 75
+  const HEIGHT_CARD = 180
 
   const HEIGHT_TITLE = 20
   const HEIGHT_TEXT = 14
@@ -43,7 +44,7 @@ export const CardSkeleton = () => {
       <Skeleton
         baseColor={theme.COLORS.SKELETON}
         duration={DURATION}
-        height={WIDTH_CARD_LOGO}
+        height={HEIGHT_CARD_LOGO}
         width={WIDTH_CARD_LOGO}
       />
 

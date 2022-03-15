@@ -20,23 +20,14 @@ const EventPhotos = ({ photos, idExhibition }: Props) => {
     return (
       <BoxTopToDown isOpen={isOpen}>
         {photos.map((photo) => (
-          <CardPhoto
-            horizontal
-            key={photo.id}
-            item={photo}
-            idExhibition={idExhibition}
-          />
+          <CardPhoto horizontal key={photo.id} item={photo} idExhibition={idExhibition} />
         ))}
       </BoxTopToDown>
     )
   }
   return (
     <Container>
-      <ToggleWindow
-        isOpen={isOpen}
-        onChangeOpen={setIsOpen}
-        title="Fotos do Evento"
-      />
+      <ToggleWindow isOpen={isOpen} onChangeOpen={setIsOpen} title="Fotos do Evento" />
       {renderPhotos()}
     </Container>
   )

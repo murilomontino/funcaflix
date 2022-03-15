@@ -58,16 +58,7 @@ const Main = ({ exhibitions }: Props) => {
         )}
         keyExtractor={(item) => item.id.toString()}
       />
-
-      <View
-        style={{
-          flex: 2,
-          justifyContent: 'center',
-          width: '100%',
-        }}
-      >
-        {selected && <WorkPanel item={selected} />}
-      </View>
+      {selected && <WorkPanel item={selected} />}
     </View>
   )
 }
