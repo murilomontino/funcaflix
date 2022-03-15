@@ -9,12 +9,7 @@ import { Container, TextRequered, ContainerCentered, Text } from './styles'
 
 import useFileReader from '@/hooks/utils/use-file-reader'
 
-type mimeType =
-  | 'application/pdf'
-  | 'image/jpeg'
-  | 'image/png'
-  | 'image/jpg'
-  | 'audio/mp3'
+type mimeType = 'application/pdf' | 'image/jpeg' | 'image/png' | 'image/jpg' | 'audio/mp3'
 
 type Props = {
   requered?: boolean
@@ -46,9 +41,7 @@ export const GetFileButton = ({
       })
 
       if (documents.type === 'success') {
-        const newFiles: Document[] = (await fileReader(
-          documents.output
-        )) as Document[]
+        const newFiles: Document[] = (await fileReader(documents.output)) as Document[]
         onChangeFiles(newFiles)
         return true
       }
