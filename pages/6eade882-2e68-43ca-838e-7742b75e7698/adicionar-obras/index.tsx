@@ -11,14 +11,12 @@ import api from '@/services'
 import { Getter } from '@/services/config/types'
 
 export default function AddWorks() {
-  const [data, setData] = useState(null)
+  const [data, setData] = useState<GettersExhibitions[]>(null)
   const [isLoading, setLoading] = useState(false)
 
   const fetch = async () => {
     try {
-      const { data } = await api.get<Getter<GettersExhibitions[]>>(
-        'exhibitions'
-      )
+      const { data } = await api.get<Getter<GettersExhibitions[]>>('exhibitions')
       if (data.statusCode === 200) {
         return data.data
       }
@@ -47,7 +45,7 @@ export default function AddWorks() {
 
   return (
     <TemplateAddProduct>
-      {isLoading ? <SkeletonTemplate /> : <Main exhibitions={data} />}
+      <Main exhibitions={data} />
     </TemplateAddProduct>
   )
 }
