@@ -44,6 +44,6 @@ export type exhibitionWorks = {
   impressao: string
   moldura: string
   ano: string
-  dimencao: string
+  dimensao: string
   obra_original: boolean
 }
