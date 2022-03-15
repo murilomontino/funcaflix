@@ -41,7 +41,8 @@ export const GetFileButton = ({
       })
 
       if (documents.type === 'success') {
-        const newFiles: Document[] = (await fileReader(documents.output)) as Document[]
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const newFiles: Document[] = (await fileReader(documents.output as any)) as Document[]
         onChangeFiles(newFiles)
         return true
       }

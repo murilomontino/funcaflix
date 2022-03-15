@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { StyleSheet, CheckBox } from 'react-native'
+import { StyleSheet } from 'react-native'
 
 import theme from '@/theme'
 
@@ -228,7 +228,7 @@ const InputInfos = ({
         <ContainerBlock style={{ justifyContent: 'space-between' }}>
           <Info>
             {renderTopic('Obra Original')}
-            <CheckBox value={original} onValueChange={onChangeOriginal} />
+            {/* <CheckBox value={original} onValueChange={onChangeOriginal} /> */}
           </Info>
           <Button
             text="Enviar"

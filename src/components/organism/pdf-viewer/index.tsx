@@ -126,10 +126,7 @@ const PdfViewer = ({ id }: Props) => {
                 Anterior
               </TextButton>
             </ContainerButton>
-            <ContainerButton
-              onPress={nextPage}
-              disabled={pageNumber === numPages}
-            >
+            <ContainerButton onPress={nextPage} disabled={pageNumber === numPages}>
               <TextButton
                 style={[
                   pageNumber === numPages && {

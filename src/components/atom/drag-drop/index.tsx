@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react'
 
 import theme from '@/theme'
@@ -12,12 +13,9 @@ type Props = {
   label?: string
 }
 
-function DragDrop({
-  onChangeFile,
-  label = 'SELECIONE AS OBRAS OU ARRASTE E SOLTE AQUI -',
-}: Props) {
+function DragDrop({ onChangeFile, label = 'SELECIONE AS OBRAS OU ARRASTE E SOLTE AQUI -' }: Props) {
   const handleChange = async (file: File | File[]) => {
-    onChangeFile(file)
+    onChangeFile(file as any)
   }
 
   return (

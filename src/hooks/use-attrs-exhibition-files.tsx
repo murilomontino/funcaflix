@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useState } from 'react'
 
 import { ExhibitionPhotosTypes } from '@/types'
+import { v4 } from 'uuid'
 
 import { keys } from '@/forms/Product/product-exhibition/type'
 import { Document } from '@/forms/Product/types'
@@ -26,7 +27,7 @@ export const useAttrsExhibitionFiles = () => {
         map.set('descricao', '')
         map.set('data', '')
         map.set('tipo_de_foto', 0)
-        map.set('id', crypto.randomUUID())
+        map.set('id', v4())
         map.set('error', false)
         map.set('titulo', '')
         return map
