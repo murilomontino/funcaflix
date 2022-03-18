@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { GettersExhibitionsWorks, SettersExhibitionsWorks } from '@/types'
 import { createContext } from 'use-context-selector'
@@ -28,12 +28,11 @@ const FormProductWorksProvider = ({
   produtoId,
 }: Props) => {
   // Obras da Exibição (works) já cadastradas no banco de dados
-  const [getterWorks, setGetterWorks] = useState<GettersExhibitionsWorks[]>(() => {
-    if (items) {
-      return [...items]
-    }
-    return []
-  })
+  const [getterWorks, setGetterWorks] = useState<GettersExhibitionsWorks[]>(items)
+
+  useEffect(() => {
+    setGetterWorks(items)
+  }, [items])
 
   const [loading, setLoading] = useState(false)
 
@@ -79,7 +78,7 @@ const FormProductWorksProvider = ({
 
       // @const {File} file - arquivo da obra que será enviado para o servidor
       // Executa o método fileReader para ler o arquivo da obra e retorna o arquivo
-      const file = await fileReader(works[index].get('arquivo') as File)
+      const file = await fileReader(works[index].get('arquivo'))
 
       // Verifica se o arquivo obteve sucesso na leitura e se o arquivo não é um Array
       if (!Array.isArray(file) && file.type === 'success') {

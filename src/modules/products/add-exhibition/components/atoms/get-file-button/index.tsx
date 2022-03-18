@@ -39,10 +39,10 @@ export const GetFileButton = ({
         multiple,
         copyToCacheDirectory: true,
       })
-
       if (documents.type === 'success') {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const newFiles: Document[] = (await fileReader(documents.output as any)) as Document[]
+
         onChangeFiles(newFiles)
         return true
       }

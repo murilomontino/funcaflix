@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 
 import { GettersExhibitions } from '@/types'
 
@@ -14,9 +14,21 @@ type Props = {
 }
 
 const WorkPanel = ({ item }: Props) => {
+  const works = useMemo(() => {
+    return item.works.filter((work) => work.exibicaoId === item.id)
+  }, [item])
+
+  const photos = useMemo(() => {
+    return item.photos.filter((photo) => photo.exibicaoId === item.id)
+  }, [item])
+
+  const artistPhotos = useMemo(() => {
+    return item.artistPhotos.filter((photo) => photo.exibicaoId === item.id)
+  }, [item])
+
   return (
     <FormProductWorksProvider
-      items={item.works}
+      items={works}
       exibicao_id={item.id}
       nome_exibicao={item.nome_unico}
       produtoId={item.produtoId}
@@ -32,13 +44,13 @@ const WorkPanel = ({ item }: Props) => {
           }}
         />
         <EventPhotos
-          photos={item.artistPhotos}
+          photos={artistPhotos}
           idExhibition={item.nome_unico}
           title="Artista"
           description={item.biografia}
           requeredDescription={false}
         />
-        <EventPhotos photos={item.photos} idExhibition={item.nome_unico} title="Fotos do Evento" />
+        <EventPhotos photos={photos} idExhibition={item.nome_unico} title="Fotos do Evento" />
         <EventWorks idExhibition={item.nome_unico} />
       </Container>
     </FormProductWorksProvider>

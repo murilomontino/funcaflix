@@ -20,7 +20,7 @@ const useFileImages = () => {
         map.set('edicao', '')
         map.set('impressao', '')
         map.set('moldura', '')
-        map.set('obra_original', false)
+        map.set('obra_original', true)
         map.set('tecnica', '')
         map.set('id', v4())
         map.set('arquivo', item)

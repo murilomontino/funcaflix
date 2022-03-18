@@ -1,6 +1,7 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 
+import SkeletonCardWork from '@/modules/products/add-works-exhibition/molecule/card-work/skeleton'
 import theme from '@/theme'
 
 import { useResources } from '@/hooks/utils/use-resources'
@@ -12,7 +13,7 @@ const Lab = () => {
     return null
   }
 
-  return <View style={styles.containerCenter}>{/* <NewWorksBox /> */}</View>
+  return <SkeletonCardWork />
 }
 
 export default Lab

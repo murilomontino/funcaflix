@@ -65,26 +65,16 @@ const PhotosOfEvent = () => {
         <CardPhotoOfEvent
           uri={photo.get('uri') as string}
           title={photo.get('titulo') as string}
-          onChangeAttrTitlePhoto={onChangeAttrTitlePhoto(
-            photo.get('id') as string
-          )}
+          onChangeAttrTitlePhoto={onChangeAttrTitlePhoto(photo.get('id') as string)}
           description={photo.get('descricao') as string}
-          onChangeAttrDescriptionPhoto={onChangeAttrDescriptionPhoto(
-            photo.get('id') as string
-          )}
+          onChangeAttrDescriptionPhoto={onChangeAttrDescriptionPhoto(photo.get('id') as string)}
           date={photo.get('data') as string}
-          onChangeAttrDatePhoto={onChangeAttrDatePhoto(
-            photo.get('id') as string
-          )}
+          onChangeAttrDatePhoto={onChangeAttrDatePhoto(photo.get('id') as string)}
           typeOfPhoto={photo.get('tipo_de_foto') as ExhibitionPhotosTypes}
-          onChangeAttrTypePhoto={onChangeAttrTypePhoto(
-            photo.get('id') as string
-          )}
+          onChangeAttrTypePhoto={onChangeAttrTypePhoto(photo.get('id') as string)}
           onRemovePhoto={onRemovePhoto(photo.get('id') as string)}
           error={photo.get('error') as boolean}
-          onChangeAttrErrorPhoto={onChangeAttrErrorPhoto(
-            photo.get('id') as string
-          )}
+          onChangeAttrErrorPhoto={onChangeAttrErrorPhoto(photo.get('id') as string)}
           photoValidator={photoValidator}
         />
       </View>
