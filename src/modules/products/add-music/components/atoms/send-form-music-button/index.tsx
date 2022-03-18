@@ -84,15 +84,7 @@ const SendFormMusicButton = () => {
       return true
     }
     return false
-  }, [
-    financialResources,
-    mapFiles,
-    cpfOrCnpj,
-    content,
-    cpfOrCnpjIsValid,
-    titleAlbum,
-    content,
-  ])
+  }, [financialResources, mapFiles, cpfOrCnpj, content, cpfOrCnpjIsValid, titleAlbum, content])
 
   // Funções para enviar os dados do formulário de música
   // Caso o formulário seja válido, será enviado os dados para a API /musicas/musica
@@ -101,10 +93,7 @@ const SendFormMusicButton = () => {
   // Caso o formulário seja válido, será exibido um toast com a mensagem de sucesso
   // e será feito um reload da página
   const sendFiles = async (music: SettersTracks) => {
-    const { data: track } = await api.post<Getter<GettersTracks>>(
-      '/musicas/musica',
-      music
-    )
+    const { data: track } = await api.post<Getter<GettersTracks>>('/musicas/musica', music)
 
     if (track.statusCode === 200) {
       successFile.push(music.titulo)
@@ -118,6 +107,7 @@ const SendFormMusicButton = () => {
       showLoading()
 
       const albumDoc: SettersAlbums = {
+        biografia: null,
         cpfOrCnpj: cpfOrCnpj,
         nome_cultural: culturalName,
         data_de_publicacao: publishedDate,
@@ -132,10 +122,7 @@ const SendFormMusicButton = () => {
         tags: tags,
       }
 
-      const { data: album } = await api.post<Getter<GettersAlbums>>(
-        '/musicas/album',
-        albumDoc
-      )
+      const { data: album } = await api.post<Getter<GettersAlbums>>('/musicas/album', albumDoc)
 
       switch (album.statusCode) {
         case 200:
@@ -157,10 +144,7 @@ const SendFormMusicButton = () => {
           })
 
           if (errFile.length > 0) {
-            AlertToast(
-              'erro',
-              `Erro ao enviar os arquivos ${errFile.toString()}`
-            )
+            AlertToast('erro', `Erro ao enviar os arquivos ${errFile.toString()}`)
           }
           AlertToast('success', 'Música(s) Cadastrada(s) Com Sucesso!')
           reset()
@@ -177,13 +161,7 @@ const SendFormMusicButton = () => {
     }
   }
 
-  return (
-    <Button
-      disabled={!submitMusicIsValid}
-      onPress={handleSubmit}
-      text="Enviar Música(s)"
-    />
-  )
+  return <Button disabled={!submitMusicIsValid} onPress={handleSubmit} text="Enviar Música(s)" />
 }
 
 export default SendFormMusicButton

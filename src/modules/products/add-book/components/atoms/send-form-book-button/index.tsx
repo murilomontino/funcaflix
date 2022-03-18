@@ -76,7 +76,6 @@ const SendFormBookButton = () => {
       showLoading()
 
       const { status, data } = await send({
-        autor: culturalName.trim(),
         recurso: financialResources,
         isbn: isbn,
         numero_de_paginas: numberOfPages as unknown as number,
@@ -99,6 +98,7 @@ const SendFormBookButton = () => {
         titulo: title?.trim(),
         capa: thumbnail?.uri ?? undefined,
         tipo_capa: (thumbnail?.mimeType as TypeImgCapa) ?? undefined,
+        biografia: null,
       })
 
       switch (status) {
@@ -107,10 +107,7 @@ const SendFormBookButton = () => {
           break
 
         default:
-          AlertToast(
-            'erro',
-            `Erro ao cadastrar livro! Tente novamente. ${data}`
-          )
+          AlertToast('erro', `Erro ao cadastrar livro! Tente novamente. ${data}`)
           break
       }
     } catch (error) {
@@ -131,13 +128,7 @@ const SendFormBookButton = () => {
     return { data: data.error, status: data.statusCode }
   }
 
-  return (
-    <Button
-      disabled={!submitBookIsValid}
-      onPress={handleSubmit}
-      text="Enviar Livro"
-    />
-  )
+  return <Button disabled={!submitBookIsValid} onPress={handleSubmit} text="Enviar Livro" />
 }
 
 export default SendFormBookButton

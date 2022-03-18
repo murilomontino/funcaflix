@@ -78,7 +78,7 @@ const FormProductWorksProvider = ({
 
       // @const {File} file - arquivo da obra que será enviado para o servidor
       // Executa o método fileReader para ler o arquivo da obra e retorna o arquivo
-      const file = await fileReader(works[index].get('arquivo'))
+      const file = await fileReader(works[index].get('arquivo') as File)
 
       // Verifica se o arquivo obteve sucesso na leitura e se o arquivo não é um Array
       if (!Array.isArray(file) && file.type === 'success') {
