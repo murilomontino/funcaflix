@@ -94,6 +94,9 @@ const GetImageButton = ({
         />
       </ImageButton>
       <Button
+        style={{
+          minHeight: 50,
+        }}
         text={imageState?.type === 'success' ? imageState?.name : placeholder}
         onPress={onPress}
       />

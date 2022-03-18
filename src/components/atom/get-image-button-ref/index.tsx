@@ -23,19 +23,17 @@ const GetImageButton = ({
   height = 200,
   placeholder = 'Escolher uma Capa',
 }: Props) => {
-  const [imageState, setImageState] = useState<DocumentPicker.DocumentResult>(
-    () => {
-      if (image && image.current) {
-        return {
-          name: image.current.name,
-          type: image.current.type,
-          uri: image.current.uri,
-          mimeType: image.current.mimeType,
-        }
+  const [imageState, setImageState] = useState<DocumentPicker.DocumentResult>(() => {
+    if (image && image.current) {
+      return {
+        name: image.current.name,
+        type: image.current.type,
+        uri: image.current.uri,
+        mimeType: image.current.mimeType,
       }
-      return null
     }
-  )
+    return null
+  })
 
   const onPress = async () => {
     const img = await DocumentPicker.getDocumentAsync({
@@ -89,6 +87,9 @@ const GetImageButton = ({
         />
       </ImageButton>
       <Button
+        style={{
+          minHeight: 50,
+        }}
         text={imageState?.type === 'success' ? imageState?.name : placeholder}
         onPress={onPress}
       />
