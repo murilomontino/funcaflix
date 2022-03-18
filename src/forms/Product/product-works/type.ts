@@ -30,4 +30,7 @@ export type Argument =
 export interface FormProductWorks extends Omit<AttrsImagesWorks, 'setWorks'> {
   getterWorks: GettersExhibitionsWorks[]
   submit: (id: string) => Promise<void>
+  loading: boolean
+  showLoading: () => void
+  hideLoading: () => void
 }

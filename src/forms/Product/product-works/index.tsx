@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from 'react'
 
-import { GettersExhibitionsWorks, SettersExhibitionsWorks, TypesProducts } from '@/types'
-import faker from '@faker-js/faker'
+import { GettersExhibitionsWorks, SettersExhibitionsWorks } from '@/types'
 import { createContext } from 'use-context-selector'
 
 import { FormProductWorks } from './type'
@@ -21,46 +20,6 @@ type Props = {
   children: React.ReactNode
 }
 
-// exemplo de GettersExhibitionsWorks
-const examples: GettersExhibitionsWorks[] = [
-  {
-    id: 1,
-    produtoId: 0,
-    exibicaoId: 0,
-    documentoId: 0,
-    titulo: faker.name.title(),
-    artista: faker.name.firstName() + ' ' + faker.name.lastName(),
-    tecnica: faker.commerce.productMaterial(),
-    edicao: faker.commerce.productAdjective(),
-    impressao: faker.commerce.productAdjective(),
-    moldura: faker.commerce.productAdjective(),
-    ano: faker.date.past().getFullYear().toString(),
-    dimensao: faker.commerce.productAdjective(),
-    obra_original: false,
-    tipo_de_arquivo: TypesProducts.PHOTOS,
-    arquivo: faker.image.image(),
-    nome_arquivo: faker.image.image(),
-  },
-  {
-    id: 2,
-    produtoId: 0,
-    exibicaoId: 0,
-    documentoId: 0,
-    titulo: faker.name.title(),
-    artista: faker.name.firstName() + ' ' + faker.name.lastName(),
-    tecnica: faker.commerce.productMaterial(),
-    edicao: faker.commerce.productAdjective(),
-    impressao: faker.commerce.productAdjective(),
-    moldura: faker.commerce.productAdjective(),
-    ano: faker.date.past().getFullYear().toString(),
-    dimensao: faker.commerce.productAdjective(),
-    obra_original: false,
-    tipo_de_arquivo: TypesProducts.PHOTOS,
-    arquivo: faker.image.image(),
-    nome_arquivo: faker.image.image(),
-  },
-]
-
 const FormProductWorksProvider = ({
   children,
   items,
@@ -71,10 +30,20 @@ const FormProductWorksProvider = ({
   // Obras da Exibição (works) já cadastradas no banco de dados
   const [getterWorks, setGetterWorks] = useState<GettersExhibitionsWorks[]>(() => {
     if (items) {
-      return [...examples, ...items]
+      return [...items]
     }
-    return [...examples]
+    return []
   })
+
+  const [loading, setLoading] = useState(false)
+
+  const showLoading = () => {
+    setLoading(true)
+  }
+
+  const hideLoading = () => {
+    setLoading(false)
+  }
 
   const {
     works,
@@ -102,50 +71,56 @@ const FormProductWorksProvider = ({
   const submit = async (id: string) => {
     // @const {number} index - index da obra que será enviada para o servidor
 
-    const index = works.findIndex((item) => item.get('id') === id)
+    try {
+      showLoading()
+      const index = works.findIndex((item) => item.get('id') === id)
 
-    if (index === -1) return // Caso não encontre o index da obra, retorna
+      if (index === -1) return // Caso não encontre o index da obra, retorna
 
-    // @const {File} file - arquivo da obra que será enviado para o servidor
-    // Executa o método fileReader para ler o arquivo da obra e retorna o arquivo
-    const file = await fileReader(works[index].get('arquivo') as File)
+      // @const {File} file - arquivo da obra que será enviado para o servidor
+      // Executa o método fileReader para ler o arquivo da obra e retorna o arquivo
+      const file = await fileReader(works[index].get('arquivo') as File)
 
-    // Verifica se o arquivo obteve sucesso na leitura e se o arquivo não é um Array
-    if (!Array.isArray(file) && file.type === 'success') {
-      // Constante representando todas as informações da obra que serão enviadas para o servidor
-      const work: SettersExhibitionsWorks = {
-        exibicaoId: exibicao_id,
-        nome_exibicao: nome_exibicao,
-        produtoId: produtoId,
-        titulo: works[index].get('titulo') as string,
-        artista: works[index].get('artista') as string,
-        tecnica: works[index].get('tecnica') as string,
-        edicao: works[index].get('edicao') as string,
-        impressao: works[index].get('impressao') as string,
-        moldura: works[index].get('moldura') as string,
-        ano: works[index].get('ano') as string,
-        dimensao: works[index].get('dimensao') as string,
-        obra_original: works[index].get('obra_original') as any,
-        arquivo: file.uri,
-        nome_arquivo: file.name,
-        tipo_de_imagem: file.mimeType,
+      // Verifica se o arquivo obteve sucesso na leitura e se o arquivo não é um Array
+      if (!Array.isArray(file) && file.type === 'success') {
+        // Constante representando todas as informações da obra que serão enviadas para o servidor
+        const work: Omit<SettersExhibitionsWorks, 'name_uuid'> = {
+          exibicaoId: exibicao_id,
+          nome_exibicao: nome_exibicao,
+          produtoId: produtoId,
+          titulo: works[index].get('titulo') as string,
+          artista: works[index].get('artista') as string,
+          tecnica: works[index].get('tecnica') as string,
+          edicao: works[index].get('edicao') as string,
+          impressao: works[index].get('impressao') as string,
+          moldura: works[index].get('moldura') as string,
+          ano: works[index].get('ano') as string,
+          dimensao: works[index].get('dimensao') as string,
+          obra_original: works[index].get('obra_original') as any,
+          arquivo: file.uri,
+          nome_arquivo: file.name,
+          tipo_de_imagem: file.mimeType,
+        }
+        // Envia a obra para o servidor
+        const response = await onSubmitWork(work)
+
+        // Verifica se a obra foi enviada com sucesso
+        if (response.statusCode === 200) {
+          // Adiciona a obra na lista de obras da exibição
+          setGetterWorks((state) => {
+            return [...state, response.data]
+          })
+          // Remove a obra da lista de obras novas
+          setWorks((state) => {
+            // remove elemento do index do array
+            return state.filter((item, index) => item.get('id') !== id)
+          })
+        }
       }
-      // Envia a obra para o servidor
-      const response = await onSubmitWork(work)
-
-      // Verifica se a obra foi enviada com sucesso
-      if (response.statusCode === 200) {
-        // Adiciona a obra na lista de obras da exibição
-        setGetterWorks((state) => {
-          return [...state, response.data]
-        })
-        // Remove a obra da lista de obras novas
-        setWorks((state) => {
-          // remove elemento do index do array
-          state.splice(index, 1)
-          return state
-        })
-      }
+    } catch (error) {
+      console.log(error)
+    } finally {
+      hideLoading()
     }
   }
 
@@ -154,6 +129,9 @@ const FormProductWorksProvider = ({
       value={{
         works,
         getterWorks,
+        hideLoading,
+        showLoading,
+        loading,
         onChangeAttrEditionWork,
         onChangeAttrMoldWork,
         onChangeAttrOriginalWork,

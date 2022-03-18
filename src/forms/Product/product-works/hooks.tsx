@@ -13,6 +13,17 @@ export const useFormWorks = () => {
   }
 }
 
+export const useFormWorksLoading = () => {
+  const worksLoading = useContextSelector(FormProductWorkContext, (state) => state.loading)
+  const showLoading = useContextSelector(FormProductWorkContext, (state) => state.showLoading)
+  const hideLoading = useContextSelector(FormProductWorkContext, (state) => state.hideLoading)
+  return {
+    worksLoading,
+    showLoading,
+    hideLoading,
+  }
+}
+
 export const useFormGetterWorks = () => {
   const getterWorks = useContextSelector(FormProductWorkContext, (state) => state.getterWorks)
 
