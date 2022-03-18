@@ -1,25 +1,25 @@
 import { products, AuxGettersDocs } from '@/types'
 
 import {
-  exhibition,
-  exhibitionPhotos,
-  exhibitionWorks,
+	exhibition,
+	exhibitionPhotos,
+	exhibitionWorks,
 } from '../../models/exhibition'
 
 export interface GettersExhibitions extends exhibition, products {
-  id: number
-  image: string
-  works: GettersExhibitionsWorks[]
-  photos: GettersExhibitionsPhotos[]
+	id: number
+	image: string
+	works: exhibitionWorks[]
+	photos: exhibitionPhotos[]
 }
 
 export interface GettersExhibitionsPhotos
-  extends exhibitionPhotos,
-    AuxGettersDocs {
-  produtoId: number
+	extends exhibitionPhotos,
+		AuxGettersDocs {
+	produtoId: number
 }
 export interface GettersExhibitionsWorks
-  extends exhibitionWorks,
-    AuxGettersDocs {
-  produtoId: number
+	extends exhibitionWorks,
+		AuxGettersDocs {
+	produtoId: number
 }

@@ -1,11 +1,6 @@
 import React, { useCallback, useMemo } from 'react'
 
-import {
-  Category,
-  ExhibitionPhotosTypes,
-  GettersExhibitions,
-  TypeImgCapa,
-} from '@/types'
+import { Category, ExhibitionPhotosTypes, GettersExhibitions, TypeImgCapa } from '@/types'
 import { createContext } from 'use-context-selector'
 
 import { Getter } from '@/services/config/types'
@@ -18,9 +13,7 @@ import { useAttrsProduct } from '@/hooks/use-attrs-product'
 import { useSubmitExhibition } from '@/hooks/use-submit-exhibition'
 import { useSubmitPhoto } from '@/hooks/use-submit-photos'
 
-export const FormProductExhibitionContext = createContext(
-  {} as FormProductExhibition
-)
+export const FormProductExhibitionContext = createContext({} as FormProductExhibition)
 
 const FormProductExhibitionProvider: React.FC = ({ children }) => {
   // Fields Exhibitions
@@ -104,7 +97,7 @@ const FormProductExhibitionProvider: React.FC = ({ children }) => {
     return submitPhoto({
       artista: culturalName,
       arquivo: photoOfArtist.current?.uri,
-      descricao: biography.current,
+      descricao: null,
       nome_arquivo: photoOfArtist.current?.name,
       tipo_de_imagem: photoOfArtist.current?.mimeType,
       tipo_de_foto: ExhibitionPhotosTypes.foto_de_artista,
@@ -131,6 +124,7 @@ const FormProductExhibitionProvider: React.FC = ({ children }) => {
       recurso: financialResources,
       capa: thumbnail?.uri ?? undefined,
       tipo_capa: (thumbnail?.mimeType as TypeImgCapa) ?? undefined,
+      biografia: biography.current,
     })
 
     if (response.statusCode === 200) {
