@@ -28,13 +28,7 @@ type Props = {
   ContainerStyle?: ViewStyle | ViewStyle[]
 } & TouchableOpacityProps
 
-const CardExhibition = ({
-  item,
-  all,
-  horizontal = false,
-  ContainerStyle,
-  ...rest
-}: Props) => {
+const CardExhibition = ({ item, all, horizontal = false, ContainerStyle, ...rest }: Props) => {
   const renderCPF = () => {
     if (item.cpf) {
       return (
@@ -58,9 +52,7 @@ const CardExhibition = ({
   }
 
   const renderRecurso = () => {
-    const resource = mapFinancialResources.find(
-      (resource) => item.recurso === resource.id
-    )
+    const resource = mapFinancialResources.find((resource) => item.recurso === resource.id)
 
     if (resource) {
       return (
@@ -89,15 +81,8 @@ const CardExhibition = ({
 
   return (
     <Container style={[ContainerStyle, { flexDirection }]} {...rest}>
-      <CacheImage
-        capa={item.image}
-        height={height}
-        width={width}
-        resizeMode={'stretch'}
-      />
-      <ContainerInfo
-        style={{ flex: 1, width: '100%', justifyContent: 'space-between' }}
-      >
+      <CacheImage capa={item.image} height={height} width={width} resizeMode={'stretch'} />
+      <ContainerInfo style={{ flex: 1, width: '100%', justifyContent: 'space-between' }}>
         <Title>{item.titulo}</Title>
         <ContainerBlocksInfos style={{ flex: 1, flexDirection: 'row' }}>
           <ContainerBlock>
@@ -110,12 +95,10 @@ const CardExhibition = ({
             </Info>
 
             <Info>
-              <Topic>Data de Inicio:</Topic>{' '}
-              {FormatDate(new Date(item.data_de_inicio))}
+              <Topic>Data de Inicio:</Topic> {FormatDate(new Date(item.data_de_inicio))}
             </Info>
             <Info>
-              <Topic>Data de Fim:</Topic>{' '}
-              {FormatDate(new Date(item.data_de_fim))}
+              <Topic>Data de Fim:</Topic> {FormatDate(new Date(item.data_de_fim))}
             </Info>
           </ContainerBlock>
           {all && renderAllInfo()}

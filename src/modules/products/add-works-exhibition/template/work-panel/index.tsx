@@ -31,8 +31,14 @@ const WorkPanel = ({ item }: Props) => {
             borderBottomWidth: 0,
           }}
         />
-
-        <EventPhotos photos={item.photos} idExhibition={item.nome_unico} />
+        <EventPhotos
+          photos={item.artistPhotos}
+          idExhibition={item.nome_unico}
+          title="Artista"
+          description={item.biografia}
+          requeredDescription={false}
+        />
+        <EventPhotos photos={item.photos} idExhibition={item.nome_unico} title="Fotos do Evento" />
         <EventWorks idExhibition={item.nome_unico} />
       </Container>
     </FormProductWorksProvider>

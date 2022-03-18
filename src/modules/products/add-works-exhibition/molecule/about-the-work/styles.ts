@@ -24,3 +24,15 @@ export const ContainerAbout = styled(Animated.View)`
   margin-top: 4px;
   border-radius: 4px;
 `
+export const Title = styled.Text`
+  font-size: 16px;
+  color: ${theme.COLORS.TEXT};
+  margin-left: 4px;
+  padding-right: 4px;
+  width: 100%;
+  border-bottom-width: 2px;
+  border-bottom-color: ${theme.COLORS.TEXT};
+  text-transform: uppercase;
+  font-weight: 600;
+  font-family: ${theme.FONTS.TITLE_SEMI_BOLD};
+`

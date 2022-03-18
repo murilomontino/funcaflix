@@ -24,11 +24,7 @@ const ToggleWindow = ({ onPress, onChangeOpen, isOpen, title }: Props) => {
 
   const renderIcon = () => (
     <ContainerIcon>
-      <AntDesign
-        name={value ? 'up' : 'down'}
-        size={16}
-        color={theme.COLORS.TEXT}
-      />
+      <AntDesign name={value ? 'up' : 'down'} size={16} color={theme.COLORS.TEXT} />
     </ContainerIcon>
   )
 

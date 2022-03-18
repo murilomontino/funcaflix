@@ -23,8 +23,10 @@ type Props = {
   item: GettersExhibitionsPhotos
   onPress?: (item: GettersExhibitions) => void
   horizontal?: boolean
+  resizeMode?: 'cover' | 'contain' | 'stretch' | 'center' | 'repeat'
   ContainerStyle?: ViewStyle | ViewStyle[]
   idExhibition?: string
+  description?: boolean
 } & TouchableOpacityProps
 
 const CardPhoto = ({
@@ -32,16 +34,13 @@ const CardPhoto = ({
   idExhibition,
   horizontal = false,
   ContainerStyle,
-
+  description = true,
+  resizeMode = 'stretch',
   ...rest
 }: Props) => {
   const { SCREEN_SMALLER_THAN_MEDIUM_SIZE } = useSize()
 
-  const flexDirection = SCREEN_SMALLER_THAN_MEDIUM_SIZE
-    ? 'column'
-    : horizontal
-    ? 'row'
-    : 'column'
+  const flexDirection = SCREEN_SMALLER_THAN_MEDIUM_SIZE ? 'column' : horizontal ? 'row' : 'column'
 
   const width = horizontal ? 200 : '100%'
   const height = horizontal ? 200 : 200
@@ -54,26 +53,26 @@ const CardPhoto = ({
         id={idExhibition}
         height={height}
         width={width}
-        resizeMode={'stretch'}
+        resizeMode={resizeMode}
       />
-      <ContainerInfo
-        style={{ flex: 1, width: '100%', justifyContent: 'space-between' }}
-      >
-        <Title>{item.titulo}</Title>
-        <ContainerBlocksInfos style={{ flex: 1, flexDirection: 'row' }}>
-          <ContainerBlock>
-            <Info>
-              <Topic>Titulo:</Topic> {item.titulo}
-            </Info>
-            <Info>
-              <Topic>Data:</Topic> {FormatDate(new Date(item.data))}
-            </Info>
-            <Info>
-              <Topic>Descrição:</Topic> {item.descricao}
-            </Info>
-          </ContainerBlock>
-        </ContainerBlocksInfos>
-      </ContainerInfo>
+      {description && (
+        <ContainerInfo style={{ flex: 1, width: '100%', justifyContent: 'space-between' }}>
+          <Title>{item.titulo}</Title>
+          <ContainerBlocksInfos style={{ flex: 1, flexDirection: 'row' }}>
+            <ContainerBlock>
+              <Info>
+                <Topic>Titulo:</Topic> {item.titulo}
+              </Info>
+              <Info>
+                <Topic>Data:</Topic> {FormatDate(new Date(item.data))}
+              </Info>
+              <Info>
+                <Topic>Descrição:</Topic> {item.descricao}
+              </Info>
+            </ContainerBlock>
+          </ContainerBlocksInfos>
+        </ContainerInfo>
+      )}
     </Container>
   )
 }
