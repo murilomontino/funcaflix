@@ -13,7 +13,6 @@ export const Title = styled.Text`
 `
 
 export const Container = styled.View`
-  max-width: 100%;
   justify-content: center;
   align-items: center;
 `

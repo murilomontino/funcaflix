@@ -1,9 +1,8 @@
 import React from 'react'
+import Skeleton from 'react-loading-skeleton'
 import { TouchableOpacityProps, ViewStyle } from 'react-native'
 
-import { GettersExhibitionsWorks } from '@/types'
-
-import CacheImage from '@/components/atom/cache-image'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 import {
   ContainerInfo,
@@ -18,14 +17,11 @@ import {
 import { useSize } from '@/hooks/utils/use-size'
 
 type Props = {
-  item: GettersExhibitionsWorks
-  onPress?: (item: GettersExhibitionsWorks) => void
   horizontal?: boolean
   ContainerStyle?: ViewStyle | ViewStyle[]
-  idExhibition?: string
 } & TouchableOpacityProps
 
-const CardWork = ({ item, idExhibition, horizontal = false, ContainerStyle, ...rest }: Props) => {
+const SkeletonCardWork = ({ horizontal = true, ContainerStyle, ...rest }: Props) => {
   const { SCREEN_SMALLER_THAN_MEDIUM_SIZE } = useSize()
 
   const flexDirection = SCREEN_SMALLER_THAN_MEDIUM_SIZE ? 'column' : horizontal ? 'row' : 'column'
@@ -33,44 +29,60 @@ const CardWork = ({ item, idExhibition, horizontal = false, ContainerStyle, ...r
   const width = horizontal ? 200 : '100%'
   const height = horizontal ? 200 : 200
 
+  const HEIGHT_TOPIC = 20
+  const HEIGHT_TITLE = 32
+
+  const WIDTH_TOPIC = 200
+  const WIDTH_TITLE = 250
+
   return (
     <Container style={[ContainerStyle, { flexDirection }]} {...rest}>
-      <CacheImage
-        capa={item.arquivo}
-        name={'exhibition'}
-        id={idExhibition}
-        height={height}
-        width={width}
-        resizeMode={'stretch'}
-      />
+      <Skeleton width={width} height={height} />
+
       <ContainerInfo
         style={{ flex: 1, width: '100%', height: '100%', justifyContent: 'space-between' }}
       >
-        <Title>{item.titulo}</Title>
+        <Title>
+          <Skeleton width={WIDTH_TITLE} height={HEIGHT_TITLE} />
+        </Title>
         <ContainerBlocksInfos style={{ flex: 1, flexDirection: 'row' }}>
           <ContainerBlock>
             <Info>
-              <Topic>Ano:</Topic> {item.ano}
+              <Topic>
+                <Skeleton width={WIDTH_TOPIC} height={HEIGHT_TOPIC} />
+              </Topic>
             </Info>
             <Info>
-              <Topic>Artista:</Topic> {item.artista}
+              <Topic>
+                <Skeleton width={WIDTH_TOPIC} height={HEIGHT_TOPIC} />
+              </Topic>
             </Info>
             <Info>
-              <Topic>Dimensão:</Topic> {item.dimensao}
+              <Topic>
+                <Skeleton width={WIDTH_TOPIC} height={HEIGHT_TOPIC} />
+              </Topic>
             </Info>
           </ContainerBlock>
           <ContainerBlock>
             <Info>
-              <Topic>Edição:</Topic> {item.edicao}
+              <Topic>
+                <Skeleton width={WIDTH_TOPIC} height={HEIGHT_TOPIC} />
+              </Topic>
             </Info>
             <Info>
-              <Topic>Impressão:</Topic> {item.impressao}
+              <Topic>
+                <Skeleton width={WIDTH_TOPIC} height={HEIGHT_TOPIC} />
+              </Topic>
             </Info>
             <Info>
-              <Topic>Moldura:</Topic> {item.moldura}
+              <Topic>
+                <Skeleton width={WIDTH_TOPIC} height={HEIGHT_TOPIC} />
+              </Topic>
             </Info>
             <Info>
-              <Topic>Tecnica:</Topic> {item.tecnica}
+              <Topic>
+                <Skeleton width={WIDTH_TOPIC} height={HEIGHT_TOPIC} />
+              </Topic>
             </Info>
           </ContainerBlock>
         </ContainerBlocksInfos>
@@ -79,4 +91,4 @@ const CardWork = ({ item, idExhibition, horizontal = false, ContainerStyle, ...r
   )
 }
 
-export default CardWork
+export default SkeletonCardWork

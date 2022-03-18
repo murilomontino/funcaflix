@@ -17,16 +17,11 @@ import { Container, Title } from './styles'
 
 const Artist = () => {
   const { biography, onChangeBiography } = useFormExhibitionBiography()
-  const { photoOfArtist, onChangePhotoOfArtist } =
-    useFormExhibitionPhotoOfArtist()
+  const { photoOfArtist, onChangePhotoOfArtist } = useFormExhibitionPhotoOfArtist()
   const { culturalName, onChangeCulturalName } = useFormExhibitionData()
 
-  const {
-    cpfOrCnpj,
-    cpfOrCnpjIsValid,
-    onChangeCPForCNPJ,
-    onChangeCPForCNPJIsValid,
-  } = useFormExhibitionCPFandCNPJ()
+  const { cpfOrCnpj, cpfOrCnpjIsValid, onChangeCPForCNPJ, onChangeCPForCNPJIsValid } =
+    useFormExhibitionCPFandCNPJ()
 
   return (
     <Container>
