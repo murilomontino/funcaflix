@@ -228,7 +228,14 @@ const InputInfos = ({
         <ContainerBlock style={{ justifyContent: 'space-between' }}>
           <Info>
             {renderTopic('Obra Original')}
-            {/* <CheckBox value={original} onValueChange={onChangeOriginal} /> */}
+            <input
+              type="checkbox"
+              value={original as any}
+              checked={original}
+              onChange={(e) => {
+                onChangeOriginal(e.target.checked)
+              }}
+            />
           </Info>
           <Button
             text="Enviar"
