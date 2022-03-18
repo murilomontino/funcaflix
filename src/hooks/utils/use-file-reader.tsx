@@ -38,14 +38,15 @@ const EventFileReader = async (file: File): Promise<Document> => {
 
 const useFileReader = () => {
   const fileReader = useCallback(
-    async (fileList: File[] | File): Promise<Document[] | Document> => {
-      if (!Array.isArray(fileList)) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        return (await EventFileReader(fileList)) as any
+    async (fileList: FileList | File): Promise<Document[] | Document> => {
+      if (fileList instanceof File) {
+        return await EventFileReader(fileList)
       }
 
+      const files: File[] = Array.from(fileList)
+
       return await Promise.all(
-        fileList.map(async (file) => {
+        files.map(async (file) => {
           const item = await EventFileReader(file)
 
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
