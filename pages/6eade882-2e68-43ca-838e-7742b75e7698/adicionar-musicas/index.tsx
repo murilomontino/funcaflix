@@ -7,7 +7,7 @@ import TemplateAddProduct from '@/components/templates/add-product'
 
 import FormProductMusicProvider from '@/forms/Product/product-music'
 
-export default function App() {
+export default function AddMusic() {
   return (
     <TemplateAddProduct>
       <FormProductMusicProvider>

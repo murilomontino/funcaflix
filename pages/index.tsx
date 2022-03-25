@@ -12,11 +12,7 @@ export default function App() {
     <View style={styles.container}>
       <Header />
       <Text style={styles.text}>Welcome to Expo + Next.js 👋</Text>
-      <Image
-        resizeMode="cover"
-        source={{ uri: background }}
-        style={{ width: 200, height: 200 }}
-      />
+      <Image resizeMode="cover" source={{ uri: background }} style={{ width: 200, height: 200 }} />
     </View>
   )
 }
