@@ -10,7 +10,7 @@ npm-debug.*
 *.orig.*
 web-build/
 web-report/
-
+environment
 # debug
 yarn-debug.log*
 yarn-error.log*
