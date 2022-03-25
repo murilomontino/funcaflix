@@ -22,7 +22,7 @@ const ItemNavBar: React.FC<Props> = ({
   const ref = useRef(null)
   const hover = useHover(ref)
 
-  const fontSize = 14
+  const fontSize = 12
 
   if (passHref) {
     return (

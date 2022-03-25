@@ -1,14 +1,30 @@
 export default {
   COLORS: {
     ERROR: '#ff574d',
+    BOX_WARNING: 'rgba(255, 87, 77, 0.4)',
+    TEXT_WARNING: '#ed7042',
+    TEXT_WARNING_BOLD: '#700b05',
+    // text confirm verde
+    TEXT_CONFIRM: '#00c853',
+    // text confirm verde escuro
+    TEXT_CONFIRM_BOLD: '#00a843',
     BUTTON_900: '#12415f',
     BUTTON_800: '#1A5E8A',
     BUTTON_700: '#2A7ABE',
     BUTTON_SECONDARY: '#265c66',
+    CARD_BACKGROUND: 'rgba(0, 0, 0, 0.3)',
+    CARD_BACKGROUND_SECONDARY: '#f5f5f5',
+    CARD_MODAL: '#165074',
     TEXT: '#fff',
+    TEXT_SECONDARY: '#13181c',
+    ICON_PRIMARY: '#fff',
+    ICON_SECONDARY: '#333333',
     WHITE: '#d9d9d9',
     BORDER_BUTTON: '#333333',
     IMPORTANT: '#ff574d',
+    CANCEL: '#ff574d',
+    CANCEL_OPERATION: '#8c8c8c',
+    CONFIRM: '#00b894',
     BACKGROUND_BUTTON: '#d9d9d9',
     BUTTON_TEXT_LEGEND: '#666666',
     BACKGROUND: '#666666',
@@ -16,6 +32,8 @@ export default {
     BACKGROUND_INPUT: '#d9d9d9',
     BACKGROUND_FOOTER: 'rgba(18, 65, 95, 1)',
     BAR_HEADER: '#1b2f3d',
+    BORDER_LIGHT: '#d9d9d9',
+    SKELETON: '#d9d9d9',
   },
   FONTS: {
     SIZE: {
@@ -24,8 +42,9 @@ export default {
       MEDIUM: '1.5rem',
       LARGE: '2rem',
     },
-    TITLE_900: 'Inter_900Black',
-    TITLE_800: 'Inter_800ExtraBold',
+    TITLE_900: 'Inter900Black',
+    TITLE_SEMI_BOLD: 'InterSemiBold',
+    TITLE_BOLD: 'InterBold',
     MEDIUM: 'Inter_500Medium',
   },
   CONSTANTS: {

@@ -37,7 +37,7 @@
 			"error",
 			{
 				"singleQuote": true,
-				"printWidth": 80,
+				"printWidth": 100,
 				"tabWidth": 2,
 				"useTabs": false,
 				"semi": false,
@@ -98,6 +98,9 @@
 	"ignorePatterns": [
 		"metro.config.js",
 		"babel.config.js",
-		"node_modules"
+		"node_modules",
+    "jest.config.js",
+    "next.config.js",
+    "src/components/atom/react-date-picker/**/*"
 	]
 }

@@ -3,10 +3,7 @@ import { useContextSelector } from 'use-context-selector'
 import { FormProductExhibitionContext } from '.'
 
 export const useFormExhibitionCPFandCNPJ = () => {
-  const cpfOrCnpj = useContextSelector(
-    FormProductExhibitionContext,
-    (value) => value.cpfOrCnpj
-  )
+  const cpfOrCnpj = useContextSelector(FormProductExhibitionContext, (value) => value.cpfOrCnpj)
   const onChangeCPForCNPJ = useContextSelector(
     FormProductExhibitionContext,
     (value) => value.onChangeCPForCNPJ
@@ -59,10 +56,7 @@ export const useFormExhibitionData = () => {
 }
 
 export const useFormExhibitionTags = () => {
-  const tags = useContextSelector(
-    FormProductExhibitionContext,
-    (value) => value.tags
-  )
+  const tags = useContextSelector(FormProductExhibitionContext, (value) => value.tags)
   const onChangeTags = useContextSelector(
     FormProductExhibitionContext,
     (value) => value.onChangeTags
@@ -74,10 +68,7 @@ export const useFormExhibitionTags = () => {
 }
 
 export const useFormExhibitionThumbnail = () => {
-  const thumbnail = useContextSelector(
-    FormProductExhibitionContext,
-    (value) => value.thumbnail
-  )
+  const thumbnail = useContextSelector(FormProductExhibitionContext, (value) => value.thumbnail)
   const onChangeThumbnail = useContextSelector(
     FormProductExhibitionContext,
     (value) => value.onChangeThumbnail
@@ -89,10 +80,7 @@ export const useFormExhibitionThumbnail = () => {
 }
 
 export const useFormExhibitionStartDate = () => {
-  const startDate = useContextSelector(
-    FormProductExhibitionContext,
-    (value) => value.startDate
-  )
+  const startDate = useContextSelector(FormProductExhibitionContext, (value) => value.startDate)
   const onChangeStartDate = useContextSelector(
     FormProductExhibitionContext,
     (value) => value.onChangeStartDate
@@ -104,10 +92,7 @@ export const useFormExhibitionStartDate = () => {
 }
 
 export const useFormExhibitionEndDate = () => {
-  const endDate = useContextSelector(
-    FormProductExhibitionContext,
-    (value) => value.endDate
-  )
+  const endDate = useContextSelector(FormProductExhibitionContext, (value) => value.endDate)
   const onChangeEndDate = useContextSelector(
     FormProductExhibitionContext,
     (value) => value.onChangeEndDate
@@ -134,32 +119,33 @@ export const useFormExhibitionDescription = () => {
 }
 
 export const useFormExhibitionFiles = () => {
-  const mapFiles = useContextSelector(
+  const mapFiles = useContextSelector(FormProductExhibitionContext, (value) => value.mapFiles)
+
+  const onChangeMapFiles = useContextSelector(
     FormProductExhibitionContext,
-    (value) => value.mapFiles
+    (value) => value.onChangeMapFiles
   )
-  const onChangeFiles = useContextSelector(
+
+  const onChangeFile = useContextSelector(
     FormProductExhibitionContext,
     (value) => value.onChangeFile
   )
 
-  const files = useContextSelector(
+  const onRemovePhoto = useContextSelector(
     FormProductExhibitionContext,
-    (value) => value.file
+    (value) => value.onRemovePhoto
   )
 
   return {
-    files,
     mapFiles,
-    onChangeFiles,
+    onChangeMapFiles,
+    onChangeFile,
+    onRemovePhoto,
   }
 }
 
 export const useFormExhibitionReset = () => {
-  const reset = useContextSelector(
-    FormProductExhibitionContext,
-    (value) => value.reset
-  )
+  const reset = useContextSelector(FormProductExhibitionContext, (value) => value.reset)
   return {
     reset,
   }
@@ -181,10 +167,7 @@ export const useFormExhibitionPhotoOfArtist = () => {
 }
 
 export const useFormExhibitionBiography = () => {
-  const biography = useContextSelector(
-    FormProductExhibitionContext,
-    (value) => value.biography
-  )
+  const biography = useContextSelector(FormProductExhibitionContext, (value) => value.biography)
   const onChangeBiography = useContextSelector(
     FormProductExhibitionContext,
     (value) => value.onChangeBiography
@@ -196,10 +179,7 @@ export const useFormExhibitionBiography = () => {
 }
 
 export const useFormExhibitionTitle = () => {
-  const title = useContextSelector(
-    FormProductExhibitionContext,
-    (value) => value.titleExhibition
-  )
+  const title = useContextSelector(FormProductExhibitionContext, (value) => value.titleExhibition)
   const onChangeTitle = useContextSelector(
     FormProductExhibitionContext,
     (value) => value.onChangeTitleExhibition
@@ -211,10 +191,7 @@ export const useFormExhibitionTitle = () => {
 }
 
 export const useFormExhibitionLocation = () => {
-  const location = useContextSelector(
-    FormProductExhibitionContext,
-    (value) => value.location
-  )
+  const location = useContextSelector(FormProductExhibitionContext, (value) => value.location)
   const onChangeLocation = useContextSelector(
     FormProductExhibitionContext,
     (value) => value.onChangeLocation
@@ -226,40 +203,57 @@ export const useFormExhibitionLocation = () => {
 }
 
 export const useFormExhibitionAttrsPhotos = () => {
-  const onChangeAttrsPhotos = useContextSelector(
+  const onChangeAttrDatePhoto = useContextSelector(
     FormProductExhibitionContext,
-    (value) => value.onChangeAttrPhotos
+    (value) => value.onChangeAttrDatePhoto
   )
-  return {
-    onChangeAttrsPhotos,
-  }
-}
 
-export const useFormExhibitionRemovePhoto = () => {
-  const removePhoto = useContextSelector(
+  const onChangeAttrTitlePhoto = useContextSelector(
     FormProductExhibitionContext,
-    (value) => value.onRemovePhoto
+    (value) => value.onChangeAttrTitlePhoto
   )
+
+  const onChangeAttrDescriptionPhoto = useContextSelector(
+    FormProductExhibitionContext,
+    (value) => value.onChangeAttrDescriptionPhoto
+  )
+
+  const onChangeAttrTypePhoto = useContextSelector(
+    FormProductExhibitionContext,
+    (value) => value.onChangeAttrTypePhoto
+  )
+  const onChangeAttrErrorPhoto = useContextSelector(
+    FormProductExhibitionContext,
+    (value) => value.onChangeAttrErrorPhoto
+  )
+
+  const photoValidator = useContextSelector(
+    FormProductExhibitionContext,
+    (value) => value.photoValidator
+  )
+
+  const countValidatedFiles = useContextSelector(
+    FormProductExhibitionContext,
+    (value) => value.countValidatedFiles
+  )
+
   return {
-    removePhoto,
+    photoValidator,
+    countValidatedFiles,
+    onChangeAttrDatePhoto,
+    onChangeAttrErrorPhoto,
+    onChangeAttrTitlePhoto,
+    onChangeAttrDescriptionPhoto,
+    onChangeAttrTypePhoto,
   }
 }
 
 export const useSubmitFormExhibition = () => {
-  const onSubmit = useContextSelector(
-    FormProductExhibitionContext,
-    (value) => value.onSubmit
-  )
+  const onSubmit = useContextSelector(FormProductExhibitionContext, (value) => value.onSubmit)
 
-  const reset = useContextSelector(
-    FormProductExhibitionContext,
-    (value) => value.reset
-  )
+  const reset = useContextSelector(FormProductExhibitionContext, (value) => value.reset)
 
-  const validated = useContextSelector(
-    FormProductExhibitionContext,
-    (value) => value.validated
-  )
+  const validated = useContextSelector(FormProductExhibitionContext, (value) => value.validated)
 
   return {
     onSubmit,

@@ -8,7 +8,7 @@ import Header from '@/components/organism/header'
 
 import { Container } from './styles'
 
-import { useSize } from '@/hooks/use-size'
+import { useSize } from '@/hooks/utils/use-size'
 
 const TemplateFrontEnd: React.FC = ({ children }) => {
   const {

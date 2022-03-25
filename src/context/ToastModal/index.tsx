@@ -1,9 +1,21 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-import React, { createContext, useContext, useState } from 'react'
-import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native'
+import React, { createContext, useContext, useEffect, useState } from 'react'
+import { Animated } from 'react-native'
 import { AntDesign } from 'react-web-vector-icons'
 
-import { useAssets } from 'expo-asset'
+import { Asset } from 'expo-asset'
+
+import theme from '@/theme'
+
+import {
+  Title,
+  Toast,
+  Message,
+  ContainerIcon,
+  Image,
+  ContainerMessage,
+  ContainerClose,
+} from './styles'
 
 import ErrorImg from '@/assets/Alerts/Error.png'
 import SuccessImg from '@/assets/Alerts/Success.png'
@@ -12,12 +24,15 @@ import colors from '@/global/colors'
 
 type Toast = 'warning' | 'erro' | 'success'
 
+type Options = {
+  icon: Asset
+  title: string
+  color: string
+  message: string
+}
+
 type TypeToast = {
-  [key in Toast]: {
-    icon: string
-    title: string
-    color: string
-  }
+  [key in Toast]: Omit<Options, 'message'>
 }
 
 type Context = {
@@ -29,12 +44,31 @@ const ToastContext = createContext<Context>({} as Context)
 const ToastContextProvider: React.FC = ({ children }) => {
   const [visible, setVisible] = useState(false)
 
-  const icons = useAssets([ErrorImg, WarningImg, SuccessImg])
+  const [fadeAnimation] = useState(new Animated.Value(0))
 
-  const [icon, setIcon] = useState(require('../../assets/Alerts/Error.png'))
-  const [color, setColor] = useState('tomato')
-  const [title, setTitle] = useState('Deu Certo')
-  const [text, setText] = useState('Deu muito certo')
+  const fadeIn = () => {
+    Animated.timing(fadeAnimation, {
+      toValue: 1,
+      duration: 1500,
+      useNativeDriver: false,
+    }).start()
+  }
+
+  const fadeOut = () => {
+    Animated.timing(fadeAnimation, {
+      toValue: 0,
+      duration: 1500,
+      useNativeDriver: false,
+    }).start()
+  }
+
+  useEffect(() => {
+    if (visible) {
+      fadeIn()
+    } else {
+      fadeOut()
+    }
+  }, [visible])
 
   const typesToast: TypeToast = {
     erro: {
@@ -54,39 +88,55 @@ const ToastContextProvider: React.FC = ({ children }) => {
     },
   }
 
+  const [options, setOptions] = useState<Options>({
+    ...typesToast.success,
+    message: 'loren ipsum dolor sit amet',
+  })
+
   const AlertToast = (type: Toast, text: string) => {
-    setColor(typesToast[type].color)
-    setIcon(typesToast[type].icon)
-    setText(text)
-    setTitle(typesToast[type].title)
+    setOptions({
+      color: typesToast[type].color,
+      icon: typesToast[type].icon,
+      title: typesToast[type].title,
+      message: text,
+    })
     setVisible(true)
     setTimeout(() => {
       setVisible(false)
-    }, 5000)
+    }, 10000)
+  }
+
+  const closeToast = () => {
+    fadeOut()
   }
 
   const ToastModal = () => {
     return (
-      <View
+      <Toast
         style={[
-          styles.toast,
           {
-            bottom: 10,
-            backgroundColor: color,
+            backgroundColor: options.color,
+          },
+          {
+            opacity: fadeAnimation,
           },
         ]}
       >
-        <View style={[styles.iconStatus]}>
-          <Image source={icon} style={styles.img} />
-        </View>
-        <View style={styles.content}>
-          <Text style={[styles.title]}>{title}</Text>
-          <Text style={styles.subtitle}>{text}</Text>
-        </View>
-        <TouchableOpacity>
-          <AntDesign name="close" size={24} color={colors.grey20} />
-        </TouchableOpacity>
-      </View>
+        <ContainerIcon>
+          <Image source={options.icon} />
+        </ContainerIcon>
+        <ContainerMessage>
+          <Title>{options.title}</Title>
+          <Message>{options.message}</Message>
+        </ContainerMessage>
+        <ContainerClose onPress={closeToast}>
+          <AntDesign
+            name="close"
+            size={24}
+            color={theme.COLORS.ICON_SECONDARY}
+          />
+        </ContainerClose>
+      </Toast>
     )
   }
   return (
@@ -106,60 +156,3 @@ export default ToastContextProvider
 export const useToast = (): Context => {
   return useContext(ToastContext)
 }
-
-const styles = StyleSheet.create({
-  toast: {
-    position: 'absolute',
-    width: '90%',
-    alignSelf: 'center',
-    borderRadius: 5,
-    borderBottomWidth: 10,
-    borderColor: 'rgba(255, 255, 255, 0.5)',
-    minHeight: 100,
-    shadowColor: '#ccc',
-
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-    flexDirection: 'row',
-  },
-
-  content: {
-    flex: 1,
-    alignSelf: 'center',
-
-    paddingLeft: 20,
-    paddingRight: 20,
-  },
-  title: {
-    color: '#000',
-    fontWeight: 'bold',
-    fontSize: 16,
-  },
-  subtitle: {
-    marginTop: 5,
-    fontWeight: '300',
-    fontSize: 13,
-    color: '#000',
-  },
-  img: {
-    resizeMode: 'contain',
-    width: 40,
-    height: 40,
-  },
-  iconStatus: {
-    width: 40,
-    height: 40,
-    alignSelf: 'center',
-
-    // backgroundColor: '#fff',
-    borderRadius: 50,
-    marginLeft: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-})

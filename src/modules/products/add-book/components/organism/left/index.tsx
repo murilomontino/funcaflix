@@ -4,6 +4,7 @@ import { View } from 'react-native'
 import { FinancialResources, TypesProducts } from '@/types'
 
 import GetImageButton from '@/components/atom/get-image-button'
+import DropdownComponent from '@/components/molecule/dropdown'
 import InputTags from '@/components/molecule/input-tags'
 
 import {
@@ -15,7 +16,7 @@ import {
 
 import GetFileButton from '../../atoms/get-file-button'
 
-import { useSize } from '@/hooks/use-size'
+import { useSize } from '@/hooks/utils/use-size'
 
 const ItemsTypesProducts = [
   { label: 'MP3', value: TypesProducts.MP3 },
@@ -60,6 +61,13 @@ const Left = () => {
       }}
     >
       <GetImageButton image={thumbnail} onChangeImage={onChangeThumbnail} />
+      <DropdownComponent
+        value={financialResources}
+        options={ItemsFinancialResources as any}
+        placeholder="Recursos Financeiros"
+        onChange={onChangeFinancialResources}
+        label={'Recursos'.toUpperCase()}
+      />
       <GetFileButton />
       <InputTags tags={tags} onChangeTags={onChangeTags} />
     </View>

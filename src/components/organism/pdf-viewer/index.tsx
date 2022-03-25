@@ -13,7 +13,7 @@ import {
   ContainerButtonControls,
 } from './styles'
 
-import { useSize } from '@/hooks/use-size'
+import { useSize } from '@/hooks/utils/use-size'
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`
 
@@ -126,10 +126,7 @@ const PdfViewer = ({ id }: Props) => {
                 Anterior
               </TextButton>
             </ContainerButton>
-            <ContainerButton
-              onPress={nextPage}
-              disabled={pageNumber === numPages}
-            >
+            <ContainerButton onPress={nextPage} disabled={pageNumber === numPages}>
               <TextButton
                 style={[
                   pageNumber === numPages && {

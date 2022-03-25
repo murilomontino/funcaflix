@@ -36,7 +36,6 @@ export const InputTopic = ({
   onChangeText,
   placeholder,
   textAlign = 'left',
-  width = '100%',
   maxWidthTitle = 150,
   ...rest
 }: Props) => {
@@ -61,23 +60,24 @@ export const InputTopic = ({
     onChangeText(text)
   }, [])
 
+  const renderTopic = () => {
+    if (!topic) {
+      return null
+    }
+
+    return (
+      <Topic
+        topic={topic}
+        requered={requered}
+        style={styleTopic}
+        maxWidthTitle={maxWidthTitle}
+      />
+    )
+  }
+
   return (
-    <Container
-      style={[
-        {
-          width: width,
-        },
-        styleViewContainer,
-      ]}
-    >
-      {!!topic && (
-        <Topic
-          topic={topic}
-          requered={requered}
-          style={styleTopic}
-          maxWidthTitle={maxWidthTitle}
-        />
-      )}
+    <Container style={[styleViewContainer]}>
+      {renderTopic()}
       <Input
         {...rest}
         placeholder={placeholder || topic}

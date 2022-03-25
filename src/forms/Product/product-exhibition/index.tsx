@@ -1,7 +1,9 @@
 import React, { useCallback, useMemo } from 'react'
 
-import { Category, ExhibitionPhotosTypes, TypeImgCapa } from '@/types'
+import { Category, ExhibitionPhotosTypes, GettersExhibitions, TypeImgCapa } from '@/types'
 import { createContext } from 'use-context-selector'
+
+import { Getter } from '@/services/config/types'
 
 import { FormProductExhibition } from './type'
 
@@ -11,9 +13,7 @@ import { useAttrsProduct } from '@/hooks/use-attrs-product'
 import { useSubmitExhibition } from '@/hooks/use-submit-exhibition'
 import { useSubmitPhoto } from '@/hooks/use-submit-photos'
 
-export const FormProductExhibitionContext = createContext(
-  {} as FormProductExhibition
-)
+export const FormProductExhibitionContext = createContext({} as FormProductExhibition)
 
 const FormProductExhibitionProvider: React.FC = ({ children }) => {
   // Fields Exhibitions
@@ -51,12 +51,18 @@ const FormProductExhibitionProvider: React.FC = ({ children }) => {
   } = useAttrsProduct()
 
   const {
-    file,
     mapFiles,
-    onChangeAttrPhotos,
+    onChangeAttrDatePhoto,
+    onChangeAttrDescriptionPhoto,
+    onChangeAttrTypePhoto,
+    onChangeAttrTitlePhoto,
+    onChangeAttrErrorPhoto,
     onChangeFile,
     onRemovePhoto,
     onChangeMapFiles,
+    countValidatedFiles,
+    validateFiles,
+    photoValidator,
   } = useAttrsExhibitionFiles()
 
   const { submit } = useSubmitExhibition()
@@ -72,11 +78,14 @@ const FormProductExhibitionProvider: React.FC = ({ children }) => {
     onChangeTitleExhibition('')
     onChangeTags([])
     onChangeThumbnail(null)
-    onChangeFile([])
-    file.splice(0, file.length)
+    onChangeMapFiles([])
+    onChangeCPForCNPJ('')
+    onChangeCPForCNPJIsValid(false)
+    onChangeCulturalName('')
+    onChangeFinancialResources(0)
   }, [])
 
-  const onSubmitPhoto = async ({
+  const onSubmitPhotoArtist = async ({
     exibicaoId,
     nome_exibicao,
     produtoId,
@@ -88,7 +97,7 @@ const FormProductExhibitionProvider: React.FC = ({ children }) => {
     return submitPhoto({
       artista: culturalName,
       arquivo: photoOfArtist.current?.uri,
-      descricao: biography.current,
+      descricao: null,
       nome_arquivo: photoOfArtist.current?.name,
       tipo_de_imagem: photoOfArtist.current?.mimeType,
       tipo_de_foto: ExhibitionPhotosTypes.foto_de_artista,
@@ -100,8 +109,8 @@ const FormProductExhibitionProvider: React.FC = ({ children }) => {
     })
   }
 
-  const onSubmit = async () => {
-    return await submit({
+  const onSubmit = async (): Promise<Getter<GettersExhibitions>> => {
+    const response = await submit({
       artista: culturalName,
       categoria: Category.Exhibition,
       cpfOrCnpj: cpfOrCnpj,
@@ -113,43 +122,75 @@ const FormProductExhibitionProvider: React.FC = ({ children }) => {
       titulo: titleExhibition,
       local: location.current,
       recurso: financialResources,
-      capa: thumbnail.uri ?? undefined,
-      tipo_capa: (thumbnail.mimeType as TypeImgCapa) ?? undefined,
+      capa: thumbnail?.uri ?? undefined,
+      tipo_capa: (thumbnail?.mimeType as TypeImgCapa) ?? undefined,
+      biografia: biography.current,
     })
-  }
 
-  const onSubmit2 = async () => {
-    const filesErr = await Promise.all(
-      mapFiles.filter(async (file) => {
-        const response = await submitPhoto({
-          artista: culturalName,
-          arquivo: file.get('uri'),
-          descricao: file.get('descricao'),
-          nome_arquivo: file.get('name'),
-          tipo_de_imagem: file.get('mimeType'),
-          tipo_de_foto: file.get(
-            'tipo_de_foto'
-          ) as unknown as ExhibitionPhotosTypes,
-          titulo: file.get('titulo'),
-          data: file.get('data'),
-          nome_exibicao: '0025cc4d6223212f134a90',
-          exibicaoId: 1,
-          produtoId: 112,
-        })
+    if (response.statusCode === 200) {
+      const { data } = response
 
-        if (response.statusCode !== 200) {
-          file.set('error', 'true')
-          return file
-        }
+      await onSubmitPhotoArtist({
+        exibicaoId: data.id,
+        nome_exibicao: data.nome_unico,
+        produtoId: data.produtoId,
       })
-    )
 
-    await onChangeMapFiles(filesErr)
+      await onSubmitPhotosEvent({
+        exibicaoId: data.id,
+        nome_exibicao: data.nome_unico,
+        produtoId: data.produtoId,
+      })
 
-    return { statusCode: 400 }
+      return { statusCode: 200, data }
+    } else {
+      return { statusCode: response.statusCode, error: response.error }
+    }
   }
 
-  // Objeto tendo todos os validated que deram false, e o segundo é o boolean que representa se todos os fields foram validados
+  const onSubmitPhotosEvent = async ({
+    exibicaoId,
+    nome_exibicao,
+    produtoId,
+  }: {
+    nome_exibicao: string
+    exibicaoId: number
+    produtoId: number
+  }) => {
+    const errMapFiles = []
+    for await (const photo of mapFiles) {
+      const _photo = {
+        artista: culturalName,
+        arquivo: photo.get('uri') as string,
+        descricao: photo.get('descricao') as string,
+        nome_arquivo: photo.get('name') as string,
+        tipo_de_imagem: photo.get('mimeType') as string,
+        tipo_de_foto: photo.get('tipo_de_foto') as ExhibitionPhotosTypes,
+        titulo: photo.get('titulo') as string,
+        data: photo.get('data') as string,
+        nome_exibicao: nome_exibicao,
+        exibicaoId: exibicaoId,
+        produtoId: produtoId,
+      }
+
+      const { statusCode } = await submitPhoto(_photo)
+
+      if (statusCode !== 200) {
+        errMapFiles.push(photo)
+      }
+    }
+
+    onChangeMapFiles(errMapFiles)
+
+    if (errMapFiles.length > 0) {
+      return { statusCode: 400, error: errMapFiles.map((e) => e.nome_arquivo) }
+    }
+
+    return { statusCode: 200, data: [] }
+  }
+
+  // Objeto tendo todos os validated que deram false,
+  // e o segundo é o boolean que representa se todos os fields foram validados
   const validated = useMemo(() => {
     const validateCpfOrCnpj = cpfOrCnpj.length > 0 && cpfOrCnpjIsValid
 
@@ -163,7 +204,10 @@ const FormProductExhibitionProvider: React.FC = ({ children }) => {
 
     const validateStartDate = !!startDate?.trim()
 
+    const validatePhotos = !(mapFiles.length > 0) || validateFiles
+
     const filterValid = [
+      !validatePhotos && 'Existem Fotos Inválidas',
       !validateCpfOrCnpj && 'CPF/CNPJ Inválido',
       !validateCulturalName && 'Nome artístico Não Preenchido',
       !validateDescriptionExhibition && 'Descrição Não Preenchida',
@@ -176,6 +220,8 @@ const FormProductExhibitionProvider: React.FC = ({ children }) => {
 
     return { err: filterValid, isValid }
   }, [
+    validateFiles,
+    mapFiles,
     cpfOrCnpj,
     cpfOrCnpjIsValid,
     culturalName,
@@ -196,24 +242,30 @@ const FormProductExhibitionProvider: React.FC = ({ children }) => {
         financialResources,
         mapFiles,
         location,
+        countValidatedFiles,
+        validateFiles,
+        photoValidator,
         biography,
         photoOfArtist,
         titleExhibition,
         onChangeMapFiles,
         onChangeCPForCNPJ,
+        onChangeAttrTitlePhoto,
         onChangeCPForCNPJIsValid,
         onChangeCulturalName,
         onChangeFinancialResources,
         onChangeDescriptionExhibition,
         onChangeStartDate,
         onChangeTitleExhibition,
+        onChangeAttrDatePhoto,
+        onChangeAttrDescriptionPhoto,
+        onChangeAttrTypePhoto,
         descriptionExhibition,
         endDate,
         startDate,
         onChangeThumbnail,
-        file,
         onRemovePhoto,
-        onChangeAttrPhotos,
+        onChangeAttrErrorPhoto,
         onChangeFile,
         reset,
         onSubmit,

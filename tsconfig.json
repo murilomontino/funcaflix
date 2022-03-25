@@ -38,7 +38,8 @@
     "babel.config.ts",
     "metro.config.ts",
     "jest.config.js",
-    "next.config.ts"
+    "next.config.ts",
+    "src/components/atom/date-picker/react-date-picker/**/*",
   ],
   "extends": "expo/tsconfig.base",
   "rules": [

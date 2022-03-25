@@ -18,6 +18,7 @@ interface Props extends TouchableOpacityProps {
   textStyle?: StyleProp<TextStyle>
   selectable?: boolean
   selected?: boolean
+  color?: string
 }
 
 const Button = ({
@@ -28,9 +29,10 @@ const Button = ({
   textStyle,
   selectable = false,
   selected = false,
+  color = colors.button_secondary,
   ...rest
 }: Props) => {
-  const color = disabled ? colors.grey20 : colors.button_secondary
+  const colorButton = disabled ? colors.grey20 : color
 
   return (
     <Container
@@ -39,10 +41,10 @@ const Button = ({
       style={[
         style,
         {
-          backgroundColor: color,
+          backgroundColor: colorButton,
         },
         selectable && {
-          backgroundColor: selected ? color : colors.grey20,
+          backgroundColor: selected ? colorButton : colors.grey20,
         },
       ]}
     >

@@ -26,5 +26,5 @@ export const Container = styled.View`
   flex: 1;
   flex-direction: row;
   padding: 0 0 20px 20px;
-  max-height: 150;
+  max-height: 150px;
 `

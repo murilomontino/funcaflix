@@ -1,3 +1,4 @@
+/* eslint-disable import-helpers/order-imports */
 declare module '*.svg' {
   import React from 'react'
   import * as React from 'react'
@@ -8,6 +9,12 @@ declare module '*.svg' {
 
 declare module '*.(png|jpg|jpeg|gif|webp|svg)$' {
   const content: string
+  export default content
+}
+
+// declarar module.css
+declare module '*.css' {
+  const content: any
   export default content
 }
 

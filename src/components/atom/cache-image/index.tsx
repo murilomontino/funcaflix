@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, memo } from 'react'
 import { Image, ImageStyle, StyleProp } from 'react-native'
 
 import api from '@/services'
@@ -9,6 +9,8 @@ import { getCache, setCache } from '@/utils/CacheStorageLocal'
 
 type Props = {
   capa?: string
+  name?: string
+  id?: string
   height?: number | string
   width?: number | string
   resizeMode?: 'cover' | 'contain' | 'stretch' | 'repeat' | 'center'
@@ -18,6 +20,8 @@ type Props = {
 
 const CacheImage = ({
   capa,
+  name,
+  id,
   uri,
   height = 200,
   width = 150,
@@ -33,13 +37,18 @@ const CacheImage = ({
     }
 
     // Se a capa for uma url, seta a imagem como a capa
-    if (capa && capa.includes('http')) {
+    if (capa && capa?.includes('http')) {
       setImg(capa)
       return
     }
 
     if (capa) {
       getImgStorage(capa)
+    }
+
+    // Se não tiver capa, seta a imagem como a capa padrão
+    if (!capa) {
+      setImg(NotCapa)
     }
   }, [uri, capa])
 
@@ -50,8 +59,13 @@ const CacheImage = ({
     const cache = await getCache(arrayCapa[0])
 
     if (!cache) {
-      const { data } = await api.get(`image/${capa}`)
-
+      const { data } = await api.get(`image`, {
+        params: {
+          image: capa,
+          name,
+          id,
+        },
+      })
       setCache(arrayCapa[0], {
         data: data,
       })
@@ -79,4 +93,4 @@ const CacheImage = ({
   )
 }
 
-export default CacheImage
+export default memo(CacheImage)

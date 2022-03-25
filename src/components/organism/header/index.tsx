@@ -8,7 +8,7 @@ import NavBar from '@/components/molecule/nav-bar'
 
 import { BarHeader } from './styles'
 
-import { useSize } from '@/hooks/use-size'
+import { useSize } from '@/hooks/utils/use-size'
 
 const Header = () => {
   const { size, web } = useSize()

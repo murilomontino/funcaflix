@@ -17,7 +17,7 @@ import { Getter } from '@/services/config/types'
 
 import { Container, MaskedInput } from './styles'
 
-import useDebounce from '@/hooks/use-debounce'
+import useDebounce from '@/hooks/utils/use-debounce'
 
 interface Props {
   requered?: boolean

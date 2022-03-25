@@ -16,8 +16,10 @@ export const useSubmitExhibition = () => {
     capa,
     tags,
     tipo_capa,
+    biografia,
   }: SettersExhibitions): Promise<Getter<GettersExhibitions>> => {
     const document: SettersExhibitions = {
+      biografia: biografia,
       artista: artista,
       categoria: Category.Exhibition,
       cpfOrCnpj: cpfOrCnpj,
@@ -34,10 +36,7 @@ export const useSubmitExhibition = () => {
     }
 
     try {
-      const { data } = await api.post<Getter<GettersExhibitions>>(
-        'exhibitions',
-        document
-      )
+      const { data } = await api.post<Getter<GettersExhibitions>>('exhibitions', document)
 
       return data
     } catch (error) {

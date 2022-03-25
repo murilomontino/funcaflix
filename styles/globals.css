@@ -1,0 +1,165 @@
+@font-face {
+  font-family: AntDesign;
+  font-style: normal;
+  font-weight: 400;
+  src: url(../icons/AntDesign.ttf) format('truetype')
+}
+
+@font-face {
+  font-family: Entypo;
+  font-style: normal;
+  font-weight: 400;
+  src: url(../icons/Entypo.ttf) format('truetype')
+}
+
+@font-face {
+  font-family: EvilIcons;
+  font-style: normal;
+  font-weight: 400;
+  src: url(../icons/EvilIcons.ttf) format('truetype')
+}
+
+@font-face {
+  font-family: Feather;
+  font-style: normal;
+  font-weight: 400;
+  src: url(../icons/Feather.ttf) format('truetype')
+}
+
+@font-face {
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: 400;
+  src: url(../icons/FontAwesome.ttf) format('truetype')
+}
+
+@font-face {
+  font-family: Foundation;
+  font-style: normal;
+  font-weight: 400;
+  src: url(../icons/Foundation.ttf) format('truetype')
+}
+
+@font-face {
+  font-family: Ionicons;
+  font-style: normal;
+  font-weight: 400;
+  src: url(../icons/Ionicons.ttf) format('truetype')
+}
+
+@font-face {
+  font-family: MaterialCommunityIcons;
+  font-style: normal;
+  font-weight: 400;
+  src: url(../icons/MaterialCommunityIcons.ttf) format('truetype')
+}
+
+@font-face {
+  font-family: MaterialIcons;
+  font-style: normal;
+  font-weight: 400;
+  src: url(../icons/MaterialIcons.ttf) format('truetype')
+}
+
+@font-face {
+  font-family: Octicons;
+  font-style: normal;
+  font-weight: 400;
+  src: url(../icons/Octicons.ttf) format('truetype')
+}
+
+@font-face {
+  font-family: SimpleLineIcons;
+  font-style: normal;
+  font-weight: 400;
+  src: url(../icons/SimpleLineIcons.ttf) format('truetype')
+}
+
+@font-face {
+  font-family: Zocial;
+  font-style: normal;
+  font-weight: 400;
+  src: url(../icons/Zocial.ttf) format('truetype')
+}
+
+
+.date-picker-container {
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  width: 240px;
+  height: 100%;
+  padding: 4px;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.date-picker-container div {
+  z-index: 999;
+  width: 240px;
+
+}
+
+.date-picker input {
+  color: black;
+  font-size: 1em;
+  font-family: sans-serif;
+  font-weight: 500;
+  border: 0;
+  min-width: 150 !important;
+  z-index: -1;
+}
+
+.date-picker-disabled input {
+  color: gray !important;
+  font-size: 1em;
+  font-family: sans-serif;
+  font-weight: 500;
+  border: 0;
+  min-width: 150 !important;
+  z-index: -1;
+}
+
+.dropdown-menu {
+  z-index: 998;
+  background-color: red;
+}
+
+
+div::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+
+div::-webkit-scrollbar:vertical {
+  width: 11px;
+}
+
+div::-webkit-scrollbar:horizontal {
+  height: 11px;
+}
+
+div::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  border: 2px solid white;
+  /* should match background, can't be transparent */
+  background-color: rgba(0, 0, 0, .5);
+}
+
+div::-webkit-scrollbar-track {
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+#divContent {
+  height: 750px;
+  width: 1200px;
+  background-color: #f1f1f1;
+  padding: 24px;
+  margin-right: 24px;
+}

@@ -1,0 +1,13 @@
+.dragDrop {
+  min-height: 30vh;
+  width: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.dragDrop p {
+  color: #fff;
+}
+
+.spanLabel {
+  text-decoration-line: none;
+}

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 
 import * as DocumentPicker from 'expo-document-picker'
 import { DocumentResult } from 'expo-document-picker'
@@ -7,12 +7,9 @@ import { Document } from '@/forms/Product/types'
 
 import { Container, TextRequered, ContainerCentered, Text } from './styles'
 
-type mimeType =
-  | 'application/pdf'
-  | 'image/jpeg'
-  | 'image/png'
-  | 'image/jpg'
-  | 'audio/mp3'
+import useFileReader from '@/hooks/utils/use-file-reader'
+
+type mimeType = 'application/pdf' | 'image/jpeg' | 'image/png' | 'image/jpg' | 'audio/mp3'
 
 type Props = {
   requered?: boolean
@@ -20,7 +17,7 @@ type Props = {
   type: mimeType[]
   multiple?: boolean
   onChangeFiles: (files: Document[]) => void
-  files: Document[]
+  selectedLabel?: string
 }
 
 export const GetFileButton = ({
@@ -28,59 +25,36 @@ export const GetFileButton = ({
   message = 'Selecione um arquivo',
   type,
   multiple = false,
-  files,
+  selectedLabel,
   onChangeFiles,
 }: Props) => {
   // Busca um arquivo no formato PDF
 
-  function fileReader(fileList: unknown) {
-    return Promise.all(
-      Object.keys(fileList).map(
-        (_key, i) =>
-          new Promise((resolve) => {
-            const reader = new FileReader()
-            const file = fileList[i]
+  const fileReader = useFileReader()
 
-            reader.onload = () => {
-              resolve({
-                type: 'success',
-                uri: reader.result as string,
-                name: file.name,
-                size: file.size,
-                mimeType: file.type,
-              })
-            }
-
-            reader.readAsDataURL(file as unknown as Blob)
-          })
-      )
-    )
-  }
-
-  const onChangeFile = async () => {
+  const onChangeFile = useCallback(async () => {
     try {
       const documents: DocumentResult = await DocumentPicker.getDocumentAsync({
         type: type,
         multiple,
         copyToCacheDirectory: true,
       })
-
       if (documents.type === 'success') {
-        const newFiles: Document[] = (await fileReader(
-          documents.output
-        )) as Document[]
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const newFiles: Document[] = (await fileReader(documents.output as any)) as Document[]
+
         onChangeFiles(newFiles)
         return true
       }
     } catch (error) {
       return false
     }
-  }
+  }, [])
 
   return (
     <Container onPress={onChangeFile}>
       <ContainerCentered>
-        <Text>{!multiple ? files[0]?.name || message : message}</Text>
+        <Text>{!multiple ? selectedLabel || message : message}</Text>
         {requered && <TextRequered>*</TextRequered>}
       </ContainerCentered>
     </Container>

@@ -7,18 +7,10 @@ const { withExpo } = require('@expo/next-adapter')
 const withPlugins = require('next-compose-plugins')
 const withFonts = require('next-fonts')
 const withImages = require('next-images')
-const withTM = require('next-transpile-modules')([
-  'moti',
-  '@motify/core',
-  '@motify/components',
-  // '@motify/interactions' // uncomment if you use these
-  // you can add other modules that need traspiling here
-])
 
 const nextConfig = {
   dynamicAssetPrefix: true,
   projectRoot: __dirname,
-  path: '/',
   generateBuildId: async () => {
     if (process.env.BUILD_ID) {
       return process.env.BUILD_ID
@@ -39,9 +31,6 @@ const nextConfig = {
   },
 }
 
-const config = withPlugins(
-  [withTM, withFonts, withImages, withExpo],
-  nextConfig
-)
+const config = withPlugins([withFonts, withImages, withExpo], nextConfig)
 
 module.exports = config

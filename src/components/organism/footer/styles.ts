@@ -7,6 +7,7 @@ export const ContainerFooter = styled.View`
   flex-direction: row;
   width: 100%;
   background-color: ${theme.COLORS.BACKGROUND_FOOTER};
+  top: ${theme.CONSTANTS.FOOTER_HIGHT}px;
 `
 
 export const ContainerAbout = styled.View`

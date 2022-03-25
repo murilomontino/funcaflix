@@ -4,6 +4,7 @@ import React, {
   useEffect,
   useState,
 } from 'react'
+import { ViewStyle } from 'react-native'
 
 import Topic from '@/components/atom/topic'
 
@@ -17,6 +18,7 @@ type Props = {
   placeholder?: string
   value: string | MutableRefObject<string>
   requered?: boolean
+  styleViewContainer?: ViewStyle | ViewStyle[]
   onChangeValue: (text: string) => void
   widthContainer?: number | string
 }
@@ -26,10 +28,10 @@ const InputTextArea = ({
   numberLines,
   maxLength = 5000,
   height,
+  styleViewContainer,
   placeholder,
   value,
   requered = false,
-  widthContainer = '100%',
   onChangeValue,
 }: Props) => {
   const [valueText, setValueText] = useState(() => {
@@ -54,13 +56,7 @@ const InputTextArea = ({
   }, [])
 
   return (
-    <Container
-      style={[
-        {
-          width: widthContainer,
-        },
-      ]}
-    >
+    <Container style={[styleViewContainer]}>
       {!!topic && <Topic topic={topic} requered={requered} />}
       <Input
         value={valueText}
