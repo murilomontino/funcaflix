@@ -32,19 +32,7 @@ const NewWorksBox = ({ idExhibition }: Props) => {
     onChangeAttrTitleWork,
     onChangeAttrYearWork,
   } = useFormWorksAttrs()
-  /* const [visibleConfirm, setVisibleConfirm] = useState(false)
-  const [visibleWarning, setVisibleWarning] = useState(false) */
 
-  /*   const onChangeVisibilityConfirm = (visible: boolean) => {
-    setVisibleConfirm(visible)
-  }
-  const onChangeVisibilityWarning = (visible: boolean) => {
-    setVisibleWarning(visible)
-  } */
-
-  /*  const disabled = useMemo(() => {
-    return works.length === 0
-  }, [works]) */
   return (
     <View
       style={{
