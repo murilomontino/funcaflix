@@ -2,7 +2,7 @@ import { TypeMusicAlbums } from '@/types'
 
 import { FormProduct } from '../types'
 
-import { AttrsTracksFiles } from '@/hooks/use-attrs-tracks-files'
+import { AttrsTracksFiles } from '@/hooks/use-attrs-musics/use-attrs-tracks-files'
 
 export type keys =
   | 'type'
@@ -17,9 +17,7 @@ export type keys =
   | 'id'
   | 'error'
 
-export interface FormProductMusic
-  extends Omit<AttrsTracksFiles, 'onChangeFile'>,
-    FormProduct {
+export interface FormProductMusic extends Omit<AttrsTracksFiles, 'onChangeFile'>, FormProduct {
   titleAlbum: string
   content: TypeMusicAlbums
   onChangeTitleAlbum: (value: string) => void

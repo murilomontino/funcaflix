@@ -11,8 +11,8 @@ import { createContext } from 'use-context-selector'
 import { Document } from '../types'
 import { FormProductMusic } from './types'
 
+import { useAttrsTracksFiles } from '@/hooks/use-attrs-musics/use-attrs-tracks-files'
 import { useAttrsProduct } from '@/hooks/use-attrs-product'
-import { useAttrsTracksFiles } from '@/hooks/use-attrs-tracks-files'
 
 export const FormProductMusicContext = createContext({} as FormProductMusic)
 

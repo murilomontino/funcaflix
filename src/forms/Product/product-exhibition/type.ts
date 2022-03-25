@@ -4,8 +4,8 @@ import { Getter } from '@/services/config/types'
 
 import { Document, FormProduct } from '../types'
 
-import { AttrsExhibition } from '@/hooks/use-attrs-exhibition'
-import { AttrsExhibitionFiles } from '@/hooks/use-attrs-exhibition-files'
+import { AttrsExhibition } from '@/hooks/use-attrs-exhibition/use-attrs-exhibition'
+import { AttrsExhibitionFiles } from '@/hooks/use-attrs-exhibition/use-attrs-exhibition-files'
 
 export type keys =
   | 'type'

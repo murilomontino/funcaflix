@@ -7,11 +7,11 @@ import { Getter } from '@/services/config/types'
 
 import { FormProductExhibition } from './type'
 
-import { useAttrsExhibition } from '@/hooks/use-attrs-exhibition'
-import { useAttrsExhibitionFiles } from '@/hooks/use-attrs-exhibition-files'
+import { useAttrsExhibition } from '@/hooks/use-attrs-exhibition/use-attrs-exhibition'
+import { useAttrsExhibitionFiles } from '@/hooks/use-attrs-exhibition/use-attrs-exhibition-files'
+import { useSubmitExhibition } from '@/hooks/use-attrs-exhibition/use-submit-exhibition'
+import { useSubmitPhoto } from '@/hooks/use-attrs-exhibition/use-submit-photos'
 import { useAttrsProduct } from '@/hooks/use-attrs-product'
-import { useSubmitExhibition } from '@/hooks/use-submit-exhibition'
-import { useSubmitPhoto } from '@/hooks/use-submit-photos'
 
 export const FormProductExhibitionContext = createContext({} as FormProductExhibition)
 

@@ -3,13 +3,13 @@ import { View } from 'react-native'
 
 import { ExhibitionPhotosTypes } from '@/types'
 
+import { GetFileButton } from '@/components/molecule/get-file-button'
+
 import {
   useFormExhibitionAttrsPhotos,
   useFormExhibitionFiles,
-  useSubmitFormExhibition,
 } from '@/forms/Product/product-exhibition/hooks'
 
-import { GetFileButton } from '../../atoms/get-file-button'
 import CardPhotoOfEvent from '../../molecules/card-photo-of-event'
 import { Container } from '../artist/styles'
 
@@ -38,8 +38,6 @@ const PhotosOfEvent = () => {
   }, [size])
 
   const { mapFiles, onChangeFile, onRemovePhoto } = useFormExhibitionFiles()
-
-  const { onSubmit } = useSubmitFormExhibition()
 
   const {
     onChangeAttrDatePhoto,
