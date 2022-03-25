@@ -9,7 +9,13 @@ import { Container, TextRequered, ContainerCentered, Text } from './styles'
 
 import useFileReader from '@/hooks/utils/use-file-reader'
 
-type mimeType = 'application/pdf' | 'image/jpeg' | 'image/png' | 'image/jpg' | 'audio/mp3'
+type mimeType =
+  | 'application/pdf'
+  | 'image/jpeg'
+  | 'image/png'
+  | 'image/jpg'
+  | 'audio/mp3'
+  | 'video/*'
 
 type Props = {
   requered?: boolean

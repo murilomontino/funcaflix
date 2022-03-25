@@ -13,9 +13,10 @@ type Props<T> = {
   onSubmit: () => Promise<Getter<T>>
   reset: () => void
   validated: boolean
+  title: string
 }
 
-function SendFormExhibitionButton<T>({ onSubmit, reset, validated }: Props<T>) {
+function SendFormExhibitionButton<T>({ onSubmit, reset, validated, title }: Props<T>) {
   // -----------------------------------------------------------------------------
   // Efeito Visual ----------------------------------------------------------------
   const { AlertToast } = useToast()
@@ -26,24 +27,25 @@ function SendFormExhibitionButton<T>({ onSubmit, reset, validated }: Props<T>) {
   // -----------------------------------------------------------------------------
 
   const handleSubmit = async () => {
-    showLoading()
-    const response = await onSubmit()
+    try {
+      showLoading()
+      const response = await onSubmit()
 
-    switch (response.statusCode) {
-      case 200:
-        AlertToast('success', 'Cadastrado Com Sucesso!')
-        reset()
-        break
+      switch (response.statusCode) {
+        case 200:
+          AlertToast('success', 'Cadastrado Com Sucesso!')
+          reset()
+          break
 
-      default:
-        AlertToast(
-          'erro',
-          `Erro ao cadastrar! Tente novamente. ${response.error}`
-        )
-        break
+        default:
+          AlertToast('erro', `Erro ao cadastrar! Tente novamente. ${response.error}`)
+          break
+      }
+    } catch (error) {
+      AlertToast('erro', `Erro ao cadastrar! Tente novamente. ${error}`)
+    } finally {
+      hideLoading()
     }
-
-    hideLoading()
   }
 
   return (
@@ -51,15 +53,9 @@ function SendFormExhibitionButton<T>({ onSubmit, reset, validated }: Props<T>) {
       style={{
         justifyContent: 'center',
         alignItems: 'center',
-        flex: 1,
-        maxHeight: 100,
       }}
     >
-      <Button
-        disabled={!validated}
-        onPress={handleSubmit}
-        text="Enviar Exposição"
-      />
+      <Button disabled={!validated} onPress={handleSubmit} text={title} />
     </View>
   )
 }
