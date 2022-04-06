@@ -1,5 +1,6 @@
 .select-box {
   position: relative;
+  z-index: 999;
   display: block;
   width: 100%;
   min-width: fit-content;
@@ -31,6 +32,7 @@
 }
 
 .select-box__current {
+  z-index: 999;
   position: relative;
   box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.1);
   cursor: pointer;
@@ -52,9 +54,10 @@
 }
 
 .select-box__icon {
+  z-index: 999;
   position: absolute;
   top: 50%;
-  right: 15px;
+  right: 8px;
   transform: translateY(-50%);
   width: 20px;
   opacity: 0.4;
@@ -80,11 +83,13 @@
   padding: 15px;
   background-color: #265c66;
   border: 2px solid #333333;
+  text-align: center;
     /* Cor de Borda da Opção Selecionada - Label */
 
 }
 
 .select-box__list {
+  z-index: 999;
   position: absolute;
   width: 100%;
   padding: 0;
@@ -104,6 +109,7 @@
 }
 
 .select-box__option {
+  z-index: 999;
   display: block;
   padding: 15px;
   background-color: #265c66;
