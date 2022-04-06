@@ -200,7 +200,7 @@ const FormProductExhibitionProvider: React.FC = ({ children }) => {
 
     const validateTitleExhibition = !!titleExhibition?.trim()
 
-    const financialResourcesIsValid = !!financialResources
+    const financialResourcesIsValid = !!financialResources && financialResources > 0
 
     const validateStartDate = !!startDate?.trim()
 

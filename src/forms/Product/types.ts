@@ -3,6 +3,7 @@
 import {
   Category,
   ExhibitionPhotosTypes,
+  FinancialResources,
   TypeMusicAlbums,
   TypesProducts,
 } from '@/types'
@@ -89,6 +90,7 @@ export const mapTypeProduct: { [key in TypesProducts]: string } = {
   [TypesProducts.URL]: 'URL',
   [TypesProducts.CAPA]: 'Capa',
   [TypesProducts.PHOTOS]: 'Foto',
+  [TypesProducts.VIDEO]: 'Vídeo',
 }
 
 export const mapTypeMusic: { [key in TypeMusicAlbums]: string } = {
@@ -97,6 +99,17 @@ export const mapTypeMusic: { [key in TypeMusicAlbums]: string } = {
   [TypeMusicAlbums.single]: 'Single',
   [TypeMusicAlbums.ep]: 'EP',
 }
+
+export const mapFinancialResources = [
+  { label: 'Lei Aldir Blanc ', value: FinancialResources.LeiAldirBlanc },
+  {
+    label: 'Recursos do Artista',
+    value: FinancialResources.RecursoDoArtista,
+  },
+  { label: 'Funcart', value: FinancialResources.Funcart },
+  { label: 'Municipal', value: FinancialResources.Municipal },
+  { label: 'Federal', value: FinancialResources.Federal },
+]
 
 type mapPhotos = {
   label: string
