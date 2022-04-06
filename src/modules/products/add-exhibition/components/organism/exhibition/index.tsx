@@ -1,11 +1,9 @@
 import React, { memo, useEffect, useMemo, useState } from 'react'
 import { Text, View } from 'react-native'
 
-import { FinancialResources } from '@/types'
-
 import DatePickerCustom from '@/components/atom/date-picker'
 import GetImageButton from '@/components/atom/get-image-button'
-import DropdownComponent from '@/components/molecule/dropdown'
+import SelectDropdown from '@/components/atom/select-dropdown'
 import InputTextArea from '@/components/molecule/input-text-area'
 import InputTopic from '@/components/molecule/input-topic'
 
@@ -18,20 +16,10 @@ import {
   useFormExhibitionThumbnail,
   useFormExhibitionTitle,
 } from '@/forms/Product/product-exhibition/hooks'
+import { mapFinancialResources } from '@/forms/Product/types'
 
 import { Important } from '../../../styles'
 import { Title, Container } from '../artist/styles'
-
-const ItemsFinancialResources = [
-  { label: 'Lei Aldir Blanc ', value: FinancialResources.LeiAldirBlanc },
-  {
-    label: 'Recursos do Artista',
-    value: FinancialResources.RecursoDoArtista,
-  },
-  { label: 'Funcart', value: FinancialResources.Funcart },
-  { label: 'Municipal', value: FinancialResources.Municipal },
-  { label: 'Federal', value: FinancialResources.Federal },
-]
 
 const Exhibition = () => {
   const [disabled, setDisabled] = useState(true)
@@ -41,8 +29,7 @@ const Exhibition = () => {
   const { endDate, onChangeEndDate } = useFormExhibitionEndDate()
   const { startDate, onChangeStartDate } = useFormExhibitionStartDate()
   const { description, onChangeDescription } = useFormExhibitionDescription()
-  const { onChangeFinancialResources, financialResources } =
-    useFormExhibitionFinancialResources()
+  const { onChangeFinancialResources } = useFormExhibitionFinancialResources()
 
   const { thumbnail, onChangeThumbnail } = useFormExhibitionThumbnail()
   const [startDateState, setStartDate] = useState<Date>(() => {
@@ -68,10 +55,7 @@ const Exhibition = () => {
     onChangeEndDate(date?.toISOString())
   }
 
-  const memoDateMinimum = useMemo(
-    () => new Date(startDateState),
-    [startDateState]
-  )
+  const memoDateMinimum = useMemo(() => new Date(startDateState), [startDateState])
 
   useEffect(() => {
     if (!startDateState) setDisabled(true)
@@ -89,13 +73,13 @@ const Exhibition = () => {
         width={400}
         resizeMode={'stretch'}
       />
-      <DropdownComponent
-        value={financialResources}
-        options={ItemsFinancialResources as any}
-        placeholder="Recursos Financeiros"
-        onChange={onChangeFinancialResources}
-        label={'Recursos'.toUpperCase()}
+
+      <SelectDropdown
+        options={mapFinancialResources}
+        onChangeSelect={onChangeFinancialResources}
+        labelDefault={'Recursos'}
       />
+
       <Text
         style={{
           fontSize: 20,

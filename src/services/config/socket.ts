@@ -1,7 +1,7 @@
 import io from 'socket.io-client'
 import { v4 } from 'uuid'
 
-const socket = io(process.env.API_URL, {
+const socket = io('localhost:8000', {
   transports: ['websocket', 'polling', 'flashsocket'],
   query: {
     user_id: v4(),
