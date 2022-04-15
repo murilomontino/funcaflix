@@ -90,7 +90,8 @@ export const mapTypeProduct: { [key in TypesProducts]: string } = {
   [TypesProducts.URL]: 'URL',
   [TypesProducts.CAPA]: 'Capa',
   [TypesProducts.PHOTOS]: 'Foto',
-  [TypesProducts.VIDEO]: 'Vídeo',
+  [TypesProducts.MP4]: 'MP4',
+  [TypesProducts.LINK]: 'Link',
 }
 
 export const mapTypeMusic: { [key in TypeMusicAlbums]: string } = {

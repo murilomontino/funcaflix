@@ -21,7 +21,6 @@ export const useAttrsVideo = (): AttrsVideo => {
   return {
     title,
     description,
-
     onChangeTitle,
     onChangeDescription,
   }

@@ -14,6 +14,7 @@ export const Container = styled.View`
 `
 
 export const Important = styled.Text`
+  margin-top: 12px;
   max-height: 20px;
   font-size: 16px;
   text-align: center;

@@ -29,18 +29,18 @@ export const useFormVideoTags = () => {
 }
 
 export const useFormVideoCategory = () => {
-  const category = useContextSelector(FormProductVideoContext, (value) => value.category)
-  const onChangeCategory = useContextSelector(
+  const categoryVideo = useContextSelector(FormProductVideoContext, (value) => value.categoryVideo)
+  const onChangeCategoryVideo = useContextSelector(
     FormProductVideoContext,
-    (value) => value.onChangeCategory
+    (value) => value.onChangeCategoryVideo
   )
 
   const type = useContextSelector(FormProductVideoContext, (value) => value.type)
   const onChangeType = useContextSelector(FormProductVideoContext, (value) => value.onChangeType)
 
   return {
-    category,
-    onChangeCategory,
+    categoryVideo,
+    onChangeCategoryVideo,
     type,
     onChangeType,
   }
@@ -105,5 +105,19 @@ export const useFormVideoThumbnail = () => {
   return {
     thumbnail,
     onChangeThumbnail,
+  }
+}
+
+export const useSubmitFormVideoInfo = () => {
+  const onSubmit = useContextSelector(FormProductVideoContext, (value) => value.onSubmit)
+
+  const reset = useContextSelector(FormProductVideoContext, (value) => value.reset)
+
+  const validated = useContextSelector(FormProductVideoContext, (value) => value.validated)
+
+  return {
+    onSubmit,
+    reset,
+    validated,
   }
 }

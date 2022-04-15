@@ -5,8 +5,6 @@ export enum Category {
   Video,
   Event,
   Exhibition,
-  Show,
-  VideoClipe,
 }
 
 export const mapCategory = [
@@ -29,13 +27,5 @@ export const mapCategory = [
   {
     id: Category.Exhibition,
     categoria: 'Exposição',
-  },
-  {
-    id: Category.Show,
-    categoria: 'Show',
-  },
-  {
-    id: Category.VideoClipe,
-    categoria: 'Vídeo Clipe',
   },
 ]

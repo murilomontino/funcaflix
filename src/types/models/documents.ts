@@ -5,7 +5,8 @@ export enum TypesProducts {
   PDF,
   CAPA,
   PHOTOS,
-  VIDEO,
+  MP4,
+  LINK,
 }
 
 export const mapTypesProducts = [
@@ -30,8 +31,12 @@ export const mapTypesProducts = [
     tipo: 'PHOTOS',
   },
   {
-    id: TypesProducts.VIDEO,
-    tipo: 'VIDEO',
+    id: TypesProducts.MP4,
+    tipo: 'MP4',
+  },
+  {
+    id: TypesProducts.LINK,
+    tipo: 'LINK',
   },
 ]
 
