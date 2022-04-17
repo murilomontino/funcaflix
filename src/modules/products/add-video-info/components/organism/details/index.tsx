@@ -19,8 +19,8 @@ import {
   useSubmitFormVideoInfo,
   useFormVideoFinancialResources,
   useFormVideoCategory,
-} from '@/forms/Product/product-video/hooks'
-import { mapCategoryVideo } from '@/forms/Product/product-video/types'
+} from '@/forms/Product/product-video-info/hooks'
+import { mapCategoryVideo } from '@/forms/Product/product-video-info/types'
 import { mapFinancialResources } from '@/forms/Product/types'
 
 import { Important } from '../../../styles'
@@ -37,7 +37,7 @@ const Details = () => {
   const { onSubmit, reset, validated } = useSubmitFormVideoInfo()
   const { onChangeFinancialResources } = useFormVideoFinancialResources()
 
-  const { onChangeCategoryVideo, onChangeType } = useFormVideoCategory()
+  const { onChangeCategoryVideo } = useFormVideoCategory()
 
   return (
     <Container>

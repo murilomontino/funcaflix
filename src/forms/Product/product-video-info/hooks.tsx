@@ -1,13 +1,16 @@
 import { useContextSelector } from 'use-context-selector'
 
-import { FormProductVideoContext } from './index'
+import { FormProductVideoInfoContext } from './index'
 
 export const useFormVideoInfo = () => {
-  const title = useContextSelector(FormProductVideoContext, (value) => value.title)
-  const description = useContextSelector(FormProductVideoContext, (value) => value.description)
-  const onChangeTitle = useContextSelector(FormProductVideoContext, (value) => value.onChangeTitle)
+  const title = useContextSelector(FormProductVideoInfoContext, (value) => value.title)
+  const description = useContextSelector(FormProductVideoInfoContext, (value) => value.description)
+  const onChangeTitle = useContextSelector(
+    FormProductVideoInfoContext,
+    (value) => value.onChangeTitle
+  )
   const onChangeDescription = useContextSelector(
-    FormProductVideoContext,
+    FormProductVideoInfoContext,
     (value) => value.onChangeDescription
   )
 
@@ -20,8 +23,11 @@ export const useFormVideoInfo = () => {
 }
 
 export const useFormVideoTags = () => {
-  const tags = useContextSelector(FormProductVideoContext, (value) => value.tags)
-  const onChangeTags = useContextSelector(FormProductVideoContext, (value) => value.onChangeTags)
+  const tags = useContextSelector(FormProductVideoInfoContext, (value) => value.tags)
+  const onChangeTags = useContextSelector(
+    FormProductVideoInfoContext,
+    (value) => value.onChangeTags
+  )
   return {
     onChangeTags,
     tags,
@@ -29,35 +35,33 @@ export const useFormVideoTags = () => {
 }
 
 export const useFormVideoCategory = () => {
-  const categoryVideo = useContextSelector(FormProductVideoContext, (value) => value.categoryVideo)
+  const categoryVideo = useContextSelector(
+    FormProductVideoInfoContext,
+    (value) => value.categoryVideo
+  )
   const onChangeCategoryVideo = useContextSelector(
-    FormProductVideoContext,
+    FormProductVideoInfoContext,
     (value) => value.onChangeCategoryVideo
   )
-
-  const type = useContextSelector(FormProductVideoContext, (value) => value.type)
-  const onChangeType = useContextSelector(FormProductVideoContext, (value) => value.onChangeType)
 
   return {
     categoryVideo,
     onChangeCategoryVideo,
-    type,
-    onChangeType,
   }
 }
 
 export const useFormVideoCPFandCNPJ = () => {
-  const cpfOrCnpj = useContextSelector(FormProductVideoContext, (value) => value.cpfOrCnpj)
+  const cpfOrCnpj = useContextSelector(FormProductVideoInfoContext, (value) => value.cpfOrCnpj)
   const onChangeCPForCNPJ = useContextSelector(
-    FormProductVideoContext,
+    FormProductVideoInfoContext,
     (value) => value.onChangeCPForCNPJ
   )
   const cpfOrCnpjIsValid = useContextSelector(
-    FormProductVideoContext,
+    FormProductVideoInfoContext,
     (value) => value.cpfOrCnpjIsValid
   )
   const onChangeCPForCNPJIsValid = useContextSelector(
-    FormProductVideoContext,
+    FormProductVideoInfoContext,
     (value) => value.onChangeCPForCNPJIsValid
   )
   return {
@@ -70,11 +74,11 @@ export const useFormVideoCPFandCNPJ = () => {
 
 export const useFormVideoFinancialResources = () => {
   const financialResources = useContextSelector(
-    FormProductVideoContext,
+    FormProductVideoInfoContext,
     (value) => value.financialResources
   )
   const onChangeFinancialResources = useContextSelector(
-    FormProductVideoContext,
+    FormProductVideoInfoContext,
     (value) => value.onChangeFinancialResources
   )
   return {
@@ -84,9 +88,12 @@ export const useFormVideoFinancialResources = () => {
 }
 
 export const useFormVideoCulturalName = () => {
-  const culturalName = useContextSelector(FormProductVideoContext, (value) => value.culturalName)
+  const culturalName = useContextSelector(
+    FormProductVideoInfoContext,
+    (value) => value.culturalName
+  )
   const onChangeCulturalName = useContextSelector(
-    FormProductVideoContext,
+    FormProductVideoInfoContext,
     (value) => value.onChangeCulturalName
   )
 
@@ -97,11 +104,12 @@ export const useFormVideoCulturalName = () => {
 }
 
 export const useFormVideoThumbnail = () => {
-  const thumbnail = useContextSelector(FormProductVideoContext, (value) => value.thumbnail)
+  const thumbnail = useContextSelector(FormProductVideoInfoContext, (value) => value.thumbnail)
   const onChangeThumbnail = useContextSelector(
-    FormProductVideoContext,
+    FormProductVideoInfoContext,
     (value) => value.onChangeThumbnail
   )
+
   return {
     thumbnail,
     onChangeThumbnail,
@@ -109,11 +117,11 @@ export const useFormVideoThumbnail = () => {
 }
 
 export const useSubmitFormVideoInfo = () => {
-  const onSubmit = useContextSelector(FormProductVideoContext, (value) => value.onSubmit)
+  const onSubmit = useContextSelector(FormProductVideoInfoContext, (value) => value.onSubmit)
 
-  const reset = useContextSelector(FormProductVideoContext, (value) => value.reset)
+  const reset = useContextSelector(FormProductVideoInfoContext, (value) => value.reset)
 
-  const validated = useContextSelector(FormProductVideoContext, (value) => value.validated)
+  const validated = useContextSelector(FormProductVideoInfoContext, (value) => value.validated)
 
   return {
     onSubmit,

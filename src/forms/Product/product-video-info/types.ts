@@ -17,6 +17,8 @@ type OmitProduct = Omit<
   | 'resetProduct'
   | 'onChangeCategory'
   | 'category'
+  | 'type'
+  | 'onChangeType'
 >
 
 export interface FormProductVideo extends AttrsVideo, OmitProduct {

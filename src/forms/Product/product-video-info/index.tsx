@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 
-import { Category, SettersVideosInfo, TypesProducts } from '@/types'
+import { Category, SettersVideosInfo } from '@/types'
 import { CategoriesVideos } from '@/types/models/videos'
 import { createContext } from 'use-context-selector'
 
@@ -12,11 +12,11 @@ import { useAttrsProduct } from '@/hooks/use-attrs-product'
 import { useAttrsVideo } from '@/hooks/use-attrs-videos/use-attrs-videos'
 import { useSubmitVideoInfo } from '@/hooks/use-attrs-videos/use-submit-video-info'
 
-export const FormProductVideoContext = createContext({} as FormProductVideo)
+export const FormProductVideoInfoContext = createContext({} as FormProductVideo)
 
-const FormProductVideoProvider: React.FC = ({ children }) => {
+const FormProductVideoInfoProvider: React.FC = ({ children }) => {
   // State -----------------------------------------------------------------------
-  const [type, setType] = useState<TypesProducts.LINK | TypesProducts.MP4>(null)
+  // const [type, setType] = useState<TypesProducts.LINK | TypesProducts.MP4>(null)
   const [categoryVideo, setCategoryVideo] = useState<CategoriesVideos>(null)
 
   const {
@@ -42,19 +42,11 @@ const FormProductVideoProvider: React.FC = ({ children }) => {
       onChangeFinancialResources(0)
       onChangeTags([])
       onChangeThumbnail({} as Document)
-      setType(null)
       onChangeCPForCNPJ('')
       onChangeCPForCNPJIsValid(false)
       onChangeCulturalName('')
     }
   }, [])
-
-  const onChangeType = useCallback(
-    (value: number) => {
-      setType(value)
-    },
-    [type]
-  )
 
   const onChangeCategoryVideo = useCallback(
     (value: CategoriesVideos) => {
@@ -66,7 +58,6 @@ const FormProductVideoProvider: React.FC = ({ children }) => {
   const reset = useCallback(() => {
     onChangeTags([])
     onChangeThumbnail({} as Document)
-    setType(null)
     onChangeCPForCNPJ('')
     onChangeCPForCNPJIsValid(false)
     onChangeCulturalName('')
@@ -88,8 +79,6 @@ const FormProductVideoProvider: React.FC = ({ children }) => {
 
     const validateCategoryVideo = !!categoryVideo && categoryVideo > 0
 
-    const validateType = !!type && type > 0
-
     const filterValid = [
       !validateCpfOrCnpj && 'CPF/CNPJ Inválido',
       !validateCulturalName && 'Nome artístico Não Preenchido',
@@ -97,7 +86,6 @@ const FormProductVideoProvider: React.FC = ({ children }) => {
       !validateTitleExhibition && 'Título Não Preenchido',
       !financialResourcesIsValid && 'Recursos financeiros Não Escolhido',
       !validateCategoryVideo && 'Categoria de Video Não Escolhida',
-      !validateType && 'Tipo de Produto Não Escolhido',
     ].filter((item) => item)
 
     const isValid = filterValid.length === 0
@@ -111,15 +99,13 @@ const FormProductVideoProvider: React.FC = ({ children }) => {
     description,
     title,
     categoryVideo,
-    type,
   ])
 
   const onSubmit = useCallback(async () => {
     const document: SettersVideosInfo = {
       titulo: title,
       tags: tags,
-      thumbnail: thumbnail.file,
-      tipo: type,
+      thumbnail: thumbnail.uri,
       cpfOrCnpj,
       mimetype_thumbnail: thumbnail.mimeType as any,
       biografia: null,
@@ -132,10 +118,10 @@ const FormProductVideoProvider: React.FC = ({ children }) => {
     const response = await submit(document)
 
     return response
-  }, [])
+  }, [thumbnail, tags, title, culturalName, financialResources, categoryVideo])
 
   return (
-    <FormProductVideoContext.Provider
+    <FormProductVideoInfoContext.Provider
       value={{
         thumbnail,
         cpfOrCnpj,
@@ -147,10 +133,8 @@ const FormProductVideoProvider: React.FC = ({ children }) => {
         onChangeCulturalName,
         onChangeFinancialResources,
         onChangeTags,
-        onChangeType,
         onChangeThumbnail,
         tags,
-        type,
         description,
         onChangeDescription,
         onChangeTitle,
@@ -163,8 +147,8 @@ const FormProductVideoProvider: React.FC = ({ children }) => {
       }}
     >
       {children}
-    </FormProductVideoContext.Provider>
+    </FormProductVideoInfoContext.Provider>
   )
 }
 
-export default FormProductVideoProvider
+export default FormProductVideoInfoProvider
