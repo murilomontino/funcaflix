@@ -4,25 +4,26 @@ import { FinancialResources } from '@/types'
 
 import { Document } from '@/forms/Product/types'
 
+type FunctionIndexers = (tags: string[]) => string[]
+
 export const useAttrsProduct = (): AttrsProduct => {
   const [cpfOrCnpj, setCPFOrCNPJ] = useState<string>('')
   const [cpfOrCnpjIsValid, setCPForCNPJIsValid] = useState(false)
-  const [financialResources, setFinancialResources] =
-    useState<FinancialResources>(0)
+  const [financialResources, setFinancialResources] = useState<FinancialResources>(0)
   const [culturalName, setCulturalName] = useState<string>('')
   const [tags, setTags] = useState<string[]>([])
   const [genres, setGenres] = useState<string[]>([])
   const [thumbnail, setThumbnail] = useState<Document>()
 
   const onChangeTags = useCallback(
-    (tags: string[]) => {
+    (tags: string[] | FunctionIndexers) => {
       setTags(tags)
     },
     [tags]
   )
 
   const onChangeGenres = useCallback(
-    (genres: string[]) => {
+    (genres: string[] | FunctionIndexers) => {
       setGenres(genres)
     },
     [genres]
@@ -94,6 +95,6 @@ export interface AttrsProduct {
   onChangeCPForCNPJ: (text: string) => void
   onChangeCPForCNPJIsValid: (value: boolean) => void
   onChangeThumbnail: (value: Document) => void
-  onChangeTags: (tags: string[]) => void
-  onChangeGenres: (generos: string[]) => void
+  onChangeTags: (tags: string[] | FunctionIndexers) => void
+  onChangeGenres: (generos: string[] | FunctionIndexers) => void
 }

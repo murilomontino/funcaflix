@@ -8,7 +8,7 @@ import { Container, Title, Legends, ContainerTags } from './styles'
 type Props = {
   tags: string[]
   width?: number | string
-  onChangeTags: (text: string[]) => void
+  onChangeTags: (fn: (tags: string[]) => void) => void
 }
 
 const InputTags = ({ onChangeTags, tags, width }: Props) => {
@@ -31,31 +31,26 @@ const InputTags = ({ onChangeTags, tags, width }: Props) => {
 
   const onChangeAddTags = useCallback(
     (text: string) => {
-      selectedTags.push(text)
-      onChangeSelectedTags(selectedTags)
+      onChangeSelectedTags((state) => [...state, text])
+      onChangeTags?.((state: string[]) => [...state, text])
     },
     [selectedTags]
   )
 
   const onChangeRemoveTags = useCallback(
     (index: number) => {
-      const filter = selectedTags.filter((_, i) => i !== index)
-      onChangeSelectedTags(filter)
+      onChangeSelectedTags((state: string[]) => state.filter((_, i) => i !== index))
+      onChangeTags?.((state: string[]) => state.filter((_, i) => i !== index))
     },
     [selectedTags]
   )
 
-  const onChangeSelectedTags = (text: string[]) => {
-    setSelectedTags(() => text)
+  const onChangeSelectedTags = (fn: (state: string[]) => string[]) => {
+    setSelectedTags(fn)
   }
 
   const data = selectedTags.map((tag, index) => (
-    <Tag
-      index={index}
-      key={index}
-      tag={tag}
-      onChangeRemoveTags={onChangeRemoveTags}
-    />
+    <Tag index={index} key={index} tag={tag} onChangeRemoveTags={onChangeRemoveTags} />
   ))
 
   return (
