@@ -1,4 +1,6 @@
 # @generated: @expo/next-adapter@2.1.0
+node_modules
+.vscode
 node_modules/**/*
 .expo/*
 npm-debug.*
