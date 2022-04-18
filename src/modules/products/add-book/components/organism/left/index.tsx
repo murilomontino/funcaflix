@@ -1,20 +1,22 @@
 import React from 'react'
-import { View } from 'react-native'
 
 import { FinancialResources, TypesProducts } from '@/types'
 
 import GetImageButton from '@/components/atom/get-image-button'
-import DropdownComponent from '@/components/molecule/dropdown'
+import DropdownComponent from '@/components/atom/select-dropdown'
 import InputTags from '@/components/molecule/input-tags'
 
 import {
-  useFormBookCategory,
   useFormBookFinancialResources,
   useFormBookGenres,
   useFormBookThumbnail,
+  useFormBookTags,
 } from '@/forms/Product/product-book/hooks'
 
 import GetFileButton from '../../atoms/get-file-button'
+import SendFormBookButton from '../../atoms/send-form-book-button'
+import BookContent from '../../molecules/book-content'
+import { Container, ContainerSelect, ContainerSend } from './styles'
 
 import { useSize } from '@/hooks/utils/use-size'
 
@@ -36,41 +38,33 @@ const ItemsFinancialResources = [
 ]
 
 const Left = () => {
-  const { size, web, SCREEN_SMALLER_THAN_LARGE_SIZE } = useSize()
-  const { onChangeType, type } = useFormBookCategory()
-  const { onChangeFinancialResources, financialResources } =
-    useFormBookFinancialResources()
+  const { web, SCREEN_SMALLER_THAN_LARGE_SIZE } = useSize()
+  const { onChangeFinancialResources } = useFormBookFinancialResources()
 
   const { thumbnail, onChangeThumbnail } = useFormBookThumbnail()
 
   const { genres, onChangeGenres } = useFormBookGenres()
-
-  const [tags, setTags] = React.useState<string[]>([])
-
-  const onChangeTags = (text: string[]) => {
-    setTags(text)
-  }
+  const { tags, onChangeTags } = useFormBookTags()
 
   return (
-    <View
-      style={{
-        maxWidth: SCREEN_SMALLER_THAN_LARGE_SIZE ? '80%' : 300,
-        justifyContent: 'flex-start',
-        marginLeft: web ? 0 : 40,
-        borderColor: 'rgba(0,0,0, 0.4)',
-      }}
-    >
+    <Container>
       <GetImageButton image={thumbnail} onChangeImage={onChangeThumbnail} />
-      <DropdownComponent
-        value={financialResources}
-        options={ItemsFinancialResources as any}
-        placeholder="Recursos Financeiros"
-        onChange={onChangeFinancialResources}
-        label={'Recursos'.toUpperCase()}
-      />
+
+      <ContainerSelect>
+        <DropdownComponent
+          options={ItemsFinancialResources}
+          labelDefault={'Recursos'.toUpperCase()}
+          onChangeSelect={onChangeFinancialResources}
+        />
+      </ContainerSelect>
       <GetFileButton />
-      <InputTags tags={tags} onChangeTags={onChangeTags} />
-    </View>
+
+      <ContainerSend>
+        <InputTags tags={tags} onChangeTags={onChangeTags} />
+        <BookContent />
+        <SendFormBookButton />
+      </ContainerSend>
+    </Container>
   )
 }
 

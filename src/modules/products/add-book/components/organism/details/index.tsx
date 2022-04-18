@@ -1,60 +1,30 @@
 import React from 'react'
-import { Text, View } from 'react-native'
 
+import ImportantMessage from '@/components/atom/important-message'
 import FieldCPFandCNPJGeneric from '@/components/molecule/field-cpf-and-cnpj'
 import { InputTopic } from '@/components/molecule/input-topic'
 import InputTopicMasked from '@/components/molecule/input-topic-masked'
 
-import {
-  useFormBookData,
-  useFormBookCPFandCNPJ,
-} from '@/forms/Product/product-book/hooks'
+import { useFormBookData, useFormBookCPFandCNPJ } from '@/forms/Product/product-book/hooks'
 
 import InputsFormsLiterature from '../../molecules/inputs-forms-literature'
+import { Container } from './styles'
 
-import colors from '@/global/colors'
 import { useSize } from '@/hooks/utils/use-size'
 
 const Details = () => {
-  const { size, web, SCREEN_SMALLER_THAN_LARGE_SIZE } = useSize()
+  const { SCREEN_SMALLER_THAN_LARGE_SIZE } = useSize()
 
-  const {
-    culturalName,
-    onChangeCulturalName,
-    onChangePublishedDate,
-    publishedDate,
-  } = useFormBookData()
+  const { culturalName, onChangeCulturalName, onChangePublishedDate, publishedDate } =
+    useFormBookData()
 
-  const {
-    cpfOrCnpj,
-    cpfOrCnpjIsValid,
-    onChangeCPForCNPJ,
-    onChangeCPForCNPJIsValid,
-  } = useFormBookCPFandCNPJ()
+  const { cpfOrCnpj, cpfOrCnpjIsValid, onChangeCPForCNPJ, onChangeCPForCNPJIsValid } =
+    useFormBookCPFandCNPJ()
 
   return (
-    <View
-      style={{
-        width: '80%',
-        flex: SCREEN_SMALLER_THAN_LARGE_SIZE ? 10 : 2.5,
-        minHeight: SCREEN_SMALLER_THAN_LARGE_SIZE ? size.height * 2.5 : '100%',
-        borderRightWidth: SCREEN_SMALLER_THAN_LARGE_SIZE ? 0 : 1,
-        borderRightColor: '#01010',
-        borderLeftWidth: SCREEN_SMALLER_THAN_LARGE_SIZE ? 0 : 1,
-        borderLeftColor: '#01010',
-        marginRight: 8,
-      }}
-    >
-      <Text
-        style={{
-          fontSize: 16,
-          textAlign: 'center',
-          marginBottom: 8,
-          color: colors.redSecondary,
-        }}
-      >
-        * Campos Obrigatórios
-      </Text>
+    <Container>
+      <ImportantMessage />
+
       <FieldCPFandCNPJGeneric
         isValid={cpfOrCnpjIsValid}
         onChangeIsValid={onChangeCPForCNPJIsValid}
@@ -82,7 +52,7 @@ const Details = () => {
       />
 
       <InputsFormsLiterature />
-    </View>
+    </Container>
   )
 }
 
