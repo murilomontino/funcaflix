@@ -39,6 +39,7 @@ const nextConfig = ((phase) => {
         },
       }
     },
+    webpack5: false,
     env: {
       API_KEY: process.env.API_KEY,
       API_URL: API_URL,

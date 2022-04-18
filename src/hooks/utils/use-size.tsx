@@ -9,13 +9,11 @@ export const useSize = () => {
 
   const size = web ? window : screen
 
-  const SCREEN_SMALLER_THAN_LARGE_SIZE =
-    size.width < theme.CONSTANTS.SCREEN.LARGE
+  const SCREEN_SMALLER_THAN_LARGE_SIZE = size.width < theme.CONSTANTS.SCREEN.LARGE
 
   const SCREEN_LARGE_SIZE = size.width >= theme.CONSTANTS.SCREEN.LARGE
 
-  const SCREEN_SMALLER_THAN_MEDIUM_SIZE =
-    size.width < theme.CONSTANTS.SCREEN.MEDIUM
+  const SCREEN_SMALLER_THAN_MEDIUM_SIZE = size.width < theme.CONSTANTS.SCREEN.MEDIUM
 
   return {
     size,

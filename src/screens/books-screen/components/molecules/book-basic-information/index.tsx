@@ -34,15 +34,11 @@ const BookBasicInformation = ({ item }: Props) => {
           },
         ]}
       >
-        <Text
-          style={[textStyles.attrText, { fontWeight: '700', fontSize: 12 }]}
-        >
+        <Text style={[textStyles.attrText, { fontWeight: '700', fontSize: 12 }]}>
           {item.titulo}
         </Text>
         {item.subTitulo ? (
-          <Text
-            style={[textStyles.attrText, { fontWeight: '700', fontSize: 12 }]}
-          >
+          <Text style={[textStyles.attrText, { fontWeight: '700', fontSize: 12 }]}>
             {'-'} {item.subTitulo}
           </Text>
         ) : (
@@ -57,12 +53,7 @@ const BookBasicInformation = ({ item }: Props) => {
           },
         ]}
       >
-        <Text
-          style={[
-            textStyles.attrText,
-            { fontWeight: 'bold', textAlignVertical: 'center' },
-          ]}
-        >
+        <Text style={[textStyles.attrText, { fontWeight: 'bold', textAlignVertical: 'center' }]}>
           Genero:{' '}
         </Text>
         <GenerosLiterarios generos={item.generos} />

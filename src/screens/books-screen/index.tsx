@@ -1,14 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import {
-  ActivityIndicator,
-  FlatList,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native'
+import React, { useEffect, useMemo, useState } from 'react'
+import { ActivityIndicator, FlatList, StyleSheet, Text, View } from 'react-native'
 
 import { GetterBooks } from '@/types'
-import { MotiView } from 'moti'
 
 import CardBooks from './components/organism/card-book'
 
@@ -24,11 +17,13 @@ const ScreenBooks = ({ books }: Props) => {
   const [loading, setLoading] = useState(true)
   const { size } = useSize()
 
+  const data = useMemo(() => books, [books])
+
   useEffect(() => {
-    if (books?.length > 0) {
+    if (data) {
       setLoading(false)
     }
-  }, [books])
+  }, [data])
 
   if (loading) {
     return (
@@ -40,18 +35,35 @@ const ScreenBooks = ({ books }: Props) => {
 
   return (
     <View style={styles.container}>
-      <MotiView
-        style={{
-          width: size.width,
+      {/*   <MotiView
+        from={{
+          opacity: 0,
+          scale: 0.5,
         }}
-      ></MotiView>
-
+        animate={{
+          opacity: 1,
+          scale: 1,
+        }}
+        transition={{
+          type: 'timing',
+        }}
+        style={{
+          justifyContent: 'center',
+          height: 250,
+          width: 250,
+          borderRadius: 25,
+          marginRight: 10,
+          backgroundColor: 'white',
+        }}
+      >
+        <Text style={{ color: 'white' }}>Moti View Container</Text>
+      </MotiView> */}
       <FlatList
         style={{ marginBottom: 40, minHeight: 300 }}
         contentContainerStyle={{
           width: size.width,
         }}
-        data={books}
+        data={data}
         ListEmptyComponent={() => (
           <View
             style={[
@@ -89,6 +101,7 @@ const ScreenBooks = ({ books }: Props) => {
         renderItem={({ item }) => {
           return <CardBooks item={item} />
         }}
+        scrollEnabled={false}
         keyExtractor={(item, index) => `${item.id}`}
       />
     </View>

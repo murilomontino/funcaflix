@@ -7,12 +7,7 @@ import LogoFuncapVertical from '@/components/atom/logo-funcap-vertical'
 import LogoGoverno from '@/components/atom/logo-governo'
 import AboutFooter from '@/components/molecule/about-footer'
 
-import {
-  ContainerFooter,
-  ContainerAbout,
-  ContainerSocial,
-  ContainerLogo,
-} from './styles'
+import { ContainerFooter, ContainerAbout, ContainerSocial, ContainerLogo } from './styles'
 
 const Footer = () => {
   const web = Platform.OS === 'web'

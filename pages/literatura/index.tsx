@@ -18,9 +18,8 @@ export default function Livros({ books }) {
   )
 }
 
-export const getStaticProps = async (ctx) => {
+export const getServerSideProps = async (ctx) => {
   const config = {
-    revalidate: 60,
     props: {
       books: [],
     },
@@ -30,7 +29,6 @@ export const getStaticProps = async (ctx) => {
     const { data } = await api.get<Getter<GetterBooks[]>>('books')
     if (data.statusCode === 200) {
       return {
-        ...config,
         props: {
           books: data.data,
         },

@@ -1,7 +1,5 @@
 import React from 'react'
-
-import ScrollProvider from '@/context/ContextScroll'
-import DrawerProvider from '@/context/DrawerMenu'
+import { View } from 'react-native'
 
 import Footer from '@/components/organism/footer'
 import Header from '@/components/organism/header'
@@ -16,20 +14,21 @@ const TemplateFrontEnd: React.FC = ({ children }) => {
   } = useSize()
 
   return (
-    <DrawerProvider>
+    <View
+      style={{
+        flex: 1,
+      }}
+    >
       <Header />
-
-      <ScrollProvider>
-        <Container
-          style={{
-            minHeight: height,
-          }}
-        >
-          {children}
-        </Container>
-        <Footer />
-      </ScrollProvider>
-    </DrawerProvider>
+      <Container
+        style={{
+          minHeight: height,
+        }}
+      >
+        {children}
+      </Container>
+      <Footer />
+    </View>
   )
 }
 

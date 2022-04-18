@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { StyleSheet, TextStyle, ViewStyle } from 'react-native'
 import { FontAwesome } from 'react-web-vector-icons'
 
-import { validateBr } from 'js-brasil'
+import { cpf, cnpj } from 'cpf-cnpj-validator'
 
 import HelperText from '@/components/atom/helper-text'
 import Topic from '@/components/atom/topic'
@@ -63,7 +63,7 @@ const FieldCPFandCNPJGeneric = ({
     onChangeValue(text)
 
     debounce(() => {
-      if (validateBr.cpf(text) || validateBr.cnpj(text)) {
+      if (cpf.isValid(text) || cnpj.isValid(text)) {
         onChangeIsValid(true)
       } else {
         onChangeIsValid(false)
@@ -72,9 +72,7 @@ const FieldCPFandCNPJGeneric = ({
   }
 
   const isValidMemo = useMemo(() => {
-    return (
-      (!isValid && value.length === 14) || (!isValid && value.length === 18)
-    )
+    return (!isValid && value.length === 14) || (!isValid && value.length === 18)
   }, [isValid, value])
 
   const msgError = useMemo(() => {
