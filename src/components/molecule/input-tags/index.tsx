@@ -8,8 +8,10 @@ import { Container, Title, Legends, ContainerTags } from './styles'
 type Props = {
   tags: string[]
   width?: number | string
-  onChangeTags: (fn: (tags: string[]) => void) => void
+  onChangeTags: (tags: FunctionIndexers | string[]) => void
 }
+
+type FunctionIndexers = (tags: string[]) => void
 
 const InputTags = ({ onChangeTags, tags, width }: Props) => {
   const [text, setText] = useState('')
