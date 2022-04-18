@@ -45,7 +45,7 @@ const SelectDropdown = ({
 
   const Options = ({ value, label }: Option) => {
     const onClick = () => {
-      onChangeSelect && onChangeSelect(value)
+      onChangeSelect?.(value)
       setSelectState(value)
     }
 
