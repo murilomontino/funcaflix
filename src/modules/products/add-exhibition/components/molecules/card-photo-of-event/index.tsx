@@ -8,7 +8,7 @@ import { ExhibitionPhotosTypes } from '@/types'
 
 import CacheImage from '@/components/atom/cache-image'
 import DatePicker from '@/components/atom/date-picker'
-import DropdownComponent from '@/components/molecule/dropdown'
+import DropdownComponent from '@/components/atom/select-dropdown'
 import InputTextArea from '@/components/molecule/input-text-area'
 import InputTopic from '@/components/molecule/input-topic'
 
@@ -140,11 +140,7 @@ const CardPhotoOfEvent = ({
       ]}
     >
       <ContainerButtonIcon onPress={onRemovePhoto}>
-        <AntDesign
-          name="close"
-          size={theme.FONTS.SIZE.SMALL}
-          color={theme.COLORS.ICON_SECONDARY}
-        />
+        <AntDesign name="close" size={theme.FONTS.SIZE.SMALL} color={theme.COLORS.ICON_SECONDARY} />
       </ContainerButtonIcon>
       <CacheImage uri={uri} resizeMode={'cover'} width={'100%'} height={160} />
       <View
@@ -156,12 +152,9 @@ const CardPhotoOfEvent = ({
         }}
       >
         <DropdownComponent
-          label="Tipo de Foto"
-          onChange={onChangeTypeOfPhoto}
-          value={typeOfPhotoState}
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          options={mapTypeExhibitionPhoto as any}
-          placeholder="Tipo de Foto"
+          labelDefault="Tipo de Foto"
+          onChangeSelect={onChangeTypeOfPhoto}
+          options={mapTypeExhibitionPhoto}
         />
       </View>
       <InputTopic
