@@ -4,10 +4,9 @@ import styled from 'styled-components/native'
 export const ContainerFooter = styled.View`
   flex: 1;
   height: ${theme.CONSTANTS.FOOTER_HIGHT}px;
+  max-height: ${theme.CONSTANTS.FOOTER_HIGHT}px;
   flex-direction: row;
   width: 100%;
-  background-color: ${theme.COLORS.BACKGROUND_FOOTER};
-  top: ${theme.CONSTANTS.FOOTER_HIGHT}px;
 `
 
 export const ContainerAbout = styled.View`

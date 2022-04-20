@@ -1,0 +1,15 @@
+version: "3.3"
+services:
+  app:
+    build: .
+    restart: always
+    ports:
+      - "3000:3000"
+    entrypoint: ["/bin/sh", "-c", "yarn install && yarn dev"]
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+    volumes:
+      - .:/home/node/app
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

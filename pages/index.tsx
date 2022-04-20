@@ -10,7 +10,7 @@ import background from '@/assets/background-image.png'
 export default function App() {
   return (
     <TemplateFrontEnd>
-      <Text style={styles.text}>Welcome to Expo + Next.js 👋</Text>
+      <Text style={styles.text}>Welcome to Expo + Next.js + Docker 👋</Text>
       <Image resizeMode="cover" source={{ uri: background }} style={{ width: 200, height: 200 }} />
     </TemplateFrontEnd>
   )

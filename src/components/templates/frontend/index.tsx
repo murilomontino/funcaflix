@@ -1,6 +1,8 @@
 import React from 'react'
 import { View } from 'react-native'
 
+import theme from '@/theme'
+
 import Footer from '@/components/organism/footer'
 import Header from '@/components/organism/header'
 
@@ -17,16 +19,11 @@ const TemplateFrontEnd: React.FC = ({ children }) => {
     <View
       style={{
         flex: 1,
+        backgroundColor: theme.COLORS.BACKGROUND_FRONTEND,
       }}
     >
       <Header />
-      <Container
-        style={{
-          minHeight: height,
-        }}
-      >
-        {children}
-      </Container>
+      <Container>{children}</Container>
       <Footer />
     </View>
   )

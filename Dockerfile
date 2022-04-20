@@ -6,10 +6,11 @@ WORKDIR /home/node/app
 
 COPY package*.json .
 
+EXPOSE 3000
+EXPOSE 8000
+
 RUN yarn install
 
 COPY . .
-
-EXPOSE 3000
 
 ENTRYPOINT [ ".docker/entrypoint.sh" ]
