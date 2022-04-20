@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 // @generated: @expo/next-adapter@2.1.52
 // Learn more: https://docs.expo.io/guides/using-nextjs/
+
 require('dotenv').config()
 
 const {
@@ -11,14 +12,21 @@ const withPlugins = require('next-compose-plugins')
 const withFonts = require('next-fonts')
 const withImages = require('next-images')
 
+
+/**
+ * @type {import('next').NextConfig}
+ */
 const nextConfig = ((phase) => {
   
   const isProduction = phase === 'production'
   const isDevelopment = phase === 'development'
 
-  const API_URL = isProduction ? process.env.API_URL : 'http://localhost:8000/api'
+  const _currentURL = isProduction ? process.env.API_URL : 'http://host.docker.internal:8000/api/'
 
   return {
+    httpAgentOptions: new (require('https').Agent)({
+      rejectUnauthorized: false
+    }),
     dynamicAssetPrefix: true,
     projectRoot: __dirname,
     generateBuildId: async () => {
@@ -42,7 +50,7 @@ const nextConfig = ((phase) => {
     webpack5: false,
     env: {
       API_KEY: process.env.API_KEY,
-      API_URL: API_URL,
+      _currentURL
     }
   }
 })(process.env.NODE_ENV)

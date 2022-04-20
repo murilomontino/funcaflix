@@ -1,45 +1,16 @@
 // @generated: @expo/next-adapter@2.1.52
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Text } from 'react-native'
 
 import { GettersVideosInfo } from '@/types'
-import axios from 'axios'
 
 import TemplateAddProduct from '@/components/templates/add-product'
 
 import api from '@/services'
 import { Getter } from '@/services/config/types'
 
-type Props = {
-  videos: Getter<GettersVideosInfo[]>
-}
-
-export default function AddVideo({ videos }: Props) {
-  const [data, setData] = React.useState()
+export default function AddVideo({ videos }) {
   const fetchApi = async () => {
-    const response = await axios.get('https://host.docker.internal:8000')
-    setData(response.data)
-  }
-
-  useEffect(() => {
-    fetchApi()
-  }, [data])
-
-  return (
-    <TemplateAddProduct>
-      <Text>{JSON.stringify(data)}</Text>
-    </TemplateAddProduct>
-  )
-}
-
-export const getServerSideProps = async (ctx) => {
-  const config = {
-    props: {
-      videos: [],
-    },
-  }
-
-  try {
     const { data } = await api.get<Getter<GettersVideosInfo[]>>('videos', {
       params: {
         artista: true,
@@ -51,15 +22,44 @@ export const getServerSideProps = async (ctx) => {
         nome_unico: false,
       },
     })
-    if (data.statusCode === 200) {
-      return {
-        props: {
-          videos: data.data,
-        },
-      }
-    }
-    return config
-  } catch (error) {
-    return config
+    setVideos(() => {
+      return data.statusCode === 200 ? data.data : []
+    })
+    return data
   }
+
+  return (
+    <TemplateAddProduct>
+      <Text>{JSON.stringify(videos)}</Text>
+    </TemplateAddProduct>
+  )
+}
+
+export const getServerSideProps = async (ctx) => {
+  const config = {
+    props: {
+      videos: [],
+    },
+  }
+
+  const { data } = await api.get<Getter<GettersVideosInfo[]>>('videos', {
+    params: {
+      artista: true,
+      titulo: true,
+      categoria_de_video: true,
+      cpf: true,
+      cnpj: true,
+      thumbnail: true,
+    },
+  })
+
+  if (data.statusCode === 200) {
+    return {
+      ...config,
+      props: {
+        videos: data.data,
+      },
+    }
+  }
+  return config
 }

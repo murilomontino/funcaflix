@@ -7,7 +7,6 @@ WORKDIR /home/node/app
 COPY package*.json .
 
 EXPOSE 3000
-EXPOSE 8000
 
 RUN yarn install
 

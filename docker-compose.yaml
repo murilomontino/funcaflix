@@ -1,4 +1,5 @@
 version: "3.3"
+
 services:
   app:
     build: .
@@ -11,5 +12,3 @@ services:
       - PORT=3000
     volumes:
       - .:/home/node/app
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
