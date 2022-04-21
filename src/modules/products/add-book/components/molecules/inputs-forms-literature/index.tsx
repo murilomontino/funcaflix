@@ -7,7 +7,7 @@ import InputTopic from '@/components/molecule/input-topic'
 
 import { useFormBook } from '@/forms/Product/product-book/hooks'
 
-import InputISBN from '../../atoms/input-isbn'
+import InputISBN from '../../../../../../components/molecule/input-isbn'
 
 const InputsFormsLiterature = () => {
   const {
@@ -43,17 +43,8 @@ const InputsFormsLiterature = () => {
         Detalhes
       </Text>
       <InputISBN />
-      <InputTopic
-        value={title}
-        onChangeText={onChangeTitle}
-        topic="Título"
-        requered
-      />
-      <InputTopic
-        value={subTitle}
-        onChangeText={onChangeSubTitle}
-        topic="Sub-Título"
-      />
+      <InputTopic value={title} onChangeText={onChangeTitle} topic="Título" requered />
+      <InputTopic value={subTitle} onChangeText={onChangeSubTitle} topic="Sub-Título" />
       <InputTextArea
         value={sinopse}
         requered

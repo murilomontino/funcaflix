@@ -1,26 +1,36 @@
-import React, { useEffect, useState } from 'react'
-import { ViewStyle, TextStyle, ImageStyle } from 'react-native'
-import { MaskedTextInputProps } from 'react-native-mask-text'
+import React, { useCallback, useState } from 'react'
+import { ViewStyle, TextStyle, ImageStyle, TextInputProps } from 'react-native'
 
-import Topic from '@/components/atom/topic'
+import InputTopic from '../input-topic'
+import { maskCNPJ, maskCEP, maskCPF, maskDate, maskCPFandCNPJ, maskISBN } from './mask'
 
-import { Container, MaskedInput } from './styles'
+type mask =
+  | 'cnpj'
+  | 'cpf'
+  | 'phone'
+  | 'cep'
+  | 'date'
+  | 'time'
+  | 'money'
+  | 'year'
+  | 'cpfandcnpj'
+  | 'isbn'
 
 type Props = {
   topic: string
   value: string
   requered?: boolean
-  maxWidthTitle?: number | string
-  width?: number | string
+  placeholder?: string
   maxLength?: number
-  styleViewContainer?: ViewStyle
-  styleViewInput?: TextStyle | ViewStyle | ImageStyle
-  styleTopic?: TextStyle
-  mask: string
+  nameIcon?: string
+  styleViewContainer?: ViewStyle | ViewStyle[]
+  styleViewInput?: TextStyle | ViewStyle | ImageStyle | ImageStyle[] | ViewStyle[] | TextStyle[]
+  styleTopic?: TextStyle | TextStyle[]
+  mask: mask
   textAlign?: 'left' | 'center' | 'right'
   type?: string
   onChangeText: (text: string, rawText: string) => void
-} & MaskedTextInputProps
+} & TextInputProps
 
 const InputTopicMasked = ({
   mask,
@@ -28,56 +38,58 @@ const InputTopicMasked = ({
   topic,
   value,
   requered = false,
-  maxLength,
   styleViewInput,
+  nameIcon,
   styleTopic,
   onChangeText,
   placeholder,
   textAlign = 'left',
-  width = '100%',
-  maxWidthTitle = 150,
+
   ...rest
 }: Props) => {
-  const [defaultValue] = useState(value)
+  const [text, setText] = useState(value)
 
-  useEffect(() => {
-    if (defaultValue) {
-      onChangeText(defaultValue, defaultValue)
+  const handleMask = (text: string) => {
+    switch (mask) {
+      case 'cnpj':
+        return maskCNPJ(text)
+      case 'cpf':
+        return maskCPF(text)
+      case 'cpfandcnpj':
+        return maskCPFandCNPJ(text)
+      case 'isbn':
+        return maskISBN(text)
+      case 'phone':
+        return text
+      case 'cep':
+        return maskCEP(text)
+      case 'date':
+        return maskDate(text)
+      default:
+        return text
     }
+  }
+
+  const handleTextMask = useCallback((text: string) => {
+    const masked = handleMask(text)
+    setText(masked)
+    onChangeText(masked, masked)
   }, [])
 
   return (
-    <Container
-      style={[
-        {
-          width: width,
-        },
-        styleViewContainer,
-      ]}
-    >
-      {!!topic && (
-        <Topic
-          topic={topic}
-          requered={requered}
-          style={styleTopic}
-          maxWidthTitle={maxWidthTitle}
-        />
-      )}
-      <MaskedInput
-        {...rest}
-        mask={mask}
-        value={value}
-        onChangeText={onChangeText}
-        placeholder={placeholder || topic}
-        maxLength={maxLength}
-        style={[
-          styleViewInput,
-          {
-            textAlign,
-          },
-        ]}
-      />
-    </Container>
+    <InputTopic
+      {...rest}
+      topic={topic}
+      requered={requered}
+      value={text}
+      nameIcon={nameIcon}
+      onChangeText={handleTextMask}
+      placeholder={placeholder}
+      styleViewContainer={styleViewContainer}
+      styleViewInput={[styleViewInput as unknown, { textAlign }]}
+      styleTopic={styleTopic}
+      keyboardType="numbers-and-punctuation"
+    />
   )
 }
 

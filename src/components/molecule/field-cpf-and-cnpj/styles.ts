@@ -1,12 +1,6 @@
 import theme from '@/theme'
 import styled from 'styled-components/native'
 
-import { MaskedInput as Input } from '../input-topic-masked/styles'
-
-export const MaskedInput = styled(Input)`
-  outline-style: none;
-`
-
 export const ContainerIcon = styled.View`
   background-color: ${theme.COLORS.WHITE};
   align-items: center;

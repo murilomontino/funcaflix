@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, createContext } from 'react'
 
-import { createContext, useContextSelector } from 'use-context-selector'
+import { useContextSelector } from 'use-context-selector'
 
 type SelectBooks = {
   book: string
   changeBook: (text: string) => void
 }
 
-const ContextBooks = createContext({} as SelectBooks)
+const ContextBooks = createContext<SelectBooks>({} as SelectBooks)
 
 const BooksProvider: React.FC = ({ children }) => {
   const [book, setBook] = useState('')
@@ -16,21 +16,14 @@ const BooksProvider: React.FC = ({ children }) => {
     setBook(text)
   }
 
-  return (
-    <ContextBooks.Provider value={{ book, changeBook }}>
-      {children}
-    </ContextBooks.Provider>
-  )
+  return <ContextBooks.Provider value={{ book, changeBook }}>{children}</ContextBooks.Provider>
 }
 
 export default BooksProvider
 
 export const useBooks = () => {
   const book = useContextSelector(ContextBooks, (state) => state.book)
-  const changeBook = useContextSelector(
-    ContextBooks,
-    (state) => state.changeBook
-  )
+  const changeBook = useContextSelector(ContextBooks, (state) => state.changeBook)
 
   return {
     book,

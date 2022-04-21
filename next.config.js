@@ -27,6 +27,9 @@ const nextConfig = ((phase) => {
   const _currentURL = isProduction ? process.env.API_URL : 'http://localhost:8000/api/'
 
   return {
+    typescript:{
+      ignoreBuildErrors: true,
+    },
     images:{
       disableStaticImages: true,
     },
@@ -42,7 +45,7 @@ const nextConfig = ((phase) => {
       }
     },
     distDir: '.next',
-    webpack5: true,
+    webpack5: false,
     
     // webpack configurado pra moti e react-reanimated v2
     env: {

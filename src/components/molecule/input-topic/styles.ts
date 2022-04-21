@@ -19,9 +19,20 @@ export const Input = styled.TextInput`
   font-weight: 500;
   padding: 8px;
   border-radius: 2px;
-  border-width: 0.2px;
+  border-width: 0.4px;
   border-color: ${theme.COLORS.BORDER_BUTTON};
-  outline-color: orange;
-  outline-width: 1px;
-  text-align: center;
+`
+
+export const ContainerIcon = styled.View`
+  background-color: ${theme.COLORS.WHITE};
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  border-left-width: 0px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  border-color: ${theme.COLORS.BORDER_BUTTON};
+  border-width: 0.4px;
+  border-left: 0;
+  padding-right: 4px;
 `

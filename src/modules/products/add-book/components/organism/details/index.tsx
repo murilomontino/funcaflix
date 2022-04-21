@@ -10,11 +10,7 @@ import { useFormBookData, useFormBookCPFandCNPJ } from '@/forms/Product/product-
 import InputsFormsLiterature from '../../molecules/inputs-forms-literature'
 import { Container } from './styles'
 
-import { useSize } from '@/hooks/utils/use-size'
-
 const Details = () => {
-  const { SCREEN_SMALLER_THAN_LARGE_SIZE } = useSize()
-
   const { culturalName, onChangeCulturalName, onChangePublishedDate, publishedDate } =
     useFormBookData()
 
@@ -48,7 +44,8 @@ const Details = () => {
         styleViewContainer={{
           width: '90%',
         }}
-        mask={'99/99/9999'}
+        maxLength={10}
+        mask={'date'}
       />
 
       <InputsFormsLiterature />

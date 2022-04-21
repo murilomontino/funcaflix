@@ -1,13 +1,11 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { StyleSheet, TextStyle, ViewStyle } from 'react-native'
-import { FontAwesome } from 'react-web-vector-icons'
 
 import { cpf, cnpj } from 'cpf-cnpj-validator'
 
 import HelperText from '@/components/atom/helper-text'
-import Topic from '@/components/atom/topic'
 
-import { MaskedInput, ContainerIcon, Container } from './styles'
+import InputTopicMasked from '../input-topic-masked'
 
 import colors from '@/global/colors'
 import useDebounce from '@/hooks/utils/use-debounce'
@@ -41,11 +39,11 @@ const FieldCPFandCNPJGeneric = ({
   // EFEITOS VISUAIS
 
   const [borderFocus, setBorderFocus] = useState(false)
-  const [defaultValue] = useState(value)
+  const [field, setField] = useState(value)
 
   useEffect(() => {
-    if (defaultValue) {
-      handleChangeCPFandCNPJ(defaultValue)
+    if (field) {
+      handleChangeCPFandCNPJ(field)
     }
     return () => {
       setBorderFocus(false)
@@ -53,7 +51,7 @@ const FieldCPFandCNPJGeneric = ({
   }, [])
 
   const toggleBorderFocus = () => {
-    setBorderFocus(!borderFocus)
+    setBorderFocus((state) => !state)
   }
 
   // VERIFICAÇÃO DE CPF
@@ -61,6 +59,7 @@ const FieldCPFandCNPJGeneric = ({
 
   const handleChangeCPFandCNPJ = (text: string) => {
     onChangeValue(text)
+    setField(text)
 
     debounce(() => {
       if (cpf.isValid(text) || cnpj.isValid(text)) {
@@ -72,23 +71,23 @@ const FieldCPFandCNPJGeneric = ({
   }
 
   const isValidMemo = useMemo(() => {
-    return (!isValid && value.length === 14) || (!isValid && value.length === 18)
-  }, [isValid, value])
+    return (!isValid && field.length === 14) || (!isValid && field.length === 18)
+  }, [isValid, field])
 
   const msgError = useMemo(() => {
-    if (value.length === 14 && 'CPF') {
+    if (field.length === 14 && 'CPF') {
       return 'CPF inválido, verifique se digitou corretamente'
-    } else if (value.length === 18 && 'CNPJ') {
+    } else if (field.length === 18 && 'CNPJ') {
       return 'CNPJ inválido, verifique se digitou corretamente'
     } else {
       return ''
     }
-  }, [value])
+  }, [field])
 
   const border = useMemo(() => {
     const borderWidth = borderFocus ? 2 : 1
 
-    if (value.length === 14 || value.length === 18) {
+    if (field.length === 14 || field.length === 18) {
       if (isValid) {
         return {
           borderWidth,
@@ -112,46 +111,32 @@ const FieldCPFandCNPJGeneric = ({
         borderColor: colors.grey20,
       }
     }
-  }, [isValid, borderFocus, value])
+  }, [isValid, borderFocus, field])
 
   return (
     <>
-      <Container style={[viewContainer, { maxWidth: '90%' }]}>
-        <Topic requered={requered} topic={topic} />
-        <MaskedInput
-          value={value}
-          defaultValue={defaultValue}
-          placeholder={topic}
-          onFocus={toggleBorderFocus}
-          onBlur={toggleBorderFocus}
-          style={[
-            viewInput,
-            {
-              ...border,
-              borderRightWidth: 0,
-              borderTopRightRadius: 0,
-              borderBottomRightRadius: 0,
-              textAlign,
-            },
-          ]}
-          mask={value.length < 14 ? '999.999.999-99' : '99.999.999/9999-99'}
-          onChangeText={handleChangeCPFandCNPJ}
-          keyboardType={'numeric'}
-        />
-        <ContainerIcon
-          style={[
-            {
-              ...border,
-            },
-          ]}
-        >
-          <FontAwesome
-            style={{ marginRight: 5, color: border.borderColor }}
-            name={isValid ? 'check' : 'close'}
-            size={14}
-          />
-        </ContainerIcon>
-      </Container>
+      <InputTopicMasked
+        value={field}
+        placeholder={topic}
+        topic={topic}
+        requered={requered}
+        onFocus={toggleBorderFocus}
+        onBlur={toggleBorderFocus}
+        nameIcon={isValid ? 'check' : 'close'}
+        maxLength={18}
+        styleViewContainer={viewContainer}
+        mask={'cpfandcnpj'}
+        onChangeText={handleChangeCPFandCNPJ}
+        styleViewInput={[
+          viewInput,
+          {
+            ...border,
+            borderTopRightRadius: 0,
+            borderBottomRightRadius: 0,
+            textAlign,
+          },
+        ]}
+      />
 
       <HelperText text={msgError} visible={isValidMemo} />
     </>

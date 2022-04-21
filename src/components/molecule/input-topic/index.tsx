@@ -1,26 +1,25 @@
-import React, {
-  MutableRefObject,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react'
+import React, { MutableRefObject, useCallback, useEffect, useMemo, useState } from 'react'
 import { ViewStyle, TextInputProps, ImageStyle, TextStyle } from 'react-native'
+import { FontAwesome } from 'react-web-vector-icons'
 
 import Topic from '@/components/atom/topic'
 
-import { Container, Input } from './styles'
+import { Container, Input, ContainerIcon } from './styles'
+
+import colors from '@/global/colors'
 
 type Props = {
   topic?: string
   value: string | MutableRefObject<string>
   requered?: boolean
+  nameIcon?: string
   maxWidthTitle?: number | string
   width?: number | string
   maxLength?: number
   stylesViewTitle?: ViewStyle | ViewStyle[]
-  styleViewContainer?: ViewStyle
-  styleViewInput?: TextStyle | ViewStyle | ImageStyle
-  styleTopic?: TextStyle
+  styleViewContainer?: ViewStyle | ViewStyle[]
+  styleViewInput?: TextStyle | ViewStyle | ImageStyle | ImageStyle[] | ViewStyle[] | TextStyle[]
+  styleTopic?: TextStyle | TextStyle[]
   textAlign?: 'left' | 'center' | 'right'
   onChangeText: (text: string) => void
 } & Omit<TextInputProps, 'value'>
@@ -30,6 +29,7 @@ export const InputTopic = ({
   topic,
   value,
   requered = false,
+  nameIcon,
   maxLength,
   styleViewInput,
   styleTopic,
@@ -37,8 +37,14 @@ export const InputTopic = ({
   placeholder,
   textAlign = 'left',
   maxWidthTitle = 150,
+  onFocus,
+  onBlur,
   ...rest
 }: Props) => {
+  const [borderFocus, setBorderFocus] = useState(false)
+  const toggleBorderFocus = () => {
+    setBorderFocus((state) => !state)
+  }
   const [valueText, setValueText] = useState<string>(() => {
     if (typeof value === 'string') {
       return value
@@ -60,18 +66,29 @@ export const InputTopic = ({
     onChangeText(text)
   }, [])
 
+  const border = useMemo(() => {
+    const borderWidth = borderFocus ? 2 : 1
+
+    if (borderFocus) {
+      return {
+        borderWidth,
+        borderColor: 'orange',
+      }
+    } else {
+      return {
+        borderWidth: 1,
+        borderColor: colors.grey20,
+      }
+    }
+  }, [borderFocus])
+
   const renderTopic = () => {
     if (!topic) {
       return null
     }
 
     return (
-      <Topic
-        topic={topic}
-        requered={requered}
-        style={styleTopic}
-        maxWidthTitle={maxWidthTitle}
-      />
+      <Topic topic={topic} requered={requered} style={styleTopic} maxWidthTitle={maxWidthTitle} />
     )
   }
 
@@ -80,17 +97,25 @@ export const InputTopic = ({
       {renderTopic()}
       <Input
         {...rest}
+        onFocus={onFocus || toggleBorderFocus}
+        onBlur={onBlur || toggleBorderFocus}
         placeholder={placeholder || topic}
         value={valueText}
         onChangeText={onChangeValueText}
         maxLength={maxLength}
         style={[
+          border,
           styleViewInput,
           {
             textAlign,
+            outline: 'none',
+            borderRightWidth: 0,
           },
         ]}
       />
+      <ContainerIcon style={[border, styleViewInput, { borderLeftWidth: 0 }]}>
+        <FontAwesome name={nameIcon} size={14} />
+      </ContainerIcon>
     </Container>
   )
 }

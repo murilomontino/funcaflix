@@ -22,9 +22,6 @@ export default function AddVideo({ videos }) {
         nome_unico: false,
       },
     })
-    setVideos(() => {
-      return data.statusCode === 200 ? data.data : []
-    })
     return data
   }
 

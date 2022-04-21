@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react'
-import { mask } from 'react-native-mask-text'
 
 import { GetterBooks } from '@/types'
 
-import Topic from '@/components/atom/topic'
+import InputTopicMasked from '@/components/molecule/input-topic-masked'
+import { maskDate } from '@/components/molecule/input-topic-masked/mask'
 
 import {
   useFormBookThumbnail,
@@ -15,8 +15,6 @@ import {
 import api from '@/services'
 import { Getter } from '@/services/config/types'
 
-import { Container, MaskedInput } from './styles'
-
 import useDebounce from '@/hooks/utils/use-debounce'
 
 interface Props {
@@ -26,13 +24,7 @@ interface Props {
 
 const InputISBN = ({ requered = true, textAlign = 'left' }: Props) => {
   // Hooks e Fields ---------------------------------------------------------------
-  const {
-    isbn,
-    onChangeISBN,
-    onChangeSinopse,
-    onChangeSubTitle,
-    onChangeTitle,
-  } = useFormBook()
+  const { isbn, onChangeISBN, onChangeSinopse, onChangeSubTitle, onChangeTitle } = useFormBook()
 
   const { onChangeNumberOfPages, onChangePublisher } = useFormBookContent()
   const { onChangePublishedDate, onChangeCulturalName } = useFormBookData()
@@ -45,7 +37,7 @@ const InputISBN = ({ requered = true, textAlign = 'left' }: Props) => {
   const publishedDateLocale = (publishedDate: string) => {
     if (publishedDate) {
       const date = new Date(publishedDate).toLocaleDateString()
-      return mask(date, '99/99/9999')
+      return maskDate(date)
     }
     return ''
   }
@@ -53,9 +45,7 @@ const InputISBN = ({ requered = true, textAlign = 'left' }: Props) => {
   // Função que faz a busca do livro na api do google books ------------------------
   const searchBook = useCallback(async (isbn: string) => {
     // Busca o livro no google books
-    const response = await api.get<Getter<GetterBooks>>(
-      `api-google-book/${isbn}`
-    )
+    const response = await api.get<Getter<GetterBooks>>(`api-google-book/${isbn}`)
 
     const { data } = response
 
@@ -94,9 +84,10 @@ const InputISBN = ({ requered = true, textAlign = 'left' }: Props) => {
     }
   }, [])
 
-  const onChangeSearch = (text: string, rawText: string) => {
+  const onChangeSearch = (text: string) => {
     onChangeISBN(text)
     debounce(async () => {
+      const rawText = text.replaceAll('-', '')
       if (rawText.length === 13) {
         await searchBook(rawText)
       }
@@ -104,17 +95,17 @@ const InputISBN = ({ requered = true, textAlign = 'left' }: Props) => {
   }
 
   return (
-    <Container style={{ width: '100%' }}>
-      <Topic topic="ISBN" requered />
-      <MaskedInput
-        value={isbn}
-        onChangeText={(text, rawText) => onChangeSearch(text, rawText)}
-        placeholder={'ISBN-13'}
-        keyboardType={'numeric'}
-        mask={'999-9999999999'}
-        style={{ textAlign }}
-      />
-    </Container>
+    <InputTopicMasked
+      value={isbn}
+      onChangeText={onChangeSearch}
+      placeholder={'ISBN-13'}
+      topic={'ISBN-13'}
+      requered={requered}
+      maxLength={14}
+      mask={'isbn'}
+      keyboardType={'numeric'}
+      style={{ textAlign }}
+    />
   )
 }
 

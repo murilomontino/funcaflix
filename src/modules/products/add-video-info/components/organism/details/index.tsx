@@ -48,6 +48,7 @@ const Details = () => {
         height={180}
         width={320}
       />
+
       <View
         style={{
           zIndex: 50,
@@ -67,6 +68,7 @@ const Details = () => {
           onChangeSelect={onChangeCategoryVideo}
         />
       </View>
+
       <Important>* Campos Obrigatórios</Important>
       <FieldCPFandCNPJGeneric
         isValid={cpfOrCnpjIsValid}
@@ -78,6 +80,7 @@ const Details = () => {
           width: '70%',
         }}
       />
+
       <InputTopic
         topic="Nome Cultural"
         requered

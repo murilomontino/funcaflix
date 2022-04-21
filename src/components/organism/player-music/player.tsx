@@ -1,9 +1,8 @@
 import React from 'react'
 import { StyleSheet, TouchableOpacity, View, Image, Text } from 'react-native'
+import { Ionicons } from 'react-web-vector-icons'
 
 import { Audio } from 'expo-av'
-
-import { Ionicons } from '@expo/vector-icons'
 
 const audioBookPlaylist = [
   {
@@ -11,40 +10,35 @@ const audioBookPlaylist = [
     author: 'William Shakespeare',
     source: 'Librivox',
     uri: 'https://ia800204.us.archive.org/11/items/hamlet_0911_librivox/hamlet_act1_shakespeare.mp3',
-    imageSource:
-      'http://www.archive.org/download/LibrivoxCdCoverArt8/hamlet_1104.jpg',
+    imageSource: 'http://www.archive.org/download/LibrivoxCdCoverArt8/hamlet_1104.jpg',
   },
   {
     title: 'Hamlet - Act II',
     author: 'William Shakespeare',
     source: 'Librivox',
     uri: 'https://ia600204.us.archive.org/11/items/hamlet_0911_librivox/hamlet_act2_shakespeare.mp3',
-    imageSource:
-      'http://www.archive.org/download/LibrivoxCdCoverArt8/hamlet_1104.jpg',
+    imageSource: 'http://www.archive.org/download/LibrivoxCdCoverArt8/hamlet_1104.jpg',
   },
   {
     title: 'Hamlet - Act III',
     author: 'William Shakespeare',
     source: 'Librivox',
     uri: 'http://www.archive.org/download/hamlet_0911_librivox/hamlet_act3_shakespeare.mp3',
-    imageSource:
-      'http://www.archive.org/download/LibrivoxCdCoverArt8/hamlet_1104.jpg',
+    imageSource: 'http://www.archive.org/download/LibrivoxCdCoverArt8/hamlet_1104.jpg',
   },
   {
     title: 'Hamlet - Act IV',
     author: 'William Shakespeare',
     source: 'Librivox',
     uri: 'https://ia800204.us.archive.org/11/items/hamlet_0911_librivox/hamlet_act4_shakespeare.mp3',
-    imageSource:
-      'http://www.archive.org/download/LibrivoxCdCoverArt8/hamlet_1104.jpg',
+    imageSource: 'http://www.archive.org/download/LibrivoxCdCoverArt8/hamlet_1104.jpg',
   },
   {
     title: 'Hamlet - Act V',
     author: 'William Shakespeare',
     source: 'Librivox',
     uri: 'https://ia600204.us.archive.org/11/items/hamlet_0911_librivox/hamlet_act5_shakespeare.mp3',
-    imageSource:
-      'http://www.archive.org/download/LibrivoxCdCoverArt8/hamlet_1104.jpg',
+    imageSource: 'http://www.archive.org/download/LibrivoxCdCoverArt8/hamlet_1104.jpg',
   },
 ]
 
@@ -107,9 +101,7 @@ export default class App extends React.Component {
 
   handlePlayPause = async () => {
     const { isPlaying, playbackInstance } = this.state
-    isPlaying
-      ? await playbackInstance.pauseAsync()
-      : await playbackInstance.playAsync()
+    isPlaying ? await playbackInstance.pauseAsync() : await playbackInstance.playAsync()
 
     this.setState({
       isPlaying: !isPlaying,
@@ -121,8 +113,7 @@ export default class App extends React.Component {
     if (playbackInstance) {
       await playbackInstance.unloadAsync()
       this.setState({
-        currentIndex:
-          currentIndex === 0 ? audioBookPlaylist.length - 1 : currentIndex - 1,
+        currentIndex: currentIndex === 0 ? audioBookPlaylist.length - 1 : currentIndex - 1,
       })
       this.loadAudio()
     }
@@ -133,10 +124,7 @@ export default class App extends React.Component {
     if (playbackInstance) {
       await playbackInstance.unloadAsync()
       this.setState({
-        currentIndex:
-          currentIndex + 1 > audioBookPlaylist.length - 1
-            ? 0
-            : currentIndex + 1,
+        currentIndex: currentIndex + 1 > audioBookPlaylist.length - 1 ? 0 : currentIndex + 1,
       })
       this.loadAudio()
     }
@@ -169,26 +157,17 @@ export default class App extends React.Component {
           }}
         />
         <View style={styles.controls}>
-          <TouchableOpacity
-            style={styles.control}
-            onPress={this.handlePreviousTrack}
-          >
+          <TouchableOpacity style={styles.control} onPress={this.handlePreviousTrack}>
             <Ionicons name="ios-play-skip-back" size={48} color="#444" />
           </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.control}
-            onPress={this.handlePlayPause}
-          >
+          <TouchableOpacity style={styles.control} onPress={this.handlePlayPause}>
             {this.state.isPlaying ? (
               <Ionicons name="ios-pause" size={48} color="#444" />
             ) : (
               <Ionicons name="ios-play-circle" size={48} color="#444" />
             )}
           </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.control}
-            onPress={this.handleNextTrack}
-          >
+          <TouchableOpacity style={styles.control} onPress={this.handleNextTrack}>
             <Ionicons name="ios-play-skip-forward" size={48} color="#444" />
           </TouchableOpacity>
         </View>

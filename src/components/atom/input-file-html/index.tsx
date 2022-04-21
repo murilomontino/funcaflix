@@ -28,7 +28,8 @@ const InputFileHTML = ({ onChange, mimeType }: Props) => {
         name="arquivo"
         id="arquivo"
         onChange={onChangeFile}
-        accept={mimeType}
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        accept={mimeType as any}
       />
     </div>
   )
