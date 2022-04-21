@@ -45,8 +45,7 @@ const nextConfig = ((phase) => {
       }
     },
     distDir: '.next',
-    webpack5: false,
-    
+    webpack5: true,
     // webpack configurado pra moti e react-reanimated v2
     env: {
       API_KEY: process.env.API_KEY,

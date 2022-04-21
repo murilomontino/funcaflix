@@ -18,7 +18,7 @@ export default function Livros({ books }) {
   )
 }
 
-export const getServerSideProps = async (ctx) => {
+export const getStaticProps = async (ctx) => {
   const config = {
     props: {
       books: [],

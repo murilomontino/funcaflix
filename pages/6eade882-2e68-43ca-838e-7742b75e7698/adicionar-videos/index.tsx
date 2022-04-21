@@ -32,7 +32,7 @@ export default function AddVideo({ videos }) {
   )
 }
 
-export const getServerSideProps = async (ctx) => {
+export const getStaticProps = async (ctx) => {
   const config = {
     props: {
       videos: [],
