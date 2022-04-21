@@ -12,6 +12,7 @@
     "expo-font": "~10.0.4",
     "expo-status-bar": "~1.0.4",
     "moment": "^2.29.1",
+    "moti": "^0.17.1",
     "next": "^11.1.4",
     "next-fonts": "^1.5.1",
     "next-images": "^1.8.4",
@@ -22,7 +23,6 @@
     "react-drag-drop-files": "^2.3.4",
     "react-loading-skeleton": "^3.0.3",
     "react-native": "0.64.3",
-    "react-native-mask-text": "^0.4.0",
     "react-native-reanimated": "^2.3.0",
     "react-native-responsive-fontsize": "^0.5.1",
     "react-native-web": "0.17.1",
@@ -40,8 +40,7 @@
     "@babel/plugin-proposal-class-properties": "^7.16.7",
     "@babel/plugin-proposal-private-methods": "^7.16.11",
     "@babel/preset-typescript": "^7.16.7",
-    "@expo/next-adapter": "^3.1.21",
-    "@expo/webpack-config": "^0.16.6",
+    "@expo/next-adapter": "^4.0.0",
     "@faker-js/faker": "^6.0.0-beta.0",
     "@types/react": "~17.0.38",
     "@types/react-dom": "~17.0.11",
@@ -59,7 +58,7 @@
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-unused-imports": "^2.0.0",
     "next-compose-plugins": "^2.2.1",
-    "next-transpile-modules": "^7.0.0",
+    "next-transpile-modules": "^9.0.0",
     "prettier": "^2.5.1",
     "typescript": "~4.5.5"
   },
@@ -74,8 +73,5 @@
   },
   "version": "1.0.0",
   "private": true,
-  "name": "funcap.funcapflix-next",
-  "resolutions": {
-    "resolve": "1.20.0"
-  }
+  "name": "funcap.funcapflix-next"
 }

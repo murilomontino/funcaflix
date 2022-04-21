@@ -11,8 +11,11 @@ const {
 const withPlugins = require('next-compose-plugins')
 const withFonts = require('next-fonts')
 const withImages = require('next-images')
-
-
+const withTM = require('next-transpile-modules')([
+  'moti',
+  '@motify/core',
+  '@motify/components'
+])
 /**
  * @type {import('next').NextConfig}
  */
@@ -21,14 +24,16 @@ const nextConfig = ((phase) => {
   const isProduction = phase === 'production'
   const isDevelopment = phase === 'development'
 
-  const _currentURL = isProduction ? process.env.API_URL : 'http://host.docker.internal:8000/api/'
+  const _currentURL = isProduction ? process.env.API_URL : 'http://localhost:8000/api/'
 
   return {
+    images:{
+      disableStaticImages: true,
+    },
     httpAgentOptions: new (require('https').Agent)({
       rejectUnauthorized: false
     }),
     dynamicAssetPrefix: true,
-    projectRoot: __dirname,
     generateBuildId: async () => {
       if (process.env.BUILD_ID) {
         return process.env.BUILD_ID
@@ -37,17 +42,9 @@ const nextConfig = ((phase) => {
       }
     },
     distDir: '.next',
+    webpack5: true,
+    
     // webpack configurado pra moti e react-reanimated v2
-    webpack: (config, other) => {
-      return {
-        ...config,
-        node: {
-          Buffer: false,
-          process: false,
-        },
-      }
-    },
-    webpack5: false,
     env: {
       API_KEY: process.env.API_KEY,
       _currentURL
@@ -55,6 +52,18 @@ const nextConfig = ((phase) => {
   }
 })(process.env.NODE_ENV)
 
-const config = withPlugins([withFonts, withImages, withExpo], nextConfig)
+const config = withPlugins(
+  [
+    withTM,
+    withFonts, 
+    withImages, 
+    [
+      withExpo, 
+      {
+        projectRoot: __dirname,
+      }
+    ]
+  ], 
+  nextConfig)
 
 module.exports = config

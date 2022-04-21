@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
+import React from 'react'
+
 import '../styles/globals.css'
 import '../styles/date-picker.css'
 

@@ -1,13 +1,14 @@
 // @generated: @expo/next-adapter@2.1.52
 // Learn more: https://docs.expo.dev/guides/using-nextjs/
 
-module.exports = {
+module.exports = (api) =>{ 
+  api.cache(true)
+  return {
     presets: ['@expo/next-adapter/babel'],
     plugins: [
       "@babel/plugin-transform-modules-commonjs",
       "@babel/plugin-proposal-class-properties",
       "@babel/plugin-proposal-private-methods",
-      'react-native-reanimated/plugin',
       [
         'module-resolver',
         {
@@ -33,3 +34,4 @@ module.exports = {
       ],
     ],
   };
+}
