@@ -163,3 +163,21 @@ div::-webkit-scrollbar-track {
   padding: 24px;
   margin-right: 24px;
 }
+
+/* CSS padrão de HTML */
+html {
+  font-family: sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: #13181c;
+}
+
