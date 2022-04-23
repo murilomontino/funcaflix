@@ -1,11 +1,5 @@
 import React from 'react'
-import {
-  TouchableOpacityProps,
-  TextProps,
-  StyleProp,
-  ViewStyle,
-  TextStyle,
-} from 'react-native'
+import { TouchableOpacityProps, TextProps, StyleProp, ViewStyle, TextStyle } from 'react-native'
 
 import { Container, Text } from './styles'
 
@@ -14,8 +8,8 @@ import colors from '@/global/colors'
 interface Props extends TouchableOpacityProps {
   textProps?: TextProps
   text: string
-  style?: StyleProp<ViewStyle>
-  textStyle?: StyleProp<TextStyle>
+  style?: StyleProp<ViewStyle> | StyleProp<ViewStyle>[]
+  textStyle?: StyleProp<TextStyle> | StyleProp<TextStyle>[]
   selectable?: boolean
   selected?: boolean
   color?: string
