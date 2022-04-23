@@ -30,10 +30,15 @@ export default {
     BACKGROUND: '#666666',
     BACKGROUND_FRONTEND: '#13181c',
     BACKGROUND_INPUT: '#d9d9d9',
-    BACKGROUND_FOOTER: 'rgba(18, 65, 95, 1)',
+    BACKGROUND_FOOTER: '#12415f',
+    BACKGROUND_TITLE: '#12415f19',
     BAR_HEADER: '#1b2f3d',
     BORDER_LIGHT: '#d9d9d9',
     SKELETON: '#d9d9d9',
+    TARGET_TITLE: {
+      _30: '#12415f4c',
+      _50: '#12415f7f',
+    },
   },
   FONTS: {
     SIZE: {
