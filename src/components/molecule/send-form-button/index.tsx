@@ -55,7 +55,14 @@ function SendFormExhibitionButton<T>({ onSubmit, reset, validated, title }: Prop
         alignItems: 'center',
       }}
     >
-      <Button disabled={!validated} onPress={handleSubmit} text={title} />
+      <Button
+        style={{
+          minWidth: 100,
+        }}
+        disabled={!validated}
+        onPress={handleSubmit}
+        text={title}
+      />
     </View>
   )
 }
