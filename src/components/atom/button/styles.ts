@@ -2,7 +2,6 @@ import theme from '@/theme'
 import styled from 'styled-components/native'
 
 export const Container = styled.TouchableOpacity`
-  min-width: 30vh;
   height: 50px;
   max-width: 60vh;
   margin: 8px;
