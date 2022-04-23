@@ -1,15 +1,23 @@
-import React, { useRef } from 'react'
-import { TouchableHighlight, View } from 'react-native'
+import React, { useRef, useMemo } from 'react'
+import { TouchableHighlight, View, Platform } from 'react-native'
 import { useHover } from 'react-native-web-hooks'
 
 import { MotiView } from 'moti'
 
+import ButtonsCard from '@/components/atom/buttons-card/buttons-card'
+import DescriptionMovie from '@/components/atom/description-movie'
 import ThumbnailImage from '@/components/atom/thumbnail-image'
+
+import { ContainerDescription, ContainerButtons, ContainerAnimated } from './styles'
 
 import colors from '@/global/colors'
 
 type Props = {
   index: number
+  card: {
+    width: number
+    height: number
+  }
   item: {
     id: number
     title: string
@@ -21,42 +29,35 @@ type Props = {
   image: string
 }
 
-const ThumbnailCard = ({ item, width, height, image, index }: Props) => {
+const TIME_ANIMATION = 100
+const DELAY = 100
+const SCALE = 0.9
+const BORDER_WIDTH = 2
+const BORDER_RADIUS = 4
+
+const ThumbnailCard = ({ item, width, height, image, index, card }: Props) => {
+  const web = Platform.OS === 'web'
+
   const ref = useRef()
   const hovered = useHover(ref)
 
-  const BORDER_RADIUS = 4
-  const CARD_HEIGHT = height * 2
-  const CARD_WIDTH = 320
-  const TIME_ANIMATION = 100
-  const DELAY = 0
-  const SCALE = 0.9
-  const BORDER_WIDTH = 2
+  const CARD_HEIGHT = card.height
+  const CARD_WIDTH = card.width
+
+  const animated = useMemo(() => hovered && web, [hovered, web])
 
   return (
-    <MotiView
+    <ContainerAnimated
       ref={ref}
       key={index}
       animate={{
-        scale: hovered ? 1.1 : SCALE,
-        width: hovered ? CARD_WIDTH : width,
-        height: hovered ? CARD_HEIGHT : height,
+        scale: animated ? 1.1 : SCALE,
+        width: animated ? CARD_WIDTH : width,
+        height: animated ? CARD_HEIGHT : height,
       }}
       transition={{ type: 'timing', delay: DELAY, duration: TIME_ANIMATION }}
       style={[
-        {
-          marginHorizontal: -12,
-          margin: 2,
-          elevation: 10,
-          shadowColor: '#000',
-          shadowOffset: {
-            width: 1,
-            height: 1,
-          },
-          backgroundColor: colors.card_background,
-          borderRadius: 8,
-        },
-        hovered && {
+        animated && {
           borderWidth: BORDER_WIDTH,
           borderRadius: BORDER_RADIUS,
           borderColor: colors.button,
@@ -69,28 +70,32 @@ const ThumbnailCard = ({ item, width, height, image, index }: Props) => {
             <ThumbnailImage
               height={height}
               width={width}
-              title={'Teste'}
-              image={'/images/spiderman.jpg'}
+              title={item.title}
+              image={image}
               hover={hovered}
               maxWidth={CARD_WIDTH}
               borderRadius={BORDER_RADIUS}
-              key={'image'}
+              key={item.id}
             />
           </View>
-          {hovered && (
+          {animated && (
             <MotiView
               from={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ type: 'timing', duration: TIME_ANIMATION }}
               style={{ flex: 1 }}
             >
-              {/*   <DescriptionMovie description={item.description} />
-            <ButtonsCard /> */}
+              <ContainerDescription>
+                <DescriptionMovie description={item.description} />
+              </ContainerDescription>
+              <ContainerButtons>
+                <ButtonsCard />
+              </ContainerButtons>
             </MotiView>
           )}
         </>
       </TouchableHighlight>
-    </MotiView>
+    </ContainerAnimated>
   )
 }
 
