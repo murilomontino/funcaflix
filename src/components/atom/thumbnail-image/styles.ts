@@ -5,10 +5,11 @@ import { MotiText } from 'moti'
 import styled from 'styled-components/native'
 
 export const ContainerImageBackground = styled(ImageBackground)`
+  flex: 1;
   justify-content: center;
   align-items: center;
-  background-size: auto;
-  background-repeat: no-repeat;
+  align-self: center;
+  background-size: cover;
 `
 
 export const ContainerLogo = styled.View`
@@ -23,5 +24,8 @@ export const Title = styled(MotiText)`
   z-index: 5;
   text-align: center;
   padding: 0.7rem;
+  font-size: 1.5vw;
   font-family: ${theme.FONTS.TITLE_BOLD};
+  text-shadow: 1px 1px 2px black;
+  text-transform: uppercase;
 `
