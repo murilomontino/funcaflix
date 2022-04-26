@@ -1,15 +1,16 @@
-import { ImageBackground } from 'react-native'
-
 import theme from '@/theme'
 import { MotiText } from 'moti'
 import styled from 'styled-components/native'
 
-export const ContainerImageBackground = styled(ImageBackground)`
+export const ContainerImageBackground = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
   align-self: center;
   background-size: cover;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  border-radius: 50px;
 `
 
 export const ContainerLogo = styled.View`
@@ -28,4 +29,5 @@ export const Title = styled(MotiText)`
   font-family: ${theme.FONTS.TITLE_BOLD};
   text-shadow: 1px 1px 2px black;
   text-transform: uppercase;
+  justify-self: center;
 `

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Image } from 'react-native'
 
 import theme from '@/theme'
 
@@ -8,48 +9,49 @@ import { ContainerLogo, Title, ContainerImageBackground } from './styles'
 
 type Props = {
   image: string
-  width: number
-  height: number
   hover: boolean
-  maxWidth: number
-  maxHeight?: number
-  borderRadius?: number
+  maxHeight?: number | string
   title: string
 }
 
-const ThumbnailImage = ({
-  height,
-  hover,
-  image,
-  maxHeight,
-  maxWidth,
-  title,
-  width,
-  borderRadius,
-}: Props) => {
-  const heightHover = (maxHeight ?? height) - 8
-  const widthHover = maxWidth - 8
-
+const ThumbnailImage = ({ hover, image, maxHeight, title }: Props) => {
   return (
     <ContainerImageBackground
-      source={{ uri: image }}
       resizeMode="stretch"
       style={[
+        {
+          width: '100%',
+          height: '100%',
+        },
         hover
           ? {
-              height: heightHover,
-              width: widthHover,
+              height: maxHeight,
               borderTopLeftRadius: 8,
               borderTopRightRadius: 8,
             }
           : {
-              borderRadius: borderRadius ?? 0,
-              height: height,
-              width: width,
+              borderRadius: 1,
             },
       ]}
     >
       <>
+        <Image
+          source={{ uri: image }}
+          style={[
+            {
+              borderRadius: 4,
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+            },
+            hover && {
+              borderBottomLeftRadius: 0,
+              borderBottomRightRadius: 0,
+            },
+          ]}
+        />
         <ContainerLogo>
           <Logo size={hover ? 2 : 1} />
         </ContainerLogo>

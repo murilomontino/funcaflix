@@ -28,9 +28,7 @@ const ScrollProvider: React.FC = ({ children }) => {
         backgroundColor: '#141414',
       }}
     >
-      <ContextScroll.Provider value={{ refScroll, scrollTop }}>
-        {children}
-      </ContextScroll.Provider>
+      <ContextScroll.Provider value={{ refScroll, scrollTop }}>{children}</ContextScroll.Provider>
     </ScrollView>
   )
 }
@@ -38,14 +36,8 @@ const ScrollProvider: React.FC = ({ children }) => {
 export default ScrollProvider
 
 export const useScroll = () => {
-  const refScroll = useContextSelector(
-    ContextScroll,
-    (state) => state.refScroll
-  )
-  const scrollTop = useContextSelector(
-    ContextScroll,
-    (state) => state.scrollTop
-  )
+  const refScroll = useContextSelector(ContextScroll, (state) => state.refScroll)
+  const scrollTop = useContextSelector(ContextScroll, (state) => state.scrollTop)
 
   return {
     refScroll,

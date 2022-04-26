@@ -1,7 +1,17 @@
 import theme from '@/theme'
-import styled from 'styled-components'
+import { MotiView } from 'moti'
+import styledWeb from 'styled-components'
+import styled from 'styled-components/native'
 
-export const BarHeader = styled.div`
+export const Container = styled(MotiView)`
+  flex: 1;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+`
+
+export const BarHeader = styledWeb.div`
   display: flex;
   position: fixed;
   top: 0;
@@ -15,5 +25,12 @@ export const BarHeader = styled.div`
   transition: 0.5s ease-in;
   :hover {
     background-color: ${theme.COLORS.BAR_HEADER};
+    
   }
+`
+
+export const ContainerRow = styled.View`
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
 `

@@ -2,8 +2,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 import React from 'react'
 
-import '../styles/globals.css'
-import '../styles/date-picker.css'
+import '../styles/_styles.scss'
 
 import 'raf/polyfill'
 import 'setimmediate'
