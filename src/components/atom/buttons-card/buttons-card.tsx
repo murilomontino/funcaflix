@@ -1,13 +1,28 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
 
+import theme from '@/theme'
+
 import Button from '@/components/atom/button'
 
 import { Container } from './styles'
 
-const ButtonsCard = () => {
+type Props = {
+  animated?: boolean
+}
+
+const ButtonsCard = ({ animated }: Props) => {
   return (
-    <Container>
+    <Container
+      animate={{
+        opacity: animated ? 1 : 0,
+      }}
+      transition={{
+        type: 'timing',
+        delay: theme.EFFECT.DELAY + 100,
+        duration: theme.EFFECT.DURATION,
+      }}
+    >
       <Button text="Assistir" disabled={false} style={[styles.button]} textStyle={[styles.text]} />
       <Button text="Ver Mais" disabled={false} style={[styles.button]} textStyle={[styles.text]} />
     </Container>

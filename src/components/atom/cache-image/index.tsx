@@ -1,5 +1,8 @@
 import React, { useEffect, useState, memo } from 'react'
-import { Image, ImageStyle, StyleProp } from 'react-native'
+import { ImageStyle, StyleProp } from 'react-native'
+
+import theme from '@/theme'
+import { MotiImage, MotiProps } from 'moti'
 
 import api from '@/services'
 
@@ -13,10 +16,10 @@ type Props = {
   id?: string
   height?: number | string
   width?: number | string
-  resizeMode?: 'cover' | 'contain' | 'stretch' | 'repeat' | 'center'
+  resizeMode?: 'contain' | 'cover' | 'stretch' | 'repeat' | 'center'
   imageStyle?: StyleProp<ImageStyle>
   uri?: string
-}
+} & MotiProps
 
 const CacheImage = ({
   capa,
@@ -27,6 +30,7 @@ const CacheImage = ({
   width = 150,
   resizeMode = 'contain',
   imageStyle,
+  ...rest
 }: Props) => {
   const [img, setImg] = useState('')
 
@@ -76,15 +80,21 @@ const CacheImage = ({
   }
 
   return (
-    <Image
+    <MotiImage
+      {...rest}
       style={[
         {
           width,
-          resizeMode,
           height,
         },
         imageStyle,
       ]}
+      resizeMode={resizeMode}
+      transition={{
+        type: 'timing',
+        delay: theme.EFFECT.DELAY,
+        duration: theme.EFFECT.DURATION,
+      }}
       defaultSource={NotCapa}
       source={{
         uri: img,

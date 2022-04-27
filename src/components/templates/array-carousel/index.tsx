@@ -14,13 +14,17 @@ const ArrayCarousel = () => {
       key={item.toString()}
       style={{
         display: 'flex',
-        marginTop: -120,
+        marginTop: index === 0 ? 0 : -170,
         flex: 1,
         zIndex: selected === index ? 99 : 'auto',
         width: '100%',
       }}
     >
-      <Carousel onChangeCurrent={onChangeSelected} currentIndex={index} />
+      <Carousel
+        onChangeCurrent={onChangeSelected}
+        currentIndex={index}
+        title={(index + 1).toString()}
+      />
     </div>
   ))
 }

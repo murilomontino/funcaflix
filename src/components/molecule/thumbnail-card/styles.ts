@@ -4,7 +4,7 @@ import styledWeb from 'styled-components'
 import styled from 'styled-components/native'
 
 export const ContainerDescription = styledWeb.div`
-display: flex;
+  display: flex;
   flex: 2;
 
   @media (max-width: ${theme.CONSTANTS.SCREEN.MEDIUM}px) {
@@ -20,8 +20,12 @@ export const ContainerButtons = styled.View`
 `
 
 export const ContainerAnimated = styled(MotiView)`
-  margin-inline: -12px;
+  margin-inline: -16px;
+  justify-content: center;
+  align-items: center;
+`
+
+export const ContainerMoti = styled.View`
   background-color: ${theme.COLORS.THUMBNAIL_CARD_BACKGROUND};
-  border-radius: 8px;
-  box-shadow: 10px 5px 5px black;
+  border-radius: 2px;
 `

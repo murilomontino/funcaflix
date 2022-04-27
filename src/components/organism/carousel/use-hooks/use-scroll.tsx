@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ScrollView, useWindowDimensions } from 'react-native'
 
 import theme from '@/theme'
@@ -19,30 +19,49 @@ type Props = {
 
 const useScroll = ({ carousel, MARGIN_LEFT, length }: Props) => {
   if (!carousel) return null
-
-  const [positionCurrent, setPositionCurrent] = useState(0)
-
-  const [MAX_LAYERS, setMAX_LAYERS] = useState(0)
-
   const { width } = useWindowDimensions()
 
-  const ITEMS_POR_PAGE = useMemo(() => {
+  const [WIDTH_ITEM, setWIDTH_ITEM] = useState(0)
+  const [positionCurrent, setPositionCurrent] = useState(0)
+  const [MAX_LAYERS, setMAX_LAYERS] = useState(0)
+  const [SCROLL_TO_FOR_WIDTH_ITEM, setSCROLL_TO_FOR_WIDTH_ITEM] = useState(0)
+  const [VISIBLE_LEFT, setVISIBLE_LEFT] = useState(true)
+  const [VISIBLE_RIGHT, setVISIBLE_RIGHT] = useState(true)
+  const [ITEMS_POR_PAGE, setITEMS_POR_PAGE] = useState(5)
+
+  const calculateItemsPorPage = () => {
     if (width <= theme.CONSTANTS.SCREEN.TINY) {
-      return 1
+      return 1.5
     } else if (width <= theme.CONSTANTS.SCREEN.SMALL) {
-      return 2
-    } else if (width <= theme.CONSTANTS.SCREEN.MEDIUM) {
       return 3
-    } else if (width <= theme.CONSTANTS.SCREEN.LARGE) {
+    } else if (width <= theme.CONSTANTS.SCREEN.MEDIUM) {
       return 4
     }
 
     return 5 // default
+  }
+
+  useEffect(() => {
+    setITEMS_POR_PAGE(calculateItemsPorPage())
   }, [width])
 
-  const NUMBER_IN_PX_MARGIN_LEFT = (parseInt(MARGIN_LEFT.replace('vw', '')) * width) / 100
-  const SCROLL_TO_FOR_WIDTH_ITEM = carousel.current?.clientWidth
-  const WIDTH_ITEM = carousel.current?.clientWidth / ITEMS_POR_PAGE
+  useEffect(() => {
+    setWIDTH_ITEM(carousel.current?.clientWidth / ITEMS_POR_PAGE)
+  }, [carousel.current?.clientWidth, ITEMS_POR_PAGE])
+
+  useEffect(() => {
+    setSCROLL_TO_FOR_WIDTH_ITEM(carousel.current?.clientWidth)
+  }, [carousel.current?.clientWidth])
+
+  useEffect(() => {
+    const visible = carousel.current?.scrollLeft < carousel.current?.scrollLeftMax
+    setVISIBLE_RIGHT(visible)
+  }, [carousel.current?.scrollLeft, carousel.current?.scrollLeftMax])
+
+  useEffect(() => {
+    const visible = carousel.current?.scrollLeft > 0
+    setVISIBLE_LEFT(visible)
+  }, [carousel.current?.scrollLeft])
 
   const nextPage = () => {
     const next = carousel.current.scrollLeft + SCROLL_TO_FOR_WIDTH_ITEM
@@ -75,9 +94,6 @@ const useScroll = ({ carousel, MARGIN_LEFT, length }: Props) => {
       })
     }
   }
-
-  const VISIBLE_RIGHT = carousel.current?.scrollLeft < carousel.current?.scrollLeftMax
-  const VISIBLE_LEFT = carousel.current?.scrollLeft > NUMBER_IN_PX_MARGIN_LEFT
 
   return {
     WIDTH_ITEM,

@@ -1,23 +1,24 @@
 import React, { useRef, useMemo } from 'react'
-import { TouchableHighlight, View, Platform } from 'react-native'
+import { Platform, TouchableHighlight } from 'react-native'
 import { useHover } from 'react-native-web-hooks'
 
 import theme from '@/theme'
-import { MotiView } from 'moti'
+import { AnimatePresence, MotiView } from 'moti'
 
 import ButtonsCard from '@/components/atom/buttons-card/buttons-card'
 import DescriptionMovie from '@/components/atom/description-movie'
 import ThumbnailImage from '@/components/atom/thumbnail-image'
 
-import { ContainerDescription, ContainerButtons, ContainerAnimated } from './styles'
+import { ContainerAnimated, ContainerButtons, ContainerDescription } from './styles'
 
-import colors from '@/global/colors'
 import { useSize } from '@/hooks/utils/use-size'
 
 type Props = {
   index: number
+  isAnimated?: boolean
+  isBoxDescription?: boolean
   item: {
-    id: number
+    id: string | number
     title: string
     thumbnail: string
     description: string
@@ -26,74 +27,126 @@ type Props = {
   image: string
 }
 
-const TIME_ANIMATION = 500
-const DELAY = 100
 const SCALE = 0.85
-const BORDER_WIDTH = 2
-const BORDER_RADIUS = 4
 
-const ThumbnailCard = ({ item, width, image, index }: Props) => {
+const ThumbnailCard = ({
+  item,
+  width,
+  image,
+  index,
+  isAnimated = true,
+  isBoxDescription = true,
+}: Props) => {
   const web = Platform.OS === 'web'
 
   const HEIGHT_ITEM = theme.CONSTANTS.HEIGHT_ITEM_THUMBNAIL // vw
-  const HEIGHT_CARD = parseInt(theme.CONSTANTS.HEIGHT_ITEM_THUMBNAIL.replace('vw', '')) * 2 // vw
 
   const ref = useRef()
   const hovered = useHover(ref)
   const { size } = useSize()
-  const CARD_WIDTH = width + 35
 
-  const animated = useMemo(() => {
+  const { HEIGHT_CARD } = useMemo(() => {
+    const VW = parseInt(theme.CONSTANTS.HEIGHT_ITEM_THUMBNAIL.replace('vw', ''))
+
+    if (!isBoxDescription) {
+      const HEIGHT_CARD = VW * 1.2 // vw
+
+      return {
+        HEIGHT_CARD,
+      }
+    }
+    const HEIGHT_CARD = VW * 2.3 // vw
+    return {
+      HEIGHT_CARD,
+    }
+  }, [width, isBoxDescription])
+
+  const animated = (() => {
     const screen_minimum = size.width >= theme.CONSTANTS.SCREEN.TINY
-    return hovered && web && screen_minimum
-  }, [hovered, web, size.width])
+    return hovered && web && screen_minimum && isAnimated
+  })()
 
   return (
     <ContainerAnimated
       ref={ref}
       key={index}
       animate={{
-        minWidth: 160,
-        minHeight: 90,
-        scale: animated ? 1.1 : SCALE,
-        width: animated ? CARD_WIDTH : width,
-        height: animated ? HEIGHT_CARD : HEIGHT_ITEM,
-        maxHeight: 360,
-        maxWidth: 320,
+        scaleX: 0.85,
+        height: '100%',
       }}
-      transition={{ type: 'timing', delay: DELAY, duration: TIME_ANIMATION }}
+      transition={{
+        type: 'timing',
+        delay: 0,
+        duration: 0,
+      }}
       style={[
         {
-          borderRadius: 20,
-        },
-        animated && {
-          borderWidth: BORDER_WIDTH,
-          borderRadius: BORDER_RADIUS,
-          borderColor: colors.button,
+          width: width,
+          minWidth: 200,
+          minHeight: 140,
+          borderRadius: 2,
         },
       ]}
     >
-      <TouchableHighlight style={{ flex: 1, width: '100%' }}>
-        <View style={{ flex: 1 }}>
-          <ThumbnailImage title={item.title} image={image} hover={hovered} key={item.id} />
+      <MotiView
+        transition={{
+          type: 'timing',
+          delay: 200,
+          duration: 300,
+        }}
+        animate={{
+          scaleX: animated ? 1.2 : 1,
+          scaleY: animated ? 1.2 : 1,
+          top: animated ? 0 : 50,
+        }}
+        style={{
+          width: '100%',
+          height: '100%',
+          backgroundColor: 'transparent',
+        }}
+      >
+        <TouchableHighlight style={{ flex: 1, width: '100%', height: '100%' }}>
+          <>
+            <ThumbnailImage
+              title={item.title}
+              image={image}
+              hover={true}
+              key={item.id}
+              animate={{
+                scale: animated ? 1.0 : 0.9,
+              }}
+            />
 
-          {animated && (
-            <MotiView
-              from={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ type: 'timing', duration: TIME_ANIMATION }}
-              style={{ flex: 1, justifyContent: 'flex-end' }}
-            >
-              <ContainerDescription>
-                <DescriptionMovie description={item.description} />
-              </ContainerDescription>
-              <ContainerButtons>
-                <ButtonsCard />
-              </ContainerButtons>
-            </MotiView>
-          )}
-        </View>
-      </TouchableHighlight>
+            <AnimatePresence>
+              <MotiView
+                transition={{
+                  type: 'timing',
+                  delay: 50,
+                  duration: 100,
+                }}
+                style={{
+                  flex: 1,
+                  opacity: 0,
+                  zIndex: 0,
+                  justifyContent: 'flex-end',
+                  borderWidth: 1,
+                  borderColor: theme.COLORS.BUTTON_SECONDARY,
+                  borderTopWidth: 0,
+                  backgroundColor: theme.COLORS.THUMBNAIL_CARD_BACKGROUND,
+                  borderRadius: 4,
+                }}
+              >
+                <ContainerDescription>
+                  <DescriptionMovie description={item.description} animated={animated} />
+                </ContainerDescription>
+                <ContainerButtons>
+                  <ButtonsCard animated={animated} />
+                </ContainerButtons>
+              </MotiView>
+            </AnimatePresence>
+          </>
+        </TouchableHighlight>
+      </MotiView>
     </ContainerAnimated>
   )
 }

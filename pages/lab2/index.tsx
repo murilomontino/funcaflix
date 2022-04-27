@@ -1,13 +1,59 @@
-import React from 'react'
-import { StyleSheet } from 'react-native'
+import React, { useRef, useState } from 'react'
+import { StyleSheet, View } from 'react-native'
+import { useHover } from 'react-native-web-hooks'
 
 import theme from '@/theme'
 
-import ArrayCarousel from '@/components/templates/array-carousel'
 import TemplateFrontEnd from '@/components/templates/frontend'
 
 const Lab = () => {
-  return <TemplateFrontEnd>{ArrayCarousel()}</TemplateFrontEnd>
+  const [hoveredDiv, setHoveredDiv] = useState(false)
+
+  const ref = useRef()
+  const hover = useHover(ref)
+
+  return (
+    <TemplateFrontEnd>
+      <div
+        style={{
+          display: 'flex',
+          flex: 1,
+          minHeight: '100vh',
+          width: '100vw',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <div>
+          <div
+            onMouseEnter={() => setHoveredDiv(true)}
+            onMouseLeave={() => setHoveredDiv(false)}
+            style={{
+              display: 'flex',
+              position: 'relative',
+              width: '250px',
+              height: '150px',
+              backgroundColor: 'white',
+            }}
+          >
+            {(hover || hoveredDiv) && (
+              <View
+                ref={ref}
+                style={{
+                  position: 'absolute',
+                  top: -100,
+                  display: 'flex',
+                  width: '250px',
+                  height: '300px',
+                  backgroundColor: 'yellow',
+                }}
+              />
+            )}
+          </div>
+        </div>
+      </div>
+    </TemplateFrontEnd>
+  )
 }
 
 export default Lab

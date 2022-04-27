@@ -1,8 +1,5 @@
 import React from 'react'
-import { View } from 'react-native'
 import { useScaledSize } from 'react-native-web-hooks'
-
-import theme from '@/theme'
 
 import HeaderLogo from '@/components/atom/header-logo'
 import SkeletonHeadLogo from '@/components/atom/header-logo/skeleton'
@@ -22,25 +19,18 @@ const TemplateAddProduct: React.FC = ({ children }) => {
   const WIDTH_LOGO = useScaledSize(3)
 
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: theme.COLORS.BACKGROUND_FOOTER,
-      }}
-    >
-      <ContainerBackground>
-        <Header />
-        <ContainerLogo>
-          {isFontReady ? (
-            <HeaderLogo />
-          ) : (
-            <SkeletonHeadLogo width={WIDTH_LOGO} textSize={TEXT_SIZE} />
-          )}
-        </ContainerLogo>
-        <Container>{children}</Container>
-        <Footer />
-      </ContainerBackground>
-    </View>
+    <ContainerBackground>
+      <Header />
+      <ContainerLogo>
+        {isFontReady ? (
+          <HeaderLogo />
+        ) : (
+          <SkeletonHeadLogo width={WIDTH_LOGO} textSize={TEXT_SIZE} />
+        )}
+      </ContainerLogo>
+      <Container>{children}</Container>
+      <Footer />
+    </ContainerBackground>
   )
 }
 

@@ -5,6 +5,7 @@ import styled from 'styled-components/native'
 import background from '@/assets/background-image.png'
 
 export const ContainerBackground = styledWeb.div`
+  min-height: 100vh;
   background-size: cover;
   background-image: url(${background});
 `

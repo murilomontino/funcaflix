@@ -5,7 +5,11 @@ import { Title, Container, ContainerText, SubTitle } from './styles'
 
 import { useResources } from '@/hooks/utils/use-resources'
 
-const TitleCarousel = () => {
+type Props = {
+  title: string
+}
+
+const TitleCarousel = ({ title = 'Não Informado' }: Props) => {
   const { isFontReady } = useResources()
 
   const refMoti = useRef()
@@ -16,7 +20,7 @@ const TitleCarousel = () => {
   return (
     <Container>
       <ContainerText ref={refMoti}>
-        <Title>Aventura</Title>
+        <Title>{title}</Title>
         <SubTitle
           animate={{
             opacity: hovered ? 1 : 0,

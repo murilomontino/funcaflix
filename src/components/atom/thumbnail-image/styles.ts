@@ -1,16 +1,12 @@
 import theme from '@/theme'
-import { MotiText } from 'moti'
+import { MotiText, MotiView } from 'moti'
 import styled from 'styled-components/native'
 
-export const ContainerImageBackground = styled.View`
-  flex: 1;
+export const ContainerImageBackground = styled(MotiView)`
   justify-content: center;
   align-items: center;
   align-self: center;
   background-size: cover;
-  -webkit-border-radius: 50px;
-  -moz-border-radius: 50px;
-  border-radius: 50px;
 `
 
 export const ContainerLogo = styled.View`
@@ -21,11 +17,10 @@ export const ContainerLogo = styled.View`
 `
 export const Title = styled(MotiText)`
   color: #f2f2f2;
-  width: 100%;
   z-index: 5;
   text-align: center;
   padding: 0.7rem;
-  font-size: 1.5vw;
+  font-size: calc(0.6vw + 6px);
   font-family: ${theme.FONTS.TITLE_BOLD};
   text-shadow: 1px 1px 2px black;
   text-transform: uppercase;

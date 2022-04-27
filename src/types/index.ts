@@ -13,5 +13,6 @@ export type { exhibition, exhibitionPhotos, exhibitionWorks } from './models/exh
 export { ExhibitionPhotosTypes } from './models/exhibition'
 export { FinancialResources, mapFinancialResources } from './models/financialResources'
 export { Category, mapCategory } from './models/categoriesProducts'
+export type { videos } from './models/videos'
 export type { ContentMusic, ExtImgCapa, TypeImgCapa } from './products'
 export * from './products'
