@@ -1,166 +1,91 @@
-import React, { useState, useRef } from 'react'
-import { ScrollView } from 'react-native'
-import { useHover } from 'react-native-web-hooks'
+import React, { useRef } from 'react'
 import { FontAwesome } from 'react-web-vector-icons'
 
-import DotsLayers from '@/components/atom/dots-layers'
-import ThumbnailCardVersion2 from '@/components/molecule/thumbnail-card/version-2'
 import TitleCarousel from '@/components/molecule/title-carousel'
 
-import HomeData from './home_slide.json'
-import {
-  ContainerRow,
-  Left,
-  Right,
-  TouchableIcon,
-  ScrollViewContainer,
-  InternalScrollViewContainer,
-  ContainerInfo,
-} from './styles'
-import useScroll from './use-hooks/use-scroll'
-
-type ExtendsScrollViewProps = ScrollView & {
-  scrollLeft: number
-  scrollWidth: number
-  scrollLeftMax: number
-  clientWidth: number
-  offsetWidth: number
-}
+import ThumbnailCard from '../../molecule/thumbnail-card'
+import { items } from './home_slide.json'
+import { TouchableIcon } from './styles'
+import styles from './styles.module.scss'
 
 type Props = {
-  onChangeCurrent?: (index: number) => void
-  currentIndex?: number
-  title?: string
-  isAnimated?: boolean
-  isBoxDescription?: boolean
-  items: {
-    id: number | string
-    title: string
-    description: string
-    thumbnail: string
-  }[]
+  onChangeCurrent: (index: number) => void
+  carousel?: number
 }
 
-const MARGIN_LEFT = '2vw'
-const PADDING_RIGHT = '4vw'
+const WIDTH_ITEM = 225
+const HEIGHT_ITEM = 125
 
-const Carousel = ({
-  currentIndex,
-  onChangeCurrent,
-  title,
-  isAnimated = true,
-  isBoxDescription = true,
-  items,
-}: Props) => {
-  const [data] = useState(items || HomeData.items)
+const Carousel = ({ onChangeCurrent, carousel = 0 }: Props) => {
+  const listRef = useRef<HTMLDivElement>()
 
-  const carousel = useRef<ExtendsScrollViewProps>(null)
+  const handleMouseEnter = (e) => {
+    e.preventDefault()
+    onChangeCurrent?.(carousel)
+  }
 
-  const refLeftContainer = useRef(null)
-  const hoveredLeft = useHover(refLeftContainer)
-  const refRightContainer = useRef(null)
-  const hoveredRight = useHover(refRightContainer)
+  const handleMouseLeave = (e) => {
+    e.preventDefault()
+    onChangeCurrent?.(-1)
+  }
 
-  const [selected, setSelected] = useState(0)
+  const nextPage = (e) => {
+    e.preventDefault()
+    const { width, x } = listRef.current.getBoundingClientRect()
 
-  if (!carousel || !data || !data.length) return null
+    const newX = x - WIDTH_ITEM * 5
 
-  const {
-    nextPage,
-    previousPage,
-    MAX_LAYERS,
-    positionCurrent,
-    VISIBLE_LEFT,
-    VISIBLE_RIGHT,
-    WIDTH_ITEM,
-  } = useScroll({
-    carousel,
-    MARGIN_LEFT,
-    length: data.length,
-  })
+    if (newX > -(width / 2)) {
+      listRef.current.style.transform = `translateX(${newX}px)`
+    } else {
+      listRef.current.style.transform = `translateX(${-width / 2}px)`
+    }
+  }
 
-  const ComponentData = () => {
-    return data.map((item, index) => {
-      const onMouseIn = () => {
-        setSelected(index)
-        if (onChangeCurrent) onChangeCurrent(currentIndex)
-      }
-
-      const onMouseOut = () => {
-        setSelected(-1)
-        if (onChangeCurrent) onChangeCurrent(-1)
-      }
-
-      return (
-        <div
-          key={index}
-          style={{
-            zIndex: selected === index ? 999 : -1,
-          }}
-          onMouseEnter={onMouseIn}
-          onMouseLeave={onMouseOut}
-        >
-          <ThumbnailCardVersion2
-            isAnimated={isAnimated}
-            isBoxDescription={isBoxDescription}
-            image={item.thumbnail}
-            index={index}
-            item={item}
-            width={WIDTH_ITEM}
-          />
-        </div>
-      )
-    })
+  const previousPage = (e) => {
+    e.preventDefault()
+    const { x } = listRef.current.getBoundingClientRect()
+    const newX = x + WIDTH_ITEM * 5
+    if (newX < 0) {
+      listRef.current.style.transform = `translateX(${newX}px)`
+    } else {
+      listRef.current.style.transform = `translateX(0px)`
+    }
   }
 
   return (
-    <ContainerRow>
-      <ContainerInfo
-        style={{
-          zIndex: selected === -1 ? 10 : 0,
-        }}
-      >
-        <TitleCarousel title={title} />
-        <DotsLayers
-          current={positionCurrent}
-          maxLayers={MAX_LAYERS}
-          visible={hoveredLeft || hoveredRight}
-        />
-      </ContainerInfo>
-      <ScrollViewContainer
-        ref={carousel}
-        pagingEnabled={true}
-        horizontal
-        scrollEnabled={true}
-        showsHorizontalScrollIndicator={false}
-      >
-        <InternalScrollViewContainer
-          style={{
-            marginLeft: MARGIN_LEFT,
-            paddingRight: PADDING_RIGHT,
-          }}
-        >
-          {ComponentData()}
-        </InternalScrollViewContainer>
-      </ScrollViewContainer>
+    <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className={styles['list']}>
+      <TitleCarousel title={'Novos'} />
 
-      <Left ref={refLeftContainer} style={{ display: !VISIBLE_LEFT ? 'none' : 'flex' }}>
-        <TouchableIcon onPress={previousPage}>
-          <FontAwesome name="chevron-left" size={24} color="rgba(255,255,255,0.8)" />
-        </TouchableIcon>
-      </Left>
-
-      <Right
-        ref={refRightContainer}
-        style={{
-          display: !VISIBLE_RIGHT ? 'none' : 'flex',
-        }}
-      >
-        <TouchableIcon onPress={nextPage}>
-          <FontAwesome name="chevron-right" size={24} color="rgba(255,255,255,0.8)" />
-        </TouchableIcon>
-      </Right>
-    </ContainerRow>
+      <div className={styles['wrapper']}>
+        <div className={`${styles['sliderArrow']} ${styles['left']}`} onClick={previousPage}>
+          <TouchableIcon onPress={previousPage}>
+            <FontAwesome name="chevron-left" size={24} color="rgba(255,255,255,0.8)" />
+          </TouchableIcon>
+        </div>
+        <div className={styles['container']} ref={listRef}>
+          {items.map((item, index) => (
+            <ThumbnailCard
+              width={WIDTH_ITEM}
+              height={HEIGHT_ITEM}
+              key={index}
+              index={index}
+              item={{
+                id: item.id,
+                title: item.snippet.title,
+                description: item.snippet.description,
+                image: item.snippet.thumbnails.medium.url,
+              }}
+            />
+          ))}
+        </div>
+        <div className={`${styles['sliderArrow']} ${styles['right']}`} onClick={nextPage}>
+          <TouchableIcon onPress={nextPage}>
+            <FontAwesome name="chevron-right" size={24} color="rgba(255,255,255,0.8)" />
+          </TouchableIcon>
+        </div>
+      </div>
+    </div>
   )
 }
 
