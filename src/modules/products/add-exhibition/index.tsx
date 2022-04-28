@@ -74,6 +74,9 @@ const Main = () => {
         {BottomsMap.map((item, index) => (
           <Button
             key={index}
+            style={{
+              width: 150,
+            }}
             text={item.label}
             onPress={() => item.onPress(index)}
             selectable
