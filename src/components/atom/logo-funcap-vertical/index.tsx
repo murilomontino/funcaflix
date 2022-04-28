@@ -1,41 +1,24 @@
 import React, { memo } from 'react'
-import { Image, Linking, TouchableOpacity } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import { useScaledSize } from 'react-native-web-hooks'
 
-import AppLoading from 'expo-app-loading'
-import { useAssets } from 'expo-asset'
+import Image from 'next/image'
 
 type Props = {
   size: number
 }
+const LOGO = '/logo-funcap-vertical.png'
+const LINK = 'https://www.funcap.se.gov.br/'
 
 const LogoFuncap: React.FC<Props> = ({ size }) => {
-  const [assets] = useAssets([require('@/assets/LogoFuncap-Vertical.png')])
-
   const fontSize = useScaledSize(size)
-  const link = 'https://www.funcap.se.gov.br/'
-
-  const handleClickURL = async () => {
-    if (link) {
-      await Linking.openURL(link)
-    }
-  }
-
-  if (!assets) {
-    return <AppLoading />
-  }
 
   return (
-    <TouchableOpacity onPress={handleClickURL}>
-      <Image
-        source={assets[0]}
-        style={{
-          resizeMode: 'contain',
-          width: fontSize,
-          height: fontSize,
-        }}
-      />
-    </TouchableOpacity>
+    <a href={LINK} style={{ textDecoration: 'none' }}>
+      <TouchableOpacity>
+        <Image src={LOGO} width={fontSize} height={fontSize} alt="Logo Funcap" />
+      </TouchableOpacity>
+    </a>
   )
 }
 

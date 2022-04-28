@@ -1,44 +1,37 @@
-import React, { memo } from 'react'
-import { Image, Linking, TouchableOpacity } from 'react-native'
+import React, { memo, useState } from 'react'
+import { TouchableOpacity } from 'react-native'
 import { useScaledSize } from 'react-native-web-hooks'
 
-import AppLoading from 'expo-app-loading'
-import { useAssets } from 'expo-asset'
+import Image from 'next/image'
 
 type Props = {
   size: number
   textVisible?: boolean
 }
 
+const LINK = 'https://www.se.gov.br/'
+
 const LogoGoverno: React.FC<Props> = ({ size, textVisible = true }) => {
-  const [assets] = useAssets([
-    require('@/assets/governo-logo.png'),
-    require('@/assets/governo-logo-imagem.png'),
-  ])
+  const [assets] = useState(['/governo-logo-ballon.png', '/governo-logo-sergipe.png'])
 
   const fontSize = useScaledSize(size)
-  const link = 'https://www.se.gov.br/'
-
-  const handleClickURL = async () => {
-    if (link) {
-      await Linking.openURL(link)
-    }
-  }
-  if (!assets) {
-    return <AppLoading />
-  }
 
   return (
-    <TouchableOpacity onPress={handleClickURL}>
-      <Image
-        source={textVisible ? assets[0] : assets[1]}
+    <a href={LINK} style={{ textDecoration: 'none' }}>
+      <TouchableOpacity
         style={{
-          resizeMode: 'contain',
           width: fontSize,
           height: fontSize,
         }}
-      />
-    </TouchableOpacity>
+      >
+        <Image
+          src={textVisible ? assets[0] : assets[1]}
+          layout="fill"
+          objectFit="contain"
+          alt="Logo do Governo"
+        />
+      </TouchableOpacity>
+    </a>
   )
 }
 

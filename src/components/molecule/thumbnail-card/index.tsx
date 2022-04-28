@@ -1,6 +1,4 @@
-import React, { useRef, useMemo } from 'react'
-import { Platform, TouchableHighlight } from 'react-native'
-import { useHover } from 'react-native-web-hooks'
+import React, { useState } from 'react'
 
 import theme from '@/theme'
 import { AnimatePresence, MotiView } from 'moti'
@@ -9,114 +7,63 @@ import ButtonsCard from '@/components/atom/buttons-card/buttons-card'
 import DescriptionMovie from '@/components/atom/description-movie'
 import ThumbnailImage from '@/components/atom/thumbnail-image'
 
-import { ContainerAnimated, ContainerButtons, ContainerDescription } from './styles'
-
-import { useSize } from '@/hooks/utils/use-size'
+import CardHovered from '../card-hovered'
+import { ContainerButtons, ContainerDescription } from './styles'
 
 type Props = {
+  height?: number
+  width?: number
   index: number
-  isAnimated?: boolean
-  isBoxDescription?: boolean
   item: {
-    id: string | number
+    id: number | string
     title: string
-    thumbnail: string
     description: string
+    image: string
   }
-  width: number | string
-  image: string
 }
 
-const SCALE = 0.85
+const ThumbnailCard = ({ index, item, height, width }: Props) => {
+  const [isHovered, setIsHovered] = useState(false)
+  const [image] = useState(item.image)
 
-const ThumbnailCard = ({
-  item,
-  width,
-  image,
-  index,
-  isAnimated = true,
-  isBoxDescription = true,
-}: Props) => {
-  const web = Platform.OS === 'web'
+  const handleMouseEnter = (e) => {
+    e.preventDefault()
+    setIsHovered(true)
+  }
 
-  const HEIGHT_ITEM = theme.CONSTANTS.HEIGHT_ITEM_THUMBNAIL // vw
-
-  const ref = useRef()
-  const hovered = useHover(ref)
-  const { size } = useSize()
-
-  const { HEIGHT_CARD } = useMemo(() => {
-    const VW = parseInt(theme.CONSTANTS.HEIGHT_ITEM_THUMBNAIL.replace('vw', ''))
-
-    if (!isBoxDescription) {
-      const HEIGHT_CARD = VW * 1.2 // vw
-
-      return {
-        HEIGHT_CARD,
-      }
-    }
-    const HEIGHT_CARD = VW * 2.3 // vw
-    return {
-      HEIGHT_CARD,
-    }
-  }, [width, isBoxDescription])
-
-  const animated = (() => {
-    const screen_minimum = size.width >= theme.CONSTANTS.SCREEN.TINY
-    return hovered && web && screen_minimum && isAnimated
-  })()
+  const handleMouseLeave = (e) => {
+    e.preventDefault()
+    setIsHovered(false)
+  }
 
   return (
-    <ContainerAnimated
-      ref={ref}
-      key={index}
-      animate={{
-        scaleX: 0.85,
-        height: '100%',
+    <div
+      style={{
+        width: width,
+        height: height,
+        marginRight: 5,
+        overflow: 'hidden',
+        cursor: 'pointer',
+        color: 'white',
       }}
-      transition={{
-        type: 'timing',
-        delay: 0,
-        duration: 0,
-      }}
-      style={[
-        {
-          width: width,
-          minWidth: 200,
-          minHeight: 140,
-          borderRadius: 2,
-        },
-      ]}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
-      <MotiView
-        transition={{
-          type: 'timing',
-          delay: 200,
-          duration: 300,
-        }}
-        animate={{
-          scaleX: animated ? 1.2 : 1,
-          scaleY: animated ? 1.2 : 1,
-          top: animated ? 0 : 50,
-        }}
+      <div
         style={{
+          display: 'flex',
+          flex: 1,
+          height: height,
           width: '100%',
-          height: '100%',
-          backgroundColor: 'transparent',
         }}
       >
-        <TouchableHighlight style={{ flex: 1, width: '100%', height: '100%' }}>
-          <>
-            <ThumbnailImage
-              title={item.title}
-              image={image}
-              hover={true}
-              key={item.id}
-              animate={{
-                scale: animated ? 1.0 : 0.9,
-              }}
-            />
+        <ThumbnailImage image={image} width={width} height={height} title={item.title} />
+      </div>
 
+      {isHovered && (
+        <CardHovered width={width} index={index}>
+          <>
+            <ThumbnailImage image={image} width={width} height={height} title={item.title} />
             <AnimatePresence>
               <MotiView
                 transition={{
@@ -126,7 +73,6 @@ const ThumbnailCard = ({
                 }}
                 style={{
                   flex: 1,
-                  opacity: 0,
                   zIndex: 0,
                   justifyContent: 'flex-end',
                   borderWidth: 1,
@@ -137,17 +83,17 @@ const ThumbnailCard = ({
                 }}
               >
                 <ContainerDescription>
-                  <DescriptionMovie description={item.description} animated={animated} />
+                  <DescriptionMovie description={item.description} animated />
                 </ContainerDescription>
                 <ContainerButtons>
-                  <ButtonsCard animated={animated} />
+                  <ButtonsCard animated />
                 </ContainerButtons>
               </MotiView>
             </AnimatePresence>
           </>
-        </TouchableHighlight>
-      </MotiView>
-    </ContainerAnimated>
+        </CardHovered>
+      )}
+    </div>
   )
 }
 

@@ -2,8 +2,8 @@ import React from 'react'
 import { View } from 'react-native'
 import { useScaledSize } from 'react-native-web-hooks'
 
-import HeaderLogo from '@/components/atom/header-logo'
-import SkeletonHeadLogo from '@/components/atom/header-logo/skeleton'
+import HeaderLogo from '@/components/molecule/header-logo'
+import SkeletonHeadLogo from '@/components/molecule/header-logo/skeleton'
 
 import { ContainerBackground } from './styles'
 

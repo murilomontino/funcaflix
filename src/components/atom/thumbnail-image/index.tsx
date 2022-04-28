@@ -1,20 +1,21 @@
 import React, { useMemo } from 'react'
 
 import theme from '@/theme'
-import { MotiProps, MotiView } from 'moti'
+import { MotiView } from 'moti'
+import Image from 'next/image'
 
 import Logo from '@/components/atom/logo-funcap'
 
-import CacheImage from '../cache-image'
 import { ContainerLogo, Title, ContainerImageBackground } from './styles'
 
 type Props = {
   image: string
-  hover: boolean
   title: string
-} & MotiProps
+  width: number | string
+  height: number | string
+} & typeof MotiView
 
-const ThumbnailImage = ({ hover, image, title, ...rest }: Props) => {
+const ThumbnailImage = ({ image, title, width, height, ...rest }: Props) => {
   const TitleText = useMemo(() => {
     // retorna Title substituindo \s-\s : por \n
     return title?.replace(/[:]|(\s-\s)/g, '\n')
@@ -25,8 +26,8 @@ const ThumbnailImage = ({ hover, image, title, ...rest }: Props) => {
       {...rest}
       transition={{
         type: 'timing',
-        delay: theme.EFFECT.DELAY - 100,
-        duration: theme.EFFECT.DURATION - 100,
+        delay: theme.EFFECT.DELAY,
+        duration: theme.EFFECT.DURATION,
       }}
       style={[
         {
@@ -35,36 +36,20 @@ const ThumbnailImage = ({ hover, image, title, ...rest }: Props) => {
           width: '100%',
           borderRadius: 1,
         },
-        hover && {
-          borderTopLeftRadius: 8,
-          borderTopRightRadius: 8,
-        },
       ]}
     >
       <>
-        <CacheImage
-          capa={image}
-          resizeMode="stretch"
-          name="videos"
-          imageStyle={[
-            {
-              borderRadius: 2,
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-            },
-            hover && {
-              borderBottomLeftRadius: 0,
-              borderBottomRightRadius: 0,
-              borderTopLeftRadius: 2,
-              borderTopRightRadius: 2,
-              borderWidth: 1,
-              borderColor: theme.COLORS.BUTTON_SECONDARY,
-              borderBottomWidth: 0,
-            },
-          ]}
+        <Image
+          src={image}
+          alt={title}
+          height={height}
+          width={width}
+          layout="fill"
+          quality={100}
+          style={{
+            position: 'absolute',
+            top: 0,
+          }}
         />
         <ContainerLogo>
           <Logo size={1.5} />

@@ -3,6 +3,7 @@ import { ImageStyle, StyleProp } from 'react-native'
 
 import theme from '@/theme'
 import { MotiImage, MotiProps } from 'moti'
+import { Skeleton } from 'moti/skeleton'
 
 import api from '@/services'
 
@@ -46,6 +47,11 @@ const CacheImage = ({
       return
     }
 
+    if (capa && capa?.startsWith('/')) {
+      setImg(capa)
+      return
+    }
+
     if (capa) {
       getImgStorage(capa)
     }
@@ -79,6 +85,10 @@ const CacheImage = ({
     }
   }
 
+  if (!img) {
+    return <Skeleton height={'100%'} width={'100%'} colorMode="dark" />
+  }
+
   return (
     <MotiImage
       {...rest}
@@ -95,7 +105,7 @@ const CacheImage = ({
         delay: theme.EFFECT.DELAY,
         duration: theme.EFFECT.DURATION,
       }}
-      defaultSource={NotCapa}
+      onError={() => setImg(NotCapa)}
       source={{
         uri: img,
       }}

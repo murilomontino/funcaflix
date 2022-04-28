@@ -3,6 +3,7 @@ import { MotiText, MotiView } from 'moti'
 import styled from 'styled-components/native'
 
 export const ContainerImageBackground = styled(MotiView)`
+  z-index: -1;
   justify-content: center;
   align-items: center;
   align-self: center;

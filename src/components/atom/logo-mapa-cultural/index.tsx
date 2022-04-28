@@ -1,42 +1,28 @@
 import React, { memo } from 'react'
-import { Image, Linking, TouchableOpacity } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import { useScaledSize } from 'react-native-web-hooks'
 
-import AppLoading from 'expo-app-loading'
-import { useAssets } from 'expo-asset'
+import Image from 'next/image'
+
+const LOGO = '/logo-mapa-cultural.png'
 
 const LogoMapaCultural: React.FC = () => {
-  const [assets] = useAssets([require('@/assets/LogoMapaCultural.png')])
-
   const fontSize = useScaledSize(6)
-
-  if (!assets) {
-    return <AppLoading />
-  }
-
-  const handleClickURL = async () => {
-    await Linking.openURL('https://funcap.mapacultural.se.gov.br/')
-  }
+  const link = 'https://funcap.mapacultural.se.gov.br/'
 
   return (
-    <TouchableOpacity
-      onPress={handleClickURL}
-      style={{
-        height: 40,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <Image
-        source={assets[0]}
+    <a href={link} style={{ textDecoration: 'none' }}>
+      <TouchableOpacity
         style={{
-          resizeMode: 'contain',
-          width: fontSize,
-          height: fontSize,
-          marginLeft: 20,
+          height: 40,
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginLeft: 12,
         }}
-      />
-    </TouchableOpacity>
+      >
+        <Image src={LOGO} alt="Mapa Cultural" height={fontSize} width={fontSize} />
+      </TouchableOpacity>
+    </a>
   )
 }
 
