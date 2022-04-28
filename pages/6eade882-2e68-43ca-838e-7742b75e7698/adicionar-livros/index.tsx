@@ -3,16 +3,16 @@ import React from 'react'
 
 import Main from '@/modules/products/add-book'
 
-import TemplateAddProduct from '@/components/templates/add-product'
+import TemplateAdmin from '@/components/templates/admin'
 
 import FormProductBookProvider from '@/forms/Product/product-book'
 
 export default function App() {
   return (
-    <TemplateAddProduct>
+    <TemplateAdmin>
       <FormProductBookProvider>
         <Main />
       </FormProductBookProvider>
-    </TemplateAddProduct>
+    </TemplateAdmin>
   )
 }

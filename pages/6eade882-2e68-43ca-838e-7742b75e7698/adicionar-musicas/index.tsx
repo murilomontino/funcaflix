@@ -3,16 +3,16 @@ import React from 'react'
 
 import Main from '@/modules/products/add-music'
 
-import TemplateAddProduct from '@/components/templates/add-product'
+import TemplateAdmin from '@/components/templates/admin'
 
 import FormProductMusicProvider from '@/forms/Product/product-music'
 
 export default function AddMusic() {
   return (
-    <TemplateAddProduct>
+    <TemplateAdmin>
       <FormProductMusicProvider>
         <Main />
       </FormProductMusicProvider>
-    </TemplateAddProduct>
+    </TemplateAdmin>
   )
 }

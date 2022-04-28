@@ -5,7 +5,7 @@ import Main from '@/modules/products/add-works-exhibition'
 import SkeletonTemplate from '@/modules/products/add-works-exhibition/template/skeleton'
 import { GettersExhibitions } from '@/types'
 
-import TemplateAddProduct from '@/components/templates/add-product'
+import TemplateAdmin from '@/components/templates/admin'
 
 import api from '@/services'
 import { Getter } from '@/services/config/types'
@@ -38,14 +38,14 @@ export default function AddWorks() {
 
   if (isLoading)
     return (
-      <TemplateAddProduct>
+      <TemplateAdmin>
         <SkeletonTemplate />
-      </TemplateAddProduct>
+      </TemplateAdmin>
     )
 
   return (
-    <TemplateAddProduct>
+    <TemplateAdmin>
       <Main exhibitions={data} />
-    </TemplateAddProduct>
+    </TemplateAdmin>
   )
 }

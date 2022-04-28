@@ -4,7 +4,7 @@ import React from 'react'
 import Main from '@/modules/products/add-videos'
 import { GettersVideosInfo } from '@/types'
 
-import TemplateAddProduct from '@/components/templates/add-product'
+import TemplateAdmin from '@/components/templates/admin'
 
 import api from '@/services'
 import { Getter } from '@/services/config/types'
@@ -15,9 +15,9 @@ type Props = {
 
 export default function AddVideo({ videos }: Props) {
   return (
-    <TemplateAddProduct>
+    <TemplateAdmin>
       <Main videos={videos} />
-    </TemplateAddProduct>
+    </TemplateAdmin>
   )
 }
 
@@ -37,7 +37,6 @@ export const getStaticProps = async (ctx) => {
       sobre_a_obra: true,
       cpf: true,
       cnpj: true,
-      thumbnail: true,
     },
   })
 
