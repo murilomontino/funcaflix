@@ -36,8 +36,13 @@ const nextConfig = ((phase) => {
       ignoreBuildErrors: true,
     },
     images:{
+      deviceSizes: [320, 640, 750, 828, 1080, 1280, 1920, 2048],
       disableStaticImages: true,
+      domains: [
+        'i.ytimg.com'
+      ]
     },
+    
     httpAgentOptions: new (require('https').Agent)({
       rejectUnauthorized: false
     }),
