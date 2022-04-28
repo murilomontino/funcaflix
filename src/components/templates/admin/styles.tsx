@@ -7,6 +7,7 @@ const BACKGROUND = '/background-image.png'
 export const ContainerBackground = styledWeb.div`
   background-size: cover;
   background-image: url(${BACKGROUND});
+  min-height: 100vh;
 `
 
 export const ContainerLogo = styled.View`

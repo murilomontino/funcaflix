@@ -9,22 +9,15 @@ const ArrayCarousel = () => {
     setSelected(index)
   }
 
-  return [1, 2, 3].map((item, index) => (
+  return [1, 2, 3, 4, 5].map((item, index) => (
     <div
       key={item.toString()}
       style={{
-        display: 'flex',
-        marginTop: index === 0 ? 0 : -170,
-        flex: 1,
         zIndex: selected === index ? 99 : 'auto',
         width: '100%',
       }}
     >
-      <Carousel
-        onChangeCurrent={onChangeSelected}
-        currentIndex={index}
-        title={(index + 1).toString()}
-      />
+      <Carousel onChangeCurrent={onChangeSelected} carousel={index} />
     </div>
   ))
 }
