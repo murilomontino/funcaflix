@@ -15,7 +15,7 @@ export const BarHeader = styledWeb.div`
   display: flex;
   position: fixed;
   top: 0;
-  height: ${theme.CONSTANTS.HEADER_HIGHT}px;
+
   width: 100%;
   z-index: 1;
   background-color: transparent;
@@ -25,7 +25,6 @@ export const BarHeader = styledWeb.div`
   transition: 0.5s ease-in;
   :hover {
     background-color: ${theme.COLORS.BAR_HEADER};
-    
   }
 `
 

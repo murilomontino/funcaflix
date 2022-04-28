@@ -4,7 +4,6 @@ import styled from 'styled-components/native'
 export const ContainerFooter = styled.View`
   flex: 1;
   height: ${theme.CONSTANTS.FOOTER_HIGHT}px;
-  max-height: ${theme.CONSTANTS.FOOTER_HIGHT}px;
   flex-direction: row;
   width: 100%;
 `
@@ -12,7 +11,7 @@ export const ContainerFooter = styled.View`
 export const ContainerAbout = styled.View`
   flex: 2;
   flex-direction: column;
-  padding-top: 42px;
+  padding-block: 15px;
   padding-left: 34px;
 `
 export const ContainerSocial = styled.View`

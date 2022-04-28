@@ -1,14 +1,11 @@
-import theme from '@/theme'
 import styledWeb from 'styled-components'
 import styled from 'styled-components/native'
 
 export const ContainerChildren = styled.View`
-  background-color: ${theme.COLORS.BACKGROUND_FRONTEND};
   padding: 0px;
-  justify-content: center;
-  align-items: center;
+  max-width: 100vw;
+  height: 100%;
   z-index: 2;
-  margin-bottom: ${theme.CONSTANTS.FOOTER_HIGHT}px;
 `
 
 export const Container = styledWeb.div`

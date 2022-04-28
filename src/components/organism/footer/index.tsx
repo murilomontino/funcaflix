@@ -35,7 +35,8 @@ const Footer = () => {
 
       <ContainerLogo>
         {!sizeNavBar ? <LogoFuncapVertical size={8} /> : <Logo size={4} />}
-        <LogoGoverno size={!sizeNavBar ? 8 : 4} textVisible={!sizeNavBar} />
+        <div style={{ padding: 12 }} />
+        <LogoGoverno size={!sizeNavBar ? 4 : 6} textVisible={!sizeNavBar} />
       </ContainerLogo>
     </ContainerFooter>
   )
