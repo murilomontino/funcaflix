@@ -1,4 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope */
+
+import React from 'react'
 import { useRef, useState, useEffect } from 'react'
 
 import { CSSProperties } from 'styled-components'

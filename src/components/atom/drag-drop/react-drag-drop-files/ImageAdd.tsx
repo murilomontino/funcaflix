@@ -5,6 +5,8 @@
  *
  * @internal
  */
+import React from 'react'
+
 export default function ImageAdd(): JSX.Element {
   return (
     <svg
