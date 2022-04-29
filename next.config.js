@@ -39,7 +39,8 @@ const nextConfig = ((phase) => {
       deviceSizes: [320, 640, 750, 828, 1080, 1280, 1920, 2048],
       disableStaticImages: true,
       domains: [
-        'i.ytimg.com'
+        'i.ytimg.com',
+        'host.docker.internal'
       ]
     },
     

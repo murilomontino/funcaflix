@@ -1,14 +1,29 @@
 import React, { useState } from 'react'
 
-import theme from '@/theme'
-import { AnimatePresence, MotiView } from 'moti'
+import { AnimatePresence } from 'moti'
 
 import ButtonsCard from '@/components/atom/buttons-card/buttons-card'
 import DescriptionMovie from '@/components/atom/description-movie'
 import ThumbnailImage from '@/components/atom/thumbnail-image'
 
 import CardHovered from '../card-hovered'
-import { ContainerButtons, ContainerDescription } from './styles'
+import {
+  Container,
+  ContainerButtons,
+  ContainerDescription,
+  ContainerInformation,
+  ContainerThumbnail,
+} from './styles'
+
+type AnimationBTNorCard =
+  | {
+      animated?: true
+      isButton?: false
+    }
+  | {
+      animated?: false
+      isButton?: true
+    }
 
 type Props = {
   height?: number
@@ -20,11 +35,14 @@ type Props = {
     description: string
     image: string
   }
-}
+} & React.HTMLAttributes<HTMLDivElement> &
+  AnimationBTNorCard
 
-const ThumbnailCard = ({ index, item, height, width }: Props) => {
+const WIDTH_ITEM = 225
+const HEIGHT_ITEM = 125
+
+const ThumbnailCard = ({ index, item, animated = true, isButton = false, ...rest }: Props) => {
   const [isHovered, setIsHovered] = useState(false)
-  const [image] = useState(item.image)
 
   const handleMouseEnter = (e) => {
     e.preventDefault()
@@ -37,49 +55,45 @@ const ThumbnailCard = ({ index, item, height, width }: Props) => {
   }
 
   return (
-    <div
+    <Container
+      {...rest}
+      className={`${isButton ? 'btn' : ''}`}
       style={{
-        width: width,
-        height: height,
-        marginRight: 5,
-        overflow: 'hidden',
-        cursor: 'pointer',
-        color: 'white',
+        width: WIDTH_ITEM,
+        height: HEIGHT_ITEM,
       }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div
+      <ContainerThumbnail
         style={{
-          display: 'flex',
-          flex: 1,
-          height: height,
-          width: '100%',
+          height: HEIGHT_ITEM,
         }}
       >
-        <ThumbnailImage image={image} width={width} height={height} title={item.title} />
-      </div>
+        <ThumbnailImage
+          unblur
+          image={item.image}
+          width={WIDTH_ITEM}
+          height={HEIGHT_ITEM}
+          title={item.title}
+        />
+      </ContainerThumbnail>
 
-      {isHovered && (
-        <CardHovered width={width} index={index}>
+      {isHovered && animated && (
+        <CardHovered width={WIDTH_ITEM} index={index}>
           <>
-            <ThumbnailImage image={image} width={width} height={height} title={item.title} />
+            <ThumbnailImage
+              image={item.image}
+              width={WIDTH_ITEM}
+              height={HEIGHT_ITEM}
+              title={item.title}
+            />
             <AnimatePresence>
-              <MotiView
+              <ContainerInformation
                 transition={{
                   type: 'timing',
                   delay: 50,
                   duration: 100,
-                }}
-                style={{
-                  flex: 1,
-                  zIndex: 0,
-                  justifyContent: 'flex-end',
-                  borderWidth: 1,
-                  borderColor: theme.COLORS.BUTTON_SECONDARY,
-                  borderTopWidth: 0,
-                  backgroundColor: theme.COLORS.THUMBNAIL_CARD_BACKGROUND,
-                  borderRadius: 4,
                 }}
               >
                 <ContainerDescription>
@@ -88,12 +102,12 @@ const ThumbnailCard = ({ index, item, height, width }: Props) => {
                 <ContainerButtons>
                   <ButtonsCard animated />
                 </ContainerButtons>
-              </MotiView>
+              </ContainerInformation>
             </AnimatePresence>
           </>
         </CardHovered>
       )}
-    </div>
+    </Container>
   )
 }
 

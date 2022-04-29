@@ -1,0 +1,21 @@
+.btn {
+    :hover {
+        transform: scale(1.05);
+        transition: all 0.1s;
+    }
+
+    :active {
+        transform: scale(0.98);
+        box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+    }
+
+    img {
+        :hover {
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        :active {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    }
+}

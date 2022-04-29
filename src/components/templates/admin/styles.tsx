@@ -15,4 +15,6 @@ export const ContainerLogo = styled.View`
   margin-top: ${theme.CONSTANTS.HEADER_HIGHT}px;
   max-height: 150px;
 `
-export const Container = styled.View``
+export const Container = styled.View`
+  z-index: 3;
+`

@@ -2,20 +2,21 @@ import React, { useMemo } from 'react'
 
 import theme from '@/theme'
 import { MotiView } from 'moti'
-import Image from 'next/image'
 
 import Logo from '@/components/atom/logo-funcap'
 
+import ImageNext from '../image-next'
 import { ContainerLogo, Title, ContainerImageBackground } from './styles'
 
 type Props = {
   image: string
   title: string
   width: number | string
+  unblur?: boolean
   height: number | string
-} & typeof MotiView
+} & Partial<typeof MotiView>
 
-const ThumbnailImage = ({ image, title, width, height, ...rest }: Props) => {
+const ThumbnailImage = ({ image, title, width, height, unblur, ...rest }: Props) => {
   const TitleText = useMemo(() => {
     // retorna Title substituindo \s-\s : por \n
     return title?.replace(/[:]|(\s-\s)/g, '\n')
@@ -39,13 +40,13 @@ const ThumbnailImage = ({ image, title, width, height, ...rest }: Props) => {
       ]}
     >
       <>
-        <Image
-          src={image}
+        <ImageNext
+          image={image}
           alt={title}
+          unblur={unblur}
           height={height}
           width={width}
           layout="fill"
-          quality={100}
           style={{
             position: 'absolute',
             top: 0,

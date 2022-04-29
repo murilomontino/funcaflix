@@ -1,8 +1,9 @@
-import React from 'react'
-import { Text, View } from 'react-native'
+import React, { useState } from 'react'
+import { View } from 'react-native'
 
 import { GettersVideosInfo } from '@/types'
 
+import ThumbnailCard from '@/components/molecule/thumbnail-card'
 import Carousel from '@/components/organism/carousel'
 
 type Props = {
@@ -10,13 +11,14 @@ type Props = {
 }
 
 const Main = ({ videos }: Props) => {
-  const data = videos.map(({ id, thumbnail, sobre_a_obra, titulo, artista }) => ({
+  const [video, setVideo] = useState<GettersVideosInfo>(null)
+
+  const data = videos.map(({ id, thumbnail, sobre_a_obra, titulo }) => ({
     id,
     title: titulo,
     description: sobre_a_obra,
     thumbnail,
   }))
-  console.log(data)
 
   return (
     <View
@@ -26,10 +28,23 @@ const Main = ({ videos }: Props) => {
         alignItems: 'center',
       }}
     >
-      <Carousel items={data} title="Videos em Espera" />
-      {videos.map((video) => (
-        <Text key={video.id}>{video.titulo}</Text>
-      ))}
+      <Carousel title="Videos em Espera">
+        {data.map((item, index) => (
+          <ThumbnailCard
+            onClick={() => setVideo(item)}
+            animated={false}
+            key={index}
+            index={index}
+            item={{
+              id: item.id,
+              title: item.title,
+              description: item.description,
+              image: item.thumbnail,
+            }}
+          />
+        ))}
+      </Carousel>
+      {}
     </View>
   )
 }

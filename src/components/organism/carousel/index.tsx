@@ -1,23 +1,25 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { FontAwesome } from 'react-web-vector-icons'
 
 import TitleCarousel from '@/components/molecule/title-carousel'
 
-import ThumbnailCard from '../../molecule/thumbnail-card'
-import { items } from './home_slide.json'
 import { TouchableIcon } from './styles'
 import styles from './styles.module.scss'
 
 type Props = {
-  onChangeCurrent: (index: number) => void
+  onChangeCurrent?: (index: number) => void
   carousel?: number
+  title: string
+  children: JSX.Element[]
 }
 
-const WIDTH_ITEM = 225
-const HEIGHT_ITEM = 125
-
-const Carousel = ({ onChangeCurrent, carousel = 0 }: Props) => {
+const Carousel = ({ onChangeCurrent, carousel = 0, children, title }: Props) => {
   const listRef = useRef<HTMLDivElement>()
+  const carouselRef = useRef<HTMLDivElement>()
+
+  useEffect(() => {
+    console.log(listRef.current)
+  }, [listRef])
 
   const handleMouseEnter = (e) => {
     e.preventDefault()
@@ -33,7 +35,7 @@ const Carousel = ({ onChangeCurrent, carousel = 0 }: Props) => {
     e.preventDefault()
     const { width, x } = listRef.current.getBoundingClientRect()
 
-    const newX = x - WIDTH_ITEM * 5
+    const newX = x - listRef.current.offsetWidth
 
     if (newX > -(width / 2)) {
       listRef.current.style.transform = `translateX(${newX}px)`
@@ -45,7 +47,7 @@ const Carousel = ({ onChangeCurrent, carousel = 0 }: Props) => {
   const previousPage = (e) => {
     e.preventDefault()
     const { x } = listRef.current.getBoundingClientRect()
-    const newX = x + WIDTH_ITEM * 5
+    const newX = x + listRef.current.offsetWidth
     if (newX < 0) {
       listRef.current.style.transform = `translateX(${newX}px)`
     } else {
@@ -55,7 +57,7 @@ const Carousel = ({ onChangeCurrent, carousel = 0 }: Props) => {
 
   return (
     <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className={styles['list']}>
-      <TitleCarousel title={'Novos'} />
+      <TitleCarousel title={title} />
 
       <div className={styles['wrapper']}>
         <div className={`${styles['sliderArrow']} ${styles['left']}`} onClick={previousPage}>
@@ -64,20 +66,7 @@ const Carousel = ({ onChangeCurrent, carousel = 0 }: Props) => {
           </TouchableIcon>
         </div>
         <div className={styles['container']} ref={listRef}>
-          {items.map((item, index) => (
-            <ThumbnailCard
-              width={WIDTH_ITEM}
-              height={HEIGHT_ITEM}
-              key={index}
-              index={index}
-              item={{
-                id: item.id,
-                title: item.snippet.title,
-                description: item.snippet.description,
-                image: item.snippet.thumbnails.medium.url,
-              }}
-            />
-          ))}
+          {children}
         </div>
         <div className={`${styles['sliderArrow']} ${styles['right']}`} onClick={nextPage}>
           <TouchableIcon onPress={nextPage}>
