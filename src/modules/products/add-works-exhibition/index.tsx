@@ -37,7 +37,7 @@ const Main = ({ exhibitions }: Props) => {
         style={{
           flex: 1,
           maxHeight: size.height,
-          width: size.width - 40,
+          width: '80vw',
           backgroundColor: 'rgba(0,0,0,0.2)',
         }}
         horizontal

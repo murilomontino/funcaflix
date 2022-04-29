@@ -41,6 +41,7 @@ const ThumbnailImage = ({ image, title, width, height, unblur, ...rest }: Props)
     >
       <>
         <ImageNext
+          url="videos/thumbnail?id="
           image={image}
           alt={title}
           unblur={unblur}

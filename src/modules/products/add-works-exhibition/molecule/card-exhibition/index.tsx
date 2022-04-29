@@ -1,11 +1,11 @@
 import React from 'react'
-import { TouchableOpacityProps, ViewStyle } from 'react-native'
+import { TouchableOpacityProps, ViewStyle, View } from 'react-native'
 
 import { GettersExhibitions, mapFinancialResources } from '@/types'
 import { cpf, cnpj } from 'cpf-cnpj-validator'
 
-import CacheImage from '@/components/atom/cache-image'
 import CardTag from '@/components/atom/card-tag'
+import ImageNext from '@/components/atom/image-next'
 
 import AboutTheWork from '../about-the-work'
 import {
@@ -81,7 +81,17 @@ const CardExhibition = ({ item, all, horizontal = false, ContainerStyle, ...rest
 
   return (
     <Container style={[ContainerStyle, { flexDirection }]} {...rest}>
-      <CacheImage capa={item.image} height={height} width={width} resizeMode={'stretch'} />
+      <View style={{ width, height }}>
+        <ImageNext
+          height={height}
+          width={width}
+          image={item.image}
+          alt={item.titulo}
+          objectFit="cover"
+          layout="fill"
+          unblur
+        />
+      </View>
       <ContainerInfo style={{ flex: 1, width: '100%', justifyContent: 'space-between' }}>
         <Title>{item.titulo}</Title>
         <ContainerBlocksInfos style={{ flex: 1, flexDirection: 'row' }}>
