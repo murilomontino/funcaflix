@@ -178,6 +178,10 @@ html {
 }
 
 body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  flex-wrap: wrap;
   background-color: #111f29;
   max-width: 100vw;
   overflow: hidden;
