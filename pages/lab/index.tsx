@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+import { useQuery } from 'react-query'
 
 import theme from '@/theme'
 import Link from 'next/link'
@@ -18,19 +19,27 @@ const Lab = () => {
   const [progress, setProgress] = useState<number>(0)
   const [URL, setURL] = useState<string>(null)
 
-  useEffect(() => {
-    const verify = async () => {
-      const {
-        // eslint-disable-next-line no-empty-pattern
-        data: { data },
-      } = await api.get('verify-oauth')
-      const { url } = data
-      console.log(url)
+  const { isLoading, error, data } = useQuery('tokenVerify', async () => {
+    const {
+      data: { data },
+    } = await api.get('verify-oauth-token')
+    const { verified } = data
+    return { verified }
+  })
 
-      setURL(url)
+  useEffect(() => {
+    if (data) {
+      const verify = async () => {
+        const {
+          data: { data },
+        } = await api.get('generate-oauth-token')
+        const { url } = data
+
+        setURL(url)
+      }
+      verify()
     }
-    verify()
-  }, [])
+  }, [data])
 
   if (!isFontReady) {
     return null
@@ -64,13 +73,18 @@ const Lab = () => {
     } catch (error) {}
   }
 
+  if (isLoading) {
+    return <Text>Loading...</Text>
+  }
+
   return (
     <View style={styles.containerCenter}>
-      {!!URL && (
+      {!!URL && data?.verified && (
         <Link href={URL}>
           <a target="_blank">Click this link</a>
         </Link>
       )}
+      <p>{data?.verified}</p>
       <InputFileHTML onChange={onChangeImage} mimeType={['video/*']} />
       <Button text="Enviar" onPress={onSubmit} />
       <Text>{progress}%</Text>
