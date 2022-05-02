@@ -23,7 +23,7 @@ export default {
   dark_secondary: '#141414',
   dark_primary: '#0b0b0b',
   white_secondary: '#ededf0',
-  grey20: '#333333',
+  grey20: '#3a3a3a',
   warning: '#e7e700',
   erro: '#dd4b39',
   success: 'green',

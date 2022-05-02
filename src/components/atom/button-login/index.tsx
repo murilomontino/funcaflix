@@ -1,61 +1,39 @@
 import React, { useMemo, useRef } from 'react'
-import { Text, TouchableHighlight, View } from 'react-native'
-import { useHover, useScaledSize } from 'react-native-web-hooks'
+import { RFValue } from 'react-native-responsive-fontsize'
+import { useHover } from 'react-native-web-hooks'
 
+import theme from '@/theme'
 import { AntDesign } from '@expo/vector-icons'
 import Link from 'next/link'
 
-import colors from '@/global/colors'
+import { Button, Container, Text } from './styles'
 
 type Props = {
   textVisible?: boolean
 }
 
 const ButtonLogin = ({ textVisible = true }: Props) => {
-  const fontSize = useScaledSize(1)
-  const iconSize = useScaledSize(1.3)
+  const fontSize = RFValue(8)
+  const iconSize = RFValue(18)
 
   const ref = useRef(null)
   const hover = useHover(ref)
 
-  const color = useMemo(() => (hover ? 'orange' : colors.white), [hover])
+  const color = useMemo(() => (hover ? 'orange' : theme.COLORS.TEXT), [hover])
 
   return (
     <Link href={'https://funcap.mapacultural.acesso.se.gov.br/'}>
-      <View
-        ref={ref}
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <TouchableHighlight
-          style={{
-            padding: 12,
-            marginRight: 4,
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}
-        >
+      <Container ref={ref}>
+        <Button>
           <React.Fragment>
             <AntDesign name="login" size={iconSize} color={color} />
 
-            {!!textVisible && (
-              <Text
-                style={{
-                  color: color,
-                  padding: 8,
-                  fontSize: fontSize,
-                  fontWeight: 'bold',
-                }}
-              >
-                Entrar
-              </Text>
-            )}
+            <Text fontSize={fontSize} color={color} textVisible={textVisible}>
+              Entrar
+            </Text>
           </React.Fragment>
-        </TouchableHighlight>
-      </View>
+        </Button>
+      </Container>
     </Link>
   )
 }

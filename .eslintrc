@@ -33,6 +33,7 @@
 			"error",
 			"unix"
 		],
+		"react/prop-types": 0,
 		"prettier/prettier": [
 			"error",
 			{

@@ -23,10 +23,13 @@ export const SubTitle = styled(MotiText)`
 
 export const ContainerText = styled.TouchableOpacity`
   flex-direction: row;
+  padding: 6px;
+  background-color: ${theme.COLORS.BACKGROUND_TITLE};
+
+  width: 90vw;
+  align-self: center;
 `
 
 export const Container = styled.View`
-  padding: 6px;
-  background-color: ${theme.COLORS.BACKGROUND_TITLE};
   width: 100%;
 `

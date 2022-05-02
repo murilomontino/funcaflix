@@ -31,16 +31,11 @@ const Button = ({
   return (
     <Container
       {...rest}
+      backgroundColor={colorButton}
       disabled={disabled}
-      style={[
-        style,
-        {
-          backgroundColor: colorButton,
-        },
-        selectable && {
-          backgroundColor: selected ? colorButton : colors.grey20,
-        },
-      ]}
+      selectable={selectable}
+      selected={selected}
+      style={[style]}
     >
       <Text {...textProps} style={[textStyle]}>
         {text}
