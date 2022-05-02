@@ -4,20 +4,20 @@ import { useScaledSize } from 'react-native-web-hooks'
 
 import { Entypo } from '@expo/vector-icons'
 
-import colors from '@/global/colors'
+import { useDrawer } from '@/context/DrawerMenu'
 
 const ButtonOpenMenu = () => {
   const iconSize = useScaledSize(1.5)
-
+  const { toggleDrawer } = useDrawer()
   return (
     <TouchableOpacity
       style={{
         padding: 8,
         marginRight: 8,
       }}
-      onPress={() => {}}
+      onPress={toggleDrawer}
     >
-      <Entypo name="menu" size={iconSize} color={colors.grey20} />
+      <Entypo name="menu" size={iconSize} color={'white'} />
     </TouchableOpacity>
   )
 }

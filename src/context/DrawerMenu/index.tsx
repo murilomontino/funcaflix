@@ -1,47 +1,38 @@
 /* eslint-disable react/prop-types */
-import React, { createContext, useContext, useRef } from 'react'
-import { DrawerLayout } from 'react-native-gesture-handler'
+import React, { createContext, useContext } from 'react'
+import Drawer from 'react-modern-drawer'
 
 import NavBar from '@/components/molecule/nav-bar'
 
 type ContextDrawer = {
-  drawerToggle: () => void
+  toggleDrawer: () => void
 }
 
 const DrawerContext = createContext({} as ContextDrawer)
 
 const DrawerProvider: React.FC = ({ children }) => {
-  const renderDrawer = () => {
-    return <NavBar flexDirection="column" />
-  }
-  const drawer = useRef<DrawerLayout>()
-
-  const drawerToggle = () => {
-    drawer.current?.openDrawer()
-  }
-
-  const ComponentDrawer = () => {
-    return (
-      <DrawerLayout
-        ref={drawer}
-        drawerWidth={250}
-        drawerType="front"
-        drawerBackgroundColor="rgba(0,0,0,0.5)"
-        renderNavigationView={renderDrawer}
-        //onDrawerSlide={handleDrawerSlide}
-      >
-        {children}
-      </DrawerLayout>
-    )
+  const [isOpen, setIsOpen] = React.useState(false)
+  const toggleDrawer = () => {
+    setIsOpen((prevState) => !prevState)
   }
 
   return (
     <DrawerContext.Provider
       value={{
-        drawerToggle,
+        toggleDrawer,
       }}
     >
-      <ComponentDrawer />
+      <Drawer
+        open={isOpen}
+        onClose={toggleDrawer}
+        direction="left"
+        style={{
+          backgroundColor: 'rgba(0,0,0,0.5)',
+        }}
+      >
+        <NavBar flexDirection="column" />
+      </Drawer>
+      {children}
     </DrawerContext.Provider>
   )
 }

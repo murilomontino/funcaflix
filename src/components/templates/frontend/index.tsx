@@ -5,7 +5,11 @@ import Header from '@/components/organism/header'
 
 import { Container, ContainerChildren, ContainerHeader } from './styles'
 
-const TemplateFrontEnd: React.FC = ({ children }) => {
+type Props = {
+  children: React.ReactNode | React.FC | React.Component | JSX.Element
+}
+
+const TemplateFrontEnd = ({ children }: Props) => {
   return (
     <Container>
       <ContainerHeader>

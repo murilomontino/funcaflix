@@ -6,12 +6,16 @@ import SkeletonHeadLogo from '@/components/molecule/header-logo/skeleton'
 import Footer from '@/components/organism/footer'
 import Header from '@/components/organism/header'
 
-import { ContainerLogo, ContainerBackground, Container } from './styles'
+import { ContainerLogo, ContainerBackground } from './styles'
 
 import { useResources } from '@/hooks/utils/use-resources'
 import { useSize } from '@/hooks/utils/use-size'
 
-const TemplateAddProduct: React.FC = ({ children }) => {
+type Props = {
+  children: React.ReactNode | React.FC | React.Component | JSX.Element
+}
+
+const TemplateAddProduct = ({ children }: Props) => {
   const { isFontReady } = useResources()
   const { size } = useSize()
   const TEXT_SIZE = useScaledSize(1)
@@ -20,16 +24,18 @@ const TemplateAddProduct: React.FC = ({ children }) => {
 
   return (
     <ContainerBackground>
-      <Header />
-      <ContainerLogo>
-        {isFontReady ? (
-          <HeaderLogo />
-        ) : (
-          <SkeletonHeadLogo width={WIDTH_LOGO} textSize={TEXT_SIZE} />
-        )}
-      </ContainerLogo>
-      <Container>{children}</Container>
-      <Footer />
+      <>
+        <Header />
+        <ContainerLogo>
+          {isFontReady ? (
+            <HeaderLogo />
+          ) : (
+            <SkeletonHeadLogo width={WIDTH_LOGO} textSize={TEXT_SIZE} />
+          )}
+        </ContainerLogo>
+        {children}
+        <Footer />
+      </>
     </ContainerBackground>
   )
 }
