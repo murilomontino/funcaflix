@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { Animated } from 'react-native'
-import { AntDesign } from 'react-web-vector-icons'
 
 import { Asset } from 'expo-asset'
 
 import theme from '@/theme'
+import { AntDesign } from '@expo/vector-icons'
 
 import {
   Title,
@@ -130,11 +130,7 @@ const ToastContextProvider: React.FC = ({ children }) => {
           <Message>{options.message}</Message>
         </ContainerMessage>
         <ContainerClose onPress={closeToast}>
-          <AntDesign
-            name="close"
-            size={24}
-            color={theme.COLORS.ICON_SECONDARY}
-          />
+          <AntDesign name="close" size={24} color={theme.COLORS.ICON_SECONDARY} />
         </ContainerClose>
       </Toast>
     )

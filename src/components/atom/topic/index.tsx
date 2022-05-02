@@ -10,13 +10,7 @@ type Props = {
   textProps?: TextProps
 } & ViewProps
 
-const Topic = ({
-  requered,
-  topic,
-  maxWidthTitle,
-  textProps,
-  ...rest
-}: Props) => {
+const Topic = ({ requered, topic, maxWidthTitle, textProps, ...rest }: Props) => {
   return (
     <TopicContainer
       {...rest}

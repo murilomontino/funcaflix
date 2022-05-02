@@ -1,13 +1,7 @@
 import React, { useState } from 'react'
-import {
-  StyleProp,
-  ViewStyle,
-  TextStyle,
-  View,
-  StyleSheet,
-  Text,
-} from 'react-native'
-import { FontAwesome } from 'react-web-vector-icons'
+import { StyleProp, ViewStyle, TextStyle, View, StyleSheet, Text } from 'react-native'
+
+import { FontAwesome } from '@expo/vector-icons'
 
 import DatePicker from './react-date-picker/entry'
 
@@ -87,9 +81,7 @@ const DatePickerCustom = ({
         disableCalendar={disabled}
         disabled={disabled}
         locale="pt-BR"
-        calendarIcon={
-          <FontAwesome name="calendar" size={24} color={colorIcon} />
-        }
+        calendarIcon={<FontAwesome name="calendar" size={24} color={colorIcon} />}
         minDate={minimumDate}
         maxDate={new Date(new Date().getFullYear() + 10, 0, 1)}
       />

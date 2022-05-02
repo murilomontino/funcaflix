@@ -1,8 +1,8 @@
 import React from 'react'
 import { Modal, StyleSheet } from 'react-native'
-import { FontAwesome } from 'react-web-vector-icons'
 
 import theme from '@/theme'
+import { FontAwesome } from '@expo/vector-icons'
 
 import Button from '@/components/atom/button'
 
@@ -68,8 +68,7 @@ const BoxToConfirmModal = ({
     },
   }
 
-  const { icon, color, colorBold, title, message, message_warning, warning } =
-    messages[type]
+  const { icon, color, colorBold, title, message, message_warning, warning } = messages[type]
 
   return (
     <Modal

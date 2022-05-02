@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react'
-import { FontAwesome } from 'react-web-vector-icons'
+
+import { FontAwesome } from '@expo/vector-icons'
 
 import TitleCarousel from '@/components/molecule/title-carousel'
 

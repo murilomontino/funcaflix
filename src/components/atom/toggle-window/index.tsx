@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { TouchableOpacityProps } from 'react-native'
-import { AntDesign } from 'react-web-vector-icons'
 
 import theme from '@/theme'
+import { AntDesign } from '@expo/vector-icons'
 
 import { Container, ContainerIcon, Title } from './styles'
 

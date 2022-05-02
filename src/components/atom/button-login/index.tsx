@@ -1,8 +1,8 @@
 import React, { useMemo, useRef } from 'react'
 import { Text, TouchableHighlight, View } from 'react-native'
 import { useHover, useScaledSize } from 'react-native-web-hooks'
-import { AntDesign } from 'react-web-vector-icons'
 
+import { AntDesign } from '@expo/vector-icons'
 import Link from 'next/link'
 
 import colors from '@/global/colors'

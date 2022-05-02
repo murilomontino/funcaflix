@@ -1,6 +1,7 @@
 import React, { MutableRefObject, useCallback, useEffect, useMemo, useState } from 'react'
 import { ViewStyle, TextInputProps, ImageStyle, TextStyle } from 'react-native'
-import { FontAwesome } from 'react-web-vector-icons'
+
+import { FontAwesome } from '@expo/vector-icons'
 
 import Topic from '@/components/atom/topic'
 

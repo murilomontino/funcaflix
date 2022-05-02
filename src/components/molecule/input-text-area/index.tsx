@@ -1,9 +1,4 @@
-import React, {
-  MutableRefObject,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react'
+import React, { MutableRefObject, useCallback, useEffect, useState } from 'react'
 import { ViewStyle } from 'react-native'
 
 import Topic from '@/components/atom/topic'

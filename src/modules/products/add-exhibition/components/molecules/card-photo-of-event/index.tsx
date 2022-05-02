@@ -1,10 +1,10 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { View } from 'react-native'
 import { useHover } from 'react-native-web-hooks'
-import { AntDesign } from 'react-web-vector-icons'
 
 import theme from '@/theme'
 import { ExhibitionPhotosTypes } from '@/types'
+import { AntDesign } from '@expo/vector-icons'
 
 import CacheImage from '@/components/atom/cache-image'
 import DatePicker from '@/components/atom/date-picker'
