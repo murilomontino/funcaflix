@@ -10,7 +10,11 @@ type ContextDrawer = {
 
 const DrawerContext = createContext({} as ContextDrawer)
 
-const DrawerProvider: React.FC = ({ children }) => {
+type Props = {
+  children: React.ReactNode
+}
+
+const DrawerProvider = ({ children }: Props) => {
   const [isOpen, setIsOpen] = React.useState(false)
   const toggleDrawer = () => {
     setIsOpen((prevState) => !prevState)

@@ -11,7 +11,11 @@ type Context = {
 
 const LoadingContext = createContext<Context>({} as Context)
 
-const LoadingContextProvider: React.FC = ({ children }) => {
+type Props = {
+  children: React.ReactNode
+}
+
+const LoadingContextProvider = ({ children }: Props) => {
   const [loading, setLoading] = useState(false)
 
   const showLoading = () => setLoading(true)

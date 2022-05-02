@@ -41,7 +41,11 @@ type Context = {
 
 const ToastContext = createContext<Context>({} as Context)
 
-const ToastContextProvider: React.FC = ({ children }) => {
+type Props = {
+  children: React.ReactNode
+}
+
+const ToastContextProvider = ({ children }: Props) => {
   const [visible, setVisible] = useState(false)
 
   const [fadeAnimation] = useState(new Animated.Value(0))
