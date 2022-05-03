@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
 
-import { AnimatePresence } from 'moti'
-
 import ButtonsCard from '@/components/atom/buttons-card/buttons-card'
 import DescriptionMovie from '@/components/atom/description-movie'
 import ThumbnailImage from '@/components/atom/thumbnail-image'
@@ -15,33 +13,23 @@ import {
   ContainerThumbnail,
 } from './styles'
 
-type AnimationBTNorCard =
-  | {
-      animated?: true
-      isButton?: false
-    }
-  | {
-      animated?: false
-      isButton?: true
-    }
-
 type Props = {
   height?: number
   width?: number
   index: number
+  isButton?: boolean
   item: {
     id: number | string
     title: string
     description: string
     image: string
   }
-} & React.HTMLAttributes<HTMLDivElement> &
-  AnimationBTNorCard
+} & React.HTMLAttributes<HTMLDivElement>
 
 const WIDTH_ITEM = 225
 const HEIGHT_ITEM = 125
 
-const ThumbnailCard = ({ index, item, animated = true, isButton = false, ...rest }: Props) => {
+const ThumbnailCard = ({ index, item, isButton = false, ...rest }: Props) => {
   const [isHovered, setIsHovered] = useState(false)
 
   const handleMouseEnter = (e) => {
@@ -57,13 +45,11 @@ const ThumbnailCard = ({ index, item, animated = true, isButton = false, ...rest
   return (
     <Container
       {...rest}
-      className={`${isButton ? 'btn' : ''}`}
-      style={{
-        width: WIDTH_ITEM,
-        height: HEIGHT_ITEM,
-      }}
+      btn={isButton}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      width={WIDTH_ITEM}
+      height={HEIGHT_ITEM}
     >
       <ContainerThumbnail
         style={{
@@ -79,7 +65,7 @@ const ThumbnailCard = ({ index, item, animated = true, isButton = false, ...rest
         />
       </ContainerThumbnail>
 
-      {isHovered && animated && (
+      {isHovered && !isButton && (
         <CardHovered width={WIDTH_ITEM} index={index}>
           <>
             <ThumbnailImage
@@ -88,22 +74,20 @@ const ThumbnailCard = ({ index, item, animated = true, isButton = false, ...rest
               height={HEIGHT_ITEM}
               title={item.title}
             />
-            <AnimatePresence>
-              <ContainerInformation
-                transition={{
-                  type: 'timing',
-                  delay: 50,
-                  duration: 100,
-                }}
-              >
-                <ContainerDescription>
-                  <DescriptionMovie description={item.description} animated />
-                </ContainerDescription>
-                <ContainerButtons>
-                  <ButtonsCard animated />
-                </ContainerButtons>
-              </ContainerInformation>
-            </AnimatePresence>
+            <ContainerInformation
+              transition={{
+                type: 'timing',
+                delay: 50,
+                duration: 100,
+              }}
+            >
+              <ContainerDescription>
+                <DescriptionMovie description={item.description} animated />
+              </ContainerDescription>
+              <ContainerButtons>
+                <ButtonsCard animated />
+              </ContainerButtons>
+            </ContainerInformation>
           </>
         </CardHovered>
       )}

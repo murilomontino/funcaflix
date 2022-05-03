@@ -1,14 +1,34 @@
 import theme from '@/theme'
 import { MotiView } from 'moti'
-import styledWeb from 'styled-components'
+import styledWeb, { css } from 'styled-components'
 import styled from 'styled-components/native'
 
-export const Container = styledWeb.div`
+type Props = {
+  width?: string | number
+  height?: string | number
+  btn?: boolean
+}
+
+export const Container = styledWeb.div<Props>`
   margin-right: 5px;
   overflow: hidden;
   cursor: pointer;
   color: white;
+  width: ${(props) => props.width || '250'}px;
+  height: ${(props) => props.height || '125'}px;
+  ${(props) =>
+    props.btn &&
+    css`
+      :hover {
+        transition: all 0.1s;
+        background-color: rgba(0, 0, 0, 0.2);
+        box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.3);
+      }
 
+      :active {
+        transform: scale(0.95);
+      }
+    `} 
 `
 
 export const ContainerInformation = styled(MotiView)`
