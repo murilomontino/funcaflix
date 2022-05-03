@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react'
 
 import { Video } from 'expo-av'
 
-import NotVideo from '@/logo-mapa-cultural.png'
+import NotVideo from '@/public/logo-mapa-cultural.png'
 import { GettersVideosInfo } from '@/types'
 
 import InputFileHTML from '@/components/atom/input-file-html'

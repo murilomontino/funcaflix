@@ -22,7 +22,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": [
-        "./src/*"
+        "./source/*"
       ],
       "@/public/*": [
         "./public/*"
@@ -32,7 +32,7 @@
     "incremental": true
   },
   "include": [
-    "src/**/*",
+    "source/**/*",
     "pages"
   ],
   "exclude": [
@@ -41,7 +41,7 @@
     "metro.config.ts",
     "jest.config.js",
     "next.config.ts",
-    "src/components/atom/date-picker/react-date-picker/**/*",
+    "source/components/atom/date-picker/react-date-picker/**/*",
   ],
   "extends": "expo/tsconfig.base",
   "rules": [
