@@ -18,3 +18,10 @@ export const ContainerLogo = styled.View`
 export const Container = styled.View`
   z-index: 3;
 `
+
+export const ContainerChildren = styled.View`
+  padding: 0px;
+  max-width: 100vw;
+  height: 100%;
+  z-index: 2;
+`
