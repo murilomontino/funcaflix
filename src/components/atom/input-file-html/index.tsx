@@ -6,16 +6,17 @@ type MimeType = 'image/png' | 'image/jpeg' | 'image/jpg' | 'video/*' | 'applicat
 
 type Props = {
   mimeType?: MimeType[]
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void
+  onChange: (file: File) => void
 }
 
 const InputFileHTML = ({ onChange, mimeType }: Props) => {
   const [file, setFile] = useState<File>(null)
 
   const onChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault()
     const file = e.target.files[0]
     if (file) {
-      onChange(e)
+      onChange(file)
       setFile(file)
     }
   }
