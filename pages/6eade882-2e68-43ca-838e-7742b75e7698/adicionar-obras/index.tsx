@@ -17,6 +17,7 @@ export default function AddWorks() {
   const fetch = async () => {
     try {
       const { data } = await api.get<Getter<GettersExhibitions[]>>('exhibitions')
+
       if (data.statusCode === 200) {
         return data.data
       }
