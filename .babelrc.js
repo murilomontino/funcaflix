@@ -29,6 +29,7 @@ module.exports = (api) =>{
             '@/types': './src/types',
             '@/utils': './src/utils',
             '@/animations': './src/animations',
+            '@/public': './public',
           },
         },
       ],
