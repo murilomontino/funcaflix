@@ -3,10 +3,7 @@ import { useContextSelector } from 'use-context-selector'
 import { FormProductMusicContext } from './index'
 
 export const useFormMusic = () => {
-  const titleAlbum = useContextSelector(
-    FormProductMusicContext,
-    (state) => state.titleAlbum
-  )
+  const titleAlbum = useContextSelector(FormProductMusicContext, (state) => state.titleAlbum)
   const onChangeTitleAlbum = useContextSelector(
     FormProductMusicContext,
     (state) => state.onChangeTitleAlbum
@@ -24,19 +21,10 @@ export const useFormMusic = () => {
 }
 
 export const useFormMusicsFile = () => {
-  const file = useContextSelector(
-    FormProductMusicContext,
-    (value) => value.file
-  )
-  const onChangeFile = useContextSelector(
-    FormProductMusicContext,
-    (value) => value.onChangeFile
-  )
+  const file = useContextSelector(FormProductMusicContext, (value) => value.file)
+  const onChangeFile = useContextSelector(FormProductMusicContext, (value) => value.onChangeFile)
 
-  const mapFiles = useContextSelector(
-    FormProductMusicContext,
-    (value) => value.mapFiles
-  )
+  const mapFiles = useContextSelector(FormProductMusicContext, (value) => value.mapFiles)
 
   return {
     file,
@@ -46,10 +34,7 @@ export const useFormMusicsFile = () => {
 }
 
 export const useFormMusicContent = () => {
-  const content = useContextSelector(
-    FormProductMusicContext,
-    (value) => value.content
-  )
+  const content = useContextSelector(FormProductMusicContext, (value) => value.content)
   const onChangeContent = useContextSelector(
     FormProductMusicContext,
     (value) => value.onChangeContent
@@ -91,20 +76,14 @@ export const useFormMusicComposers = () => {
 }
 
 export const removeFormMusic = () => {
-  const onRemoveMusic = useContextSelector(
-    FormProductMusicContext,
-    (value) => value.onRemoveMusic
-  )
+  const onRemoveMusic = useContextSelector(FormProductMusicContext, (value) => value.onRemoveMusic)
   return {
     onRemoveMusic,
   }
 }
 
 export const useFormMusicImage = () => {
-  const image = useContextSelector(
-    FormProductMusicContext,
-    (value) => value.thumbnail
-  )
+  const image = useContextSelector(FormProductMusicContext, (value) => value.thumbnail)
 
   const onChangeImageURL = useContextSelector(
     FormProductMusicContext,
@@ -124,14 +103,8 @@ export const useFormMusicImage = () => {
 }
 
 export const useFormMusicTags = () => {
-  const tags = useContextSelector(
-    FormProductMusicContext,
-    (value) => value.tags
-  )
-  const onChangeTags = useContextSelector(
-    FormProductMusicContext,
-    (value) => value.onChangeTags
-  )
+  const tags = useContextSelector(FormProductMusicContext, (value) => value.tags)
+  const onChangeTags = useContextSelector(FormProductMusicContext, (value) => value.onChangeTags)
   return {
     onChangeTags,
     tags,
@@ -139,10 +112,7 @@ export const useFormMusicTags = () => {
 }
 
 export const useFormMusicGenero = () => {
-  const genero = useContextSelector(
-    FormProductMusicContext,
-    (value) => value.genres
-  )
+  const genero = useContextSelector(FormProductMusicContext, (value) => value.genres)
   const onChangeGeneros = useContextSelector(
     FormProductMusicContext,
     (value) => value.onChangeGenres
@@ -154,23 +124,14 @@ export const useFormMusicGenero = () => {
 }
 
 export const useFormMusicCategory = () => {
-  const category = useContextSelector(
-    FormProductMusicContext,
-    (value) => value.category
-  )
+  const category = useContextSelector(FormProductMusicContext, (value) => value.category)
   const onChangeCategory = useContextSelector(
     FormProductMusicContext,
     (value) => value.onChangeCategory
   )
 
-  const type = useContextSelector(
-    FormProductMusicContext,
-    (value) => value.type
-  )
-  const onChangeType = useContextSelector(
-    FormProductMusicContext,
-    (value) => value.onChangeType
-  )
+  const type = useContextSelector(FormProductMusicContext, (value) => value.type)
+  const onChangeType = useContextSelector(FormProductMusicContext, (value) => value.onChangeType)
 
   return {
     category,
@@ -181,10 +142,7 @@ export const useFormMusicCategory = () => {
 }
 
 export const useFormMusicCPFandCNPJ = () => {
-  const cpfOrCnpj = useContextSelector(
-    FormProductMusicContext,
-    (value) => value.cpfOrCnpj
-  )
+  const cpfOrCnpj = useContextSelector(FormProductMusicContext, (value) => value.cpfOrCnpj)
   const onChangeCPForCNPJ = useContextSelector(
     FormProductMusicContext,
     (value) => value.onChangeCPForCNPJ
@@ -221,19 +179,13 @@ export const useFormMusicFinancialResources = () => {
 }
 
 export const useFormMusicData = () => {
-  const culturalName = useContextSelector(
-    FormProductMusicContext,
-    (value) => value.culturalName
-  )
+  const culturalName = useContextSelector(FormProductMusicContext, (value) => value.culturalName)
   const onChangeCulturalName = useContextSelector(
     FormProductMusicContext,
     (value) => value.onChangeCulturalName
   )
 
-  const publishedDate = useContextSelector(
-    FormProductMusicContext,
-    (value) => value.publishedDate
-  )
+  const publishedDate = useContextSelector(FormProductMusicContext, (value) => value.publishedDate)
   const onChangePublishedDate = useContextSelector(
     FormProductMusicContext,
     (value) => value.onChangePublishedDate
@@ -248,10 +200,7 @@ export const useFormMusicData = () => {
 }
 
 export const useResetMusic = () => {
-  const resetMusic = useContextSelector(
-    FormProductMusicContext,
-    (value) => value.resetProductMusic
-  )
+  const resetMusic = useContextSelector(FormProductMusicContext, (value) => value.resetProductMusic)
 
   const reset = async () => {
     resetMusic()
