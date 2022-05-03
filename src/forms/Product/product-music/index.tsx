@@ -16,7 +16,11 @@ import { useAttrsProduct } from '@/hooks/use-attrs-product'
 
 export const FormProductMusicContext = createContext({} as FormProductMusic)
 
-const FormProductMusicProvider: React.FC = ({ children }) => {
+type Props = {
+  children: React.ReactNode | JSX.Element
+}
+
+const FormProductMusicProvider = ({ children }: Props) => {
   const category = Category.Music
 
   const [titleAlbum, setTitleAlbum] = useState('')

@@ -15,7 +15,11 @@ import { useAttrsProduct } from '@/hooks/use-attrs-product'
 
 export const FormProductExhibitionContext = createContext({} as FormProductExhibition)
 
-const FormProductExhibitionProvider: React.FC = ({ children }) => {
+type Props = {
+  children: React.ReactNode | JSX.Element
+}
+
+const FormProductExhibitionProvider = ({ children }: Props) => {
   // Fields Exhibitions
   const {
     biography,

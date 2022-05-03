@@ -14,7 +14,11 @@ import { useSubmitVideoInfo } from '@/hooks/use-attrs-videos/use-submit-video-in
 
 export const FormProductVideoInfoContext = createContext({} as FormProductVideo)
 
-const FormProductVideoInfoProvider: React.FC = ({ children }) => {
+type Props = {
+  children: React.ReactNode | JSX.Element
+}
+
+const FormProductVideoInfoProvider = ({ children }: Props) => {
   // State -----------------------------------------------------------------------
   // const [type, setType] = useState<TypesProducts.LINK | TypesProducts.MP4>(null)
   const [categoryVideo, setCategoryVideo] = useState<CategoriesVideos>(null)

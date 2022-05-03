@@ -92,6 +92,7 @@ export const mapTypeProduct: { [key in TypesProducts]: string } = {
   [TypesProducts.PHOTOS]: 'Foto',
   [TypesProducts.MP4]: 'MP4',
   [TypesProducts.LINK]: 'Link',
+  [TypesProducts.NAO_INFORMADO]: 'Não informado',
 }
 
 export const mapTypeMusic: { [key in TypeMusicAlbums]: string } = {
