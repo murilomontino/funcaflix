@@ -1,57 +1,21 @@
-import React, { useRef, useState } from 'react'
+import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { useHover } from 'react-native-web-hooks'
 
 import theme from '@/theme'
 
+import ArrayCarousel from '@/components/organism/array-carousel'
 import TemplateFrontEnd from '@/components/templates/frontend'
 
 const Lab = () => {
-  const [hoveredDiv, setHoveredDiv] = useState(false)
-
-  const ref = useRef()
-  const hover = useHover(ref)
-
   return (
     <TemplateFrontEnd>
-      <div
+      <View
         style={{
-          display: 'flex',
-          flex: 1,
-          minHeight: '100vh',
-          width: '100vw',
-          justifyContent: 'center',
-          alignItems: 'center',
+          paddingTop: 100,
         }}
       >
-        <div>
-          <div
-            onMouseEnter={() => setHoveredDiv(true)}
-            onMouseLeave={() => setHoveredDiv(false)}
-            style={{
-              display: 'flex',
-              position: 'relative',
-              width: '250px',
-              height: '150px',
-              backgroundColor: 'white',
-            }}
-          >
-            {(hover || hoveredDiv) && (
-              <View
-                ref={ref}
-                style={{
-                  position: 'absolute',
-                  top: -100,
-                  display: 'flex',
-                  width: '250px',
-                  height: '300px',
-                  backgroundColor: 'yellow',
-                }}
-              />
-            )}
-          </div>
-        </div>
-      </div>
+        {ArrayCarousel()}
+      </View>
     </TemplateFrontEnd>
   )
 }

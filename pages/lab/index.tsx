@@ -3,14 +3,20 @@ import { StyleSheet, Text, View } from 'react-native'
 import { useQuery } from 'react-query'
 
 import theme from '@/theme'
+import { FontAwesome } from '@expo/vector-icons'
 import Link from 'next/link'
 
 import Button from '@/components/atom/button'
 import InputFileHTML from '@/components/atom/input-file-html'
 
 import api from '@/services'
+import requests from '@/services/config/requests'
 
 import { useResources } from '@/hooks/utils/use-resources'
+
+// import component 👇
+
+//import styles 👇
 
 const Lab = () => {
   const { isFontReady } = useResources()
@@ -18,32 +24,49 @@ const Lab = () => {
   const [image, setImage] = useState<File>(null)
   const [progress, setProgress] = useState<number>(0)
   const [URL, setURL] = useState<string>(null)
+  const [staleTime, setStaleTime] = useState<number>(0)
 
-  const { isLoading, error, data } = useQuery('tokenVerify', async () => {
+  const { isLoading, error, data } = useQuery(
+    'tokenVerify',
+    async () => {
+      const {
+        data: { data },
+      } = await api.get(requests.OAuth.verifyOAuthToken)
+
+      return data
+    },
+    {
+      staleTime: staleTime,
+    }
+  )
+
+  const verify = async () => {
     const {
       data: { data },
-    } = await api.get('verify-oauth-token')
-    const { verified } = data
-    return { verified }
-  })
+    } = await api.get(requests.OAuth.generateOAuthToken)
+    const { url } = data
+
+    setURL(url)
+  }
 
   useEffect(() => {
-    if (data) {
-      const verify = async () => {
-        const {
-          data: { data },
-        } = await api.get('generate-oauth-token')
-        const { url } = data
-
-        setURL(url)
-      }
+    if (data?.isExpired) {
       verify()
     }
-  }, [data])
+    if (data?.expiry_date) {
+      const time = data.expiry_date - Date.now()
+      setStaleTime(time)
+    }
+  }, [data?.isExpired])
 
   if (!isFontReady) {
     return null
   }
+
+  function refresh1HourToken() {
+    alert('Já temos dez segundos.')
+  }
+  setTimeout(refresh1HourToken, 1000 * 60 * 59)
 
   const onChangeImage = (image: React.ChangeEvent<HTMLInputElement>) => {
     setImage(image.target.files[0])
@@ -79,15 +102,18 @@ const Lab = () => {
 
   return (
     <View style={styles.containerCenter}>
-      {!!URL && data?.verified && (
+      {!!URL && data?.isExpired && (
         <Link href={URL}>
           <a target="_blank">Click this link</a>
         </Link>
       )}
-      <p>{data?.verified}</p>
+      <p>{staleTime}</p>
+      <p>{URL}</p>
+      <p>{JSON.stringify(data)}</p>
       <InputFileHTML onChange={onChangeImage} mimeType={['video/*']} />
       <Button text="Enviar" onPress={onSubmit} />
       <Text>{progress}%</Text>
+      <FontAwesome name="anchor" size={24} color="#fff" />
     </View>
   )
 }
