@@ -4,16 +4,18 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { GettersVideosInfo, TypesProducts } from '@/types'
 import { createContext } from 'use-context-selector'
 
-import { FormProductVideoFile } from './types'
+import { FormProductVideoFile, StateTypeSetVideos } from './types'
 
 export const FormProductVideoContext = createContext({} as FormProductVideoFile)
 
 type Props = {
   children: React.ReactNode | JSX.Element
+  data: GettersVideosInfo[]
 }
 
-const FormProductVideoProvider = ({ children }: Props) => {
+const FormProductVideoProvider = ({ children, data }: Props) => {
   // State -----------------------------------------------------------------------
+  const [videos, setVideos] = useState<GettersVideosInfo[]>(data)
   const [type, setType] = useState<TypesProducts.LINK | TypesProducts.MP4>(null)
   const [selectedVideo, setSelectedVideo] = useState<GettersVideosInfo>(null)
   const [file, setFile] = useState<File>()
@@ -32,6 +34,16 @@ const FormProductVideoProvider = ({ children }: Props) => {
       reset()
     }
   }, [])
+
+  const onChangeVideos = useCallback(
+    (onChange: StateTypeSetVideos) => {
+      setVideos((state) => {
+        if (!state) return []
+        return onChange(state)
+      })
+    },
+    [videos]
+  )
 
   const onChangeUrl = useCallback(
     (value: string) => {
@@ -82,6 +94,8 @@ const FormProductVideoProvider = ({ children }: Props) => {
     <FormProductVideoContext.Provider
       value={{
         onSubmit,
+        onChangeVideos,
+        videos,
         onChangeType,
         onChangeSelectedVideo,
         file,

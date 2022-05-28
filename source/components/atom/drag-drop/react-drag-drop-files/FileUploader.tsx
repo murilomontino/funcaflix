@@ -8,12 +8,7 @@ import { CSSProperties } from 'styled-components'
 import css from '../drag-drop.module.css'
 import DrawTypes from './DrawTypes'
 import ImageAdd from './ImageAdd'
-import {
-  UploaderWrapper,
-  DescriptionWrapper,
-  Description,
-  HoverMsg,
-} from './style'
+import { UploaderWrapper, DescriptionWrapper, Description, HoverMsg } from './style'
 import useDragging from './useDragging'
 import { acceptedExt, checkType, getFileSizeMB } from './utils'
 
@@ -231,14 +226,7 @@ const FileUploader: React.FC<Props> = (props: Props): JSX.Element => {
         <>
           <ImageAdd />
           <DescriptionWrapper error={error}>
-            {drawDescription(
-              currFiles,
-              uploaded,
-              error,
-              disabled,
-              label,
-              labelStyles
-            )}
+            {drawDescription(currFiles, uploaded, error, disabled, label, labelStyles)}
             <DrawTypes types={types} minSize={minSize} maxSize={maxSize} />
           </DescriptionWrapper>
         </>

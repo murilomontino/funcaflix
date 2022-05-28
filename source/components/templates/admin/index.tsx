@@ -9,7 +9,6 @@ import Header from '@/components/organism/header'
 import { ContainerLogo, ContainerBackground, ContainerChildren } from './styles'
 
 import { useResources } from '@/hooks/utils/use-resources'
-import { useSize } from '@/hooks/utils/use-size'
 
 type Props = {
   children: React.ReactNode | React.FC | React.Component | JSX.Element
@@ -17,7 +16,6 @@ type Props = {
 
 const TemplateAdminProduct = ({ children }: Props) => {
   const { isFontReady } = useResources()
-  const { size } = useSize()
   const TEXT_SIZE = useScaledSize(1)
 
   const WIDTH_LOGO = useScaledSize(3)

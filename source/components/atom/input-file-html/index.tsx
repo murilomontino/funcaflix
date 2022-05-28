@@ -7,9 +7,10 @@ type MimeType = 'image/png' | 'image/jpeg' | 'image/jpg' | 'video/*' | 'applicat
 type Props = {
   mimeType?: MimeType[]
   onChange: (file: File) => void
+  label?: string
 }
 
-const InputFileHTML = ({ onChange, mimeType }: Props) => {
+const InputFileHTML = ({ onChange, mimeType, label = 'Selecione os Arquivos' }: Props) => {
   const [file, setFile] = useState<File>(null)
 
   const onChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
@@ -23,7 +24,7 @@ const InputFileHTML = ({ onChange, mimeType }: Props) => {
 
   return (
     <div>
-      <Label htmlFor="arquivo">Enviar Video</Label>
+      <Label htmlFor="arquivo">{label}</Label>
       <InputFile
         type="file"
         name="arquivo"

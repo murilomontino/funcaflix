@@ -6,23 +6,30 @@ import theme from '@/theme'
 import css from './drag-drop.module.css'
 import { FileUploader } from './react-drag-drop-files'
 
-const fileTypes = ['JPG', 'PNG', 'JPEG']
-
 type Props = {
+  fileTypes?: string[]
   onChangeFile: (file: File | FileList) => void
   label?: string
+  multiple?: boolean
+  classes?: string
 }
 
-function DragDrop({ onChangeFile, label = 'SELECIONE AS OBRAS OU ARRASTE E SOLTE AQUI -' }: Props) {
+function DragDrop({
+  onChangeFile,
+  multiple = true,
+  label = 'SELECIONE AS OBRAS OU ARRASTE E SOLTE AQUI -',
+  fileTypes = ['JPG', 'PNG', 'JPEG'],
+  classes = '',
+}: Props) {
   const handleChange = async (file: File | File[]) => {
     onChangeFile(file as any)
   }
 
   return (
     <FileUploader
-      multiple
+      multiple={multiple}
       handleChange={handleChange}
-      classes={css.dragDrop}
+      classes={[css.dragDrop, classes].join(' ')}
       labelStyles={{
         color: theme.COLORS.TEXT,
         fontSize: '1rem',

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { MutableRefObject, useCallback, useEffect, useMemo, useState } from 'react'
 import { ViewStyle, TextInputProps, ImageStyle, TextStyle } from 'react-native'
 
@@ -110,13 +111,15 @@ export const InputTopic = ({
           {
             textAlign,
             outline: 'none',
-            borderRightWidth: 0,
+            borderRightWidth: nameIcon ? 0 : border.borderWidth,
           },
         ]}
       />
-      <ContainerIcon style={[border, styleViewInput, { borderLeftWidth: 0 }]}>
-        <FontAwesome name={nameIcon} size={14} />
-      </ContainerIcon>
+      {!!nameIcon && (
+        <ContainerIcon style={[border, styleViewInput, { borderLeftWidth: 0 }]}>
+          <FontAwesome name={nameIcon as any} size={14} />
+        </ContainerIcon>
+      )}
     </Container>
   )
 }

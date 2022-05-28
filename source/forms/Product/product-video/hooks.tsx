@@ -51,3 +51,15 @@ export const useFormVideoResetAndSubmit = () => {
     onSubmit,
   }
 }
+
+export const useFormVideos = () => {
+  const videos = useContextSelector(FormProductVideoContext, (state) => state.videos)
+  const onChangeVideos = useContextSelector(
+    FormProductVideoContext,
+    (state) => state.onChangeVideos
+  )
+  return {
+    videos,
+    onChangeVideos,
+  }
+}

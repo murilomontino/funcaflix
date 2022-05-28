@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import { useQuery } from 'react-query'
 
 import theme from '@/theme'
+import { SettersYoutube } from '@/types/products/setters/youtube'
 import { FontAwesome } from '@expo/vector-icons'
 import Link from 'next/link'
 
@@ -12,6 +13,7 @@ import InputFileHTML from '@/components/atom/input-file-html'
 import api from '@/services'
 import requests from '@/services/config/requests'
 
+import { useSubmitVideo } from '@/hooks/use-attrs-videos/use-submit-video'
 import { useResources } from '@/hooks/utils/use-resources'
 
 // import component 👇
@@ -21,10 +23,11 @@ import { useResources } from '@/hooks/utils/use-resources'
 const Lab = () => {
   const { isFontReady } = useResources()
 
-  const [image, setImage] = useState<File>(null)
-  const [progress, setProgress] = useState<number>(0)
+  const [video, setVideo] = useState<File>(null)
   const [URL, setURL] = useState<string>(null)
   const [staleTime, setStaleTime] = useState<number>(0)
+
+  const { submit, progress } = useSubmitVideo({ file: video })
 
   const { isLoading, error, data } = useQuery(
     'tokenVerify',
@@ -63,41 +66,33 @@ const Lab = () => {
     return null
   }
 
-  function refresh1HourToken() {
-    alert('Já temos dez segundos.')
-  }
-  setTimeout(refresh1HourToken, 1000 * 60 * 59)
-
-  const onChangeImage = (image: React.ChangeEvent<HTMLInputElement>) => {
-    setImage(image.target.files[0])
-    setProgress(0)
+  const onChangeVideo = (video) => {
+    setVideo(video)
   }
 
-  const onSubmit = async () => {
-    try {
-      const formData = new FormData()
-      formData.append('file', image, image.name)
-
-      await api.post('/videos', formData, {
-        onUploadProgress: (progressEvent) => {
-          const { loaded, total } = progressEvent
-          const percent = Math.floor((loaded / total) * 100)
-          setProgress(percent)
-        },
-        headers: {
-          'content-type': 'multipart/form-data; boundary=WebKitFormBoundary9n00RyX5AIcRgRpg',
-        },
-        params: {
-          name: image.name,
-          ext: image.type,
-          size: image.size,
-        },
-      })
-    } catch (error) {}
+  const object: SettersYoutube = {
+    sobre_a_obra: 'Descrição do Frontend',
+    tags: ['frontend', 'react', 'typescript'],
+    titulo: 'Frontend com React e Typescript',
+    produtoId: 7,
+    nome_unico: '2e11bc5087666ccdb25247',
+    categoryYoutube: null,
+    channelId: null,
+    privacyStatus: null,
+    publishedAt: null,
+    thumbnailYt: null,
+    url: null,
+    videoId: null,
+    id: 7,
+    nome_arquivo: '',
   }
 
   if (isLoading) {
     return <Text>Loading...</Text>
+  }
+
+  const sendVideo = async () => {
+    const a = await submit(object)
   }
 
   return (
@@ -110,8 +105,8 @@ const Lab = () => {
       <p>{staleTime}</p>
       <p>{URL}</p>
       <p>{JSON.stringify(data)}</p>
-      <InputFileHTML onChange={onChangeImage} mimeType={['video/*']} />
-      <Button text="Enviar" onPress={onSubmit} />
+      <InputFileHTML onChange={onChangeVideo} mimeType={['video/*']} />
+      <Button text="Enviar" onPress={sendVideo} />
       <Text>{progress}%</Text>
       <FontAwesome name="anchor" size={24} color="#fff" />
     </View>

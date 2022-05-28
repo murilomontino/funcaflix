@@ -80,8 +80,8 @@ export default function AddVideo({ videos }: Props) {
           <ButtonSocial name="google" url={URL} />
         </View>
       ) : (
-        <FormProductVideoProvider>
-          <Main videos={videos} />
+        <FormProductVideoProvider data={videos}>
+          <Main />
         </FormProductVideoProvider>
       )}
     </TemplateAdmin>
@@ -105,6 +105,7 @@ export const getStaticProps = async (ctx) => {
       recurso: true,
       cpf: true,
       cnpj: true,
+      youtubeId: true,
     },
   })
 

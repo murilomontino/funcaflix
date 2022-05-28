@@ -19,7 +19,6 @@ export const Input = styled.TextInput`
   font-weight: 500;
   padding: 8px;
   border-radius: 2px;
-  border-width: 0.4px;
   border-color: ${theme.COLORS.BORDER_BUTTON};
 `
 

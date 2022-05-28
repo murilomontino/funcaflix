@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { View } from 'react-native'
 
 import { GettersVideosInfo } from '@/types'
@@ -6,18 +6,17 @@ import { GettersVideosInfo } from '@/types'
 import ThumbnailCard from '@/components/molecule/thumbnail-card'
 import Carousel from '@/components/organism/carousel'
 
-import CardInsertVideo from './components/organisms/card-insert-video'
+import { useFormVideos, useFormVideoSelectedVideo } from '@/forms/Product/product-video/hooks'
+
+import DetailsVideo from './components/organisms/details'
 import { Container } from './styles'
 
-type Props = {
-  videos: GettersVideosInfo[]
-}
-
-const Main = ({ videos }: Props) => {
-  const [select, setSelect] = useState<GettersVideosInfo>(null)
+const Main = () => {
+  const { videos } = useFormVideos()
+  const { selectedVideo, onChangeSelectedVideo } = useFormVideoSelectedVideo()
 
   const handleSelect = (video: GettersVideosInfo) => {
-    setSelect(video)
+    onChangeSelectedVideo(video)
   }
 
   return (
@@ -49,7 +48,7 @@ const Main = ({ videos }: Props) => {
           alignItems: 'center',
         }}
       >
-        <CardInsertVideo item={select} />
+        <DetailsVideo item={selectedVideo} />
       </View>
     </Container>
   )
