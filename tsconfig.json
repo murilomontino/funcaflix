@@ -36,7 +36,7 @@
     "pages"
   ],
   "exclude": [
-    "node_modules",
+    "node_modules/**/*",
     "babel.config.ts",
     "metro.config.ts",
     "jest.config.js",
