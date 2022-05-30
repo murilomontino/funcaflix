@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useMemo } from 'react'
 
-import { Category, GetterBooks, TypeImgCapa } from '@/types/index'
-import { SettersBooks } from '@/types/products/'
+import { Category, GetterBooks, TypeImgCapa, SettersBooks } from '@/types/index'
 
 import { useLoading } from '@/context/LoadingModal'
 import { useToast } from '@/context/ToastModal'

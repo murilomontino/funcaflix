@@ -1,8 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useMemo } from 'react'
 
-import { Category, GettersTracks, TypeImgCapa } from '@/types'
-import { SettersTracks, SettersAlbums, GettersAlbums } from '@/types/products'
+import {
+  Category,
+  GettersTracks,
+  TypeImgCapa,
+  SettersTracks,
+  SettersAlbums,
+  GettersAlbums,
+} from '@/types'
 
 import { useLoading } from '@/context/LoadingModal'
 import { useToast } from '@/context/ToastModal'
