@@ -10,7 +10,11 @@ import ScreenBooks from '@/screens/books-screen'
 import api from '@/services'
 import { Getter } from '@/services/config/types'
 
-export default function Livros({ books }) {
+type Props = {
+  books: GetterBooks[]
+}
+
+export default function Livros({ books }: Props) {
   return (
     <TemplateFrontEnd>
       <ScreenBooks books={books} />

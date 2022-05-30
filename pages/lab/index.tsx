@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import { useQuery } from 'react-query'
 
 import theme from '@/theme'
-import { SettersYoutube } from '@/types/products/setters/youtube'
+import { SettersYoutube } from '@/types'
 import { FontAwesome } from '@expo/vector-icons'
 import Link from 'next/link'
 

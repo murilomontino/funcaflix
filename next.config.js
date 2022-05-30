@@ -24,7 +24,7 @@ const nextConfig = ((phase) => {
   const isProduction = phase === 'production'
   const isDevelopment = phase === 'development'
 
-  const _currentURL = isProduction ? process.env.API_URL : 'http://host.docker.internal:8000/api/'
+  const _currentURL = isProduction ? process.env.API_URL : 'http://localhost:8000/api/'
 
   return {
     eslint: {
@@ -38,7 +38,7 @@ const nextConfig = ((phase) => {
       disableStaticImages: true,
       domains: [
         'i.ytimg.com',
-        'host.docker.internal'
+        'localhost'
       ]
     },
     
