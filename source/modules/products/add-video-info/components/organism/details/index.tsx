@@ -2,7 +2,7 @@ import React from 'react'
 import { View } from 'react-native'
 
 import { FormikErrors } from 'formik'
-import { GettersVideosInfo } from 'types-funcap'
+import { GettersVideosInfo, mapCategoriesVideos } from 'types-funcap'
 
 import GetImageButton from '@/components/atom/get-image-button'
 import SelectDropdown from '@/components/atom/select-dropdown'
@@ -13,7 +13,6 @@ import InputTextArea from '@/components/molecule/input-text-area'
 import InputTopic from '@/components/molecule/input-topic'
 import SendFormButton from '@/components/molecule/send-form-button'
 
-import { mapCategoryVideo } from '@/forms/Product/product-video-info/types'
 import { mapFinancialResources } from '@/forms/Product/types'
 import { Document } from '@/forms/Product/types'
 
@@ -46,6 +45,13 @@ type Props = {
 const Details = ({ values, errors, handleSubmit, isValid, setFieldValue, reset }: Props) => {
   const onChange = (key: string) => (value: any) => setFieldValue(key, value)
 
+  const mapOptionsCategoriesVideos = mapCategoriesVideos
+    .map(({ id, categoria }) => ({
+      value: id,
+      label: categoria,
+    }))
+    .filter(({ value }) => value !== 0)
+
   return (
     <Container>
       <GetImageButton
@@ -70,7 +76,7 @@ const Details = ({ values, errors, handleSubmit, isValid, setFieldValue, reset }
           onChangeSelect={onChange('financialResources')}
         />
         <SelectDropdown
-          options={mapCategoryVideo}
+          options={mapOptionsCategoriesVideos}
           labelDefault="Categoria de Video"
           onChangeSelect={onChange('categoryVideo')}
         />
