@@ -1,6 +1,9 @@
 import React from 'react'
 import { View } from 'react-native'
 
+import { FormikErrors } from 'formik'
+import { GettersVideosInfo } from 'types-funcap'
+
 import GetImageButton from '@/components/atom/get-image-button'
 import SelectDropdown from '@/components/atom/select-dropdown'
 import CheckingErrs from '@/components/molecule/checking-errs'
@@ -10,41 +13,45 @@ import InputTextArea from '@/components/molecule/input-text-area'
 import InputTopic from '@/components/molecule/input-topic'
 import SendFormButton from '@/components/molecule/send-form-button'
 
-import {
-  useFormVideoCulturalName,
-  useFormVideoCPFandCNPJ,
-  useFormVideoThumbnail,
-  useFormVideoInfo,
-  useFormVideoTags,
-  useSubmitFormVideoInfo,
-  useFormVideoFinancialResources,
-  useFormVideoCategory,
-} from '@/forms/Product/product-video-info/hooks'
 import { mapCategoryVideo } from '@/forms/Product/product-video-info/types'
 import { mapFinancialResources } from '@/forms/Product/types'
+import { Document } from '@/forms/Product/types'
+
+import { Getter } from '@/services/config/types'
 
 import { Important } from '../../../styles'
 import { Container } from './styles'
 
-const Details = () => {
-  const { description, onChangeDescription, onChangeTitle, title } = useFormVideoInfo()
+type Values = {
+  title: string
+  cpfOrCnpjIsValid: boolean
+  culturalName: string
+  description: string
+  tags: string[]
+  thumbnail: Document
+  cpfOrCnpj: string
+  categoryVideo: number
+  financialResources: number
+}
 
-  const { culturalName, onChangeCulturalName } = useFormVideoCulturalName()
-  const { onChangeThumbnail, thumbnail } = useFormVideoThumbnail()
-  const { tags, onChangeTags } = useFormVideoTags()
-  const { cpfOrCnpj, cpfOrCnpjIsValid, onChangeCPForCNPJ, onChangeCPForCNPJIsValid } =
-    useFormVideoCPFandCNPJ()
-  const { onSubmit, reset, validated } = useSubmitFormVideoInfo()
-  const { onChangeFinancialResources } = useFormVideoFinancialResources()
+type Props = {
+  values: Values
+  errors: FormikErrors<Values>
+  handleSubmit: () => Promise<Getter<GettersVideosInfo>>
+  isValid: boolean
+  reset: () => void
+  setFieldValue: (field: string, value: string) => void
+}
 
-  const { onChangeCategoryVideo } = useFormVideoCategory()
+const Details = ({ values, errors, handleSubmit, isValid, setFieldValue, reset }: Props) => {
+  const onChange = (key: string) => (value: any) => setFieldValue(key, value)
 
   return (
     <Container>
       <GetImageButton
         placeholder="Escolher a Thumbnail"
-        image={thumbnail}
-        onChangeImage={onChangeThumbnail}
+        image={values.thumbnail}
+        onChangeImage={onChange('thumbnail')}
         height={180}
         width={320}
       />
@@ -60,21 +67,21 @@ const Details = () => {
         <SelectDropdown
           options={mapFinancialResources}
           labelDefault="Recursos"
-          onChangeSelect={onChangeFinancialResources}
+          onChangeSelect={onChange('financialResources')}
         />
         <SelectDropdown
           options={mapCategoryVideo}
           labelDefault="Categoria de Video"
-          onChangeSelect={onChangeCategoryVideo}
+          onChangeSelect={onChange('categoryVideo')}
         />
       </View>
 
       <Important>* Campos Obrigatórios</Important>
       <FieldCPFandCNPJGeneric
-        isValid={cpfOrCnpjIsValid}
-        onChangeIsValid={onChangeCPForCNPJIsValid}
-        onChangeValue={onChangeCPForCNPJ}
-        value={cpfOrCnpj}
+        isValid={values.cpfOrCnpjIsValid}
+        onChangeIsValid={onChange('cpfOrCnpjIsValid')}
+        onChangeValue={onChange('cpfOrCnpj')}
+        value={values.cpfOrCnpj}
         topic="CPF/CNPJ"
         viewContainer={{
           width: '70%',
@@ -84,8 +91,8 @@ const Details = () => {
       <InputTopic
         topic="Nome Cultural"
         requered
-        onChangeText={onChangeCulturalName}
-        value={culturalName}
+        onChangeText={onChange('culturalName')}
+        value={values.culturalName}
         styleViewContainer={{
           width: '70%',
         }}
@@ -93,9 +100,9 @@ const Details = () => {
 
       <InputTopic
         topic="Título da Obra"
-        onChangeText={onChangeTitle}
+        onChangeText={onChange('title')}
         requered
-        value={title}
+        value={values.title}
         styleViewContainer={{
           width: '70%',
         }}
@@ -107,22 +114,17 @@ const Details = () => {
         numberLines={10}
         topic="Descrição"
         requered
-        onChangeValue={onChangeDescription}
-        value={description}
+        onChangeValue={onChange('description')}
+        value={values.description}
         styleViewContainer={{
           width: '70%',
         }}
       />
 
-      <InputTags tags={tags} onChangeTags={onChangeTags} />
+      <InputTags tags={values.tags} onChangeTags={onChange('tags')} />
 
-      <SendFormButton
-        title="Enviar"
-        validated={validated.isValid}
-        onSubmit={onSubmit}
-        reset={reset}
-      />
-      <CheckingErrs err={validated.err} />
+      <SendFormButton title="Enviar" validated={isValid} onSubmit={handleSubmit} reset={reset} />
+      <CheckingErrs err={Object.values(errors) as string[]} />
     </Container>
   )
 }

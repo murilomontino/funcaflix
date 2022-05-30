@@ -1,18 +1,14 @@
-import React, { useCallback } from 'react'
+import React, { useMemo } from 'react'
 
-import theme from '@/theme'
 import { TypesProducts } from '@/types'
-import { FontAwesome } from '@expo/vector-icons'
-import { MotiView } from 'moti'
+import { useFormik } from 'formik'
+import * as yup from 'yup'
 
 import SelectDropdown from '@/components/atom/select-dropdown'
 
-import { useFormVideoType } from '@/forms/Product/product-video/hooks'
-
-import CardInfoVideo from '../../molecules/card-info-video'
-import CardInsertURL from '../../molecules/card-insert-url'
-import CardInsertVideo from '../../molecules/card-insert-video'
-import { Container, ContainerRight, ContainerCentered, Warning } from './styles'
+import CardInfoVideo from '../../atoms/card-info-video'
+import ContainerVideos from '../../molecules/container-videos'
+import { Container, ContainerRight } from './styles'
 
 const mapTypesVideo = [
   {
@@ -27,47 +23,36 @@ const mapTypesVideo = [
 
 const DetailsVideo = ({ item }) => {
   if (!item) return null
-  const { onChangeType, type } = useFormVideoType()
 
-  const ContainerVideo = useCallback(() => {
-    if (type?.toString() === TypesProducts.MP4.toString()) {
-      return (
-        <ContainerCentered>
-          <CardInsertVideo />
-        </ContainerCentered>
-      )
-    }
+  const initialValues = useMemo(
+    () => ({
+      type: 0,
+      url: '',
+      video: null,
+    }),
+    []
+  )
 
-    if (type?.toString() === TypesProducts.LINK.toString()) {
-      return (
-        <ContainerCentered>
-          <CardInsertURL />
-        </ContainerCentered>
-      )
-    }
+  const validationSchema = yup.object().shape({
+    type: yup.number().required(),
+    url: yup.string().when('type', {
+      is: (type: TypesProducts) => type === TypesProducts.LINK,
+      then: yup.string().url().required('Required'),
+    }),
+    video: yup.mixed().when('type', {
+      is: (type: TypesProducts) => type === TypesProducts.MP4,
+      then: yup.mixed().required('Required'),
+    }),
+  })
 
-    return (
-      <ContainerCentered>
-        <MotiView
-          from={{
-            translateY: -200,
-          }}
-          animate={{
-            translateY: 0,
-          }}
-          transition={{
-            loop: true,
-            type: 'timing',
-            duration: 1500,
-            delay: 100,
-          }}
-        >
-          <FontAwesome name="arrow-up" color={theme.COLORS.TEXT} size={32} />
-        </MotiView>
-        <Warning>Selecione um Tipo para prosseguir</Warning>
-      </ContainerCentered>
-    )
-  }, [type])
+  const { setFieldValue, values, handleSubmit, errors, isValid } = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit: (values, { resetForm }) => {
+      console.log(values)
+      resetForm()
+    },
+  })
 
   return (
     <Container>
@@ -76,9 +61,16 @@ const DetailsVideo = ({ item }) => {
         <SelectDropdown
           options={mapTypesVideo}
           labelDefault="Tipo de Video"
-          onChangeSelect={onChangeType}
+          onChangeSelect={(value) => setFieldValue('type', value)}
         />
-        <ContainerVideo />
+        <ContainerVideos
+          type={values.type}
+          errors={errors}
+          handleSubmit={handleSubmit}
+          isValid={isValid}
+          setFieldValue={setFieldValue}
+          values={values}
+        />
       </ContainerRight>
     </Container>
   )
