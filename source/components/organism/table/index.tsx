@@ -1,5 +1,5 @@
 import React from 'react'
-import DataTable, { createTheme } from 'react-data-table-component'
+import DataTable, { createTheme, TableColumn } from 'react-data-table-component'
 
 import theme from '@/theme'
 
@@ -32,7 +32,13 @@ createTheme(
   'dark'
 )
 
-const Table = ({ columns, data, title }) => {
+type Props<T> = {
+  columns: TableColumn<T>[]
+  data: T[]
+  title: string
+}
+
+function Table<T>({ columns, data, title }: Props<T>) {
   return (
     <Container>
       <Container50Percent>
@@ -47,6 +53,8 @@ const Table = ({ columns, data, title }) => {
               style: {
                 fontSize: '1.2rem',
                 justifyContent: 'center',
+                fontVariant: 'small-caps',
+                textTransform: 'lowercase',
               },
             },
             headCells: {

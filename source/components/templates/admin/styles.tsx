@@ -1,12 +1,11 @@
+import background from '@/public/background-image.png'
 import theme from '@/theme'
 import styledWeb from 'styled-components'
 import styled from 'styled-components/native'
 
-const BACKGROUND = '/background-image.png'
-
 export const ContainerBackground = styledWeb.div`
   background-size: cover;
-  background-image: url(${BACKGROUND});
+  background-image: url(${background});
   min-height: 100vh;
 `
 

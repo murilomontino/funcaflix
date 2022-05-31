@@ -1,8 +1,7 @@
+import background from '@/public/background-image.png'
 import theme from '@/theme'
 import styledWeb from 'styled-components'
 import styled from 'styled-components/native'
-
-import background from '@/assets/background-image.png'
 
 export const ContainerBackground = styledWeb.div`
   flex: 1;

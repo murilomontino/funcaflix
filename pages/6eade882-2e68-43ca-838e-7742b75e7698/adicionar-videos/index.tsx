@@ -13,7 +13,6 @@ import FormProductVideoProvider from '@/forms/Product/product-video'
 
 import api from '@/services'
 import requests from '@/services/config/requests'
-import { Getter } from '@/services/config/types'
 
 type Props = {
   videos: GettersVideosInfo[]
@@ -30,7 +29,7 @@ const verify = async (): Promise<string> => {
 
 const HOUR = 1000 * 60 * 60
 
-export default function AddVideo({ videos }: Props) {
+export default function AddVideo({ videos = [] }: Props) {
   const [URL, setURL] = useState<string>(null)
   const [staleTime, setStaleTime] = useState<number>(0)
 
@@ -88,7 +87,7 @@ export default function AddVideo({ videos }: Props) {
   )
 }
 
-export const getStaticProps = async (ctx) => {
+/* export const getStaticProps = async (ctx) => {
   const config = {
     props: {
       videos: [],
@@ -119,3 +118,4 @@ export const getStaticProps = async (ctx) => {
   }
   return config
 }
+ */

@@ -5,7 +5,6 @@ import { useDimensions } from 'react-native-web-hooks'
 import { GetterBooks } from '@/types'
 
 import { useBooks } from '@/context/ContextBooks'
-import { useScroll } from '@/context/ContextScroll'
 
 import Tags from '../../atoms/tags'
 import { textStyles, viewStyles } from '../../styles'
@@ -16,14 +15,12 @@ type Props = {
 
 const BookFooter = ({ item }: Props) => {
   const { changeBook } = useBooks()
-  const { scrollTop } = useScroll()
 
   const web = Platform.OS === 'web'
   const { window, screen } = useDimensions()
   const size = web ? window : screen
 
   const redirectBookID = () => {
-    scrollTop()
     changeBook(item.pdf)
   }
 
@@ -53,10 +50,7 @@ const BookFooter = ({ item }: Props) => {
         <TouchableOpacity style={[viewStyles.viewButton]}>
           <Text style={[textStyles.buttonText]}>Ver mais</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={[viewStyles.viewButton]}
-          onPress={redirectBookID}
-        >
+        <TouchableOpacity style={[viewStyles.viewButton]} onPress={redirectBookID}>
           <Text style={[textStyles.buttonText]}>Ler</Text>
         </TouchableOpacity>
       </View>

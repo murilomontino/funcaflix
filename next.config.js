@@ -22,7 +22,6 @@ const withTM = require('next-transpile-modules')([
 const nextConfig = ((phase) => {
   
   const isProduction = phase === 'production'
-  const isDevelopment = phase === 'development'
 
   const _currentURL = isProduction ? process.env.API_URL : 'http://localhost:8000/api/'
 
@@ -33,7 +32,9 @@ const nextConfig = ((phase) => {
     typescript:{
       ignoreBuildErrors: true,
     },
-    images:{
+    images: {
+      loader: 'akamai',
+      path: '/',
       deviceSizes: [320, 640, 750, 828, 1080, 1280, 1920, 2048],
       disableStaticImages: true,
       domains: [

@@ -6,7 +6,7 @@ export const Container = styled.View`
   align-items: center;
 `
 export const Container50Percent = styled.View`
-  width: 50%;
+  width: 75%;
   justify-content: center;
   align-items: center;
 `
