@@ -1,33 +1,23 @@
 import React from 'react'
-import { View } from 'react-native'
+
+import { useFormikContext } from 'formik'
 
 import InputTopic from '@/components/molecule/input-topic'
 import InputTopicMasked from '@/components/molecule/input-topic-masked'
 
-import { useFormBookContent } from '@/forms/Product/product-book/hooks'
+import { IFormValues } from '../../../type'
+import { Container } from './styles'
 
 const BookContent = () => {
-  const {
-    onChangeIllustrator,
-    onChangeSize,
-    onChangePublisher,
-    onChangeNumberOfPages,
-    size,
-    illustrator,
-    numberOfPages,
-    publisher,
-  } = useFormBookContent()
+  const { values, setFieldValue } = useFormikContext<IFormValues>()
+
+  const onChange = (key: keyof IFormValues) => (value: any) => setFieldValue(key, value)
+
   return (
-    <View
-      style={{
-        width: '80%',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-      }}
-    >
+    <Container>
       <InputTopic
-        value={publisher}
-        onChangeText={onChangePublisher}
+        value={values.publisher}
+        onChangeText={onChange('publisher')}
         topic="Editora"
         textAlign="center"
         styleViewInput={{
@@ -38,12 +28,14 @@ const BookContent = () => {
         }}
         maxLength={50}
       />
+
       <InputTopicMasked
-        value={numberOfPages}
+        value={values.numberOfPages}
         textAlign="center"
-        onChangeText={onChangeNumberOfPages}
+        onChangeText={onChange('numberOfPages')}
         topic="Num de páginas"
-        mask="9999"
+        mask="digits"
+        digits={4}
         keyboardType="numeric"
         placeholder="Páginas"
         styleViewInput={{
@@ -54,9 +46,10 @@ const BookContent = () => {
         }}
         maxLength={4}
       />
+
       <InputTopicMasked
-        value={size}
-        onChangeText={onChangeSize}
+        value={values.dimensions}
+        onChangeText={onChange('dimensions')}
         textAlign="center"
         topic="Dimensões"
         type="custom"
@@ -78,9 +71,9 @@ const BookContent = () => {
       />
 
       <InputTopic
-        value={illustrator}
+        value={values.illustrator}
         textAlign="center"
-        onChangeText={onChangeIllustrator}
+        onChangeText={onChange('illustrator')}
         topic="Ilustrador"
         placeholder="Ilustrador"
         styleViewInput={{
@@ -90,7 +83,7 @@ const BookContent = () => {
         }}
         maxLength={50}
       />
-    </View>
+    </Container>
   )
 }
 

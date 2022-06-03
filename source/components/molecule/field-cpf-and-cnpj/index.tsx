@@ -13,8 +13,8 @@ import useDebounce from '@/hooks/utils/use-debounce'
 type Props = {
   value: string
   onChangeValue: (value: string) => void
-  isValid: boolean
-  onChangeIsValid: (isValid: boolean) => void
+  isValid?: boolean
+  onChangeIsValid?: (isValid: boolean) => void
   topic: string
   viewTitle?: ViewStyle
   viewInput?: ViewStyle
@@ -38,8 +38,17 @@ const FieldCPFandCNPJGeneric = ({
 }: Props) => {
   // EFEITOS VISUAIS
 
+  const [isValidCPForCNPJ, setIsValidCPForCNPJ] = useState(isValid)
   const [borderFocus, setBorderFocus] = useState(false)
   const [field, setField] = useState(value)
+
+  useEffect(() => {
+    setIsValidCPForCNPJ(isValid)
+  }, [isValid])
+
+  useEffect(() => {
+    setField(value)
+  }, [value])
 
   useEffect(() => {
     if (field) {
@@ -63,16 +72,18 @@ const FieldCPFandCNPJGeneric = ({
 
     debounce(() => {
       if (cpf.isValid(text) || cnpj.isValid(text)) {
-        onChangeIsValid(true)
+        onChangeIsValid?.(true)
+        setIsValidCPForCNPJ(true)
       } else {
-        onChangeIsValid(false)
+        onChangeIsValid?.(false)
+        setIsValidCPForCNPJ(false)
       }
     }, 50)
   }
 
   const isValidMemo = useMemo(() => {
-    return (!isValid && field.length === 14) || (!isValid && field.length === 18)
-  }, [isValid, field])
+    return (!isValidCPForCNPJ && field.length === 14) || (!isValidCPForCNPJ && field.length === 18)
+  }, [isValidCPForCNPJ, field])
 
   const msgError = useMemo(() => {
     if (field.length === 14 && 'CPF') {
@@ -88,7 +99,7 @@ const FieldCPFandCNPJGeneric = ({
     const borderWidth = borderFocus ? 2 : 1
 
     if (field.length === 14 || field.length === 18) {
-      if (isValid) {
+      if (isValidCPForCNPJ) {
         return {
           borderWidth,
           borderColor: 'green',
@@ -111,18 +122,19 @@ const FieldCPFandCNPJGeneric = ({
         borderColor: colors.grey20,
       }
     }
-  }, [isValid, borderFocus, field])
+  }, [isValidCPForCNPJ, borderFocus, field])
 
   return (
     <>
       <InputTopicMasked
+        {...rest}
         value={field}
         placeholder={topic}
         topic={topic}
         requered={requered}
         onFocus={toggleBorderFocus}
         onBlur={toggleBorderFocus}
-        nameIcon={isValid ? 'check' : 'close'}
+        nameIcon={isValidCPForCNPJ ? 'check' : 'close'}
         maxLength={18}
         styleViewContainer={viewContainer}
         mask={'cpfandcnpj'}

@@ -80,3 +80,13 @@ export const maskISBN = (text: string) => {
 
   return value
 }
+
+export const maskNumberMax = (text: string, max: number) => {
+  let value = text.substring(0, max)
+
+  if (!value.match(/^(\d{1,})$/)) {
+    value = value.replace(/\D/g, '')
+  }
+
+  return value
+}

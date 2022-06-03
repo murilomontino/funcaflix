@@ -1,9 +1,11 @@
 import React from 'react'
 import { View } from 'react-native'
 
-import { useFormBookTags } from '@/forms/Product/product-book/hooks'
+import { useFormikContext } from 'formik'
 
-import SendFormBookButton from '../../atoms/send-form-book-button'
+import Button from '@/components/atom/button'
+
+import { IFormValues } from '../../../type'
 import BookContent from '../../molecules/book-content'
 
 import { useSize } from '@/hooks/utils/use-size'
@@ -11,22 +13,24 @@ import { useSize } from '@/hooks/utils/use-size'
 const Right = () => {
   const { web, size, SCREEN_SMALLER_THAN_LARGE_SIZE } = useSize()
 
-  const { onChangeTags, tags } = useFormBookTags()
+  const { values, isValid } = useFormikContext<IFormValues>()
+
+  const onHandleSubmit = () => {
+    console.log(values)
+  }
 
   return (
     <View
       style={{
         flex: 1,
         height: '100%',
-        justifyContent: 'flex-start',
-        minHeight: SCREEN_SMALLER_THAN_LARGE_SIZE ? 500 : size.height,
-        marginRight: web ? 0 : 40,
-        padding: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
         width: SCREEN_SMALLER_THAN_LARGE_SIZE ? size.width : 300,
       }}
     >
       <BookContent />
-      <SendFormBookButton />
+      <Button onPress={onHandleSubmit} text="Enviar Livro" disabled={!isValid} />
     </View>
   )
 }

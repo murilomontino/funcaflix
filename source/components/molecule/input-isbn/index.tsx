@@ -1,16 +1,9 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 import { GetterBooks } from '@/types'
 
 import InputTopicMasked from '@/components/molecule/input-topic-masked'
 import { maskDate } from '@/components/molecule/input-topic-masked/mask'
-
-import {
-  useFormBookThumbnail,
-  useFormBookData,
-  useFormBook,
-  useFormBookContent,
-} from '@/forms/Product/product-book/hooks'
 
 import api from '@/services'
 import { Getter } from '@/services/config/types'
@@ -19,16 +12,38 @@ import useDebounce from '@/hooks/utils/use-debounce'
 
 interface Props {
   requered?: boolean
+  value?: string
+  onChangeText?: (value: string) => void
+  onChangeNumberOfPages?: (value: number) => void
+  onChangePublishedDate?: (value: string) => void
+  onChangePublisher?: (value: string) => void
+  onChangeCulturalName?: (value: string) => void
+  onChangeSynopsis?: (value: string) => void
+  onChangeTitle?: (value: string) => void
+  onChangeSubTitle?: (value: string) => void
+  onChangeImageURL?: (value: string) => void
   textAlign?: 'left' | 'center' | 'right'
 }
 
-const InputISBN = ({ requered = true, textAlign = 'left' }: Props) => {
-  // Hooks e Fields ---------------------------------------------------------------
-  const { isbn, onChangeISBN, onChangeSinopse, onChangeSubTitle, onChangeTitle } = useFormBook()
+const InputISBN = ({
+  requered = true,
+  textAlign = 'left',
+  onChangeText,
+  value,
+  onChangeCulturalName,
+  onChangeImageURL,
+  onChangeNumberOfPages,
+  onChangePublishedDate,
+  onChangePublisher,
+  onChangeSynopsis,
+  onChangeTitle,
+  onChangeSubTitle,
+}: Props) => {
+  const [isbn, setISBN] = useState(value)
 
-  const { onChangeNumberOfPages, onChangePublisher } = useFormBookContent()
-  const { onChangePublishedDate, onChangeCulturalName } = useFormBookData()
-  const { onChangeImageURL } = useFormBookThumbnail()
+  useEffect(() => {
+    setISBN(value)
+  }, [value])
 
   // Função de efeito atraso em funções -------------------------------------------
   const debounce = useDebounce()
@@ -62,16 +77,16 @@ const InputISBN = ({ requered = true, textAlign = 'left' }: Props) => {
       // mapa os dados do livro para o formato do banco de dados
       // ---------------------------------------------------------------
 
-      onChangeSinopse(volumeInfo.sinopse.slice(0, 1500))
-      onChangeSubTitle(volumeInfo.subTitulo)
-      onChangeTitle(volumeInfo.titulo)
+      onChangeSynopsis?.(volumeInfo.sinopse.slice(0, 1500))
+      onChangeSubTitle?.(volumeInfo.subTitulo)
+      onChangeTitle?.(volumeInfo.titulo)
 
       if (volumeInfo.image) {
-        onChangeImageURL(volumeInfo.image, volumeInfo.titulo)
+        onChangeImageURL?.(volumeInfo.image)
       }
 
-      onChangePublisher(volumeInfo.editora)
-      onChangeNumberOfPages(volumeInfo.numero_de_paginas.toString())
+      onChangePublisher?.(volumeInfo.editora)
+      onChangeNumberOfPages?.(volumeInfo.numero_de_paginas)
 
       const locale = publishedDateLocale(volumeInfo.data_de_publicacao)
 
@@ -85,7 +100,8 @@ const InputISBN = ({ requered = true, textAlign = 'left' }: Props) => {
   }, [])
 
   const onChangeSearch = (text: string) => {
-    onChangeISBN(text)
+    setISBN(text)
+    onChangeText?.(text)
     debounce(async () => {
       const rawText = text.replaceAll('-', '')
       if (rawText.length === 13) {

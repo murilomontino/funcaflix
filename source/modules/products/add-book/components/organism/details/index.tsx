@@ -1,54 +1,80 @@
 import React from 'react'
+import { Text } from 'react-native'
+
+import { useFormikContext } from 'formik'
 
 import ImportantMessage from '@/components/atom/important-message'
 import FieldCPFandCNPJGeneric from '@/components/molecule/field-cpf-and-cnpj'
-import { InputTopic } from '@/components/molecule/input-topic'
+import InputISBN from '@/components/molecule/input-isbn'
+import InputTextArea from '@/components/molecule/input-text-area'
+import InputTopic from '@/components/molecule/input-topic'
 import InputTopicMasked from '@/components/molecule/input-topic-masked'
 
-import { useFormBookData, useFormBookCPFandCNPJ } from '@/forms/Product/product-book/hooks'
-
-import InputsFormsLiterature from '../../molecules/inputs-forms-literature'
+import { IFormValues } from '../../../type'
 import { Container } from './styles'
 
 const Details = () => {
-  const { culturalName, onChangeCulturalName, onChangePublishedDate, publishedDate } =
-    useFormBookData()
+  const { values, setFieldValue } = useFormikContext<IFormValues>()
 
-  const { cpfOrCnpj, cpfOrCnpjIsValid, onChangeCPForCNPJ, onChangeCPForCNPJIsValid } =
-    useFormBookCPFandCNPJ()
+  const onChange = (key: keyof IFormValues) => (value: string) => setFieldValue(key, value)
 
   return (
     <Container>
       <ImportantMessage />
 
       <FieldCPFandCNPJGeneric
-        isValid={cpfOrCnpjIsValid}
-        onChangeIsValid={onChangeCPForCNPJIsValid}
-        onChangeValue={onChangeCPForCNPJ}
-        value={cpfOrCnpj}
+        onChangeValue={onChange('cpfOrCnpj')}
+        value={values.cpfOrCnpj}
         topic="CPF/CNPJ"
       />
+
       <InputTopic
         topic="Nome Cultural"
         requered={true}
-        onChangeText={onChangeCulturalName}
-        value={culturalName}
-        styleViewContainer={{
-          width: '90%',
-        }}
+        onChangeText={onChange('culturalName')}
+        value={values.culturalName}
       />
       <InputTopicMasked
         topic="Data de Publicação"
-        onChangeText={onChangePublishedDate}
-        value={publishedDate}
-        styleViewContainer={{
-          width: '90%',
-        }}
+        onChangeText={onChange('publishedDate')}
+        value={values.publishedDate}
         maxLength={10}
         mask={'date'}
       />
 
-      <InputsFormsLiterature />
+      <Text
+        style={{
+          fontSize: 20,
+          fontWeight: 'bold',
+          marginBottom: 20,
+          fontVariant: ['small-caps'],
+          textAlign: 'center',
+          color: '#fff',
+        }}
+      >
+        Detalhes
+      </Text>
+      <InputISBN requered onChangeText={onChange('isbn')} value={values.isbn} />
+
+      <InputTopic value={values.title} onChangeText={onChange('title')} topic="Título" requered />
+      <InputTopic value={values.subTitle} onChangeText={onChange('subTitle')} topic="Sub-Título" />
+      <InputTextArea
+        value={values.synopsis}
+        requered
+        onChangeValue={onChange('synopsis')}
+        topic="Sinopse"
+        height={300}
+        maxLength={1500}
+        numberLines={12}
+      />
+      <InputTextArea
+        value={values.biography}
+        onChangeValue={onChange('biography')}
+        topic="Biografia"
+        height={450}
+        maxLength={5000}
+        numberLines={12}
+      />
     </Container>
   )
 }

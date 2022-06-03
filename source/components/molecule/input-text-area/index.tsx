@@ -45,10 +45,13 @@ const InputTextArea = ({
     }
   }, [value])
 
-  const onChangeValueText = useCallback((text: string) => {
-    setValueText(text)
-    onChangeValue(text)
-  }, [])
+  const onChangeValueText = useCallback(
+    (text: string) => {
+      setValueText(text)
+      onChangeValue(text)
+    },
+    [setValueText, onChangeValue]
+  )
 
   return (
     <Container style={[styleViewContainer]}>

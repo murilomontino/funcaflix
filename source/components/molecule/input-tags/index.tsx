@@ -9,17 +9,18 @@ type Props = {
   tags: string[]
   width?: number | string
   onChangeTags: (tags: FunctionIndexers | string[]) => void
+  title?: string
 }
 
 type FunctionIndexers = (tags: string[]) => void
 
-const InputTags = ({ onChangeTags, tags, width }: Props) => {
+const InputTags = ({ onChangeTags, tags, width, title = 'Tags' }: Props) => {
   const [text, setText] = useState('')
   const [selectedTags, setSelectedTags] = useState<string[]>([])
 
   useEffect(() => {
     setSelectedTags(tags)
-  }, [])
+  }, [tags])
 
   // regex que detecta se a ponto ou virgula na string no final da frase
   const regex = /[.,]$/
@@ -33,16 +34,22 @@ const InputTags = ({ onChangeTags, tags, width }: Props) => {
 
   const onChangeAddTags = useCallback(
     (text: string) => {
-      onChangeSelectedTags((state) => [...state, text])
-      onChangeTags?.((state: string[]) => [...state, text])
+      onChangeSelectedTags((state) => {
+        const newState = [...state, text]
+        onChangeTags?.(newState)
+        return newState
+      })
     },
     [selectedTags]
   )
 
   const onChangeRemoveTags = useCallback(
     (index: number) => {
-      onChangeSelectedTags((state: string[]) => state.filter((_, i) => i !== index))
-      onChangeTags?.((state: string[]) => state.filter((_, i) => i !== index))
+      onChangeSelectedTags((state: string[]) => {
+        const filtered = state.filter((_, i) => i !== index)
+        onChangeTags?.(filtered)
+        return filtered
+      })
     },
     [selectedTags]
   )
@@ -57,8 +64,8 @@ const InputTags = ({ onChangeTags, tags, width }: Props) => {
 
   return (
     <Container style={{ width }}>
-      <Title>Tags:</Title>
-      <Legends>As tags são geradas automaticamente a partir da virgula</Legends>
+      <Title>{title}:</Title>
+      <Legends>{title.toLowerCase()} são geradas automaticamente a partir da virgula</Legends>
       <InputTopic onChangeText={setText} value={text} />
       <ContainerTags>{data}</ContainerTags>
     </Container>

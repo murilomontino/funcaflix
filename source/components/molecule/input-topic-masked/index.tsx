@@ -1,8 +1,16 @@
-import React, { useCallback, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ViewStyle, TextStyle, ImageStyle, TextInputProps } from 'react-native'
 
 import InputTopic from '../input-topic'
-import { maskCNPJ, maskCEP, maskCPF, maskDate, maskCPFandCNPJ, maskISBN } from './mask'
+import {
+  maskCNPJ,
+  maskCEP,
+  maskCPF,
+  maskDate,
+  maskCPFandCNPJ,
+  maskISBN,
+  maskNumberMax,
+} from './mask'
 
 type mask =
   | 'cnpj'
@@ -15,10 +23,12 @@ type mask =
   | 'year'
   | 'cpfandcnpj'
   | 'isbn'
+  | 'digits'
 
 type Props = {
   topic: string
   value: string
+  digits?: number
   requered?: boolean
   placeholder?: string
   maxLength?: number
@@ -29,7 +39,7 @@ type Props = {
   mask: mask
   textAlign?: 'left' | 'center' | 'right'
   type?: string
-  onChangeText: (text: string, rawText: string) => void
+  onChangeText: (text: string) => void
 } & TextInputProps
 
 const InputTopicMasked = ({
@@ -44,10 +54,14 @@ const InputTopicMasked = ({
   onChangeText,
   placeholder,
   textAlign = 'left',
-
+  digits,
   ...rest
 }: Props) => {
   const [text, setText] = useState(value)
+
+  useEffect(() => {
+    setText(value)
+  }, [value])
 
   const handleMask = (text: string) => {
     switch (mask) {
@@ -65,16 +79,18 @@ const InputTopicMasked = ({
         return maskCEP(text)
       case 'date':
         return maskDate(text)
+      case 'digits':
+        return maskNumberMax(text, digits)
       default:
         return text
     }
   }
 
-  const handleTextMask = useCallback((text: string) => {
+  const handleTextMask = (text: string) => {
     const masked = handleMask(text)
+    onChangeText(masked)
     setText(masked)
-    onChangeText(masked, masked)
-  }, [])
+  }
 
   return (
     <InputTopic
@@ -88,6 +104,7 @@ const InputTopicMasked = ({
       styleViewContainer={styleViewContainer}
       styleViewInput={[styleViewInput as unknown, { textAlign }]}
       styleTopic={styleTopic}
+      textAlign={textAlign}
       keyboardType="numbers-and-punctuation"
     />
   )

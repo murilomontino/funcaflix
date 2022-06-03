@@ -1,18 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { MutableRefObject, useCallback, useEffect, useMemo, useState } from 'react'
-import { ViewStyle, TextInputProps, ImageStyle, TextStyle } from 'react-native'
+import React, { useMemo, useState } from 'react'
+import { ViewStyle, ImageStyle, TextStyle } from 'react-native'
 
 import { FontAwesome } from '@expo/vector-icons'
+import { FieldAttributes } from 'formik'
 
 import Topic from '@/components/atom/topic'
 
-import { Container, Input, ContainerIcon } from './styles'
+import { Container, ContainerIcon, Input } from './styles'
 
 import colors from '@/global/colors'
 
 type Props = {
   topic?: string
-  value: string | MutableRefObject<string>
   requered?: boolean
   nameIcon?: string
   maxWidthTitle?: number | string
@@ -23,19 +23,17 @@ type Props = {
   styleViewInput?: TextStyle | ViewStyle | ImageStyle | ImageStyle[] | ViewStyle[] | TextStyle[]
   styleTopic?: TextStyle | TextStyle[]
   textAlign?: 'left' | 'center' | 'right'
-  onChangeText: (text: string) => void
-} & Omit<TextInputProps, 'value'>
+} & FieldAttributes<any>
 
-export const InputTopic = ({
+export const InputField = ({
   styleViewContainer,
   topic,
-  value,
+  name,
   requered = false,
   nameIcon,
   maxLength,
   styleViewInput,
   styleTopic,
-  onChangeText,
   placeholder,
   textAlign = 'left',
   maxWidthTitle = 150,
@@ -47,29 +45,6 @@ export const InputTopic = ({
   const toggleBorderFocus = () => {
     setBorderFocus((state) => !state)
   }
-  const [valueText, setValueText] = useState<string>(() => {
-    if (typeof value === 'string') {
-      return value
-    }
-
-    return value?.current
-  })
-
-  useEffect(() => {
-    if (typeof value === 'string') {
-      setValueText(value)
-    } else {
-      setValueText(value?.current)
-    }
-  }, [value])
-
-  const onChangeValueText = useCallback(
-    (text: string) => {
-      setValueText(text)
-      onChangeText(text)
-    },
-    [onChangeText, setValueText]
-  )
 
   const border = useMemo(() => {
     const borderWidth = borderFocus ? 2 : 1
@@ -102,21 +77,13 @@ export const InputTopic = ({
       {renderTopic()}
       <Input
         {...rest}
+        border={border}
+        borderFocus={borderFocus}
         onFocus={onFocus || toggleBorderFocus}
         onBlur={onBlur || toggleBorderFocus}
         placeholder={placeholder || topic}
-        value={valueText}
-        onChangeText={onChangeValueText}
+        name={name}
         maxLength={maxLength}
-        style={[
-          border,
-          styleViewInput,
-          {
-            textAlign,
-            outline: 'none',
-            borderRightWidth: nameIcon ? 0 : border.borderWidth,
-          },
-        ]}
       />
       {!!nameIcon && (
         <ContainerIcon style={[border, styleViewInput, { borderLeftWidth: 0 }]}>
@@ -127,4 +94,4 @@ export const InputTopic = ({
   )
 }
 
-export default InputTopic
+export default InputField

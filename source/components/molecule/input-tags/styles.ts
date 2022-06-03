@@ -2,7 +2,7 @@ import theme from '@/theme'
 import styled from 'styled-components/native'
 
 export const Container = styled.View`
-  padding: 12px;
+  padding: 4px;
   min-height: 150px;
   max-height: auto;
 `
@@ -11,15 +11,15 @@ export const Title = styled.Text`
   font-size: 18px;
   font-weight: bold;
   color: ${theme.COLORS.TEXT};
-  padding: 12px;
+  padding: 4px;
   margin: 4px 0;
   text-align: center;
 `
 
 export const Legends = styled.Text`
-  font-size: 16px;
+  font-size: 0.85rem;
   color: ${theme.COLORS.TEXT};
-  padding: 12px;
+  padding: 4px;
   margin: 4px 0;
   text-align: center;
 `

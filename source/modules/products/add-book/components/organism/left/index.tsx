@@ -1,30 +1,17 @@
 import React from 'react'
 
-import { FinancialResources, TypesProducts } from '@/types'
+import { FinancialResources } from '@/types'
+import { useFormikContext } from 'formik'
 
+import Button from '@/components/atom/button'
 import GetImageButton from '@/components/atom/get-image-button'
 import DropdownComponent from '@/components/atom/select-dropdown'
 import InputTags from '@/components/molecule/input-tags'
 
-import {
-  useFormBookFinancialResources,
-  useFormBookGenres,
-  useFormBookThumbnail,
-  useFormBookTags,
-} from '@/forms/Product/product-book/hooks'
-
+import { IFormValues } from '../../../type'
 import GetFileButton from '../../atoms/get-file-button'
-import SendFormBookButton from '../../atoms/send-form-book-button'
 import BookContent from '../../molecules/book-content'
 import { Container, ContainerSelect, ContainerSend } from './styles'
-
-import { useSize } from '@/hooks/utils/use-size'
-
-const ItemsTypesProducts = [
-  { label: 'MP3', value: TypesProducts.MP3 },
-  { label: 'Link', value: TypesProducts.URL },
-  { label: 'PDF', value: TypesProducts.PDF },
-]
 
 const ItemsFinancialResources = [
   { label: 'Lei Aldir Blanc ', value: FinancialResources.LeiAldirBlanc },
@@ -38,31 +25,28 @@ const ItemsFinancialResources = [
 ]
 
 const Left = () => {
-  const { web, SCREEN_SMALLER_THAN_LARGE_SIZE } = useSize()
-  const { onChangeFinancialResources } = useFormBookFinancialResources()
+  const { values, setFieldValue, isValid, handleSubmit } = useFormikContext<IFormValues>()
 
-  const { thumbnail, onChangeThumbnail } = useFormBookThumbnail()
+  const onHandleSubmit = () => handleSubmit()
 
-  const { genres, onChangeGenres } = useFormBookGenres()
-  const { tags, onChangeTags } = useFormBookTags()
+  const onChange = (key: keyof IFormValues) => (value: any) => setFieldValue(key, value)
 
   return (
     <Container>
-      <GetImageButton image={thumbnail} onChangeImage={onChangeThumbnail} />
-
+      <GetImageButton onChangeValue={onChange('thumbnail')} value={values.thumbnail} />
       <ContainerSelect>
         <DropdownComponent
           options={ItemsFinancialResources}
           labelDefault={'Recursos'.toUpperCase()}
-          onChangeSelect={onChangeFinancialResources}
+          onChangeSelect={onChange('resource')}
         />
       </ContainerSelect>
-      <GetFileButton />
-
+      <GetFileButton value={values.pdf} onChangeValue={onChange('pdf')} />
       <ContainerSend>
-        <InputTags tags={tags} onChangeTags={onChangeTags} />
         <BookContent />
-        <SendFormBookButton />
+        <InputTags tags={values.tags} onChangeTags={onChange('tags')} />
+        <InputTags tags={values.genres} onChangeTags={onChange('genres')} title="Gêneros" />
+        <Button onPress={onHandleSubmit} text="Enviar Livro" disabled={!isValid} />
       </ContainerSend>
     </Container>
   )

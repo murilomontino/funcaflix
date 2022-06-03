@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Image, ImageStyle, StyleProp } from 'react-native'
 
 import * as DocumentPicker from 'expo-document-picker'
-
-import { Document } from '@/forms/Product/types'
 
 import Button from '../button'
 import { Container, ImageButton } from './styles'
 
 type Props = {
-  image: Document
-  onChangeImage: (value: Document) => void
+  value: File
+  onChangeValue: (value: File) => void
   width?: number
   height?: number
   placeholder?: string
@@ -18,30 +16,24 @@ type Props = {
 }
 
 const GetImageButton = ({
-  image,
-  onChangeImage,
+  value,
+  onChangeValue,
   width = 150,
   height = 200,
   resizeMode = 'cover',
   placeholder = 'Escolher uma Capa',
 }: Props) => {
-  const [imageState, setImageState] = useState<Document>(() => {
-    if (image) {
-      return {
-        name: image.name,
-        type: image.type,
-        mimeType: image.mimeType,
-        uri: image.uri,
-      }
-    }
-    return null
-  })
+  const [imageState, setImageState] = useState<File>(value)
 
   useEffect(() => {
-    if (image) {
-      setImageState(image)
+    setImageState(value)
+  }, [value])
+
+  useEffect(() => {
+    return () => {
+      setImageState(null)
     }
-  }, [image])
+  }, [])
 
   const onPress = async () => {
     const img = await DocumentPicker.getDocumentAsync({
@@ -49,18 +41,8 @@ const GetImageButton = ({
     })
 
     if (img.type && img.type === 'success') {
-      setImageState({
-        name: img.name,
-        type: img.type,
-        uri: img.uri,
-        mimeType: img.mimeType,
-      })
-      onChangeImage({
-        name: img.name,
-        type: img.type,
-        mimeType: img.mimeType,
-        uri: img.uri,
-      })
+      setImageState(img.file)
+      onChangeValue(img.file)
     }
   }
 
@@ -69,6 +51,11 @@ const GetImageButton = ({
     height: height,
     resizeMode: resizeMode,
   }
+
+  const fileMemo = useMemo(
+    () => (imageState ? URL.createObjectURL(imageState) : null),
+    [imageState]
+  )
 
   return (
     <Container>
@@ -89,7 +76,7 @@ const GetImageButton = ({
           style={imageStyle}
           defaultSource={require('@/assets/not-image.png')}
           source={{
-            uri: imageState?.type === 'success' ? `${imageState?.uri}` : '',
+            uri: fileMemo || '',
           }}
         />
       </ImageButton>
