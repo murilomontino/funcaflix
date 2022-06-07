@@ -131,7 +131,7 @@ const InputISBN = ({
       topic={'ISBN-13'}
       requered={requered}
       maxLength={14}
-      mask={'999-999-999-9999'}
+      mask={'999-9999999999'}
       style={{ textAlign }}
     />
   )

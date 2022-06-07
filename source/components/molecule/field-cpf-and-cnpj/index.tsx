@@ -137,7 +137,7 @@ const FieldCPFandCNPJGeneric = ({
         nameIcon={isValidCPForCNPJ ? 'check' : 'close'}
         maxLength={18}
         styleViewContainer={viewContainer}
-        mask={'[00].[000].[000]/[0000]-[000]'}
+        mask={field.length < 14 ? '999.999.999-99' : '99.999.999/9999-99'}
         onChangeText={handleChangeCPFandCNPJ}
         styleViewInput={[
           viewInput,
