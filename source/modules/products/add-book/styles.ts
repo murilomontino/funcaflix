@@ -8,7 +8,7 @@ export const Container = styled.div`
   width: 90vw;
   align-items: flex-start;
   justify-content: center;
-  @media (max-width: ${theme.CONSTANTS.SCREEN.LARGE}px) {
+  @media (max-width: ${theme.CONSTANTS.SCREEN.MEDIUM}px) {
     flex-direction: column;
   }
 `

@@ -7,6 +7,7 @@ import Button from '@/components/atom/button'
 import GetImageButton from '@/components/atom/get-image-button'
 import DropdownComponent from '@/components/atom/select-dropdown'
 import InputTags from '@/components/molecule/input-tags'
+import SelectGenres from '@/components/molecule/select-genres'
 
 import { IFormValues } from '../../../type'
 import GetFileButton from '../../atoms/get-file-button'
@@ -45,7 +46,7 @@ const Left = () => {
       <ContainerSend>
         <BookContent />
         <InputTags tags={values.tags} onChangeTags={onChange('tags')} />
-        <InputTags tags={values.genres} onChangeTags={onChange('genres')} title="Gêneros" />
+        <SelectGenres values={values.genres} onChangeValues={onChange('genres')} />
         <Button onPress={onHandleSubmit} text="Enviar Livro" disabled={!isValid} />
       </ContainerSend>
     </Container>

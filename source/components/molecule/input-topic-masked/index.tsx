@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { ViewStyle, TextStyle, ImageStyle, TextInputProps } from 'react-native'
 
 import InputTopic from '../input-topic'
@@ -24,6 +24,7 @@ type mask =
   | 'cpfandcnpj'
   | 'isbn'
   | 'digits'
+  | 'dimensions'
 
 type Props = {
   topic: string
@@ -59,10 +60,6 @@ const InputTopicMasked = ({
 }: Props) => {
   const [text, setText] = useState(value)
 
-  useEffect(() => {
-    setText(value)
-  }, [value])
-
   const handleMask = (text: string) => {
     switch (mask) {
       case 'cnpj':
@@ -81,6 +78,8 @@ const InputTopicMasked = ({
         return maskDate(text)
       case 'digits':
         return maskNumberMax(text, digits)
+      case 'dimensions':
+        return text
       default:
         return text
     }
@@ -88,8 +87,8 @@ const InputTopicMasked = ({
 
   const handleTextMask = (text: string) => {
     const masked = handleMask(text)
-    onChangeText(masked)
     setText(masked)
+    onChangeText(masked)
   }
 
   return (

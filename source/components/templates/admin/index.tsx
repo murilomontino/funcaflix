@@ -16,9 +16,11 @@ type Props = {
 
 const TemplateAdminProduct = ({ children }: Props) => {
   const { isFontReady } = useResources()
-  const TEXT_SIZE = useScaledSize(1)
 
+  const TEXT_SIZE = useScaledSize(1)
   const WIDTH_LOGO = useScaledSize(3)
+
+  if (!isFontReady) return null
 
   return (
     <ContainerBackground>

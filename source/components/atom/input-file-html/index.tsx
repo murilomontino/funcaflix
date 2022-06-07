@@ -2,7 +2,7 @@ import React, { ChangeEvent, useState } from 'react'
 
 import { InputFile, Label } from './styles'
 
-type MimeType = 'image/png' | 'image/jpeg' | 'image/jpg' | 'video/*' | 'application/pdf'
+type MimeType = 'image/png' | 'image/jpeg' | 'image/jpg' | 'video/*' | 'application/pdf' | 'audio/*'
 
 type Props = {
   mimeType?: MimeType[]

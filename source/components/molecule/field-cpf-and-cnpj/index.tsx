@@ -5,7 +5,7 @@ import { cpf, cnpj } from 'cpf-cnpj-validator'
 
 import HelperText from '@/components/atom/helper-text'
 
-import InputTopicMasked from '../input-topic-masked'
+import InputTopic from '../input-topic'
 
 import colors from '@/global/colors'
 import useDebounce from '@/hooks/utils/use-debounce'
@@ -126,7 +126,7 @@ const FieldCPFandCNPJGeneric = ({
 
   return (
     <>
-      <InputTopicMasked
+      <InputTopic
         {...rest}
         value={field}
         placeholder={topic}
@@ -137,7 +137,7 @@ const FieldCPFandCNPJGeneric = ({
         nameIcon={isValidCPForCNPJ ? 'check' : 'close'}
         maxLength={18}
         styleViewContainer={viewContainer}
-        mask={'cpfandcnpj'}
+        mask={'[00].[000].[000]/[0000]-[000]'}
         onChangeText={handleChangeCPFandCNPJ}
         styleViewInput={[
           viewInput,

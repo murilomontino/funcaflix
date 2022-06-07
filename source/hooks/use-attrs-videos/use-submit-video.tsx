@@ -38,10 +38,10 @@ export const useSubmitVideo = ({ file }: Props) => {
           'content-type': 'multipart/form-data; boundary=WebKitFormBoundary9n00RyX5AIcRgRpg',
         },
         params: {
+          ...document,
           name: file.name,
           ext: file.type,
           size: file.size,
-          ...document,
         },
       })
 

@@ -4,12 +4,8 @@ import { useDimensions } from 'react-native-web-hooks'
 
 import FieldCPFandCNPJGeneric from '@/components/molecule/field-cpf-and-cnpj'
 import InputTopic from '@/components/molecule/input-topic'
-import InputTopicMasked from '@/components/molecule/input-topic-masked'
 
-import {
-  useFormMusicData,
-  useFormMusicCPFandCNPJ,
-} from '@/forms/Product/product-music/hooks'
+import { useFormMusicData, useFormMusicCPFandCNPJ } from '@/forms/Product/product-music/hooks'
 
 import InputsFormsMusic from '../../molecules/inputs-forms-music'
 
@@ -20,19 +16,11 @@ const Details = () => {
   const { window, screen } = useDimensions()
   const size = web ? window : screen
 
-  const {
-    culturalName,
-    onChangeCulturalName,
-    onChangePublishedDate,
-    publishedDate,
-  } = useFormMusicData()
+  const { culturalName, onChangeCulturalName, onChangePublishedDate, publishedDate } =
+    useFormMusicData()
 
-  const {
-    cpfOrCnpj,
-    cpfOrCnpjIsValid,
-    onChangeCPForCNPJ,
-    onChangeCPForCNPJIsValid,
-  } = useFormMusicCPFandCNPJ()
+  const { cpfOrCnpj, cpfOrCnpjIsValid, onChangeCPForCNPJ, onChangeCPForCNPJIsValid } =
+    useFormMusicCPFandCNPJ()
 
   return (
     <View
@@ -75,7 +63,7 @@ const Details = () => {
           width: '90%',
         }}
       />
-      <InputTopicMasked
+      <InputTopic
         topic="Data de Publicação"
         onChangeText={onChangePublishedDate}
         value={publishedDate}

@@ -2,14 +2,27 @@ import React, { useCallback, useEffect, useState } from 'react'
 
 import { GetterBooks } from '@/types'
 
-import InputTopicMasked from '@/components/molecule/input-topic-masked'
-import { maskDate } from '@/components/molecule/input-topic-masked/mask'
-
 import api from '@/services'
 import { Getter } from '@/services/config/types'
 
+import InputTopic from '../input-topic'
+
 import useDebounce from '@/hooks/utils/use-debounce'
 
+const maskDate = (text: string) => {
+  let value = text.substring(0, 10)
+
+  if (value.length <= 4) {
+    return value
+  } else {
+    if (!value.match(/^(\d{2})\/(\d{2})\/(\d{4})$/)) {
+      value = value.replace(/\D/g, '')
+      value = value.replace(/(\d{2})(\d)/, '$1/$2')
+      value = value.replace(/(\d{2})(\d)/, '$1/$2')
+    }
+  }
+  return value
+}
 interface Props {
   requered?: boolean
   value?: string
@@ -111,15 +124,14 @@ const InputISBN = ({
   }
 
   return (
-    <InputTopicMasked
+    <InputTopic
       value={isbn}
       onChangeText={onChangeSearch}
       placeholder={'ISBN-13'}
       topic={'ISBN-13'}
       requered={requered}
       maxLength={14}
-      mask={'isbn'}
-      keyboardType={'numeric'}
+      mask={'999-999-999-9999'}
       style={{ textAlign }}
     />
   )

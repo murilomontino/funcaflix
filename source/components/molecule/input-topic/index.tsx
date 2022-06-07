@@ -4,9 +4,10 @@ import { ViewStyle, TextInputProps, ImageStyle, TextStyle } from 'react-native'
 
 import { FontAwesome } from '@expo/vector-icons'
 
+import Input from '@/components/atom/input'
 import Topic from '@/components/atom/topic'
 
-import { Container, Input, ContainerIcon } from './styles'
+import { Container, ContainerIcon } from './styles'
 
 import colors from '@/global/colors'
 
@@ -17,6 +18,7 @@ type Props = {
   nameIcon?: string
   maxWidthTitle?: number | string
   width?: number | string
+  mask?: string
   maxLength?: number
   stylesViewTitle?: ViewStyle | ViewStyle[]
   styleViewContainer?: ViewStyle | ViewStyle[]
@@ -30,6 +32,7 @@ export const InputTopic = ({
   styleViewContainer,
   topic,
   value,
+  mask = null,
   requered = false,
   nameIcon,
   maxLength,
@@ -102,6 +105,7 @@ export const InputTopic = ({
       {renderTopic()}
       <Input
         {...rest}
+        mask={mask}
         onFocus={onFocus || toggleBorderFocus}
         onBlur={onBlur || toggleBorderFocus}
         placeholder={placeholder || topic}
