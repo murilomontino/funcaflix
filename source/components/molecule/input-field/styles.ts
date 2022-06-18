@@ -1,16 +1,14 @@
 import theme from '@/theme'
-import { Field } from 'formik'
 import styledWeb from 'styled-components'
 import styled from 'styled-components/native'
 
-export const Container = styled.View`
-  flex: 1;
+export const Container = styledWeb.div`
+  position: relative;
+  display: flex;
   min-height: fit-content;
-  flex-direction: row;
-  justify-content: center;
+  flex-direction: column;
   margin: 8px;
-  align-content: center;
-
+  width: 100%;
   //outlineOffset: ? NumberOrString;
   //outlineStyle: ? string;
 `
@@ -28,29 +26,29 @@ export const ContainerIcon = styled.View`
   border-left: 0;
   padding-right: 4px;
 `
-type Props = {
-  borderFocus?: boolean
-  border?: {
-    borderWidth?: number
-    borderColor?: string
-  }
-}
-export const Input = styledWeb(Field)`
 
-display: flex;
+export const TopicRequered = styled.Text`
+  margin-top: 8px;
+  font-weight: bold;
+  font-size: ${theme.FONTS.SIZE.SMALL};
+  text-align: right;
+  padding-left: 0px;
+  color: ${theme.COLORS.IMPORTANT};
+`
+
+export const TopicForm = styled.Text`
+  font-weight: bold;
+  color: ${theme.COLORS.TEXT};
+  padding: 4px 4px 0px 0px;
+  text-align: right;
+`
+export const Field = styledWeb.input`
   flex: 4;
   color: ${theme.COLORS.BORDER_BUTTON};
   background-color: ${theme.COLORS.BACKGROUND_INPUT};
-  outline: 0px;
   font-weight: 500;
   padding: 8px;
   border-radius: 2px;
+  margin-bottom: 8px;
   border-color: ${theme.COLORS.BORDER_BUTTON};
-  ${(props: Props) => {
-    return `
-    border-width: ${props.border.borderWidth}px;
-    border-color: ${props.border.borderColor};
-    `
-  }}
-
 `

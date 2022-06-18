@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react'
+import React, { useState } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { useScaledSize } from 'react-native-web-hooks'
 
@@ -35,4 +35,4 @@ const LogoGoverno: React.FC<Props> = ({ size, textVisible = true }) => {
   )
 }
 
-export default memo(LogoGoverno)
+export default LogoGoverno

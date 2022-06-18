@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import Image, { ImageProps } from 'next/image'
 
@@ -18,17 +18,26 @@ const ImageNext = ({
   url = 'image?id=',
   ...rest
 }: Props) => {
-  const [urlImage] = React.useState(() => {
+  const [urlImage, setUrlImage] = useState<string>()
+
+  const [isLoading, setIsLoading] = useState(false)
+
+  const loadImage = () => {
     if (image && image.startsWith('http')) {
       return image
     }
 
     if (image) {
-      return process.env._currentURL + url + image
+      return image
     }
-  })
+  }
 
-  const [loaded, setLoaded] = React.useState(false)
+  useEffect(() => {
+    const image = loadImage()
+    if (image) {
+      setUrlImage(image)
+    }
+  }, [image])
 
   if (!urlImage) return null
 
@@ -39,8 +48,8 @@ const ImageNext = ({
         src={urlImage}
         height={height}
         width={width}
-        className={loaded && unblur ? 'unblur' : ''}
-        onLoadingComplete={() => setLoaded(true)}
+        className={isLoading && unblur ? 'unblur' : ''}
+        onLoadingComplete={() => setIsLoading(true)}
       />
       <style jsx global>{`
         .unblur {

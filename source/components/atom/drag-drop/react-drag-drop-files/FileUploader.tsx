@@ -28,7 +28,7 @@ type Props = {
   onTypeError?: (arg0: string) => void
   onDrop?: (arg0: File | Array<File>) => void
   onSelect?: (arg0: File | Array<File>) => void
-  handleChange?: (arg0: File | Array<File> | File) => void
+  handleChange?: (arg0: File | Array<File> | File | FileList) => void
   onDraggingStateChange?: (dragging: boolean) => void
   labelStyles?: CSSProperties
 }

@@ -5,11 +5,7 @@ import theme from '@/theme'
 import { MotiImage, MotiProps } from 'moti'
 import { Skeleton } from 'moti/skeleton'
 
-import api from '@/services'
-
 import NotCapa from '@/assets/no-capa.jpg'
-
-import { getCache, setCache } from '@/utils/CacheStorageLocal'
 
 type Props = {
   capa?: string
@@ -24,8 +20,6 @@ type Props = {
 
 const CacheImage = ({
   capa,
-  name,
-  id,
   uri,
   height = 200,
   width = 150,
@@ -52,38 +46,11 @@ const CacheImage = ({
       return
     }
 
-    if (capa) {
-      getImgStorage(capa)
-    }
-
     // Se não tiver capa, seta a imagem como a capa padrão
     if (!capa) {
       setImg(NotCapa)
     }
   }, [uri, capa])
-
-  const getImgStorage = async (capa: string) => {
-    const arrayCapa = capa.split('.')
-    const tipo = arrayCapa[arrayCapa.length - 1]
-
-    const cache = await getCache(arrayCapa[0])
-
-    if (!cache) {
-      const { data } = await api.get(`image`, {
-        params: {
-          image: capa,
-          name,
-          id,
-        },
-      })
-      setCache(arrayCapa[0], {
-        data: data,
-      })
-      setImg(`data:image/${tipo};base64,`.concat(data))
-    } else {
-      setImg(`data:image/${tipo};base64,`.concat(cache.data as string))
-    }
-  }
 
   if (!img) {
     return <Skeleton height={'100%'} width={'100%'} colorMode="dark" />

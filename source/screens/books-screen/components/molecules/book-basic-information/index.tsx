@@ -2,13 +2,15 @@ import React from 'react'
 import { View, Text, Platform } from 'react-native'
 import { useDimensions } from 'react-native-web-hooks'
 
-import { GetterBooks } from '@/types'
-
-import GenerosLiterarios from '../../atoms/generos-literarios'
 import { textStyles, viewStyles } from '../../styles'
 
 type Props = {
-  item: GetterBooks
+  item: {
+    id: number
+    title: string
+    about: string
+    thumbnail: string
+  }
 }
 
 const BookBasicInformation = ({ item }: Props) => {
@@ -34,18 +36,16 @@ const BookBasicInformation = ({ item }: Props) => {
           },
         ]}
       >
-        <Text style={[textStyles.attrText, { fontWeight: '700', fontSize: 12 }]}>
-          {item.titulo}
-        </Text>
-        {item.subTitulo ? (
+        <Text style={[textStyles.attrText, { fontWeight: '700', fontSize: 12 }]}>{item.title}</Text>
+        {/*  {item.subTitulo ? (
           <Text style={[textStyles.attrText, { fontWeight: '700', fontSize: 12 }]}>
             {'-'} {item.subTitulo}
           </Text>
         ) : (
           <></>
-        )}
+        )} */}
       </View>
-      <View
+      {/*       <View
         style={[
           viewStyles.viewAttributes,
           {
@@ -57,7 +57,7 @@ const BookBasicInformation = ({ item }: Props) => {
           Genero:{' '}
         </Text>
         <GenerosLiterarios generos={item.generos} />
-      </View>
+      </View> */}
     </View>
   )
 }

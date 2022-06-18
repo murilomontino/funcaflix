@@ -4,6 +4,7 @@ import Arrow from './arrow.svg'
 import css from './styles.module.css'
 
 type Props = {
+  value: string | number
   options: Option[]
   labelDefault?: string
   select?: number
@@ -16,16 +17,21 @@ type Option = {
 }
 
 const SelectDropdown = ({
+  value = 0,
   labelDefault = 'Selecione uma opção',
   options = [],
   select = 0,
   onChangeSelect,
 }: Props) => {
-  const [selectState, setSelectState] = useState<string | number>(0)
+  const [selectState, setSelectState] = useState<string | number>(value)
 
   useEffect(() => {
     setSelectState(select)
   }, [select])
+
+  useEffect(() => {
+    setSelectState(value)
+  }, [value])
 
   const optionsList: Option[] = [
     {

@@ -1,19 +1,24 @@
 import React from 'react'
-import { Text } from 'react-native'
 
 import PdfViewer from '@/components/organism/pdf-viewer'
 
+import InfoBook from './organism/info-book'
 import { Container } from './styles'
 
 type Props = {
-  id: string
+  book: {
+    [key: string]: any
+    pdf: string
+  }
 }
 
-const ScreenBookID = ({ id }: Props) => {
+const ScreenBookID = ({ book }: Props) => {
+  if (!book) return null
+
   return (
     <Container>
-      <Text style={{ color: 'white' }}>{id}</Text>
-      <PdfViewer id={id?.toString()} />
+      {book?.pdf && <PdfViewer id={book?.pdf} />}
+      <InfoBook book={book} />
     </Container>
   )
 }

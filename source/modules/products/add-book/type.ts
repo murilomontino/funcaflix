@@ -1,8 +1,10 @@
 export type IFormValues = {
   tags: string[]
+  category?: number
+  subCategory?: number
   genres: string[]
   thumbnail: File
-  resource: number
+  financialResource: number
   pdf: File
   culturalName: string
   cpfOrCnpj: string

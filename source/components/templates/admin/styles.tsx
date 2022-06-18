@@ -17,9 +17,11 @@ export const Container = styled.View`
   z-index: 3;
 `
 
-export const ContainerChildren = styled.View`
+export const ContainerChildren = styledWeb.div`
+  display: flex;
+  flex-direction: column;
   padding: 0px;
   max-width: 100vw;
   height: 100%;
-  z-index: 0;
+  z-index: 99;
 `

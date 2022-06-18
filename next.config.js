@@ -10,7 +10,7 @@ const {
 } = require('@expo/next-adapter')
 const withPlugins = require('next-compose-plugins')
 const withFonts = require('next-fonts')
-const withImages = require('next-images')
+const withImages = require('next-optimized-images')
 const withTM = require('next-transpile-modules')([
   'moti',
   '@motify/core',

@@ -96,37 +96,44 @@ export const InputTopic = ({
     }
 
     return (
-      <Topic topic={topic} requered={requered} style={styleTopic} maxWidthTitle={maxWidthTitle} />
+      <Topic
+        topic={topic}
+        requered={requered}
+        styleTopic={styleTopic}
+        maxWidthTitle={maxWidthTitle}
+      />
     )
   }
 
   return (
     <Container style={[styleViewContainer]}>
       {renderTopic()}
-      <Input
-        {...rest}
-        mask={mask}
-        onFocus={onFocus || toggleBorderFocus}
-        onBlur={onBlur || toggleBorderFocus}
-        placeholder={placeholder || topic}
-        value={valueText}
-        onChangeText={onChangeValueText}
-        maxLength={maxLength}
-        style={[
-          border,
-          styleViewInput,
-          {
-            textAlign,
-            outline: 'none',
-            borderRightWidth: nameIcon ? 0 : border.borderWidth,
-          },
-        ]}
-      />
-      {!!nameIcon && (
-        <ContainerIcon style={[border, styleViewInput, { borderLeftWidth: 0 }]}>
-          <FontAwesome name={nameIcon as any} size={14} />
-        </ContainerIcon>
-      )}
+      <div style={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
+        <Input
+          {...rest}
+          mask={mask}
+          onFocus={onFocus || toggleBorderFocus}
+          onBlur={onBlur || toggleBorderFocus}
+          placeholder={placeholder || topic}
+          value={valueText}
+          onChangeText={onChangeValueText}
+          maxLength={maxLength}
+          style={[
+            border,
+            styleViewInput,
+            {
+              textAlign,
+              outline: 'none',
+              borderRightWidth: nameIcon ? 0 : border.borderWidth,
+            },
+          ]}
+        />
+        {!!nameIcon && (
+          <ContainerIcon style={[border, styleViewInput, { borderLeftWidth: 0 }]}>
+            <FontAwesome name={nameIcon as any} size={14} />
+          </ContainerIcon>
+        )}
+      </div>
     </Container>
   )
 }

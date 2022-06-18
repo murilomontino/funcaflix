@@ -11,6 +11,7 @@ type Props = {
   maxLength: number
   height: number
   placeholder?: string
+  maxWidthTitle?: number | string
   value: string | MutableRefObject<string>
   requered?: boolean
   styleViewContainer?: ViewStyle | ViewStyle[]
@@ -23,6 +24,7 @@ const InputTextArea = ({
   numberLines,
   maxLength = 5000,
   height,
+  maxWidthTitle = '100%',
   styleViewContainer,
   placeholder,
   value,
@@ -55,13 +57,15 @@ const InputTextArea = ({
 
   return (
     <Container style={[styleViewContainer]}>
-      {!!topic && <Topic topic={topic} requered={requered} />}
+      {!!topic && <Topic topic={topic} requered={requered} maxWidthTitle={maxWidthTitle} />}
+
       <Input
         value={valueText}
         placeholder={placeholder || topic}
         onChangeText={onChangeValueText}
         style={[
           {
+            marginTop: '10px',
             flexWrap: 'wrap',
             height: height,
             textAlign: 'justify',

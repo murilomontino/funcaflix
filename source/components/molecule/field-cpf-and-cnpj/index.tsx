@@ -18,6 +18,7 @@ type Props = {
   topic: string
   viewTitle?: ViewStyle
   viewInput?: ViewStyle
+  styleTopic?: ViewStyle
   viewContainer?: ViewStyle | ViewStyle[]
   topicForm?: TextStyle
   requered?: boolean
@@ -28,6 +29,7 @@ const FieldCPFandCNPJGeneric = ({
   topic,
   viewContainer,
   viewInput,
+  styleTopic,
   value,
   onChangeValue,
   requered = true,
@@ -130,6 +132,7 @@ const FieldCPFandCNPJGeneric = ({
         {...rest}
         value={field}
         placeholder={topic}
+        styleTopic={[styleTopic]}
         topic={topic}
         requered={requered}
         onFocus={toggleBorderFocus}

@@ -94,7 +94,8 @@ export const viewStyles = StyleSheet.create({
     padding: 8,
   },
   viewButtons: {
-    flexDirection: 'row',
+    flexDirection: 'row-reverse',
+    width: '100%',
   },
   viewButton: {
     padding: 8,

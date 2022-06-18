@@ -1,19 +1,59 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, useMemo } from 'react'
+import { Platform } from 'react-native'
+import { RFValue } from 'react-native-responsive-fontsize'
 import { useHover } from 'react-native-web-hooks'
+
+import Image from 'next/image'
 
 import ButtonLogin from '@/components/atom/button-login'
 import ButtonOpenMenu from '@/components/atom/button-open-menu'
-import LogoMapaCultural from '@/components/atom/logo-mapa-cultural'
+import ImageNext from '@/components/atom/image-next'
 import NavBar from '@/components/molecule/nav-bar'
 
 import { BarHeader, Container, ContainerRow } from './styles'
 
 import { useSize } from '@/hooks/utils/use-size'
 
+const OrderHeader = ({ logoLeft }) => {
+  const link = 'https://funcap.mapacultural.se.gov.br/'
+  const height = useMemo(() => (logoLeft ? RFValue(25) : RFValue(40)), [logoLeft])
+  const width = useMemo(() => (logoLeft ? RFValue(45) : RFValue(90)), [logoLeft])
+
+  if (logoLeft) {
+    return (
+      <>
+        <ContainerRow>
+          <a href={link} style={{ textDecoration: 'none', marginLeft: '12px' }}>
+            <ImageNext
+              image={'/logo-mapa-cultural.png'}
+              alt="Logo do Mapa Cultural"
+              height={height}
+              width={width}
+            />
+          </a>
+          <NavBar />
+        </ContainerRow>
+        <ButtonLogin />
+      </>
+    )
+  }
+
+  return (
+    <>
+      <ButtonOpenMenu />
+      <a href={link} style={{ textDecoration: 'none', marginLeft: '12px' }}>
+        <Image src={'/logo-mapa-cultural.png'} alt="Mapa Cultural" height={height} width={width} />
+      </a>
+      <ButtonLogin textVisible={false} />
+    </>
+  )
+}
+
 const Header = () => {
   const { size, web } = useSize()
   const [isScrolled, setIsScrolled] = useState(false)
 
+  const mobile = Platform.OS === 'android' || Platform.OS === 'ios'
   function onScroll(window, _event): any {
     const { scrollTop } = window.target.scrollingElement
 
@@ -48,7 +88,7 @@ const Header = () => {
   // 1127
 
   return (
-    <BarHeader>
+    <BarHeader mobile={mobile}>
       <Container
         ref={ref}
         animate={{
@@ -56,33 +96,8 @@ const Header = () => {
           shadowOpacity: hovered || !isScrolled ? 0.1 : 0,
         }}
         transition={{ type: 'timing', delay: 0, duration: 100 }}
-        style={[
-          {
-            elevation: 5,
-            shadowColor: '#fff',
-            shadowOffset: {
-              width: 1,
-              height: 2,
-            },
-            shadowRadius: 4,
-          },
-        ]}
       >
-        {!sizeNavBar ? (
-          <>
-            <ContainerRow>
-              <LogoMapaCultural />
-              <NavBar />
-            </ContainerRow>
-            <ButtonLogin />
-          </>
-        ) : (
-          <>
-            <ButtonOpenMenu />
-            <LogoMapaCultural />
-            <ButtonLogin textVisible={false} />
-          </>
-        )}
+        <OrderHeader logoLeft={!sizeNavBar} />
       </Container>
     </BarHeader>
   )

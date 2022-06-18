@@ -1,9 +1,7 @@
-import React, { startTransition } from 'react'
-import { Button } from 'react-native'
+import React, { useState } from 'react'
 
+import FsLightbox from 'fslightbox-react'
 import styled from 'styled-components/native'
-
-import TemplateFrontEnd from '@/components/templates/frontend'
 
 const Container = styled.View`
   justify-content: center;
@@ -68,62 +66,20 @@ const example = [
 ]
 
 const Lab = () => {
-  const [data, setData] = React.useState(example)
-  const [selected, setSelected] = React.useState(null)
-
-  const printData = () => {
-    console.log(data)
-  }
-
-  const onChangeTitle = (value) => {
-    setSelected({ ...selected, title: value })
-    setData((state) => {
-      const find = state.find((item) => item.id === selected.id)
-      if (find) {
-        find.title = value
-      }
-      return [...state]
-    })
-  }
-
-  const onChangeDescription = (value) => {
-    startTransition(() => {
-      setSelected({ ...selected, description: value })
-      setData((state) => {
-        const find = state.find((item) => item.id === selected.id)
-        if (find) {
-          find.description = value
-        }
-        return [...state]
-      })
-    })
-  }
-
+  const [toggler, setToggler] = useState(false)
   return (
-    <TemplateFrontEnd>
-      <Container>
-        <ContainerCards>
-          {data.map((item) => {
-            const onPress = () => {
-              setSelected(item)
-            }
-
-            return (
-              <Card key={item.id} onPress={onPress}>
-                <Title>{item.title}</Title>
-                <Description>{item.description}</Description>
-              </Card>
-            )
-          })}
-        </ContainerCards>
-
-        <Card disabled>
-          <TitleInput onChangeText={onChangeTitle} value={selected?.title} />
-          <DescriptionInput onChangeText={onChangeDescription} value={selected?.description} />
-        </Card>
-        <Button onPress={printData} title="Print Data" />
-      </Container>
-    </TemplateFrontEnd>
+    <>
+      <button onClick={() => setToggler(!toggler)}>Toggle Lightbox</button>
+      <FsLightbox
+        toggler={toggler}
+        sources={[
+          'images/literatura.jpg',
+          'https://i.imgur.com/fsyrScY.jpg',
+          'https://www.youtube.com/watch?v=3nQNiWdeH2Q',
+          'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+        ]}
+      />
+    </>
   )
 }
 

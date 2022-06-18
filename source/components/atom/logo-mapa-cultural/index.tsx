@@ -1,30 +1,16 @@
-import React, { memo } from 'react'
-import { TouchableOpacity } from 'react-native'
+import React, { useState } from 'react'
 import { RFValue } from 'react-native-responsive-fontsize'
-
-import Image from 'next/image'
-
-const LOGO = '/logo-mapa-cultural.png'
 
 const LogoMapaCultural: React.FC = () => {
   const fontSize = RFValue(80)
   const link = 'https://funcap.mapacultural.se.gov.br/'
+  const [loaded, setLoaded] = useState(false)
 
   return (
     <a href={link} style={{ textDecoration: 'none' }}>
-      <TouchableOpacity
-        style={{
-          height: 40,
-          padding: 4,
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginLeft: 12,
-        }}
-      >
-        <Image src={LOGO} alt="Mapa Cultural" height={fontSize} width={fontSize} />
-      </TouchableOpacity>
+      <img src={'/logo-mapa-cultural.png'} alt="Mapa Cultural" height={fontSize} width={fontSize} />
     </a>
   )
 }
 
-export default memo(LogoMapaCultural)
+export default LogoMapaCultural

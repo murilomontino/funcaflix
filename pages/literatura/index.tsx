@@ -2,44 +2,22 @@
 // @generated: @expo/next-adapter@2.1.52
 import React from 'react'
 
-import { GetterBooks } from '@/types'
+import { fetchProductByCategoryAsync } from '@/api/fetch-product'
 
+import Loading from '@/components/molecule/loading'
 import TemplateFrontEnd from '@/components/templates/frontend'
 import ScreenBooks from '@/screens/books-screen'
 
-import api from '@/services'
-import { Getter } from '@/services/config/types'
+export default function Literatura() {
+  const { data, isLoading } = fetchProductByCategoryAsync(2)
 
-type Props = {
-  books: GetterBooks[]
-}
+  if (isLoading) {
+    return <Loading />
+  }
 
-export default function Livros({ books }: Props) {
   return (
     <TemplateFrontEnd>
-      <ScreenBooks books={books} />
+      <ScreenBooks books={data} />
     </TemplateFrontEnd>
   )
-}
-
-export const getStaticProps = async (ctx) => {
-  const config = {
-    props: {
-      books: [],
-    },
-  }
-
-  try {
-    const { data } = await api.get<Getter<GetterBooks[]>>('books')
-    if (data.statusCode === 200) {
-      return {
-        props: {
-          books: data.data,
-        },
-      }
-    }
-    return config
-  } catch (error) {
-    return config
-  }
 }

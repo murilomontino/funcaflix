@@ -8,7 +8,7 @@ import { FileUploader } from './react-drag-drop-files'
 
 type Props = {
   fileTypes?: string[]
-  onChangeFile: (file: File | FileList) => void
+  onChangeFile: (file: File[]) => void
   label?: string
   multiple?: boolean
   classes?: string
@@ -17,12 +17,17 @@ type Props = {
 function DragDrop({
   onChangeFile,
   multiple = true,
-  label = 'SELECIONE AS OBRAS OU ARRASTE E SOLTE AQUI -',
+  label = 'SELECIONE OS PRODUTOS OU ARRASTE E SOLTE AQUI -',
   fileTypes = ['JPG', 'PNG', 'JPEG'],
   classes = '',
 }: Props) {
-  const handleChange = async (file: File | File[]) => {
-    onChangeFile(file as any)
+  const handleChange = async (file: File | FileList) => {
+    if (multiple) {
+      const files = Array.from(file as FileList)
+      onChangeFile(files)
+    } else {
+      onChangeFile([file as File])
+    }
   }
 
   return (

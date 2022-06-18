@@ -4,9 +4,14 @@ import React from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 
 import RootContext from '@/context/Root'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
+import 'swiper/css/scrollbar'
+import 'swiper/css/bundle'
 
 import '../styles/_styles.scss'
-
 import 'raf/polyfill'
 import 'setimmediate'
 

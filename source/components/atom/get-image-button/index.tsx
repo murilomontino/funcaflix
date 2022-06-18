@@ -21,7 +21,7 @@ const GetImageButton = ({
   width = 150,
   height = 200,
   resizeMode = 'cover',
-  placeholder = 'Escolher uma Capa',
+  placeholder = 'Thumbnail',
 }: Props) => {
   const [imageState, setImageState] = useState<File>(value)
 

@@ -8,7 +8,6 @@ import FieldCPFandCNPJGeneric from '@/components/molecule/field-cpf-and-cnpj'
 import InputISBN from '@/components/molecule/input-isbn'
 import InputTextArea from '@/components/molecule/input-text-area'
 import InputTopic from '@/components/molecule/input-topic'
-import InputTopicMasked from '@/components/molecule/input-topic-masked'
 
 import { IFormValues } from '../../../type'
 import { Container } from './styles'
@@ -34,12 +33,12 @@ const Details = () => {
         onChangeText={onChange('culturalName')}
         value={values.culturalName}
       />
-      <InputTopicMasked
+      <InputTopic
         topic="Data de Publicação"
         onChangeText={onChange('publishedDate')}
         value={values.publishedDate}
         maxLength={10}
-        mask={'date'}
+        mask={values.publishedDate.length > 3 ? '99-99-9999' : '9999'}
       />
 
       <Text

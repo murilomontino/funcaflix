@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react'
 import { Text, View } from 'react-native'
+import { RFPercentage } from 'react-native-responsive-fontsize'
 import { Page, pdfjs } from 'react-pdf'
 
 import { path } from '@/services/config/api'
@@ -95,8 +96,7 @@ const PdfViewer = ({ id }: Props) => {
         onLoadSuccess={(pdf) => onDocumentLoadSuccess(pdf.numPages)}
       >
         <Page
-          height={height / 2}
-          width={width / 1.5}
+          width={RFPercentage(50)}
           loading={() => (
             <View
               style={{

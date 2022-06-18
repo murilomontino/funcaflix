@@ -19,14 +19,10 @@ const AboutFooter = () => {
       >
         <ItemNavBar
           title="Política e Privacidade"
-          link="www.google.com"
+          link="/politica-de-privacidade"
           fontVariant="proportional-nums"
         />
-        <ItemNavBar
-          title="Sobre nós"
-          link="www.google.com"
-          fontVariant="proportional-nums"
-        />
+        <ItemNavBar title="Sobre nós" link="www.google.com" fontVariant="proportional-nums" />
       </View>
       <View>
         <Text style={[{ fontSize: fontSize }, styles.textNav]}>

@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React from 'react'
 import { TouchableOpacity } from 'react-native'
 import { useScaledSize } from 'react-native-web-hooks'
 
@@ -24,4 +24,4 @@ const LogoFuncap: React.FC<Props> = ({ size }) => {
   )
 }
 
-export default memo(LogoFuncap)
+export default LogoFuncap

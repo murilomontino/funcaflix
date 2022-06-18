@@ -2,27 +2,27 @@ import React from 'react'
 import { View, Text, TouchableOpacity, Platform } from 'react-native'
 import { useDimensions } from 'react-native-web-hooks'
 
-import { GetterBooks } from '@/types'
+import Link from 'next/link'
 
-import { useBooks } from '@/context/ContextBooks'
-
-import Tags from '../../atoms/tags'
 import { textStyles, viewStyles } from '../../styles'
 
 type Props = {
-  item: GetterBooks
+  item: {
+    id: number
+    title: string
+    about: string
+    thumbnail: string
+  }
 }
 
 const BookFooter = ({ item }: Props) => {
-  const { changeBook } = useBooks()
-
   const web = Platform.OS === 'web'
   const { window, screen } = useDimensions()
   const size = web ? window : screen
 
-  const redirectBookID = () => {
+  /*  const redirectBookID = () => {
     changeBook(item.pdf)
-  }
+  } */
 
   return (
     <View
@@ -35,7 +35,7 @@ const BookFooter = ({ item }: Props) => {
         },
       ]}
     >
-      <View>
+      {/*   <View>
         <Text style={textStyles.authorFooter}>{item.autor}</Text>
       </View>
       <View
@@ -44,14 +44,13 @@ const BookFooter = ({ item }: Props) => {
         }}
       >
         <Tags tags={item.tags} />
-      </View>
+      </View> */}
 
       <View style={[viewStyles.viewButtons]}>
         <TouchableOpacity style={[viewStyles.viewButton]}>
-          <Text style={[textStyles.buttonText]}>Ver mais</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={[viewStyles.viewButton]} onPress={redirectBookID}>
-          <Text style={[textStyles.buttonText]}>Ler</Text>
+          <Link href={`/literatura/${item.id}`}>
+            <Text style={[textStyles.buttonText]}>Ver mais</Text>
+          </Link>
         </TouchableOpacity>
       </View>
     </View>

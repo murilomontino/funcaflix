@@ -37,9 +37,10 @@ const Left = () => {
       <GetImageButton onChangeValue={onChange('thumbnail')} value={values.thumbnail} />
       <ContainerSelect>
         <DropdownComponent
+          value={values.financialResource}
           options={ItemsFinancialResources}
           labelDefault={'Recursos'.toUpperCase()}
-          onChangeSelect={onChange('resource')}
+          onChangeSelect={onChange('financialResource')}
         />
       </ContainerSelect>
       <GetFileButton value={values.pdf} onChangeValue={onChange('pdf')} />

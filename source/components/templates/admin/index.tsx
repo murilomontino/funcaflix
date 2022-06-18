@@ -6,7 +6,7 @@ import SkeletonHeadLogo from '@/components/molecule/header-logo/skeleton'
 import Footer from '@/components/organism/footer'
 import Header from '@/components/organism/header'
 
-import { ContainerLogo, ContainerBackground, ContainerChildren } from './styles'
+import { ContainerLogo, ContainerBackground } from './styles'
 
 import { useResources } from '@/hooks/utils/use-resources'
 
@@ -33,7 +33,8 @@ const TemplateAdminProduct = ({ children }: Props) => {
             <SkeletonHeadLogo width={WIDTH_LOGO} textSize={TEXT_SIZE} />
           )}
         </ContainerLogo>
-        <ContainerChildren>{children}</ContainerChildren>
+        {children}
+
         <Footer />
       </>
     </ContainerBackground>

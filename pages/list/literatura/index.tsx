@@ -7,17 +7,21 @@ import Table from '@/components/organism/table'
 import TemplateAdmin from '@/components/templates/admin'
 
 import api from '@/services'
-import { Getter } from '@/services/config/types'
 
 const LiteraturaList = () => {
   const [data, setData] = useState([])
 
   const fetchBooks = async () => {
     try {
-      const { data } = await api.get<Getter<GetterBooks[]>>('books')
-
+      const { data } = await api.get('products/2')
       if (data.statusCode === 200) {
-        setData(data.data.map((book, index) => ({ ...book, index: index + 1 })))
+        setData(
+          data.data.map((book, index) => ({
+            titulo: book.title,
+            autor: book.cpf_cnpj,
+            index: index + 1,
+          }))
+        )
       }
     } catch (error) {
       console.error(error)

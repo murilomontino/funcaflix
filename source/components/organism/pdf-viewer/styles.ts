@@ -9,11 +9,11 @@ export const PDFContainer = styled(Document)`
   user-select: none;
   margin-top: 20px;
   margin-bottom: 20px;
-
   @media print {
     display: none;
   }
 `
+
 export const ContainerControls = styled.View`
   height: 80px;
   justify-content: center;

@@ -1,95 +1,49 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useMemo, useState } from 'react'
+import React from 'react'
 import { ViewStyle, ImageStyle, TextStyle } from 'react-native'
 
 import { FontAwesome } from '@expo/vector-icons'
-import { FieldAttributes } from 'formik'
+import { FieldAttributes, useField } from 'formik'
 
-import Topic from '@/components/atom/topic'
+import HelperText from '@/components/atom/helper-text'
 
-import { Container, ContainerIcon, Input } from './styles'
-
-import colors from '@/global/colors'
+import { Container, ContainerIcon, TopicForm, TopicRequered, Field } from './styles'
 
 type Props = {
   topic?: string
   requered?: boolean
   nameIcon?: string
-  maxWidthTitle?: number | string
-  width?: number | string
-  maxLength?: number
-  stylesViewTitle?: ViewStyle | ViewStyle[]
-  styleViewContainer?: ViewStyle | ViewStyle[]
+  name: string
   styleViewInput?: TextStyle | ViewStyle | ImageStyle | ImageStyle[] | ViewStyle[] | TextStyle[]
-  styleTopic?: TextStyle | TextStyle[]
-  textAlign?: 'left' | 'center' | 'right'
 } & FieldAttributes<any>
 
 export const InputField = ({
-  styleViewContainer,
   topic,
-  name,
   requered = false,
   nameIcon,
-  maxLength,
   styleViewInput,
-  styleTopic,
-  placeholder,
-  textAlign = 'left',
-  maxWidthTitle = 150,
-  onFocus,
-  onBlur,
   ...rest
 }: Props) => {
-  const [borderFocus, setBorderFocus] = useState(false)
-  const toggleBorderFocus = () => {
-    setBorderFocus((state) => !state)
-  }
-
-  const border = useMemo(() => {
-    const borderWidth = borderFocus ? 2 : 1
-
-    if (borderFocus) {
-      return {
-        borderWidth,
-        borderColor: 'orange',
-      }
-    } else {
-      return {
-        borderWidth: 1,
-        borderColor: colors.grey20,
-      }
-    }
-  }, [borderFocus])
-
-  const renderTopic = () => {
-    if (!topic) {
-      return null
-    }
-
-    return (
-      <Topic topic={topic} requered={requered} style={styleTopic} maxWidthTitle={maxWidthTitle} />
-    )
-  }
+  const [inputProps, meta] = useField(rest)
+  const id = rest.id || rest.name
 
   return (
-    <Container style={[styleViewContainer]}>
-      {renderTopic()}
-      <Input
-        {...rest}
-        border={border}
-        borderFocus={borderFocus}
-        onFocus={onFocus || toggleBorderFocus}
-        onBlur={onBlur || toggleBorderFocus}
-        placeholder={placeholder || topic}
-        name={name}
-        maxLength={maxLength}
-      />
-      {!!nameIcon && (
-        <ContainerIcon style={[border, styleViewInput, { borderLeftWidth: 0 }]}>
-          <FontAwesome name={nameIcon as any} size={14} />
-        </ContainerIcon>
-      )}
+    <Container>
+      <div style={{ marginRight: '4px', marginTop: '8px' }}>
+        <TopicForm>{topic}</TopicForm>
+        {requered && <TopicRequered>*</TopicRequered>}
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'row' }}>
+        <Field id={id} {...inputProps} {...rest} />
+        {!!nameIcon && (
+          <ContainerIcon style={[styleViewInput, { borderLeftWidth: 0 }]}>
+            <FontAwesome name={nameIcon as any} size={14} />
+          </ContainerIcon>
+        )}
+      </div>
+      <div style={{ position: 'absolute', marginTop: '8px', width: '100%', bottom: '-10px' }}>
+        {meta.touched && meta.error && <HelperText text={meta.error?.toString()} visible />}
+      </div>
     </Container>
   )
 }

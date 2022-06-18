@@ -3,7 +3,7 @@ import styled from 'styled-components/native'
 
 export const TopicContainer = styled.View`
   flex: 1;
-  min-width: 150px;
+  min-width: fit-content;
   width: 150px;
   max-width: 150px;
   flex-direction: row;

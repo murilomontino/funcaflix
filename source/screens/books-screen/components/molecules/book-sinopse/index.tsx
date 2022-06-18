@@ -1,12 +1,15 @@
 import React from 'react'
 import { View, Text } from 'react-native'
 
-import { GetterBooks } from '@/types'
-
 import { textStyles, viewStyles } from '../../styles'
 
 type Props = {
-  item: GetterBooks
+  item: {
+    id: number
+    title: string
+    about: string
+    thumbnail: string
+  }
 }
 
 const BookSinopse = ({ item }: Props) => {
@@ -18,9 +21,7 @@ const BookSinopse = ({ item }: Props) => {
         adjustsFontSizeToFit={true}
         ellipsizeMode="tail"
       >
-        {(item.sinopse &&
-          '      '.concat(item.sinopse.replace('\n', '\n      '))) ||
-          'Sem Sinopse'}
+        {(item.about && '      '.concat(item.about.replace('\n', '\n      '))) || 'Sem Sinopse'}
       </Text>
     </View>
   )

@@ -8,7 +8,7 @@ import { IFormValues } from '../../../type'
 import { Container } from './styles'
 
 const BookContent = () => {
-  const { values, setFieldValue } = useFormikContext<IFormValues>()
+  const { values, setFieldValue, handleChange } = useFormikContext<IFormValues>()
 
   const onChange = (key: keyof IFormValues) => (value: any) => setFieldValue(key, value)
 

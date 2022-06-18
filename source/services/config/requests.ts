@@ -4,6 +4,22 @@ const OAuth = {
   refreshOAuthToken: 'refresh-oauth-token',
 }
 
+const Product = {
+  fetchByCategory: (category) => 'products/' + category,
+}
+
+const Book = {
+  fetchByID: (id) => 'books/v2/' + id,
+}
+
+const TVPrograms = {
+  fetchPlaylistByID: (id) => 'tv-programs/playlist/' + id,
+  fetchPlaylist: 'tv-programs/playlist',
+}
+
 export default {
   OAuth,
+  TVPrograms,
+  Product,
+  Book,
 }

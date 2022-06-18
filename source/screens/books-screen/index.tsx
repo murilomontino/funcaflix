@@ -1,16 +1,24 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { ActivityIndicator, FlatList, StyleSheet, Text, View } from 'react-native'
 
-import { GetterBooks } from '@/types'
+import image from '@/public/images/literatura.jpg'
+
+import BreadCrumb from '@/components/organism/breadcrumb'
 
 import CardBooks from './components/organism/card-book'
 
 import colors from '@/global/colors'
 import constants from '@/global/constants'
+import { useResources } from '@/hooks/utils/use-resources'
 import { useSize } from '@/hooks/utils/use-size'
 
 type Props = {
-  books: GetterBooks[]
+  books: {
+    id: number
+    title: string
+    about: string
+    thumbnail: string
+  }[]
 }
 
 const ScreenBooks = ({ books }: Props) => {
@@ -19,13 +27,15 @@ const ScreenBooks = ({ books }: Props) => {
 
   const data = useMemo(() => books, [books])
 
+  const { isFontReady } = useResources()
+
   useEffect(() => {
     if (data) {
       setLoading(false)
     }
   }, [data])
 
-  if (loading) {
+  if (loading || !isFontReady) {
     return (
       <View style={styles.container}>
         <ActivityIndicator size="large" color={colors.white} />
@@ -35,35 +45,14 @@ const ScreenBooks = ({ books }: Props) => {
 
   return (
     <View style={styles.container}>
-      {/*   <MotiView
-        from={{
-          opacity: 0,
-          scale: 0.5,
-        }}
-        animate={{
-          opacity: 1,
-          scale: 1,
-        }}
-        transition={{
-          type: 'timing',
-        }}
-        style={{
-          justifyContent: 'center',
-          height: 250,
-          width: 250,
-          borderRadius: 25,
-          marginRight: 10,
-          backgroundColor: 'white',
-        }}
-      >
-        <Text style={{ color: 'white' }}>Moti View Container</Text>
-      </MotiView> */}
+      <BreadCrumb title="Literatura" image={image} />
+
       <FlatList
         style={{ marginBottom: 40, minHeight: 300 }}
         contentContainerStyle={{
           width: size.width,
         }}
-        data={data}
+        data={data.slice(0, 50)}
         ListEmptyComponent={() => (
           <View
             style={[
@@ -113,7 +102,6 @@ export default ScreenBooks
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: constants.headerHight,
     marginBottom: constants.footerHight,
     backgroundColor: 'transparent',
     justifyContent: 'center',

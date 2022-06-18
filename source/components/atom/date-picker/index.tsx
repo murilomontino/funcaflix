@@ -3,17 +3,17 @@ import { StyleProp, ViewStyle, TextStyle, View, StyleSheet, Text } from 'react-n
 
 import { FontAwesome } from '@expo/vector-icons'
 
+import HelperText from '../helper-text'
 import DatePicker from './react-date-picker/entry'
 
 import colors from '@/global/colors'
 
 interface Props {
   value: Date
+  error?: string
   onChangeValue: (text: Date) => void
   colorIcon?: string
   topic: string
-  styleTitleButton?: StyleProp<TextStyle>
-  containerButton?: StyleProp<ViewStyle>
   stylesViewTitle?: StyleProp<ViewStyle>
   maxWidthTitle?: number | string
   styleTopic?: StyleProp<TextStyle>
@@ -25,9 +25,8 @@ interface Props {
 const DatePickerCustom = ({
   value,
   onChangeValue,
-  containerButton,
-  styleTitleButton,
   topic,
+  error,
   disabled = false,
   stylesViewTitle,
   maxWidthTitle = 150,
@@ -44,48 +43,50 @@ const DatePickerCustom = ({
   }
 
   return (
-    <View
-      style={{
-        zIndex: 10,
-        margin: 8,
-        padding: 4,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-      }}
-    >
-      {!!topic && (
-        <View
-          style={[
-            styles.viewTitle,
-            stylesViewTitle,
-            {
-              width: maxWidthTitle,
-            },
-          ]}
-        >
-          <Text style={[styles.topicForm, styleTopic]}>{topic}</Text>
-          {requered && <Text style={styles.topicRequered}>*</Text>}
-        </View>
-      )}
-      <DatePicker
-        value={date}
-        onChange={onChangeDate}
-        className={
-          !disabled
-            ? 'date-picker-container date-picker'
-            : 'date-picker-container date-picker-disabled'
-        }
-        calendarAriaLabel="calendar"
-        required
-        disableCalendar={disabled}
-        disabled={disabled}
-        locale="pt-BR"
-        calendarIcon={<FontAwesome name="calendar" size={24} color={colorIcon} />}
-        minDate={minimumDate}
-        maxDate={new Date(new Date().getFullYear() + 10, 0, 1)}
-      />
-    </View>
+    <div>
+      <View
+        style={{
+          zIndex: 10,
+          margin: 8,
+          padding: 4,
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+        }}
+      >
+        {!!topic && (
+          <View
+            style={[
+              styles.viewTitle,
+              stylesViewTitle,
+              {
+                width: maxWidthTitle,
+              },
+            ]}
+          >
+            <Text style={[styles.topicForm, styleTopic]}>{topic}</Text>
+            {requered && <Text style={styles.topicRequered}>*</Text>}
+          </View>
+        )}
+        <DatePicker
+          value={date}
+          onChange={onChangeDate}
+          className={
+            !disabled
+              ? 'date-picker-container date-picker'
+              : 'date-picker-container date-picker-disabled'
+          }
+          calendarAriaLabel="calendar"
+          required
+          disableCalendar={disabled}
+          disabled={disabled}
+          locale="pt-BR"
+          calendarIcon={<FontAwesome name="calendar" size={24} color={colorIcon} />}
+          minDate={minimumDate}
+          maxDate={new Date(new Date().getFullYear() + 10, 0, 1)}
+        />
+      </View>
+      {error && <HelperText text={error} visible />}
+    </div>
   )
 }
 

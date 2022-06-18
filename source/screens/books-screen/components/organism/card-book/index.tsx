@@ -1,35 +1,30 @@
 import React from 'react'
 import { View } from 'react-native'
 
-import { GetterBooks } from '@/types'
-
-import CacheImage from '@/components/atom/cache-image'
+import Img from '@/components/atom/image'
 
 import BookBasicInformation from '../../molecules/book-basic-information'
 import BookFooter from '../../molecules/book-footer'
 import BookSinopse from '../../molecules/book-sinopse'
 import { viewStyles } from '../../styles'
+import { Card } from './styles'
 
 import { useSize } from '@/hooks/utils/use-size'
 
 type Props = {
-  item: GetterBooks
+  item: {
+    id: number
+    title: string
+    about: string
+    thumbnail: string
+  }
 }
 
 const CardBooks = ({ item }: Props) => {
   const { size } = useSize()
 
-  // telas menores < 640
-
   return (
-    <View
-      style={[
-        viewStyles.viewCard,
-        size.width < 640 && {
-          flexDirection: 'column',
-        },
-      ]}
-    >
+    <Card>
       <View
         style={
           (viewStyles.viewContainerImage,
@@ -40,16 +35,14 @@ const CardBooks = ({ item }: Props) => {
           })
         }
       >
-        <View style={viewStyles.viewImage}>
-          <CacheImage capa={item.image} />
-        </View>
+        <Img image={item.thumbnail} width={250} height={'100%'} />
       </View>
       <View style={[viewStyles.viewDetails]}>
         <BookBasicInformation item={item} />
         <BookSinopse item={item} />
         <BookFooter item={item} />
       </View>
-    </View>
+    </Card>
   )
 }
 

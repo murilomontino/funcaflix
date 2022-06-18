@@ -11,7 +11,11 @@ export const Container = styled(MotiView)`
   align-items: center;
 `
 
-export const BarHeader = styledWeb.div`
+type Props = {
+  mobile: boolean
+}
+
+export const BarHeader = styledWeb.div<Props>`
   display: flex;
   position: fixed;
   top: 0;
@@ -23,12 +27,20 @@ export const BarHeader = styledWeb.div`
   -moz-transition: 0.5s ease-in;
   -o-transition: 0.5s ease-in;
   transition: 0.5s ease-in;
+
+  ${({ mobile }) =>
+    mobile &&
+    `
+    background-color: ${theme.COLORS.BAR_HEADER};
+  `}
+
   :hover {
     background-color: ${theme.COLORS.BAR_HEADER};
   }
 `
 
-export const ContainerRow = styled.View`
+export const ContainerRow = styledWeb.div`
+  display: flex;
   flex: 1;
   flex-direction: row;
   align-items: center;
