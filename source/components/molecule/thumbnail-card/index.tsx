@@ -26,8 +26,8 @@ type Props = {
   }
 } & React.HTMLAttributes<HTMLDivElement>
 
-const WIDTH_ITEM = 225
-const HEIGHT_ITEM = 125
+const WIDTH_ITEM = 250
+const HEIGHT_ITEM = 150
 
 const ThumbnailCard = ({ index, item, isButton = false, ...rest }: Props) => {
   const [isHovered, setIsHovered] = useState(false)

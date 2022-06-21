@@ -24,7 +24,7 @@ const ContentSlide = ({ title, synopsis }: Props) => {
     <Container fluid className={`position-relative ${scss['container']}`}>
       <div className="slider-inner h-100">
         <Row className="iq-ltr-direction h-100">
-          <Col xl="6" lg="12" md="12" className="w-100">
+          <Col xl="6" lg="12" md="12" className="w-100 h-100">
             <div className={`channel-logo ${scss['container-logo']}`} data-iq-delay="0.5">
               <Image src={Logo} className="c-logo" alt="Logo Funcap" height={30} width={30} />
               <h6
@@ -82,9 +82,20 @@ const ContentSlide = ({ title, synopsis }: Props) => {
                 <span className="badge badge-secondary p-2">18+</span>
                 <span className="ml-3">2 Seasons</span>
               </div> */}
+
                 <p data-iq-gsap="onStart" data-iq-position-y="80" data-iq-delay="0.8">
-                  {synopsis.slice(0, 650).concat('...')}
+                  {synopsis.trim().length > 0 && synopsis?.slice(0, 650).concat('...\n')}
                 </p>
+              </div>
+              <div
+                className="d-flex align-items-center r-mb-23 position-absolute bottom-3"
+                data-iq-gsap="onStart"
+                data-iq-position-y="80"
+                data-iq-delay="0.8"
+              >
+                <a to="/show-details" className="btn btn-hover iq-button">
+                  <i className="fa fa-play mr-2" aria-hidden="true"></i>Play Now
+                </a>
               </div>
             </div>
             {/*   <div className="trending-list" data-wp_object-in="fadeInUp" data-delay-in="1.2">
@@ -116,7 +127,7 @@ const ContentSlide = ({ title, synopsis }: Props) => {
             </div>
             */}
           </Col>
-          <a href="/" className={`video-open playbtn ${scss['button-play']}`}>
+          {/* <a href="/" className={`video-open playbtn ${scss['button-play']}`}>
             <svg
               version="1.1"
               xmlns="http://www.w3.org/2000/svg"
@@ -151,7 +162,7 @@ const ContentSlide = ({ title, synopsis }: Props) => {
               />
             </svg>
             <span className="w-trailor">Assistir</span>
-          </a>
+          </a> */}
         </Row>
       </div>
     </Container>

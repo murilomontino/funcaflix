@@ -15,6 +15,8 @@ const Book = {
 const TVPrograms = {
   fetchPlaylistByID: (id) => 'tv-programs/playlist/' + id,
   fetchPlaylist: 'tv-programs/playlist',
+  fetchNewestVideos: 'tv-programs',
+  fetchPlaylistItems: 'tv-programs/items',
 }
 
 export default {

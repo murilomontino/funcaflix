@@ -1,11 +1,16 @@
 import React from 'react'
-import { View, Text } from 'react-native'
 
-const ProgramsTVScreen = () => {
+import CarouselSwipper from '@/components/organism/slide-swipper'
+import TrendingMainSlider from '@/components/organism/trending-main-slider'
+
+const ProgramsTVScreen = ({ newestItems, playlist }) => {
   return (
-    <View>
-      <Text>ProgramsTVScreen</Text>
-    </View>
+    <>
+      <TrendingMainSlider items={newestItems} />
+      {playlist.map((item, index) => (
+        <CarouselSwipper key={index} items={item.items} title={item.title} id={item.playlistId} />
+      ))}
+    </>
   )
 }
 

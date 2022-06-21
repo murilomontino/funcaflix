@@ -8,10 +8,12 @@ import ContentSlide from '../content-slide/'
 
 import colors from '@/global/colors'
 
-import { ThumbnailsMax } from '@/utils/thumbnail-max'
-
 type Props = {
-  item: any
+  item: {
+    title: string
+    thumbnail: string
+    description: string
+  }
   item_width: number
   index: number
   refScroll: React.MutableRefObject<ScrollView | undefined>
@@ -24,7 +26,7 @@ const CardContent = ({ item, item_width, index, refScroll, length, height, offse
   return (
     <ImageBackground
       source={{
-        uri: ThumbnailsMax(item.snippet.thumbnails),
+        uri: item.thumbnail,
       }}
       resizeMode="cover"
       style={{
@@ -48,7 +50,7 @@ const CardContent = ({ item, item_width, index, refScroll, length, height, offse
           height: height,
         }}
       >
-        <ContentSlide title={item.snippet.title} synopsis={item.snippet.description} />
+        <ContentSlide title={item.title} synopsis={item.description} />
       </LinearGradient>
       <FormMoveButtons
         offset={offset}

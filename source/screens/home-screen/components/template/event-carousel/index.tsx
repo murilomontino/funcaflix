@@ -2,12 +2,12 @@ import React, { useState, useLayoutEffect } from 'react'
 import { Container, Col, Row } from 'react-bootstrap'
 
 import event from '@/public/images/evento.jpeg'
-import theme from '@/theme'
 import SwiperCore, { EffectFade, Navigation, Thumbs, Pagination } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 // episodes
 import Img from '@/components/atom/image'
+import TitleCarousel from '@/components/molecule/title-carousel'
 
 import EventCard from '../../organisms/event-card'
 
@@ -29,19 +29,8 @@ const EventCarousel = () => {
       <Container fluid>
         <Row>
           <Col sm="12" className="overflow-hidden">
-            <div className="d-flex align-items-center justify-content-between">
-              <h4
-                className="main-title"
-                style={{
-                  fontSize: '1.5rem',
-                  fontWeight: 'bold',
-                  color: '#fff',
-                  marginBottom: '12px',
-                  fontFamily: theme.FONTS.TITLE_900,
-                }}
-              >
-                Eventos
-              </h4>
+            <div className="d-flex align-items-center justify-content-between mb-3">
+              <TitleCarousel title="Eventos" />
             </div>
             <div id="trending-contens">
               <div id="prev4" className="swiper-button swiper-button-prev">

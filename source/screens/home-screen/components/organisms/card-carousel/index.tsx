@@ -3,16 +3,24 @@ import { ScrollView, Animated, Platform } from 'react-native'
 import { useDimensions } from 'react-native-web-hooks'
 
 import CardContent from '../../molecules/card-content'
-import cards from './home-slide.json'
 
 const OFFSET = 0
 
-export default function CardCarousel() {
+type Props = {
+  items: {
+    title: string
+    id: string
+    thumbnail: string
+    description: string
+  }[]
+}
+
+export default function CardCarousel({ items }: Props) {
   const [data, setData] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
 
   useLayoutEffect(() => {
-    setData(cards)
+    setData(items.slice(0, 10))
     setIsLoading(false)
     return () => {
       setData(null)
@@ -57,7 +65,7 @@ export default function CardCarousel() {
       })}
       scrollEventThrottle={12}
     >
-      {data.items.map((item, idx) => {
+      {data.map((item, idx) => {
         const inputRange = [(idx - 1) * ITEM_WIDTH, idx * ITEM_WIDTH, (idx + 1) * ITEM_WIDTH]
 
         const translate = scrollX.interpolate({
@@ -78,7 +86,7 @@ export default function CardCarousel() {
               opacity: opacity,
               transform: [{ scale: translate }],
               marginLeft: idx === 0 ? OFFSET : undefined,
-              marginRight: idx === data.items.length - 1 ? OFFSET : undefined,
+              marginRight: idx === data.length - 1 ? OFFSET : undefined,
             }}
             key={idx}
           >
@@ -88,7 +96,7 @@ export default function CardCarousel() {
               item={item}
               index={idx}
               refScroll={refScroll}
-              length={data.items.length}
+              length={data.length}
               height={'100vh'}
             />
           </Animated.View>

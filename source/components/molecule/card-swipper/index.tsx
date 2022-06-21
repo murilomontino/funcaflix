@@ -1,6 +1,12 @@
 import React from 'react'
 
+import theme from '@/theme'
+import { MotiView } from 'moti'
+
 import Img from '@/components/atom/image'
+import Logo from '@/components/atom/logo-funcap'
+
+import { ContainerLogo, Title } from './styles'
 
 type Props = {
   title: string
@@ -35,20 +41,47 @@ const CardSwipper = ({
           alt={`thumbnail de ${title}`}
         />
       </div>
-      <div className="block-description">
-        <h6 className="iq-title">
+
+      <div
+        className="block-description"
+        style={{
+          left: 0,
+          width: '100%',
+        }}
+      >
+        <ContainerLogo>
+          <Logo size={1.5} />
+        </ContainerLogo>
+        <MotiView
+          animate={{
+            width: '100%',
+          }}
+          transition={{
+            type: 'timing',
+            delay: theme.EFFECT.DELAY,
+            duration: theme.EFFECT.DURATION,
+          }}
+          style={{
+            backgroundColor: 'rgba(0,0,0,0.3)',
+          }}
+        >
+          <Title>{title}</Title>
+        </MotiView>
+
+        {/*<h6 className="iq-title">
           <a href={linkDetails}>{title}</a>
         </h6>
-        {/*   <div className="movie-time d-flex align-items-center my-2 iq-ltr-direction">
+           <div className="movie-time d-flex align-items-center my-2 iq-ltr-direction">
           <div className="badge badge-secondary p-1 mr-2">13+</div>
           <span className="text-white">2h 30m</span>
-        </div> */}
+        </div> 
         <div className="hover-buttons">
           <a href={linkDetails} role="button" className="btn btn-hover iq-button">
             <i className="fa fa-play mr-1" aria-hidden="true"></i>
             {button}
           </a>
         </div>
+        */}
       </div>
       {/* <div className="block-social-info">
         <ul className="list-inline p-0 m-0 music-play-lists">

@@ -5,7 +5,7 @@ import { MotiView } from 'moti'
 
 import Logo from '@/components/atom/logo-funcap'
 
-import ImageNext from '../image-next'
+import Img from '../image'
 import { ContainerLogo, Title, ContainerImageBackground } from './styles'
 
 type Props = {
@@ -40,14 +40,11 @@ const ThumbnailImage = ({ image, title, width, height, unblur, ...rest }: Props)
       ]}
     >
       <>
-        <ImageNext
-          url="videos/thumbnail?id="
+        <Img
           image={image}
           alt={title}
-          unblur={unblur}
-          height={height}
-          width={width}
-          layout="fill"
+          height={'100%'}
+          width={'100%'}
           style={{
             position: 'absolute',
             top: 0,

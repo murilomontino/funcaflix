@@ -1,7 +1,8 @@
 import React, { useMemo } from 'react'
 
+import SlideSwipper from '@/components/organism/slide-swipper'
+
 import CardCarousel from './components/organisms/card-carousel'
-import SlideSwipper from './components/organisms/slide-swipper'
 import EventCarousel from './components/template/event-carousel'
 
 type Props = {
@@ -29,11 +30,10 @@ function HomeScreen({ items, tvProgramsPlaylist }: Props) {
 
   return (
     <>
-      <CardCarousel />
+      <CardCarousel items={playlist} />
       <div
-        className="main-content"
         style={{
-          marginTop: '-100px',
+          marginTop: '-75px',
           marginBottom: '10vh',
         }}
       >
@@ -53,7 +53,8 @@ function HomeScreen({ items, tvProgramsPlaylist }: Props) {
           link="programas-de-tv"
           buttonText="Assistir"
         />
-        <div className="align-items-center p-lg-5">
+
+        <div className="align-items-center px-lg-5">
           <EventCarousel />
         </div>
       </div>

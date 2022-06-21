@@ -14,6 +14,7 @@ type Props = {
 
 const Img = ({
   image,
+  style,
   height = 200,
   width = 150,
   url = 'image?id=',
@@ -56,7 +57,7 @@ const Img = ({
     <img
       onError={handleError}
       src={imageLoader(image)}
-      style={imageStyle}
+      style={{ ...imageStyle, ...style }}
       loading="lazy"
       {...rest}
     />

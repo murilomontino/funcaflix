@@ -1,13 +1,11 @@
 import React, { useLayoutEffect, useState } from 'react'
 import { Container, Col, Row } from 'react-bootstrap'
 
-import Link from 'next/link'
 import SwiperCore, { EffectFade, Navigation, Thumbs, Pagination } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 import CardSwipper from '@/components/molecule/card-swipper'
-
-import { Title } from './styles'
+import TitleCarousel from '@/components/molecule/title-carousel'
 
 type Props = {
   title: string
@@ -47,23 +45,12 @@ const CarouselSwipper = ({
   }
 
   return (
-    <section id={id} style={{ marginBottom: '96px' }}>
+    <section id={id} className={'overflow-hidden mb-5 position-relative'}>
       <Container fluid>
         <Row>
           <Col sm="12" className="overflow-hidden">
-            <div className="d-flex align-items-center justify-content-between mb-2">
-              <Title className="main-title">{title}</Title>
-              <Link href={link}>
-                <a
-                  className="iq-view-all"
-                  style={{
-                    fontSize: '14px',
-                    fontFamily: 'Roboto, sans-serif',
-                  }}
-                >
-                  Ver Todos
-                </a>
-              </Link>
+            <div className="d-flex align-items-center justify-content-between">
+              <TitleCarousel title={title} />
             </div>
             <div id="favorites-contens">
               <div id={`prev-${id}`} className="swiper-button swiper-button-prev">

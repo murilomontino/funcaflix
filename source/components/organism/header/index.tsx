@@ -4,6 +4,7 @@ import { RFValue } from 'react-native-responsive-fontsize'
 import { useHover } from 'react-native-web-hooks'
 
 import Image from 'next/image'
+import Link from 'next/link'
 
 import ButtonLogin from '@/components/atom/button-login'
 import ButtonOpenMenu from '@/components/atom/button-open-menu'
@@ -23,14 +24,16 @@ const OrderHeader = ({ logoLeft }) => {
     return (
       <>
         <ContainerRow>
-          <a href={link} style={{ textDecoration: 'none', marginLeft: '12px' }}>
-            <ImageNext
-              image={'/logo-mapa-cultural.png'}
-              alt="Logo do Mapa Cultural"
-              height={height}
-              width={width}
-            />
-          </a>
+          <Link href="/">
+            <a style={{ textDecoration: 'none', marginLeft: '12px' }}>
+              <ImageNext
+                image={'/logo-mapa-cultural.png'}
+                alt="Logo do Mapa Cultural"
+                height={height}
+                width={width}
+              />
+            </a>
+          </Link>
           <NavBar />
         </ContainerRow>
         <ButtonLogin />
@@ -41,9 +44,16 @@ const OrderHeader = ({ logoLeft }) => {
   return (
     <>
       <ButtonOpenMenu />
-      <a href={link} style={{ textDecoration: 'none', marginLeft: '12px' }}>
-        <Image src={'/logo-mapa-cultural.png'} alt="Mapa Cultural" height={height} width={width} />
-      </a>
+      <Link href="/">
+        <a style={{ textDecoration: 'none', marginLeft: '12px' }}>
+          <Image
+            src={'/logo-mapa-cultural.png'}
+            alt="Mapa Cultural"
+            height={height}
+            width={width}
+          />
+        </a>
+      </Link>
       <ButtonLogin textVisible={false} />
     </>
   )

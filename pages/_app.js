@@ -5,11 +5,11 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 
 import RootContext from '@/context/Root'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import 'swiper/css'
-import 'swiper/css/navigation'
-import 'swiper/css/pagination'
-import 'swiper/css/scrollbar'
-import 'swiper/css/bundle'
+
+import 'swiper/swiper-bundle.min.css'
+import 'swiper/swiper.min.css'
+import 'swiper/components/pagination/pagination.min.css'
+import 'swiper/components/navigation/navigation.min.css'
 
 import '../styles/_styles.scss'
 import 'raf/polyfill'
