@@ -1,11 +1,12 @@
 {
   "compilerOptions": {
     "jsx": "preserve",
-    "target": "ES2015",
-    "module": "esnext",
+    "target": "ESNext",
+    "module": "CommonJS",
     "types": [
       "node"
     ],
+    
     "allowJs": true,
     "strict": false,
     "skipLibCheck": true,
@@ -22,7 +23,11 @@
     "baseUrl": ".",
     "paths": {
       "@/*": [
-        "./source/*"
+        "./source/*",
+        "./backend/core/*"
+      ],
+      "@mapa-cultural/database": [
+        "./backend/database"
       ],
       "@/public/*": [
         "./public/*"
@@ -32,6 +37,8 @@
     "incremental": true
   },
   "include": [
+    "backend/core/**/*",
+    "backend/database/**/*",
     "source/**/*",
     "pages"
   ],

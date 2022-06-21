@@ -1,14 +1,20 @@
 // @generated: @expo/next-adapter@2.1.52
 // Learn more: https://docs.expo.dev/guides/using-nextjs/
 
-module.exports = (api) =>{ 
+module.exports = (api) => {
   api.cache(true)
   return {
-    presets: ['@expo/next-adapter/babel'],
+    presets: ['@expo/next-adapter/babel', ['@babel/preset-typescript', {
+      allowDeclareFields: true
+    }], ],
     plugins: [
       "@babel/plugin-transform-modules-commonjs",
       "@babel/plugin-proposal-class-properties",
       "@babel/plugin-proposal-private-methods",
+      ['@babel/plugin-transform-typescript', {
+        allowDeclareFields: true,
+        allowNamespaces: true
+      }],
       [
         'module-resolver',
         {
@@ -30,6 +36,9 @@ module.exports = (api) =>{
             '@/utils': './source/utils',
             '@/animations': './source/animations',
             '@/public': './public',
+            '@/domain': './backend/core/domain',
+            '@/helpers': './backend/core/helpers',
+            '@/shared': './backend/core/shared',
           },
         },
       ],
