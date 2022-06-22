@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import theme from '@/theme'
 
@@ -14,21 +14,24 @@ type Props = {
 const TemplateFrontEnd = ({ children }: Props) => {
   const [backToTop, setBackToTop] = useState(null)
 
-  useLayoutEffect(() => {
-    setBackToTop(document?.getElementById('back-to-top'))
+  useEffect(() => {
+    if (document?.getElementById('back-to-top')) {
+      setBackToTop(document?.getElementById('back-to-top'))
+    }
+
     if (backToTop !== null && backToTop !== undefined) {
-      document?.getElementById('back-to-top').classList.add('animated', 'fadeOut')
+      document?.getElementById('back-to-top')?.classList?.add('animated', 'fadeOut')
       window?.addEventListener('scroll', (e) => {
-        if (document?.documentElement.scrollTop > 50) {
-          document?.getElementById('back-to-top').classList.remove('fadeOut')
-          document?.getElementById('back-to-top').classList.add('fadeIn')
+        if (document?.documentElement?.scrollTop > 50) {
+          document?.getElementById('back-to-top')?.classList?.remove('fadeOut')
+          document?.getElementById('back-to-top')?.classList?.add('fadeIn')
         } else {
-          document?.getElementById('back-to-top').classList.remove('fadeIn')
-          document?.getElementById('back-to-top').classList.add('fadeOut')
+          document?.getElementById('back-to-top')?.classList?.remove('fadeIn')
+          document?.getElementById('back-to-top')?.classList?.add('fadeOut')
         }
       })
       // scroll body to 0px on click
-      document?.querySelector('#top').addEventListener('click', (e) => {
+      document?.querySelector('#top')?.addEventListener('click', (e) => {
         e.preventDefault()
         window?.scrollTo({ top: 0, behavior: 'smooth' })
       })

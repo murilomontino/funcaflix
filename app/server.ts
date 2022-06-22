@@ -1,4 +1,3 @@
-import { build } from '@mapa-cultural/database'
 import { Express } from 'express'
 /* eslint-disable @typescript-eslint/no-var-requires */
 import express from 'express'
@@ -9,6 +8,7 @@ import type { Server as ServerHTTPS } from 'https'
 import { createServer as CreateServerHTTPS } from 'https'
 import next from 'next'
 
+import { build } from '../backend/database'
 import Middleware from './middleware'
 import NextjsExpressRouter from './nextjs_express_router'
 

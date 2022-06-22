@@ -10,7 +10,7 @@ const {
 } = require('@expo/next-adapter')
 const withPlugins = require('next-compose-plugins')
 const withFonts = require('next-fonts')
-const withImages = require('next-optimized-images')
+const withImages = require('next-images')
 const withTM = require('next-transpile-modules')([
   'moti',
   '@motify/core',
@@ -33,8 +33,8 @@ const nextConfig = ((phase) => {
       ignoreBuildErrors: true,
     },
     images: {
-      loader: 'akamai',
-      path: '/',
+      /*  loader: 'akamai',
+      path: '/', */
       deviceSizes: [320, 640, 750, 828, 1080, 1280, 1920, 2048],
       disableStaticImages: true,
       domains: [

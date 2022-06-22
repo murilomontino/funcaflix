@@ -2,22 +2,36 @@
 // @generated: @expo/next-adapter@2.1.52
 import React from 'react'
 
-import { fetchProductByCategoryAsync } from '@/api/fetch-product'
+import { FindAllProductsByCategory } from '@/domain/usecases'
+import { build } from '@mapa-cultural/database'
+import { GetStaticProps } from 'next/types'
 
 import Loading from '@/components/molecule/loading'
 import TemplateFrontEnd from '@/components/templates/frontend'
 import ScreenBooks from '@/screens/books-screen'
 
-export default function Literatura() {
-  const { data, isLoading } = fetchProductByCategoryAsync(2)
-
-  if (isLoading) {
+export default function Literatura({ staticBooks }) {
+  if (!staticBooks) {
     return <Loading />
   }
 
   return (
     <TemplateFrontEnd>
-      <ScreenBooks books={data} />
+      <ScreenBooks books={staticBooks} />
     </TemplateFrontEnd>
   )
+}
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  await build()
+  const books = await new FindAllProductsByCategory().execute(null, {
+    category: '2',
+  })
+
+  return {
+    props: {
+      staticBooks: books.value,
+    },
+    revalidate: 60 * 60 * 24,
+  }
 }
