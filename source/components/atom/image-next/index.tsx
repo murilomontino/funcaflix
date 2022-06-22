@@ -1,54 +1,39 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
+import noCapa from '@/public/no-capa.jpg'
 import Image, { ImageProps } from 'next/image'
 
 type Props = {
-  image?: string
-  height?: number | string
-  width?: number | string
+  image: string
   unblur?: boolean
-  url?: string
+  imageStatic?: boolean
 } & Partial<ImageProps>
 
-const ImageNext = ({
-  image,
-  height = 200,
-  width = 150,
-  unblur = false,
-  url = 'image?id=',
-  ...rest
-}: Props) => {
-  const [urlImage, setUrlImage] = useState<string>()
-
-  const [isLoading, setIsLoading] = useState(false)
-
-  const loadImage = () => {
-    if (image && image.startsWith('http')) {
-      return image
-    }
-
-    if (image) {
-      return image
-    }
+const imageLoader = ({ src }) => {
+  if (!src || src?.startsWith('Não')) {
+    return noCapa
   }
 
-  useEffect(() => {
-    const image = loadImage()
-    if (image) {
-      setUrlImage(image)
-    }
-  }, [image])
+  if (src && src.startsWith('http')) {
+    return src
+  }
 
-  if (!urlImage) return null
+  const uuid = src.replace('imagens/', '')
+  const URL = process.env._currentURL + 'images/' + uuid
+
+  return URL
+}
+
+const ImageNext = ({ image, unblur = false, imageStatic = false, className, ...rest }: Props) => {
+  const [isLoading, setIsLoading] = useState(false)
 
   return (
     <>
       <Image
         {...rest}
-        src={urlImage}
-        height={height}
-        width={width}
-        className={isLoading && unblur ? 'unblur' : ''}
+        src={image}
+        loader={!imageStatic && imageLoader}
+        className={`${isLoading && unblur ? 'unblur' : ''} ${className}`}
         onLoadingComplete={() => setIsLoading(true)}
       />
       <style jsx global>{`

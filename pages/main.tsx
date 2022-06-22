@@ -13,7 +13,6 @@ export default function App({ staticBooks, staticPlaylist }) {
   if (!staticBooks || !staticPlaylist) {
     return <Loading />
   }
-
   return (
     <TemplateFrontEnd>
       <HomeScreen items={staticBooks} tvProgramsPlaylist={staticPlaylist} />

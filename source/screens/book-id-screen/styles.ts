@@ -1,7 +1,7 @@
-import theme from '@/theme'
-import styled from 'styled-components/native'
+import styled from 'styled-components'
 
-export const Container = styled.View`
-  margin-top: ${theme.CONSTANTS.HEADER_HIGHT}px;
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
   padding: 12px;
 `

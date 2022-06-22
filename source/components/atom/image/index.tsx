@@ -12,38 +12,39 @@ type Props = {
   url?: string
 } & Partial<ImageProps>
 
+const imageLoader = (image: string, staticImage: boolean) => {
+  if (!image || image?.startsWith('Não')) {
+    return noCapa
+  }
+
+  if (staticImage && image) {
+    return image
+  }
+
+  if (image && image.startsWith('http')) {
+    return image
+  }
+
+  return process.env._currentURL + 'images/' + image
+}
+
 const Img = ({
   image,
   style,
   height = 200,
   width = 150,
-  url = 'image?id=',
   updateClassName,
   staticImage = false,
   ...rest
 }: Props) => {
+  const src = image.replace('imagens/', '')
+
   const imageStyle = updateClassName
     ? {}
     : {
         height,
         width,
       }
-
-  const imageLoader = (image: string) => {
-    if (!image || image?.startsWith('Não')) {
-      return noCapa
-    }
-
-    if (staticImage && image) {
-      return image
-    }
-
-    if (image && image.startsWith('http')) {
-      return image
-    }
-
-    return process.env._currentURL + url + image
-  }
 
   const handleError = (e) => {
     e.onerror = ''
@@ -56,7 +57,7 @@ const Img = ({
   return (
     <img
       onError={handleError}
-      src={imageLoader(image)}
+      src={imageLoader(src, staticImage)}
       style={{ ...imageStyle, ...style }}
       loading="lazy"
       {...rest}

@@ -1,9 +1,10 @@
 import React from 'react'
 
+import noCapa from '@/public/no-capa.jpg'
 import theme from '@/theme'
 import { MotiView } from 'moti'
 
-import Img from '@/components/atom/image'
+import ImageNext from '@/components/atom/image-next'
 import Logo from '@/components/atom/logo-funcap'
 
 import { ContainerLogo, Title } from './styles'
@@ -17,6 +18,21 @@ type Props = {
   linkDetails?: string
 }
 
+const imageLoader = ({ src }) => {
+  if (!src || src?.startsWith('Não')) {
+    return noCapa
+  }
+
+  if (src && src.startsWith('http')) {
+    return src
+  }
+
+  const uuid = src.replace('imagens/', '')
+  const URL = process.env._currentURL + 'images/' + uuid
+
+  return URL
+}
+
 const CardSwipper = ({
   title,
   thumbnail,
@@ -26,18 +42,22 @@ const CardSwipper = ({
   linkDetails = '/',
 }: Props) => {
   return (
-    <div
-      className="block-images position-relative"
-      style={{
-        width: width,
-      }}
-    >
-      <div className="img-box">
-        <Img
+    <div className="block-images position-relative">
+      <div
+        className="img-box"
+        style={{
+          width: width,
+          height: height,
+        }}
+      >
+        <ImageNext
           image={thumbnail}
-          className="img-fluid"
-          width="100%"
-          height={height}
+          loader={imageLoader}
+          layout="fill"
+          style={{
+            width: width,
+            height: height,
+          }}
           alt={`thumbnail de ${title}`}
         />
       </div>
@@ -75,13 +95,23 @@ const CardSwipper = ({
           <div className="badge badge-secondary p-1 mr-2">13+</div>
           <span className="text-white">2h 30m</span>
         </div> 
-        <div className="hover-buttons">
-          <a href={linkDetails} role="button" className="btn btn-hover iq-button">
+        */}
+        <div
+          className="ml-2 position-absolute"
+          style={{
+            width: 'fit-content',
+            bottom: '20px',
+          }}
+        >
+          <a
+            href={linkDetails}
+            role="button"
+            className="btn btn-hover iq-button button-hover iq-border-radius-5"
+          >
             <i className="fa fa-play mr-1" aria-hidden="true"></i>
             {button}
           </a>
         </div>
-        */}
       </div>
       {/* <div className="block-social-info">
         <ul className="list-inline p-0 m-0 music-play-lists">

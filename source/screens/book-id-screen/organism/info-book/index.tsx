@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Img from '@/components/atom/image'
+import Img from '@/components/atom/image-next'
 
 import BookBasicInformation from '../../molecules/book-basic-information'
 import BookFooter from '../../molecules/book-footer'

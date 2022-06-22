@@ -8,7 +8,6 @@ import Link from 'next/link'
 
 import ButtonLogin from '@/components/atom/button-login'
 import ButtonOpenMenu from '@/components/atom/button-open-menu'
-import ImageNext from '@/components/atom/image-next'
 import NavBar from '@/components/molecule/nav-bar'
 
 import { BarHeader, Container, ContainerRow } from './styles'
@@ -26,8 +25,8 @@ const OrderHeader = ({ logoLeft }) => {
         <ContainerRow>
           <Link href="/">
             <a style={{ textDecoration: 'none', marginLeft: '12px' }}>
-              <ImageNext
-                image={'/logo-mapa-cultural.png'}
+              <Image
+                src={'/logo-mapa-cultural.png'}
                 alt="Logo do Mapa Cultural"
                 height={height}
                 width={width}

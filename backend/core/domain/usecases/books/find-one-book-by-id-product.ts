@@ -55,25 +55,27 @@ export class FindOneBookByIdProductUseCase implements UseCase<unknown, IGetterBo
       const book = bookModel.get()
 
       return left(
-        new GetterBook().build({
-          author: book.author,
-          dimensions: book.dimensions,
-          genres: book.genres,
-          id: book.id,
-          idDocument: doc.id,
-          pdf: doc?.filePath || 'Não disponível',
-          thumbnail: thumbnail?.filePath || 'Não Informado',
-          illustration: book.illustration,
-          isbn: book.isbn,
-          illustrator: book.illustrator,
-          numberOfPages: book.numberOfPages,
-          publicationDate: book.publicationDate,
-          publisher: book.publisher,
-          subTitle: book.subTitle,
-          synopsis: book.synopsis,
-          tags: book.tags,
-          title: book.title,
-        })
+        new GetterBook()
+          .build({
+            author: book.author,
+            dimensions: book.dimensions,
+            genres: book.genres,
+            id: book.id,
+            idDocument: doc.id,
+            pdf: doc?.filePath || 'Não disponível',
+            thumbnail: thumbnail?.filePath || 'Não Informado',
+            illustration: book.illustration,
+            isbn: book.isbn,
+            illustrator: book.illustrator,
+            numberOfPages: book.numberOfPages,
+            publicationDate: book.publicationDate,
+            publisher: book.publisher,
+            subTitle: book.subTitle,
+            synopsis: book.synopsis,
+            tags: book.tags,
+            title: book.title,
+          })
+          .params()
       )
     })
   }

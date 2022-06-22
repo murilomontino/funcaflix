@@ -49,6 +49,7 @@ function HomeScreen({ items, tvProgramsPlaylist }: Props) {
         <SlideSwipper
           title="Programas de TV"
           id="iq-tv"
+          height="200px"
           items={playlist}
           link="programas-de-tv"
           buttonText="Assistir"
