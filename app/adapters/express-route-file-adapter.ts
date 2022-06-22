@@ -1,12 +1,15 @@
+// Adaptador de rotas do Express para o Controller Generic utilizado pela arquitetura do projeto (Clean Architecture)
+
 import { Request, Response } from 'express'
 
 import { ControllerFileGeneric } from '../../backend/core/adapters/controller/helpers'
 import { HttpRequest } from '../../backend/core/adapters/controller/ports/http'
 
-export const adaptOutFileStream = (controller: ControllerFileGeneric) => {
+// Este adaptador é utilizado para stream de arquivos (files)
+export const adaptFileRoute = (controller: ControllerFileGeneric) => {
   return async (req: Request, res: Response) => {
     const httpRequest: HttpRequest = {
-      body: res,
+      body: req.body,
       params: { ...req.params, ...req.query },
     }
 

@@ -4,14 +4,16 @@ import { Express } from 'express'
 import path from 'path'
 import favicon from 'serve-favicon'
 
+import SetupMiddlewares from './middlewares/Setup'
 class Middleware {
   constructor(private readonly express: Express) {}
 
   async init() {
+    SetupMiddlewares(this.express)
+
     this.express.use(bodyParser.json())
     this.express.use(bodyParser.urlencoded({ extended: false }))
     this.express.use(favicon(path.join(__dirname, '..', 'public', 'favicon.png')))
-
     this.initErrors()
   }
 

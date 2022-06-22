@@ -1,2 +1,2 @@
-export * from './express-out-stream-adapter'
+export * from './express-route-file-adapter'
 export * from './express-route-adapter'

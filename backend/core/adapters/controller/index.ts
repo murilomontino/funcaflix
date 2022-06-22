@@ -1,5 +1,2 @@
-export * from './add-music-sockets'
-export * from './qr-code-controller'
 export * from './ports/controller'
 export * from './controller-stream-out-file'
-export * from './controller-stream-in-file'
