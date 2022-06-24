@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import PdfViewer from '@/components/organism/pdf-viewer'
 
@@ -15,9 +15,23 @@ type Props = {
 const ScreenBookID = ({ book }: Props) => {
   if (!book) return null
 
+  const [pdf, setPDF] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    if (book.pdf) {
+      setPDF(book.pdf)
+      setIsLoading(false)
+    }
+  }, [])
+
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
+
   return (
     <Container>
-      {book?.pdf && <PdfViewer id={book?.pdf} />}
+      <div>{book?.pdf && <PdfViewer id={pdf} />}</div>
       <InfoBook book={book} />
     </Container>
   )

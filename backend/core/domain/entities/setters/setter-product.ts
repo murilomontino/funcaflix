@@ -15,6 +15,8 @@ export class SetterInfoProduct implements IProduct {
   public readonly active = true
   public readonly financialResource: number
   public readonly thumbnail: string
+  public readonly createdAt?: Date
+  public readonly updatedAt?: Date
 
   private constructor(params: IProduct) {
     params.cpf_cnpj = params.cpf_cnpj.replace(/[^\d]+/g, '')

@@ -1,40 +1,33 @@
-import {
-	IProduct,
-	IBook,
-	IDatasheet,
-	IDocumentsProducts,
-	IPlaylist,
-	ITVPrograms,
-} from '../setters'
+import { IProduct, IBook, IDatasheet, IDocumentsProducts, IPlaylist, ITVPrograms } from '../setters'
 export interface IGetterProduct extends IProduct {
-	id: number
+  id: number
 }
 
 export interface IGetterBooks extends IBook {
-	id: number
-	pdf: string
-	thumbnail: string
+  id: number
+  pdf: string
+  thumbnail: string
 }
 
 export interface IGetterDataSheet extends IDatasheet {
-	id: number
+  id: number
 }
 
 export interface IGetterDocProduct extends IDocumentsProducts {
-	id: number
+  id: number
 }
 
 export interface IGetterOptions {
-	label: string
-	value: number
+  label: string
+  value: number
 }
 
 export interface IGetterPlaylist extends IPlaylist {
-	id: number
-	count: number
-	playlistId: string
+  id: number
+  count: number
+  playlistId: string
 }
 
 export interface IGetterTVPrograms extends ITVPrograms {
-	id: number
+  id: number
 }

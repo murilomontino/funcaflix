@@ -16,6 +16,7 @@ type Props = {
   height?: string
   queryString?: string
   link?: string
+  allLink?: string
   items: {
     [key: string]: any
     title: string
@@ -33,6 +34,7 @@ const CarouselSwipper = ({
   width,
   height,
   queryString,
+  allLink,
   itemsPerView = 5.5,
   link = '/',
   buttonText = 'Assistir',
@@ -53,7 +55,7 @@ const CarouselSwipper = ({
         <Row>
           <Col sm="12" className="overflow-hidden">
             <div className="d-flex align-items-center justify-content-between">
-              <TitleCarousel title={title} />
+              <TitleCarousel title={title} link={'/' + (allLink || link)} />
             </div>
             <div id="favorites-contens">
               <div id={`prev-${id}`} className="swiper-button swiper-button-prev">

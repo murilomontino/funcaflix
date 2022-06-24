@@ -7,58 +7,73 @@ import TitleCarousel from '@/components/molecule/title-carousel'
 
 import scss from './styles.module.scss'
 
-const Episodes = ({ item }) => (
-  <div className={`col-sm-3 mb-4 pointer-event ${scss['btn']}`}>
-    <div className={`epi-box h-auto wp-video ${scss['h-150-px']} ${scss['w-250-px']} `}>
-      <div className={`epi-img position-relative`}>
-        <ImageNext
-          image={item.thumbnail}
-          imageStatic
-          width="250px"
-          height="150px"
-          className="img-fluid img-zoom"
-          alt=""
-        />
-        <div className="episode-play-info">
-          <div className="episode-play">
-            <a to="#">
-              <i className="ri-play-fill"></i>
-            </a>
+const Episodes = ({ item, handleChange }) => {
+  const handleClick = () => {
+    handleChange(item.videoId)
+  }
+
+  return (
+    <Col className={`col-sm-3 mb-4 pointer-event ${scss['btn']}`}>
+      <div
+        onClick={handleClick}
+        className={`epi-box h-auto wp-video ${scss['h-150-px']} ${scss['w-250-px']} `}
+      >
+        <div className={`epi-img position-relative`}>
+          <ImageNext
+            image={item.thumbnail}
+            imageStatic
+            width="250px"
+            height="150px"
+            className="img-fluid img-zoom"
+            alt=""
+          />
+          <div className="episode-play-info">
+            <div className="episode-play">
+              <a to="#">
+                <i className="ri-play-fill"></i>
+              </a>
+            </div>
           </div>
         </div>
-      </div>
-      <div
-        className="epi-desc p-1 wrapper"
-        style={{
-          height: '60px',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        {/*   <div className="d-flex align-items-center justify-content-between">
+        <div
+          className="epi-desc p-1 wrapper"
+          style={{
+            height: '60px',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          {/*   <div className="d-flex align-items-center justify-content-between">
           <span className="text-white">11 Aug 20</span>
           <span className="text-primary">30m</span>
         </div> */}
-        <a to="#">
-          <h6
-            className="text-white mb-0"
-            style={{
-              fontSize: '14px',
-              fontWeight: '500',
-              lineHeight: '1.5',
-              textAlign: 'center',
-              textTransform: 'uppercase',
-            }}
-          >
-            {item.title}
-          </h6>
-        </a>
+          <a to="#">
+            <h6
+              className="text-white mb-0"
+              style={{
+                fontSize: '14px',
+                fontWeight: '500',
+                lineHeight: '1.5',
+                textAlign: 'center',
+                textTransform: 'uppercase',
+              }}
+            >
+              {item.title}
+            </h6>
+          </a>
+        </div>
       </div>
-    </div>
-  </div>
-)
+    </Col>
+  )
+}
 
-const OtherEpisodies = ({ items, title }) => {
+type Props = {
+  items: Array<any>
+  title: string
+  onChangeEpisode: (id: string) => void
+}
+
+const OtherEpisodies = ({ items, title, onChangeEpisode }: Props) => {
   const [hasMore, setHasMore] = useState(true)
   const [data, setData] = useState(items.slice(0, 50))
 
@@ -68,7 +83,7 @@ const OtherEpisodies = ({ items, title }) => {
   }
 
   return (
-    <section id="iq-favorites">
+    <section id="iq-favorites" className="w-100">
       <Container fluid>
         <Row>
           <Col sm="12" className="overflow-hidden mt-2">
@@ -101,14 +116,19 @@ const OtherEpisodies = ({ items, title }) => {
               loader={<h4>Loading...</h4>}
               endMessage={
                 <p style={{ textAlign: 'center' }}>
-                  <b>Yay! You have seen it all</b>
+                  <b>Isso é tudo, pessoal!</b>
                 </p>
               }
             >
-              <div className="overflow-hidden">
+              <div
+                className="overflow-hidden"
+                style={{
+                  minWidth: '80vw',
+                }}
+              >
                 <Row>
                   {items.map((item, index) => (
-                    <Episodes key={index} item={item} />
+                    <Episodes key={index} item={item} handleChange={onChangeEpisode} />
                   ))}
                 </Row>
               </div>

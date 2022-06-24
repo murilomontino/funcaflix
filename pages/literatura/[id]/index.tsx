@@ -8,6 +8,10 @@ import TemplateFrontEnd from '@/components/templates/frontend'
 import ScreenBookID from '@/screens/book-id-screen'
 
 const LiteraturaId = ({ staticBook }) => {
+  if (!staticBook) {
+    return <div>Loading...</div>
+  }
+
   return (
     <TemplateFrontEnd>
       <ScreenBookID book={staticBook} />

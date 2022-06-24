@@ -51,8 +51,9 @@ function HomeScreen({ items, tvProgramsPlaylist }: Props) {
           id="iq-tv"
           height="200px"
           items={playlist}
-          link="programas-de-tv"
           buttonText="Assistir"
+          allLink="programas-de-tv"
+          link="video"
         />
 
         <div className="align-items-center px-lg-5">

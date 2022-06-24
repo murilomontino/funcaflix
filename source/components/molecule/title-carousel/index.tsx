@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 
+import Link from 'next/link'
+
 import { Title, Container, ContainerText, SubTitle } from './styles'
 
 import { useResources } from '@/hooks/utils/use-resources'
@@ -9,6 +11,7 @@ type Props = {
   animation?: boolean
   lg?: boolean
   isButton?: boolean
+  link?: string
 }
 
 const TitleCarousel = ({
@@ -16,6 +19,7 @@ const TitleCarousel = ({
   animation = true,
   lg = false,
   isButton = true,
+  link = '#',
 }: Props) => {
   const [hovered, setHovered] = useState(false)
   const { isFontReady } = useResources()
@@ -32,18 +36,20 @@ const TitleCarousel = ({
 
   return (
     <Container onMouseEnter={handleHover} onMouseLeave={handleLeave}>
-      <ContainerText disabled={!isButton}>
-        <Title lg={lg}>{title}</Title>
-        <SubTitle
-          animate={{
-            opacity: hovered ? 1 : 0,
-            translateX: hovered ? 0 : -20,
-          }}
-          transition={{ type: 'timing', delay: 0, duration: 100 }}
-        >
-          Ver Tudo
-        </SubTitle>
-      </ContainerText>
+      <Link href={link} passHref>
+        <ContainerText disabled={!isButton}>
+          <Title lg={lg}>{title}</Title>
+          <SubTitle
+            animate={{
+              opacity: hovered ? 1 : 0,
+              translateX: hovered ? 0 : -20,
+            }}
+            transition={{ type: 'timing', delay: 0, duration: 100 }}
+          >
+            Ver Tudo
+          </SubTitle>
+        </ContainerText>
+      </Link>
     </Container>
   )
 }

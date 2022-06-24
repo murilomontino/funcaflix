@@ -17,6 +17,8 @@ export class GetterProduct extends GetterEntity<IGetterProduct> implements IProd
   public idUserRegistered: number
   public active: boolean
   public financialResource: number
+  public createdAt?: Date
+  public updatedAt?: Date
 
   public build(params: IGetterProduct): GetterProduct {
     this.id = params.id
@@ -30,6 +32,8 @@ export class GetterProduct extends GetterEntity<IGetterProduct> implements IProd
     this.idUserRegistered = params.idUserRegistered
     this.active = params.active
     this.financialResource = params.financialResource
+    this.createdAt = params.createdAt
+    this.updatedAt = params.updatedAt
     return this
   }
 
@@ -46,6 +50,8 @@ export class GetterProduct extends GetterEntity<IGetterProduct> implements IProd
       idUserRegistered: this.idUserRegistered,
       active: this.active,
       financialResource: this.financialResource,
+      createdAt: this.createdAt,
+      updatedAt: this.updatedAt,
     } as GetterProduct
   }
 }

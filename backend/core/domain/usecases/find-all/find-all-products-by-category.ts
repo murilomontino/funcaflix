@@ -15,6 +15,7 @@ enum ProductType {
 
 type Params = {
   category: string | string[]
+  limit?: number
 }
 
 export class FindAllProductsByCategory implements UseCase<unknown, IGetterProduct[]> {
@@ -22,6 +23,9 @@ export class FindAllProductsByCategory implements UseCase<unknown, IGetterProduc
     if (!params.category) {
       return right(new Error('Categoria é obrigatório'))
     }
+
+    const mapConfig = new Map()
+    params.limit && mapConfig.set('limit', params.limit)
 
     const categoryArrayString = Array.isArray(params.category) ? params.category : [params.category]
     const categoryArrayInt = categoryArrayString.map((category) => parseInt(category, 10))
@@ -44,7 +48,9 @@ export class FindAllProductsByCategory implements UseCase<unknown, IGetterProduc
         ],
         active: true,
       },
-      attributes: ['id', 'title', 'about', 'thumbnail', 'category'],
+      ...Object.fromEntries(mapConfig),
+      order: [['createdAt', 'DESC']],
+      attributes: ['id', 'title', 'about', 'thumbnail', 'category', 'createdAt'],
     })
 
     const products = await Promise.all([
@@ -57,6 +63,7 @@ export class FindAllProductsByCategory implements UseCase<unknown, IGetterProduc
           about: product.about,
           thumbnail: product.thumbnail,
           category: product.category,
+          createdAt: product.createdAt.toISOString(),
         } as IGetterProduct
       }),
     ])

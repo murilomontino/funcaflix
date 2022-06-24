@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { build, db } from '@/database'
 import { FindAllProductsByCategory, FindAllTvProgramsUseCase } from '@/domain/usecases'
@@ -11,20 +11,31 @@ import DetailsScreen from '@/screens/details-movies-screen'
 const VideoPageDetails = ({ staticVideos, staticPlaylist }) => {
   const { videoId } = useRouter().query
 
-  const video = staticVideos.find((video) => video.videoId === videoId)
+  const [video, setVideo] = useState(null)
+  const [id, setId] = useState(null)
 
-  if (!staticVideos || !videoId || !video) {
+  useEffect(() => {
+    if (videoId) {
+      setVideo(staticVideos.find((video) => video.videoId === videoId))
+      setId(videoId)
+      return
+    }
+
+    setVideo(staticVideos[0])
+    setId(staticVideos[0].videoId)
+
+    return () => {
+      setVideo(null)
+    }
+  }, [videoId, staticVideos])
+
+  if (!staticVideos || !video || !id) {
     return <p>Loading...</p>
   }
 
   return (
     <TemplateFrontEnd>
-      <DetailsScreen
-        videoId={videoId}
-        playlist={staticPlaylist}
-        videos={staticVideos}
-        item={video}
-      />
+      <DetailsScreen videoId={id} playlist={staticPlaylist} videos={staticVideos} item={video} />
     </TemplateFrontEnd>
   )
 }

@@ -10,6 +10,8 @@ export interface IProduct {
   idUser: number
   idUserRegistered: number
   active: boolean
+  createdAt?: Date
+  updatedAt?: Date
 }
 
 export interface IDocumentsProducts {
