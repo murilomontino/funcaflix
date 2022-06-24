@@ -42,7 +42,6 @@ const nextConfig = ((phase) => {
         'localhost'
       ]
     },
-    
     httpAgentOptions: new (require('https').Agent)({
       rejectUnauthorized: false
     }),

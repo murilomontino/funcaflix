@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container, Col, Row } from 'react-bootstrap'
 
 import SwiperCore, { EffectFade, Navigation, Thumbs, Pagination } from 'swiper'
@@ -14,6 +14,7 @@ type Props = {
   buttonText?: string
   width?: string
   height?: string
+  queryString?: string
   link?: string
   items: {
     [key: string]: any
@@ -23,20 +24,22 @@ type Props = {
   }[]
 }
 
+SwiperCore.use([EffectFade, Navigation, Thumbs, Pagination])
+
 const CarouselSwipper = ({
   title,
   id,
   items,
   width,
   height,
+  queryString,
   itemsPerView = 5.5,
   link = '/',
   buttonText = 'Assistir',
 }: Props) => {
   const [isLoading, setIsLoading] = useState(true)
 
-  useLayoutEffect(() => {
-    SwiperCore.use([EffectFade, Navigation, Thumbs, Pagination])
+  useEffect(() => {
     setIsLoading(false)
   }, [])
 
@@ -70,24 +73,29 @@ const CarouselSwipper = ({
                   991: { slidesPerView: itemsPerView - 1 },
                   1400: { slidesPerView: itemsPerView },
                 }}
-                loop={true}
+                loop={items.length > itemsPerView}
                 slidesPerView={4}
                 spaceBetween={20}
                 as="ul"
                 className="favorites-slider list-inline  row p-0 m-0 iq-rtl-direction"
               >
-                {items.map((item, index) => (
-                  <SwiperSlide as="li" key={index} virtualIndex={index}>
-                    <CardSwipper
-                      linkDetails={`${link}/${item.id}`}
-                      title={item.title}
-                      thumbnail={item.thumbnail}
-                      width={width}
-                      height={height}
-                      button={buttonText}
-                    />
-                  </SwiperSlide>
-                ))}
+                {items.map((item, index) => {
+                  const queryOrBar = queryString ? queryString : '/'
+                  const linkDefinitive = `${link}${queryOrBar}${item.videoId || item.id}`
+
+                  return (
+                    <SwiperSlide as="li" key={index} virtualIndex={index}>
+                      <CardSwipper
+                        linkDetails={linkDefinitive}
+                        title={item.title}
+                        thumbnail={item.thumbnail}
+                        width={width}
+                        height={height}
+                        button={buttonText}
+                      />
+                    </SwiperSlide>
+                  )
+                })}
               </Swiper>
             </div>
           </Col>

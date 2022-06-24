@@ -59,7 +59,7 @@ const EventContent = () => {
       </p>
       <div className="p-btns">
         <div className="d-flex align-items-center p-0">
-          <a to="/show-details" className="btn btn-hover mr-2" tabIndex="0">
+          <a to="/show-details" className="btn btn-hover iq-button button-hover mr-2" tabIndex="0">
             <i className="fa fa-play mr-2" aria-hidden="true"></i>Play Now
           </a>
           <a to="#" className="btn btn-link" tabIndex="0">

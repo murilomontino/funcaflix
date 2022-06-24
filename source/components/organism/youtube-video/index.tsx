@@ -4,11 +4,13 @@ import Youtube from 'react-youtube'
 import scss from './styles.module.scss'
 
 const YoutubeVideo = ({ id }) => {
+  if (!id) return null
+
   return (
     <Youtube
       id="youtube"
       className={scss['video-container']}
-      videoId="GFDg4GrQ6zA"
+      videoId={id}
       opts={{
         width: '100%',
         height: '100%',

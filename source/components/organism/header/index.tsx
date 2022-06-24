@@ -3,6 +3,7 @@ import { Platform } from 'react-native'
 import { RFValue } from 'react-native-responsive-fontsize'
 import { useHover } from 'react-native-web-hooks'
 
+import Logo from '@/public/logo-mapa-cultural.png'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -15,9 +16,20 @@ import { BarHeader, Container, ContainerRow } from './styles'
 import { useSize } from '@/hooks/utils/use-size'
 
 const OrderHeader = ({ logoLeft }) => {
-  const link = 'https://funcap.mapacultural.se.gov.br/'
+  const [isLoading, setIsLoading] = useState(true)
+
   const height = useMemo(() => (logoLeft ? RFValue(25) : RFValue(40)), [logoLeft])
   const width = useMemo(() => (logoLeft ? RFValue(45) : RFValue(90)), [logoLeft])
+
+  useEffect(() => {
+    if (Logo) {
+      setIsLoading(false)
+    }
+  }, [Logo])
+
+  if (isLoading) {
+    return null
+  }
 
   if (logoLeft) {
     return (
@@ -25,12 +37,7 @@ const OrderHeader = ({ logoLeft }) => {
         <ContainerRow>
           <Link href="/">
             <a style={{ textDecoration: 'none', marginLeft: '12px' }}>
-              <Image
-                src={'/logo-mapa-cultural.png'}
-                alt="Logo do Mapa Cultural"
-                height={height}
-                width={width}
-              />
+              <Image src={Logo} alt="Logo do Mapa Cultural" height={height} width={width} />
             </a>
           </Link>
           <NavBar />
@@ -45,12 +52,7 @@ const OrderHeader = ({ logoLeft }) => {
       <ButtonOpenMenu />
       <Link href="/">
         <a style={{ textDecoration: 'none', marginLeft: '12px' }}>
-          <Image
-            src={'/logo-mapa-cultural.png'}
-            alt="Mapa Cultural"
-            height={height}
-            width={width}
-          />
+          <Image src={Logo} alt="Mapa Cultural" height={height} width={width} />
         </a>
       </Link>
       <ButtonLogin textVisible={false} />

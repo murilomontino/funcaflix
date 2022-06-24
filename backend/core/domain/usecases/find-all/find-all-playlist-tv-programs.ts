@@ -6,8 +6,8 @@ ORDER BY `MAX(``data_de_publicacao``)`  DESC
 
 import { GetterPlaylistTVPrograms } from '@/domain/entities'
 import { left, PromiseEither } from '@/shared/either'
-import { database, db } from '@mapa-cultural/database'
 
+import { database, db } from '../../../../database'
 import { UseCase } from '../ports/use-case'
 
 type QueryParams = {
@@ -47,25 +47,27 @@ export class FindAllPlaylistTVProgramsUseCase
       )
 
       const tvPrograms = await Promise.all([
-        ...productsModel.map((model) => {
-          const product = model.get({ plain: true })
+        ...productsModel
+          .map((model) => {
+            const product = model.get({ plain: true })
 
-          const program = modelsProducts.find(
-            (model: QueryParams) => model.productId === product.id
-          ) as QueryParams
+            const program = modelsProducts.find(
+              (model: QueryParams) => model.productId === product.id
+            ) as QueryParams
 
-          return new GetterPlaylistTVPrograms()
-            .build({
-              id: product.id,
-              title: product.title,
-              description: product.about,
-              thumbnail: product.thumbnail,
-              publishedAt: program.publishedAt,
-              count: program.total,
-              playlistId: program.playlistId,
-            })
-            .params()
-        }),
+            return new GetterPlaylistTVPrograms()
+              .build({
+                id: product.id,
+                title: product.title,
+                description: product.about,
+                thumbnail: product.thumbnail,
+                publishedAt: program?.publishedAt || null,
+                count: program?.total || 0,
+                playlistId: program?.playlistId || null,
+              })
+              .params()
+          })
+          .filter((tvProgram) => tvProgram.count > 0),
       ])
 
       return left(tvPrograms)

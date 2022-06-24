@@ -24,6 +24,7 @@ module.exports = (api) => {
         'module-resolver',
         {
           alias: {
+            '@/database': './database.ts',
             '@/assets': './source/assets',
             '@/components': './source/components',
             '@/context': './source/context',

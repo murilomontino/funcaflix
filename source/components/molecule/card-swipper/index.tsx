@@ -51,9 +51,9 @@ const CardSwipper = ({
         }}
       >
         <ImageNext
-          image={thumbnail}
-          loader={imageLoader}
+          image={imageLoader({ src: thumbnail })}
           layout="fill"
+          unblur
           style={{
             width: width,
             height: height,

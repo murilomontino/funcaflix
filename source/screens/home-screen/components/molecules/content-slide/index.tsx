@@ -93,7 +93,10 @@ const ContentSlide = ({ title, synopsis }: Props) => {
                 data-iq-position-y="80"
                 data-iq-delay="0.8"
               >
-                <a to="/show-details" className="btn btn-hover iq-button">
+                <a
+                  to="/show-details"
+                  className="btn btn-hover iq-button button-hover iq-border-radius-5"
+                >
                   <i className="fa fa-play mr-2" aria-hidden="true"></i>Play Now
                 </a>
               </div>

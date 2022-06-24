@@ -1,7 +1,8 @@
 import { left, PromiseEither, right } from '@/shared/either'
 import { IGetterProduct } from '@/types/getters'
-import { db } from '@mapa-cultural/database'
+import { Op } from 'sequelize'
 
+import { db } from '../../../../database'
 import { UseCase } from '../ports/use-case'
 
 enum ProductType {
@@ -13,23 +14,34 @@ enum ProductType {
 }
 
 type Params = {
-  category: string
+  category: string | string[]
 }
 
 export class FindAllProductsByCategory implements UseCase<unknown, IGetterProduct[]> {
   async execute(_, params: Params): PromiseEither<IGetterProduct[], Error> {
     if (!params.category) {
-      return right(new Error('Id é obrigatório'))
+      return right(new Error('Categoria é obrigatório'))
     }
-    const category = parseInt(params.category)
+
+    const categoryArrayString = Array.isArray(params.category) ? params.category : [params.category]
+    const categoryArrayInt = categoryArrayString.map((category) => parseInt(category, 10))
+
+    const isInArray = Object.values(ProductType).some((type) =>
+      categoryArrayInt.includes(parseInt(type.toString(), 10))
+    )
+
     // id deve ser um ProductType
-    if (!Object.values(ProductType).includes(category)) {
+    if (!isInArray) {
       return right(new Error('Id deve ser uma categoria válida'))
     }
 
     const modelsProducts = await db.ModelInfoProducts.findAll({
       where: {
-        category,
+        [Op.or]: [
+          ...categoryArrayInt.map((category) => ({
+            category: category,
+          })),
+        ],
         active: true,
       },
       attributes: ['id', 'title', 'about', 'thumbnail', 'category'],

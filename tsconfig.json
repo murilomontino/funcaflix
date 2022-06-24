@@ -6,7 +6,6 @@
     "types": [
       "node"
     ],
-    
     "allowJs": true,
     "strict": false,
     "skipLibCheck": true,
@@ -26,8 +25,8 @@
         "./source/*",
         "./backend/core/*"
       ],
-      "@mapa-cultural/database": [
-        "./backend/database"
+      "@/database": [
+        "./database.ts"
       ],
       "@/public/*": [
         "./public/*"
@@ -37,9 +36,9 @@
     "incremental": true
   },
   "include": [
-    "backend/core/**/*",
-    "backend/database/**/*",
-    "source/**/*",
+    "backend/**/*",
+    "app",
+    "source",
     "pages"
   ],
   "ts-node": {

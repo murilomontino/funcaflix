@@ -7,7 +7,7 @@ exports.default = void 0;
 
 var _sequelizeTypescript = require("sequelize-typescript");
 
-var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _dec8, _dec9, _dec10, _dec11, _dec12, _class, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7, _descriptor8, _descriptor9, _descriptor10, _descriptor11;
+var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _dec8, _dec9, _dec10, _dec11, _dec12, _dec13, _class, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7, _descriptor8, _descriptor9, _descriptor10, _descriptor11, _descriptor12;
 
 function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
 
@@ -76,6 +76,11 @@ let ModelProgramsTV = (_dec = (0, _sequelizeTypescript.Table)({
   field: 'generos',
   defaultValue: ''
 }), _dec12 = (0, _sequelizeTypescript.Column)({
+  type: _sequelizeTypescript.DataType.BOOLEAN(),
+  allowNull: false,
+  field: 'ativo',
+  defaultValue: true
+}), _dec13 = (0, _sequelizeTypescript.Column)({
   type: _sequelizeTypescript.DataType.DATE,
   allowNull: false,
   field: 'data_cadastro',
@@ -105,7 +110,9 @@ let ModelProgramsTV = (_dec = (0, _sequelizeTypescript.Table)({
 
     _initializerDefineProperty(this, "genres", _descriptor10, this);
 
-    _initializerDefineProperty(this, "createdAt", _descriptor11, this);
+    _initializerDefineProperty(this, "active", _descriptor11, this);
+
+    _initializerDefineProperty(this, "createdAt", _descriptor12, this);
   }
 
 }, (_descriptor = _applyDecoratedDescriptor(_class2.prototype, "id", [_dec2], {
@@ -158,7 +165,12 @@ let ModelProgramsTV = (_dec = (0, _sequelizeTypescript.Table)({
   enumerable: true,
   writable: true,
   initializer: null
-}), _descriptor11 = _applyDecoratedDescriptor(_class2.prototype, "createdAt", [_dec12], {
+}), _descriptor11 = _applyDecoratedDescriptor(_class2.prototype, "active", [_dec12], {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  initializer: null
+}), _descriptor12 = _applyDecoratedDescriptor(_class2.prototype, "createdAt", [_dec13], {
   configurable: true,
   enumerable: true,
   writable: true,

@@ -110,8 +110,14 @@ async function scriptBooks() {
 
 async function main() {
   await (0, _build.build)();
-  const products = await _models.default.ModelInfoProducts.findAll();
-  console.log(products);
+  /* const thumbnail = await db.ModelDocsProducts.findOne({
+  	where: {
+  		type: 104,
+  		filePath: { [Op.like]: '%imagens%' },
+  	},
+  	attributes: ['id', 'filePath'],
+  })
+  console.log(thumbnail.get()) */
 }
 
 main();

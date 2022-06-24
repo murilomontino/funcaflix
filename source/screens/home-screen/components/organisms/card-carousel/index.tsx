@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useMemo, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { ScrollView, Animated, Platform } from 'react-native'
 import { useDimensions } from 'react-native-web-hooks'
 
@@ -19,8 +19,8 @@ export default function CardCarousel({ items }: Props) {
   const [data, setData] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
 
-  useLayoutEffect(() => {
-    setData(items.slice(0, 10))
+  useEffect(() => {
+    setData(items)
     setIsLoading(false)
     return () => {
       setData(null)

@@ -1,8 +1,8 @@
 // @generated: @expo/next-adapter@2.1.52
 import React from 'react'
 
+import { build } from '@/database'
 import { FindAllPlaylistTVProgramsUseCase, FindAllProductsByCategory } from '@/domain/usecases'
-import { build } from '@mapa-cultural/database'
 import { GetStaticProps } from 'next/types'
 
 import Loading from '@/components/molecule/loading'

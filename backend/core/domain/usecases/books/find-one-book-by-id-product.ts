@@ -1,8 +1,8 @@
 import { GetterBook } from '@/domain/entities'
 import { left, PromiseEither, right } from '@/shared/either'
 import { IGetterBooks } from '@/types/getters'
-import { database, db } from '@mapa-cultural/database'
 
+import { database, db } from '../../../../database'
 import { UseCase } from '../ports/use-case'
 
 type Params = {
@@ -61,7 +61,7 @@ export class FindOneBookByIdProductUseCase implements UseCase<unknown, IGetterBo
             dimensions: book.dimensions,
             genres: book.genres,
             id: book.id,
-            idDocument: doc.id,
+            idDocument: doc?.id || 'Não disponível',
             pdf: doc?.filePath || 'Não disponível',
             thumbnail: thumbnail?.filePath || 'Não Informado',
             illustration: book.illustration,

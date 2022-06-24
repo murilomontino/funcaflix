@@ -1,7 +1,7 @@
 import React from 'react'
 
+import { build } from '@/database'
 import { FindOneBookByIdProductUseCase, FindAllProductsByCategory } from '@/domain/usecases'
-import { build } from '@mapa-cultural/database'
 import { GetStaticProps } from 'next/types'
 
 import TemplateFrontEnd from '@/components/templates/frontend'
@@ -31,24 +31,32 @@ export const getStaticPaths = async () => {
   }
 
   const paths = books.value.map((book) => ({
-    params: { id: book.id.toString() },
+    params: { id: book.id?.toString() || -1 },
   }))
 
   return { paths, fallback: false }
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
+  if (!params?.id) {
+    return {
+      props: {
+        staticBook: null,
+      },
+    }
+  }
+
   await build()
   const bookEither = await new FindOneBookByIdProductUseCase().execute(null, {
-    id: params.id.toString(),
+    id: params.id?.toString(),
   })
 
-  const book = bookEither.isLeft ? bookEither.value : null
+  const book = bookEither.isLeft() ? bookEither.value : null
 
   return {
     props: {
       staticBook: book,
     },
-    revalidate: 60 * 60 * 24 * 365,
+    revalidate: 60 * 60 * 24,
   }
 }

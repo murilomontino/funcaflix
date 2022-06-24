@@ -1,13 +1,16 @@
 import React from 'react'
 import { Row, Col } from 'react-bootstrap'
 
-const DetailsMovies = () => {
+const DetailsMovies = ({ item, playlist }) => {
+  const description =
+    item.description && item.description !== 'Não Informado' ? item.description : playlist.about
+
   return (
     <section className="movie-detail container-fluid px-5">
       <Row>
         <Col lg="12">
           <div className="trending-info g-border">
-            <h1 className="trending-text text-uppercase mt-0">The Illusion</h1>
+            <h1 className="trending-text text-uppercase mt-0">{item.title || playlist.title}</h1>
             {/* 
             <ul className="p-0 list-inline d-flex align-items-center movie-content">
               <li className="text-white">Action</li>
@@ -29,10 +32,7 @@ const DetailsMovies = () => {
                 textIndent: '2em',
               }}
             >
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-              has been the industry's standard dummy text ever since the 1500s, when an unknown
-              printer took a galley of type and scrambled it to make a type specimen book. It has
-              survived not only five centuries.
+              {description}
             </p>
             {/* <ul className="list-inline p-0 mt-4 share-icons music-play-lists">
               <li>

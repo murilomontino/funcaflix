@@ -1,5 +1,6 @@
-import React, { useEffect, useMemo, useState } from 'react'
-import { ActivityIndicator, FlatList, StyleSheet, Text, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import ReactInfiniteScroll from 'react-infinite-scroll-component'
+import { ActivityIndicator, StyleSheet, View } from 'react-native'
 
 import image from '@/public/images/literatura.jpg'
 
@@ -10,7 +11,6 @@ import CardBooks from './components/organism/card-book'
 import colors from '@/global/colors'
 import constants from '@/global/constants'
 import { useResources } from '@/hooks/utils/use-resources'
-import { useSize } from '@/hooks/utils/use-size'
 
 type Props = {
   books: {
@@ -23,11 +23,16 @@ type Props = {
 
 const ScreenBooks = ({ books }: Props) => {
   const [loading, setLoading] = useState(true)
-  const { size } = useSize()
-
-  const data = useMemo(() => books, [books])
 
   const { isFontReady } = useResources()
+
+  const [hasMore, setHasMore] = useState(true)
+  const [data, setData] = useState(books.slice(0, 50))
+
+  const fetchMoreData = () => {
+    setData((state) => [...state, ...books.slice(state.length, state.length + 50)])
+    setHasMore(data.length < books.length)
+  }
 
   useEffect(() => {
     if (data) {
@@ -47,52 +52,23 @@ const ScreenBooks = ({ books }: Props) => {
     <View style={styles.container}>
       <BreadCrumb title="Literatura" image={image} />
 
-      <FlatList
-        style={{ marginBottom: 40, minHeight: 300 }}
-        contentContainerStyle={{
-          width: size.width,
-        }}
-        data={data.slice(0, 50)}
-        ListEmptyComponent={() => (
-          <View
-            style={[
-              {
-                justifyContent: 'center',
-                alignItems: 'center',
-                flex: 1,
-                flexDirection: 'row',
-                padding: 12,
-                marginHorizontal: 20,
-                marginVertical: 8,
-                backgroundColor: colors.castGrey,
-                elevation: 5,
-                shadowColor: '#fff',
-                shadowOffset: {
-                  width: 1,
-                  height: 2,
-                },
-                shadowOpacity: 0.4,
-                shadowRadius: 4,
-              },
-            ]}
-          >
-            <Text
-              style={{
-                fontSize: 20,
-                fontWeight: 'bold',
-                color: colors.whitePerCent._80,
-              }}
-            >
-              Não há livros cadastrados
-            </Text>
-          </View>
-        )}
-        renderItem={({ item }) => {
-          return <CardBooks item={item} />
-        }}
-        scrollEnabled={false}
-        keyExtractor={(item, index) => `${item.id}`}
-      />
+      <ReactInfiniteScroll
+        dataLength={data.length}
+        next={fetchMoreData}
+        hasMore={hasMore}
+        loader={<h4>Loading...</h4>}
+        endMessage={
+          <p style={{ textAlign: 'center' }}>
+            <b>Yay! You have seen it all</b>
+          </p>
+        }
+      >
+        <div className="overflow-hidden">
+          {data.map((item, index) => (
+            <CardBooks item={item} key={index} />
+          ))}
+        </div>
+      </ReactInfiniteScroll>
     </View>
   )
 }

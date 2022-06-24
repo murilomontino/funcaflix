@@ -1,22 +1,24 @@
-import React, { useState, useLayoutEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Container, Col, Row } from 'react-bootstrap'
 
 import event from '@/public/images/evento.jpeg'
 import SwiperCore, { EffectFade, Navigation, Thumbs, Pagination } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
+import Image from '@/components/atom/image-next'
+
 // episodes
-import Img from '@/components/atom/image'
 import TitleCarousel from '@/components/molecule/title-carousel'
 
 import EventCard from '../../organisms/event-card'
+
+SwiperCore.use([EffectFade, Navigation, Thumbs, Pagination])
 
 const EventCarousel = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
 
-  useLayoutEffect(() => {
-    SwiperCore.use([EffectFade, Navigation, Thumbs, Pagination])
+  useEffect(() => {
     setIsLoading(false)
   }, [])
 
@@ -54,19 +56,33 @@ const EventCarousel = () => {
                   320: { slidesPerView: 1 },
                   550: { slidesPerView: 2 },
                   991: { slidesPerView: 3 },
-                  1400: { slidesPerView: 4 },
-                  1500: { slidesPerView: 5 },
+                  1400: { slidesPerView: 3 },
+                  1500: { slidesPerView: 3 },
                 }}
                 loop={true}
                 className="list-inline p-0 m-0 row align-items-center iq-rtl-direction"
               >
-                <SwiperSlide as="li">
-                  <a to="#">
-                    <div className="movie-slick position-relative">
-                      <Img image={event} staticImage updateClassName="img-fluid" alt="" />
-                    </div>
-                  </a>
-                </SwiperSlide>
+                {[1, 2, 3].map((item, index) => (
+                  <SwiperSlide as="li" key={index}>
+                    <a to="#">
+                      <div
+                        className="movie-slick position-relative"
+                        style={{
+                          height: '250px',
+                          width: '100%',
+                        }}
+                      >
+                        <Image
+                          image={event}
+                          imageStatic
+                          layout="fill"
+                          className="img-fluid"
+                          alt=""
+                        />
+                      </div>
+                    </a>
+                  </SwiperSlide>
+                ))}
               </Swiper>
             </div>
             <div>

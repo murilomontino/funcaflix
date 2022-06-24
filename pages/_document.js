@@ -8,6 +8,7 @@ class CustomDocument extends Document {
     return (
       <Html>
         <Head>
+          <title>FUNCAP - Mapa Cultural de Sergipe</title>
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         </Head>
         <body>
