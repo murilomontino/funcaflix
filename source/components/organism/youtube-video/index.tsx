@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
 import ReactPlayer from 'react-player'
 
-import screenful from 'screenfull'
-
 import Controls from './components/controls'
+import screenful from './screenfull'
+
+import useDebounce from '@/hooks/utils/use-debounce'
 
 const format = (seconds) => {
   if (isNaN(seconds)) {
@@ -19,19 +20,16 @@ const format = (seconds) => {
   return `${mm}:${ss}`
 }
 
-let count = 0
-
 const YoutubeVideo = ({ id }) => {
   const [videoId, setVideoId] = useState(id)
   const [timeDisplayFormat, setTimeDisplayFormat] = useState('normal')
-  const [anchorEl, setAnchorEl] = useState(null)
-  const [showControls, setShowControls] = useState(false)
+
   const [state, setState] = useState({
     pip: false,
     playing: false,
     controls: false,
     light: false,
-    muted: true,
+    muted: false,
     played: 0,
     duration: 0,
     playbackRate: 1.0,
@@ -45,28 +43,22 @@ const YoutubeVideo = ({ id }) => {
   const controlsRef = useRef(null)
   const playerContainerRef = useRef(null)
 
-  const {
-    playing,
-    controls,
-    light,
+  const debounce = useDebounce()
 
-    muted,
-    loop,
-    playbackRate,
-    pip,
-    played,
-    seeking,
-    volume,
-  } = state
+  const { playing, controls, light, muted, loop, playbackRate, pip, played, volume } = state
 
   const handleMouseMove = () => {
     controlsRef.current.style.visibility = 'visible'
-    count = 0
+    playerContainerRef.current.style.cursor = 'default'
+
+    debounce(() => {
+      controlsRef.current.style.visibility = 'hidden'
+      playerContainerRef.current.style.cursor = 'none'
+    }, 2000)
   }
 
   const handleMouseLeave = () => {
     controlsRef.current.style.visibility = 'hidden'
-    count = 0
   }
 
   useEffect(() => {
@@ -83,25 +75,36 @@ const YoutubeVideo = ({ id }) => {
   const totalDuration = format(duration)
 
   const handleProgress = (changeState) => {
-    if (count > 3) {
-      controlsRef.current.style.visibility = 'hidden'
-      count = 0
-    }
-    if (controlsRef.current.style.visibility == 'visible') {
-      count += 1
-    }
-    if (!state.seeking) {
-      setState({ ...state, ...changeState })
-    }
-  }
+    const time = changeState.playedSeconds - refAudio.current.currentTime
+    const minTime = time > 0.5
+    const maxTime = time < -0.5
 
-  const handleSeekChange = (e, newValue) => {
-    setState({ ...state, played: parseFloat(newValue / 100) })
+    if (minTime || maxTime) {
+      refAudio.current.currentTime = changeState.playedSeconds
+    }
+
+    if (!state.seeking) {
+      setState((state) => ({ ...state, ...changeState }))
+    }
   }
 
   const handleSeekMouseDown = (e) => {
     setState((state) => {
       return { ...state, seeking: true }
+    })
+  }
+
+  const handleSeekMouseUp = (e, newValue) => {
+    setState((state) => {
+      refVideo.current.seekTo(newValue / 100, 'fraction')
+      return { ...state, seeking: false }
+    })
+  }
+
+  const handleSeekChange = (e, newValue) => {
+    setState((state) => {
+      const played = parseFloat((newValue / 100).toString())
+      return { ...state, played }
     })
   }
 
@@ -113,13 +116,6 @@ const YoutubeVideo = ({ id }) => {
     refVideo.current.seekTo(refVideo.current.getCurrentTime() + 10)
   }
 
-  const handleSeekMouseUp = (e, newValue) => {
-    setState((state) => {
-      refVideo.current.seekTo(newValue / 100, 'fraction')
-      return { ...state, seeking: false }
-    })
-  }
-
   const handleDuration = (duration) => {
     setState((state) => {
       return { ...state, duration }
@@ -128,15 +124,22 @@ const YoutubeVideo = ({ id }) => {
 
   const handleVolumeSeekDown = (e, newValue) => {
     setState((state) => {
-      return { ...state, seeking: false, volume: parseFloat(newValue / 100) }
+      const volume = parseFloat((newValue / 100).toString())
+
+      refAudio.current.volume = volume
+      return { ...state, seeking: false, volume }
     })
   }
-  const handleVolumeChange = (e, newValue) => {
+  const handleVolumeChange = (e: any, newValue: number) => {
     // console.log(newValue);
     setState((state) => {
+      const volume = parseFloat((newValue / 100).toString())
+
+      refAudio.current.volume = volume
+
       return {
         ...state,
-        volume: parseFloat(newValue / 100),
+        volume,
         muted: newValue === 0 ? true : false,
       }
     })
@@ -151,7 +154,7 @@ const YoutubeVideo = ({ id }) => {
   }
 
   const toggleFullScreen = () => {
-    screenful.toggle(playerContainerRef.current)
+    screenful.toggle(playerContainerRef.current, null)
   }
 
   const handleDisplayFormat = () => {
@@ -159,12 +162,14 @@ const YoutubeVideo = ({ id }) => {
   }
 
   const handlePlaybackRate = (rate) => {
-    setState({ ...state, playbackRate: rate })
+    setState((state) => {
+      refAudio.current.playbackRate = rate
+      return { ...state, playbackRate: rate }
+    })
   }
 
   const handleMute = () => {
     setState((state) => {
-      refAudio.current.muted = !state.muted
       return { ...state, muted: !state.muted }
     })
   }
@@ -172,35 +177,28 @@ const YoutubeVideo = ({ id }) => {
   return (
     <div
       ref={playerContainerRef}
-      className="position-relative w-100"
+      className="position-relative w-100 mt-2"
+      style={{
+        height: '90vh',
+      }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
       <ReactPlayer
         ref={refVideo}
-        width={'100%'}
+        width={'100vw'}
         pip={pip}
         playing={playing}
-        controls={false}
+        controls={controls}
         light={light}
         loop={loop}
         playbackRate={playbackRate}
-        volume={volume}
         muted={muted}
-        onPlay={() => {
-          refAudio.current.play()
-          refAudio.current.currentTime = refVideo.current.getCurrentTime()
-        }}
         onPause={() => {
           refAudio.current.pause()
-          refAudio.current.currentTime = refVideo.current.getCurrentTime()
         }}
-        onProgress={(progress) => {
-          if (progress.playedSeconds - refAudio.current.currentTime > 0.5) {
-            refAudio.current.currentTime = progress.playedSeconds
-          }
-        }}
-        height={'100vh'}
+        onProgress={handleProgress}
+        height={'100%'}
         config={{
           youtube: {
             playerVars: {
@@ -220,7 +218,11 @@ const YoutubeVideo = ({ id }) => {
         }}
         url={`http://localhost:3000/api/video?videoId=${videoId}`}
       />
-      <audio ref={refAudio} src={`http://localhost:3000/api/audio?videoId=${videoId}`} />
+      <audio
+        ref={refAudio}
+        src={`http://localhost:3000/api/audio?videoId=${videoId}`}
+        muted={muted}
+      />
       <Controls
         onPlayPause={handlePlayPause}
         ref={controlsRef}
@@ -234,6 +236,15 @@ const YoutubeVideo = ({ id }) => {
         onMute={handleMute}
         onChangeDisplayFormat={handleDisplayFormat}
         onToggleFullScreen={toggleFullScreen}
+        onVolumeChange={handleVolumeChange}
+        onDuration={handleDuration}
+        onSeekMouseDown={handleSeekMouseDown}
+        onVolumeSeekDown={handleVolumeSeekDown}
+        onSeekMouseUp={handleSeekMouseUp}
+        onPlaybackRateChange={handlePlaybackRate}
+        onSeek={handleSeekChange}
+        onRewind={handleRewind}
+        onFastForward={handleFastForward}
       />
     </div>
   )

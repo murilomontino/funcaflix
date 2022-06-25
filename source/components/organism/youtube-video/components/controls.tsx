@@ -1,11 +1,12 @@
-import React, { forwardRef } from 'react'
+import React, { forwardRef, useState } from 'react'
 
 import '@fontsource/roboto'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 import IconButton from '@material-ui/core/IconButton'
+import Popover from '@material-ui/core/Popover'
 import Slider from '@material-ui/core/Slider'
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles, withStyles } from '@material-ui/core/styles'
 import Tooltip from '@material-ui/core/Tooltip'
 import Typography from '@material-ui/core/Typography'
 import FastForwardIcon from '@material-ui/icons/FastForward'
@@ -59,6 +60,35 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+const SliderProgress = withStyles({
+  root: {
+    height: 8,
+  },
+  thumb: {
+    height: 24,
+    width: 24,
+    backgroundColor: '#fff',
+    border: '2px solid currentColor',
+    marginTop: -8,
+    marginLeft: -12,
+    '&:focus, &:hover, &$active': {
+      boxShadow: 'inherit',
+    },
+  },
+  active: {},
+  valueLabel: {
+    left: 'calc(-50% + 4px)',
+  },
+  track: {
+    height: 8,
+    borderRadius: 4,
+  },
+  rail: {
+    height: 8,
+    borderRadius: 4,
+  },
+})(Slider)
+
 function ValueLabelComponent(props) {
   const { children, open, value } = props
 
@@ -77,19 +107,19 @@ type Props = {
   onBookmark?: () => void
   onPlayPause?: () => void
   onPlaybackRateChange?: (rate: number) => void
-  onVolumeChange?: (volume: number) => void
+  onVolumeChange?: (e: any, volume: number) => void
   onMute?: () => void
-  onSeek?: (time: number) => void
+  onSeek?: (e: any, newValue: number) => void
   onToggleFullScreen?: () => void
-  onSeekMouseDown?: () => void
-  onSeekMouseUp?: () => void
-  onDuration?: (duration: number) => void
+  onSeekMouseDown?: (e?: any) => void
+  onSeekMouseUp?: (e: any, newValue: number) => void
+  onDuration?: (e: any, duration: number) => void
   onRewind?: () => void
   played?: number
   onFastForward?: () => void
   elapsedTime?: string
   totalDuration?: string
-  onVolumeSeekDown?: () => void
+  onVolumeSeekDown?: (e: any, newValue: number) => void
   onChangeDisplayFormat?: () => void
 }
 
@@ -122,7 +152,7 @@ const Controls = forwardRef(
     ref
   ) => {
     const classes = useStyles()
-    const [anchorEl, setAnchorEl] = React.useState(null)
+    const [anchorEl, setAnchorEl] = useState(null)
 
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget)
@@ -143,28 +173,25 @@ const Controls = forwardRef(
             direction="row"
             alignItems="center"
             justify="space-between"
-            style
             style={{ padding: 16 }}
-          >
-            <Grid item>
-              <Typography variant="h5" style={{ color: '#fff' }}>
-                Video Title
-              </Typography>
-            </Grid>
-          </Grid>
+          ></Grid>
           <Grid container direction="row" alignItems="center" justify="center">
             <IconButton onClick={onRewind} className={classes.controlIcons} aria-label="rewind">
               <FastRewindIcon className={classes.controlIcons} fontSize="inherit" />
             </IconButton>
             <IconButton onClick={onPlayPause} className={classes.controlIcons} aria-label="play">
-              {playing ? <PauseIcon fontSize="inherit" /> : <PlayArrowIcon fontSize="inherit" />}
+              {playing ? (
+                <PauseIcon className={classes.controlIcons} fontSize="inherit" />
+              ) : (
+                <PlayArrowIcon className={classes.controlIcons} fontSize="inherit" />
+              )}
             </IconButton>
             <IconButton
               onClick={onFastForward}
               className={classes.controlIcons}
               aria-label="forward"
             >
-              <FastForwardIcon fontSize="inherit" />
+              <FastForwardIcon className={classes.controlIcons} fontSize="inherit" />
             </IconButton>
           </Grid>
           {/* bottom controls */}
@@ -175,17 +202,29 @@ const Controls = forwardRef(
             alignItems="center"
             style={{ padding: 16 }}
           >
+            <Grid item xs={12}>
+              <SliderProgress
+                min={0}
+                max={100}
+                ValueLabelComponent={(props) => (
+                  <ValueLabelComponent {...props} value={elapsedTime} />
+                )}
+                aria-label="custom thumb label"
+                value={played * 100}
+                onChange={onSeek}
+                onMouseDown={onSeekMouseDown}
+                onChangeCommitted={onSeekMouseUp}
+                onDuration={onDuration}
+              />
+            </Grid>
+
             <Grid item>
               <Grid container alignItems="center">
                 <IconButton onClick={onPlayPause} className={classes.bottomIcons}>
                   {playing ? <PauseIcon fontSize="large" /> : <PlayArrowIcon fontSize="large" />}
                 </IconButton>
 
-                <IconButton
-                  // onClick={() => setState({ ...state, muted: !state.muted })}
-                  onClick={onMute}
-                  className={`${classes.bottomIcons} ${classes.volumeButton}`}
-                >
+                <IconButton onClick={onMute} className={`${classes.bottomIcons}`}>
                   {muted ? (
                     <VolumeMute fontSize="large" />
                   ) : volume > 0.5 ? (
@@ -205,16 +244,7 @@ const Controls = forwardRef(
                   onMouseDown={onSeekMouseDown}
                   onChangeCommitted={onVolumeSeekDown}
                 />
-                <Button
-                  variant="text"
-                  onClick={
-                    onChangeDisplayFormat
-                    //     () =>
-                    //   setTimeDisplayFormat(
-                    //     timeDisplayFormat == "normal" ? "remaining" : "normal"
-                    //   )
-                  }
-                >
+                <Button variant="text" onClick={onChangeDisplayFormat}>
                   <Typography variant="body1" style={{ color: '#fff', marginLeft: 16 }}>
                     {elapsedTime}/{totalDuration}
                   </Typography>
@@ -232,6 +262,36 @@ const Controls = forwardRef(
                 <Typography>{playbackRate}X</Typography>
               </Button>
 
+              <Popover
+                container={ref?.current}
+                open={open}
+                id={id}
+                onClose={handleClose}
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+                transformOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+              >
+                <Grid container direction="column-reverse">
+                  {[0.5, 1, 1.5, 2].map((rate) => (
+                    <Button
+                      key={rate}
+                      //   onClick={() => setState({ ...state, playbackRate: rate })}
+                      onClick={() => onPlaybackRateChange(rate)}
+                      variant="text"
+                    >
+                      <Typography color={rate === playbackRate ? 'secondary' : 'inherit'}>
+                        {rate}X
+                      </Typography>
+                    </Button>
+                  ))}
+                </Grid>
+              </Popover>
               <IconButton onClick={onToggleFullScreen} className={classes.bottomIcons}>
                 <FullScreen fontSize="large" />
               </IconButton>
