@@ -7,6 +7,7 @@ declare class ModelProgramsTV extends Model<IModelProgramsTV, IModelCreationAttr
     idProduct: number;
     playlistId: string;
     videoId: string;
+    subCategory: number;
     publishedAt: string;
     description: string;
     thumbnail: string;

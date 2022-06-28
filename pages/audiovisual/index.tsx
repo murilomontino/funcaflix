@@ -9,10 +9,15 @@ import {
 } from '@/domain/usecases'
 import { GetStaticProps } from 'next/types'
 
+import Loading from '@/components/molecule/loading'
 import TemplateFrontEnd from '@/components/templates/frontend'
 import ProgramsTVScreen from '@/screens/programs-tv-screen'
 
-export default function ProgramsTV({ staticNewestVideos, staticPlaylist }) {
+export default function AudioVisual({ staticNewestVideos, staticPlaylist }) {
+  if (!staticNewestVideos || !staticPlaylist) {
+    return <Loading />
+  }
+
   return (
     <TemplateFrontEnd>
       <ProgramsTVScreen newestItems={staticNewestVideos} playlist={staticPlaylist} />
@@ -28,12 +33,12 @@ export const getStaticProps: GetStaticProps = async (context) => {
   )
 
   const newestVideos = await new FindAllTvProgramsUseCase().execute(
-    { subCategory: ['152'] },
+    { subCategory: ['162', '161', '11', '12', '13', '42'] },
     { pageSize: '10' }
   )
   const playlistAndItemsEither = await findAllPlaylistAndItemsUseCase.execute({
-    category: ['152'],
-    subCategory: ['152'],
+    category: ['1'],
+    subCategory: ['162', '161', '11', '12', '13', '42'],
   })
 
   if (playlistAndItemsEither.isRight() || newestVideos.isRight()) {

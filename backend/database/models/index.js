@@ -5,6 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = exports.db = void 0;
 
+var _audiovisual = _interopRequireDefault(require("./audiovisual.model"));
+
 var _books = _interopRequireDefault(require("./books.model"));
 
 var _datasheet = _interopRequireDefault(require("./datasheet.model"));
@@ -21,8 +23,6 @@ var _products = _interopRequireDefault(require("./products.model"));
 
 var _sponsor = _interopRequireDefault(require("./sponsor.model"));
 
-var _tvPrograms = _interopRequireDefault(require("./tv-programs.model"));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
@@ -38,7 +38,7 @@ const db = (() => {
     ModelDocsProducts: _documents.default,
     ModelSponsorProduct: _sponsor.default,
     ModelMusics: _music.default,
-    ModelProgramsTV: _tvPrograms.default
+    ModelAudioVisual: _audiovisual.default
   };
 })();
 

@@ -5,10 +5,16 @@ import path from 'path'
 import favicon from 'serve-favicon'
 
 import SetupMiddlewares from './middlewares/Setup'
+/* It's a class that initializes
+the middlewares for the
+express app */
 class Middleware {
   constructor(private readonly express: Express) {}
 
-  async init() {
+  /**
+   * It sets up the middlewares for the express application.
+   */
+  async init(): Promise<void> {
     SetupMiddlewares(this.express)
 
     this.express.use(bodyParser.json())

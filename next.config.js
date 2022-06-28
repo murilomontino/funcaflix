@@ -20,7 +20,7 @@ const withTM = require('next-transpile-modules')([
  * @type {import('next').NextConfig}
  */
 const nextConfig = ((phase) => {
-  
+
   const isProduction = phase === 'production'
 
   const _currentURL = isProduction ? process.env.API_URL : 'http://localhost:3000/api/'
@@ -29,7 +29,7 @@ const nextConfig = ((phase) => {
     eslint: {
       ignoreDuringBuilds: true,
     },
-    typescript:{
+    typescript: {
       ignoreBuildErrors: true,
     },
     images: {
@@ -45,6 +45,7 @@ const nextConfig = ((phase) => {
     httpAgentOptions: new (require('https').Agent)({
       rejectUnauthorized: false
     }),
+
     dynamicAssetPrefix: true,
     generateBuildId: async () => {
       if (process.env.BUILD_ID) {
@@ -55,6 +56,16 @@ const nextConfig = ((phase) => {
     },
     distDir: '.next',
     webpack5: true,
+    
+    webpack: (
+      config,
+      { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack, dir }
+    ) => {
+
+      return {
+        ...config,
+      }
+    },
     // webpack configurado pra moti e react-reanimated v2
     env: {
       API_KEY: process.env.API_KEY,
@@ -66,15 +77,15 @@ const nextConfig = ((phase) => {
 const config = withPlugins(
   [
     withTM,
-    withFonts, 
-    withImages, 
+    withFonts,
+    withImages,
     [
-      withExpo, 
+      withExpo,
       {
         projectRoot: __dirname,
       }
     ]
-  ], 
+  ],
   nextConfig)
 
 module.exports = config

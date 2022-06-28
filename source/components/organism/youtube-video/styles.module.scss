@@ -1,4 +1,8 @@
-.video-container {
-  width: 100vw;
-  height: 90vh;
+
+.player-container {
+  height: 95vh;
+
+  video {
+    object-fit: fill !important;
+  }
 }

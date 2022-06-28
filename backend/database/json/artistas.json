@@ -1,0 +1,543 @@
+{
+  "type": "table",
+  "name": "artistas",
+  "database": "auxilio_cultural",
+  "data": [
+    {
+      "id": "2",
+      "nome_cultural": "Mônica Andrade Modesto",
+      "cpf": "03031066545",
+      "cnpj": null,
+      "biografia": null,
+      "img_perfil": null
+    },
+    {
+      "id": "3",
+      "nome_cultural": "Odilio  Saminez",
+      "cpf": "61073385191",
+      "cnpj": null,
+      "biografia": null,
+      "img_perfil": null
+    },
+    {
+      "id": "4",
+      "nome_cultural": "VIVIANE DOS SANTOS CARDOSO",
+      "cpf": "08150059547",
+      "cnpj": null,
+      "biografia": "Viviane dos Santos Cardoso é acadêmica em Letras Português pela Universidade Federal de Sergipe (UFS). Participou, entre 2019 e 2020, sob a orientação da Profª. Drª. Jacqueline Ramos, do projeto de pesquisa “Cômico e conhecimento sobre o cômico na literatura brasileira modernista”, especialmente nas obras de Clarice Lispector. Como escritora, possui nove participações em antologias literárias e uma premiação em concurso de poesia. Atualmente, é um dos membros do Grupo Enforcadense de Estudos Literários (GEEL), que edita, bimestralmente, a Revista Enforcadense de Literatura (REL), que encontra-se em sua 4ª edição.",
+      "img_perfil": null
+    },
+    {
+      "id": "5",
+      "nome_cultural": "JOVILSON RAMOS",
+      "cpf": "02978927542",
+      "cnpj": null,
+      "biografia": null,
+      "img_perfil": null
+    },
+    {
+      "id": "6",
+      "nome_cultural": "MARIA JOSELICE SANTANA",
+      "cpf": "51067358587",
+      "cnpj": null,
+      "biografia": null,
+      "img_perfil": null
+    },
+    {
+      "id": "7",
+      "nome_cultural": "Reginaldo Passos Pina Neto",
+      "cpf": "04857027542",
+      "cnpj": null,
+      "biografia": null,
+      "img_perfil": null
+    },
+    {
+      "id": "8",
+      "nome_cultural": "LUIZ EDUARDO OLIVEIRA",
+      "cpf": "38688000506",
+      "cnpj": null,
+      "biografia": "Professor, Editor Chefe da Revista de Estudos de Cultura, Músico e Escritor.",
+      "img_perfil": null
+    },
+    {
+      "id": "9",
+      "nome_cultural": "Vivian Cruz Monteiro",
+      "cpf": "02524787540",
+      "cnpj": null,
+      "biografia": null,
+      "img_perfil": null
+    },
+    {
+      "id": "10",
+      "nome_cultural": "HAROLDO  DOREA",
+      "cpf": "23480610587",
+      "cnpj": null,
+      "biografia": null,
+      "img_perfil": null
+    },
+    {
+      "id": "11",
+      "nome_cultural": "ANA NASCIMENTO ; PEDRO AMARO",
+      "cpf": "86891162572",
+      "cnpj": null,
+      "biografia": "Escritora de cordel. Mora em Aracaju há 50 anos. É membro da Academia Sergipana de Cordel e tem 40 títulos (folhetos) publicados de forma independente. Em 2018, participou da Antologia das Mulheres do Cordel Sergipano como coautora.\n\"Ana Santana é pernambucana radicada em Aracaju. sempre registrou histórias pensamentos e coisas do cotidiano em seus 'caderninhos', e há 11 anos, começou a escrever cordel por incentivo da filha, Isabel Nascimento.[...].\"",
+      "img_perfil": null
+    },
+    {
+      "id": "12",
+      "nome_cultural": "Thaisa Santos",
+      "cpf": "07691797540",
+      "cnpj": null,
+      "biografia": null,
+      "img_perfil": null
+    },
+    {
+      "id": "13",
+      "nome_cultural": "ROSILENE PIMENTEL ; ALBERTO ROIPHE",
+      "cpf": "88884465400",
+      "cnpj": null,
+      "biografia": "Sou licenciada e doutora em Letras e Linguística, atuando com Literatura e projetos\/eventos culturais no ensino superior há quase 20 anos. Organizei e implementei o Projeto cultural de instalação da Cordelteca Pedro Amaro do Nascimento, no dia 26 de novembro de 2019, na biblioteca da Estácio Sergipe. Organizei eventos de Letras vinculados à literatura, à valorização da cultura e da identidade sergipana: Imaginarte na Terra do Serigy; Seminário de Educação e Literatura; CINEARTE LETRAS; Gente, café e roda de conversa; Semana de Letras; Sarau Literário; Poesia sergipana em foco; Semana alusiva ao Dia Internacional da mulher, em parceria com a Coordenadoria da Mulher do Poder Judiciário do Estado de Sergipe, com exposições fotográficas e varais com poesias sobre o feminino (de 2013 a 2019), Círculos de leitura literária, etc. Idealizei e coordenei por 2 anos o projeto de extensão LITERARTE, voltado para o letramento literário em escola municipal de Aracaju (2018-2019).",
+      "img_perfil": null
+    },
+    {
+      "id": "14",
+      "nome_cultural": "CHIQUINHO DE ALÉM MAR ; DENIO AZEVEDO",
+      "cpf": "98027611504",
+      "cnpj": null,
+      "biografia": "Francisco Passos Santos, conhecido no meio artístico com o pseudônimo de CHIQUINHO DO ALÉM MAR. Cordelista autor de mais de 50 textos publicados e adaptados para peças teatrais, cinema, dissertações acadêmicas e musicais. Ele é formado em Letras - Português\/Inglês e tem Pós- Graduação em Metodologia do Ensino de Língua Inglesa. Chiquinho do Além Mar também é pesquisador, compositor e cantor. Ele ministra oficinas sobre Cultura Popular e oficinas sobre Literatura de Cordel. Chiquinho foi campeão da Olimpíada Ambiental em 2008 a nível superior, com o texto “Proteja o Meio Ambiente”\/ Secretaria de Meio Ambiente e Recursos Híbridos. Chiquinho do Além Mar é o autor do projeto “Forró da Comunidade” e do projeto, “Cordel na Sala de Aula” e vem desenvolvendo atividades que fortalecem a manutenção da Cultura Popular em todo Brasil. Em 2015, Chiquinho participou do Festival de Cultura Brasileira de Viena-Áustria. Além do Cordel, Chiquinho também tem outro trabalho de resgate da cultura de Sergipe, com a banda “Forró de Mala e Cuia”, Chiquinho vem mostrando um trabalho muito interessante que mescla forró e poesia. A Banda Forró de Mala e Cuia surge graças à necessidade de resgatar o autêntico forró pé-de-serra e mesclando com outros elementos das manifestações populares como a poesia e a xilogravura. Em seu repertório, a banda vai das composições próprias, como “Bela Atalaia”, composta por Chiquinho do Além Mar, passando por mitos da música nordestina, como: Clemilda, Luiz Gonzaga, Josa “O Vaqueiro do Sertão”, Zé Nilton, Trio Nordestino, Sivuca, dentre outros. O diferencial da Banda está na junção da música à poesia popular, em especial o cordel. Nos shows além de dançar o autêntico forro pé-de-serra, o público desfruta do recital de versos de tema popular com o cordelista Chiquinho do Além Mar, líder do grupo.",
+      "img_perfil": null
+    },
+    {
+      "id": "15",
+      "nome_cultural": "DANIELA BENTO",
+      "cpf": "52535770334",
+      "cnpj": null,
+      "biografia": "Daniela, é uma escritora contista, cronista, poeta e cordelista. Possui 6 cordéis autorais publicados, sendo o seu primeiro cordel, Ampliando a resistência, fortalecendo a Convivência teve uma tiragem de 10.000 cópias e foi distribuído pela Articulação Semiárido –ASA, em todo o nordeste e Integra 1ª Antologia dePoemas do Café Filosófico “ Das Quatro”. Síntese de suas feituras:  É filha do funcionário público Francisco Alexandre Sobrinho e de Francisca Noêmia Bento Alexandre, nasceu em 1970, na cidade de Limoeiro do Norte\/Ce. Morando em Poço Redondo desde 2008. É graduada em história pela Universidade Estadual do Ceará – UECE. É poeta e contista premiada em duas edições do Concurso de Contos do SESC, 2006 e 2009 com oscontos, O Encontro e Das Dores de Maria, que retratam o cotidiano feminino em algumas realidades do universo Rural, figurando nas duas edições como aúnica mulher vencedora na categoria. Em 2017 conquistou o segundo lugar 13º CONCURSO ROGÉRIO SALGADO DE POESIA, com o poema Vitral, integrou a Antologia Palavra é Arte Poesias – Autores Diversos, da editora Palavra é Arte. Em 2019, teve seu poema, intitulado, Poesia Brincada, selecionado para integrar A ANTOLOGIA \"INFÂNCIA - POESIA DE BOTÃO”. Seu mais novo trabalho em cordel, Machismo - o que precisa mudar, onde traz profundas reflexões a partir da poesia, da nossa poesia de cordel produzida por mulheres, foi lançado em março de 2020 e contou com a parceria da Coordenadoria Ecumênica de Serviço- Cese Grifos especiais: Tomou posse na cadeira de Nº 13 da Academia Sergipana de Cordel (ASC), em 19 de julho de 2017, data que também marcou a fundação da academia. Organizou em parceria com a também Cordelista, Izabel Nascimento e integra a antologia Das Neves as Nuvens, em 2018, 1ª Antologia do gênero cordel, genuinamente feminina.  É autora do Podcast Ressaca Poética",
+      "img_perfil": null
+    },
+    {
+      "id": "16",
+      "nome_cultural": "Marcelo Santos",
+      "cpf": "57560471587",
+      "cnpj": null,
+      "biografia": null,
+      "img_perfil": null
+    },
+    {
+      "id": "17",
+      "nome_cultural": "Edlane Carvalho",
+      "cpf": "07358591593",
+      "cnpj": null,
+      "biografia": "Meu nome é Edilene Carvalho, natural de Aracaju e turista na própria cidade. Historiadora de formação, encontrei na fotografia a combinação perfeita entre trabalho e paixão. Estudei na escola de fotografia Studio D, onde éramos incentivados a participar de eventos e exposições e fiz cursos com a maravilhosa fotógrafa de newborn Erika Guimarães. Profissionalmente, me desdobro entre ensaios, eventos, além de usar a fotografia pra registrar e disseminar nossa cultura e patrimônio.",
+      "img_perfil": null
+    },
+    {
+      "id": "18",
+      "nome_cultural": "ANDRÉ LUIS SANTOS",
+      "cpf": "02288906596",
+      "cnpj": null,
+      "biografia": null,
+      "img_perfil": null
+    },
+    {
+      "id": "19",
+      "nome_cultural": "RENATA DECASTRO E ALBERTO ROIPHE",
+      "cpf": "98008617500",
+      "cnpj": null,
+      "biografia": null,
+      "img_perfil": null
+    },
+    {
+      "id": "20",
+      "nome_cultural": "Lucas Santos Silva",
+      "cpf": "07279774580",
+      "cnpj": null,
+      "biografia": null,
+      "img_perfil": null
+    },
+    {
+      "id": "21",
+      "nome_cultural": "ZEZITO DE OLIVEIRA",
+      "cpf": "72514094704",
+      "cnpj": null,
+      "biografia": null,
+      "img_perfil": null
+    },
+    {
+      "id": "22",
+      "nome_cultural": "LUCA PIÑEYRO",
+      "cpf": "03243801516",
+      "cnpj": null,
+      "biografia": null,
+      "img_perfil": null
+    },
+    {
+      "id": "23",
+      "nome_cultural": "Ludmilla Silva de Oliveira",
+      "cpf": "02534107542",
+      "cnpj": null,
+      "biografia": null,
+      "img_perfil": null
+    },
+    {
+      "id": "24",
+      "nome_cultural": "Andreza Santos Cruz Maynard",
+      "cpf": "00306585510",
+      "cnpj": null,
+      "biografia": null,
+      "img_perfil": null
+    },
+    {
+      "id": "25",
+      "nome_cultural": "BOB LELIS",
+      "cpf": "66165920578",
+      "cnpj": null,
+      "biografia": null,
+      "img_perfil": null
+    },
+    {
+      "id": "26",
+      "nome_cultural": "Romero Crispim",
+      "cpf": "85739219434",
+      "cnpj": null,
+      "biografia": null,
+      "img_perfil": null
+    },
+    {
+      "id": "27",
+      "nome_cultural": "Vicent Bernardo Alves Santos",
+      "cpf": "08488028539",
+      "cnpj": null,
+      "biografia": null,
+      "img_perfil": null
+    },
+    {
+      "id": "28",
+      "nome_cultural": "Djenal Gonçalves Soares Filho",
+      "cpf": "51261561104",
+      "cnpj": null,
+      "biografia": null,
+      "img_perfil": null
+    },
+    {
+      "id": "29",
+      "nome_cultural": "Jorge Lins",
+      "cpf": "11661640559",
+      "cnpj": null,
+      "biografia": null,
+      "img_perfil": null
+    },
+    {
+      "id": "30",
+      "nome_cultural": "JOSÉ FERNANDO SANTOS GRAMOZA - \" FREDERICO\"",
+      "cpf": "01313702510",
+      "cnpj": null,
+      "biografia": "Fernando Gramoza nasceu em Aracaju-SE, no dia 19 de novembro de 1984. Filho de mãe aracajuana e pai soteropolitano é licenciado em Filosofia (2007-2013) e bacharel em Serviço Social (2014-2019), ambas pela Universidade Federal de Sergipe. Leciona Filosofia e Sociologia no ensino médio da rede estadual de ensino de Sergipe (2017), é professor do Ensino Médio em Tempo Integral (2018) e foi tutor à distância do curso de Filosofia no CESAD - Centro de Educação Superior à Distância da UFS\/UAB Universidade Aberta do Brasil (2017). Escrevo poesias desde janeiro de 2013, quando comecei na cidade de João Pessoa, na Paraíba. Militante político-social e se interessa pelos temas: Educação e vários “ismos” como Socialismo, Comunismo, Feminismo, Racismo e demais problemas sociais, frutos das expressões da questão social, que se não advindos do Capitalismo são intensificados nele.",
+      "img_perfil": null
+    },
+    {
+      "id": "31",
+      "nome_cultural": "MARLEY FERREIRA",
+      "cpf": "07753460552",
+      "cnpj": null,
+      "biografia": "Sou um amante da cultura popular, e com o objetivo de incentivar a cultura nas escolas públicas do estado de Sergipe, tomei a iniciativa de criar o Grupo de teatro \"Constelação Nordestina\" foi uma escolha da música \"Samarica Parteira\" do repertório do Cantor Luiz Gonzaga para fazer parte do projeto “ Viva São João” na escola dentro de um clima intenso de festejos juninos.",
+      "img_perfil": null
+    },
+    {
+      "id": "32",
+      "nome_cultural": "Manoel Cerqueira",
+      "cpf": "31198880520",
+      "cnpj": null,
+      "biografia": null,
+      "img_perfil": null
+    },
+    {
+      "id": "33",
+      "nome_cultural": "SARA FLORENCIO",
+      "cpf": "06633719531",
+      "cnpj": null,
+      "biografia": null,
+      "img_perfil": null
+    },
+    {
+      "id": "34",
+      "nome_cultural": "CRISLAINE SANTANA",
+      "cpf": "04721492537",
+      "cnpj": null,
+      "biografia": "Sou do sertão, oriunda de Nossa Senhora Aparecida, e resido na capital desde 2011. Cheguei aqui aos 17 para estudar Psicologia na Universidade Federal, mas em 2019 fui contemplada com o Prouni e estudo Gastronomia na Universidade Tiradentes. Desde que me entendo por gente, sou apaixonada por literatura e entre uma correria e outra acabo registrando no papel essas inconsistências da vida.",
+      "img_perfil": null
+    },
+    {
+      "id": "35",
+      "nome_cultural": "GLÓRIA COSTA E THAYS RICARTE",
+      "cpf": "82522740563",
+      "cnpj": null,
+      "biografia": null,
+      "img_perfil": null
+    },
+    {
+      "id": "36",
+      "nome_cultural": "LUÍS MATHEUS BRITO",
+      "cpf": "06735532562",
+      "cnpj": null,
+      "biografia": "Luís Matheus Brito nasceu em outubro de 1994, em Aracaju. É escritor, artista visual e pesquisador. Possui uma obra híbrida que se converte em livros e exposições. Em 2018, publicou o foto-livro “Sempre Quis Ser Maria”, que, meses depois, foi adaptado para exposição homônima no Sesc Sergipe\/ Unidade Centro. Em 2019, produziu obras comissionadas para a exposição coletiva “À Nordeste”, no Sesc 24 de Maio (São Paulo, SP): a série fotográfica “Para cada noite de sonho, ainda estou de pé” e o foto-livro “Hora de dançar com a verdade”. Em 2019, publicou a plaquete de poesia “no que se seguiu” (auto publicação), que, em 2021, depois de um processo de remontagem, transformou-se em “erro refracional”. Em 2021, lançou também o livro “Guia de Queixumes” por meio da edições blague, editora independente que criou com Ana Paula Rocha e trabalha com poesia e prosa contemporânea. Formado em Comunicação Social\/ Habilitação em Jornalismo pela Universidade Federal de Sergipe (UFS), faz mestrado em Estudos Literários também pela UFS. Nele, realiza uma pesquisa a respeito do trabalho ficcional de Silviano Santiago.",
+      "img_perfil": null
+    },
+    {
+      "id": "37",
+      "nome_cultural": "ANDRÉ VINÍCIUS OLIVEIRA DE LIMA",
+      "cpf": "01054621527",
+      "cnpj": null,
+      "biografia": "Graduado em Geografia, lecionando e também atuando como compositor, escritor, guitarrista e palestrante. Atuo Produzindo, assessorando e organizando shows e eventos culturais pela New & Old Produções, eventos e marketing. Atualmente tocando com a Infinito Insólito(rock pop).",
+      "img_perfil": null
+    },
+    {
+      "id": "38",
+      "nome_cultural": "FERNANDO CRATEÚS",
+      "cpf": "31382835191",
+      "cnpj": null,
+      "biografia": "Cantor e compositor autodidata que traz no nome a marca de sua cidade natal no interior do Ceará, e, nas ideias, o objetivo de representar a música nordestina e brasileira onde quer que esteja. O caminho traçado em sua obra é de harmonia entre as raízes históricas e culturais do nosso povo e o processo de adaptação aos novos formatos da contemporaneidade.",
+      "img_perfil": null
+    },
+    {
+      "id": "39",
+      "nome_cultural": "RAPHAEL MELO",
+      "cpf": "04100407548",
+      "cnpj": null,
+      "biografia": "Raphael Melo nasceu em Feira de Santana\/BA. Graduado em Direito pela Universidade Estadual de Feira de Santana. Entusiasta da memória, qque entretatno é falha, registra, escrevendo para guardar o que está vendo.\nEscreve para si e para as pessoas. Muitas coisas guarda, algumas joga fora - mas todas se aproveitam. Publica na rede mundial de computadores. Não para alcançar o mundo. Mais para coçar. Mas as vezes nem isso. Autor de Intrusilhada - Delírios e Percalços. É também advogado e estudante de medicina, além de outras coisas, ou nem uma coisa, nem outra.",
+      "img_perfil": null
+    },
+    {
+      "id": "40",
+      "nome_cultural": "MARIA DO CARMO MELO SANTOS",
+      "cpf": "41689178515",
+      "cnpj": null,
+      "biografia": "Maria do Carmo Melo Santos, nascida na capital sergipana em 28 de setembro de 1963, estudou na Escola Major Viana de Carvalho, Senador Leite Neto e Colégio Costa e Silva, tendo formação de ensino médio e estudou teatro no Instituto Federal de Sergipe (IFS). É servidora pública pertencente ao órgão da Secretaria de Estado da Saúde (SES), desde 1987, lotada no Hospital de Urgências de Sergipe Governador João Alves Filho (Huse), local onde exerceu suas funções como executora de serviços básicos, ocupou o cargo de supervisora de higienização e assistente administrativo no setor de vigilância patrimonial.\n\nTem formação de auxiliar de enfermagem, é cantora, compositora e compositora. Ele já atuou no Teatro SOS Alegria e no Coral “Pirilampos” do Huse. Atualmente, Maria do Carmo faz parte da Assessoria de Comunicação Social (Ascom) do Huse.",
+      "img_perfil": null
+    },
+    {
+      "id": "41",
+      "nome_cultural": "DÉBORA ARRUDA",
+      "cpf": "04531536584",
+      "cnpj": null,
+      "biografia": "Poeta, professora e desde 2012 desenvolve atividades que incorporam a poesia e a literatura dentro da cidade de Aracaju. Em 2013, ao lado de outros poetas da cidade, começou a impulsionar movimentos de ocupação urbana através da literatura e durante dois anos e meio, organizou o coletivo Sarau Debaixo. Em 2017, por meio de uma parceria com a editora Chita Cartonera, publicou seu primeiro livro, Coração Despovoado, e no mesmo ano atuou enquanto organizadora do Slam do Tabuleiro, primeiro Slam realizado na cidade de Aracaju, evento no qual também atuava enquanto slammaster, e do projeto Leia Mulheres-Aracaju. Atualmente, é mestranda em Antropologia Social e se dedica aos projetos de escrita e construção literária por meio de experimentações poéticas diversas.",
+      "img_perfil": null
+    },
+    {
+      "id": "42",
+      "nome_cultural": "JOÃO VICTOR VASCONCELOS",
+      "cpf": "86103426545",
+      "cnpj": null,
+      "biografia": "Sou estudante de Jornalismo da UFS que se apaixonou pela arte das palavras desde pequeno. Aos 16 anos, comecei a escrever regularmente e publicar meus textos em um blog. Tive um texto publicado na II Antologia Literária da Loja Maçônica Cotinguiba e outro texto publicado no livro 5ª Seleta do Encontro Sergipano de Escritores. Escrevo poemas, cordéis, contos, crônicas e já escrevi roteiro de curta - ainda que de forma amadora. Além disso, já co-dirigir, atuei, filmei e editei dois curtas e uma peça teatral de bairro. Na pandemia, também atuei como apresentador de Lives em uma instituição beneficente na qual sou voluntário.",
+      "img_perfil": null
+    },
+    {
+      "id": "43",
+      "nome_cultural": "LUCAS JAMAICA",
+      "cpf": null,
+      "cnpj": "39585657000101",
+      "biografia": "Empresa\/ produtora fundada pelo músico multi-instrumentista e escritor Lucas Jamaica, com o objetivo de produzir e promover trabalhos artísticos, principalmente nas áreas da música e literatura.",
+      "img_perfil": null
+    },
+    {
+      "id": "44",
+      "nome_cultural": "ALLAN JONNES",
+      "cpf": null,
+      "cnpj": "36049692000100",
+      "biografia": "Poeta sergipano nascido na cidade de Lagarto-SE, vocalista da banda Madame Javali.  Desde de 2013 circula o país com seu trabalho de performance e experimentação de poesia falada. Teve o trabalho publicado em diversas revistas brasileiras como a Modo de Usar & Co, Acrobata, Continente, Cumbuca e na revista In.Verso (Portugal).  Venceu em maio de 2013 o ZAP Slam - competição de performance em poesia - edição especial com poetas do Brasil.  Participou da Bienal do Livro em Pernambuco, do Festival Internacional de Poesia do Recife, Festa Literária das periferias (FLUPP), Festipoa (Porto Alegre), Festa literária internacional de Paraty (FLIP) e Festival internacional de literatura de Belo Horizonte (FLI-BH). Apresentou performances de poesia eletrônica no Espaço B_arco em São Paulo dentro da programação da Balada Literária, no Circuito Cultural Praça da Liberdade de Belo Horizonte (MG) e no festival de inverno de Garanhuns (PE) com a performance Intra Barulho: Poesia & Megafome.  Compôs as edições 2014 das micro-antologias Leve1Livro (BH) e participou da Antologia Poesia Agora, com exposição do trabalho de novos poetas do Brasil para o museu da língua portuguesa. Em 2016 venceu o campeonato nacional de poesia falada FLUPP SLAM BNDS, na Cidade de Deus - RJ, onde lançou também o seu primeiro livro intitulado “Pequeno Volume”. Organiza diversas ações culturais em Aracaju, foi membro fundador dos coletivos Sarau Debaixo (2013 -2015) e Slam do Tabuleiro (2017 - 2018). Em 2019 lançou Luz dentro do Caos, disco de poemas realizado com a banda Madame Javali.",
+      "img_perfil": null
+    },
+    {
+      "id": "45",
+      "nome_cultural": "MARCELLA ALMEIDA",
+      "cpf": "02145481559",
+      "cnpj": null,
+      "biografia": "Possuo 25 anos de idade, sou natural de Paulo Afonso\/BA, no entanto, moro há 9 anos na cidade de Aracaju onde venho desenvolvendo meus trabalhos no segmento da poesia, música e cinema desde 2013. Não possuo formação artística por nenhuma instituição específica, pois meu trabalho se deu através de experiências práticas em espaços públicos, em escolas, universidades e em espaços privados produzindo eventos, oficinas e obras literárias. Atualmente, venho me dedicando a realizar trabalhos voltados à poesia falada, performances poéticas e publicações impressas.",
+      "img_perfil": null
+    },
+    {
+      "id": "46",
+      "nome_cultural": "JÂNIO VIEIRA",
+      "cpf": "05888078506",
+      "cnpj": null,
+      "biografia": "Membro da Academia Dorense de Letras - ADL e do Grupo Enforcadense de Estudos Literários - GEEL. Instituições sem fins lucrativos que visam a divulgação da literatura e a preservação da memória de nossa cultura. Poeta e autor de livro de poesia e participações em antologias literárias.",
+      "img_perfil": null
+    },
+    {
+      "id": "47",
+      "nome_cultural": "ISABELA MORAES",
+      "cpf": "84944960506",
+      "cnpj": null,
+      "biografia": "Possuo licenciatura em Letras Vernáculas pela Universidade Federal de Sergipe e bacharelado em Comunicação Social (Jornalismo) pela mesma instituição. Desde 2019, estudo escrita criativa na Escola de Artes Valdice Teles, e também Escrita Criativa na plataforma Carreira Literária. Fiz cursos livres, como criação literária com o escritor Marcelino Freire na plataforma Navega, bem como os cursos livres oferecidos pelo Centro de Apoio ao Escritor (Casa das Rosas, SP) no gênero crônica, com Marcelino Freire; no gênero conto, com a escritora Verônica Stigger; e ensaio, com o escritor Tiago Novaes. Além disso, participei do curso livre “Os Universos do Romance e do Conto”, com o escritor e professor da mais antiga oficina de criação literária (PUCRS) Luiz Antônio de Assis Brasil, oferecido pelo Instituto Estação das Letras. Há seis anos atuo como revisora e editora, trabalhando com textos acadêmicos, publicitários, jornalísticos e literários, com destaque para a revisão dos livros “O dia em que minha vó me apresentou a morte” (2019) do escritor sergipano André Comanche e o seu segundo livro “Tem um monstro na minha orelha” (2020). Em 2020, meu conto “Um turbilhão na outra margem do silêncio” foi selecionado no edital Janela para as Artes. Em 2019, meu poema “Morada dos Excessos” foi selecionado para integrar a antologia do Prêmio Mário Jorge de Poesia.",
+      "img_perfil": null
+    },
+    {
+      "id": "48",
+      "nome_cultural": "WELLINGTON GOMES",
+      "cpf": "03897383527",
+      "cnpj": null,
+      "biografia": "Sou licenciando em Teatro pela Universidade Federal de Sergipe (UFS), participei como ator e oficineiro de teatro no Centro Cultural Erukerê, de agosto de 2017 a janeiro de 2018, com mais de duzentas horas de trabalho, entre ministrações de aulas de teatro, apresentação de espetáculos e preparação de elenco. Fiz parte do espetáculo Máscaras, selecionado e apresentado no Festival de Artes de São Cristóvão do ano de 2017, entre outras apresentações em escolas, saraus e faculdades do estado. Como escritor, tenho um conto Publicado no livro \"Quando Você se Foi\", pela editora Flyve (RS). Atuo também como Músico (Rapper) desde 2016, apresentando-me em vários eventos e cidades do estado de Sergipe, sou Ceo e vocalista do projeto musical Intitulado A Lacuna",
+      "img_perfil": null
+    },
+    {
+      "id": "49",
+      "nome_cultural": "FÁBIO RAMOS DE AZEVEDO",
+      "cpf": "51154226620",
+      "cnpj": null,
+      "biografia": "Alagoano de nascimento, crescido em Minas Gerais e agora vivendo em Aracaju, músico, compositor e escritor.",
+      "img_perfil": null
+    },
+    {
+      "id": "50",
+      "nome_cultural": "ANDERSON CHARLES",
+      "cpf": "03159212505",
+      "cnpj": null,
+      "biografia": "Sou Professor, Ator, Dançarino e Aderecistas DRT\/ 392 SE. Diretor da Companhia de Artes Mafuá. Doutorando em Ciências Educação, com Mestrado em Ciências da Educação e Pós-graduado em Arte Educação. Trabalho na elaboração, produção e execução de projetos: Culturais, Sociocultural, Educacionais, ministro oficinas artísticas das linguagens: Artes Cênicas, Literatura, Artes Visuais, Cultura Popular. Meu primeiro contato com as artes surge ainda na infância quando fabricava meus carros e brinquedos, onde anos depois descobriria que era autodidata e possuía habilidades manuais. Nesse interim participei de grupo de Capoeira Filhos de Gaivotas. Minha primeira experiência como ator, ocorreu na Escola Santa Rita de Cássia como um narrador, em 1992. Desde então, me apaixonei pelo teatro e desenvolvi, ao longo dos anos, uma enorme paixão pelo ser humano. Depois de uma jornada no movimento social, participando de projetos sociais, como educando e logo passei a ser líder e turma e posteriormente a oficineiro. Após ingresso em um projeto fabuloso da Secretaria de Estado da Cultura, chamado Balé Folclórico de Sergipe, onde tive a oportunidade impar de trabalha com Toninho Macedo, Reginaldo Daniel Flores (Conga), dentre outros profissionais do cenário sergipano, participei de 1995 até 1998 quando o projeto foi encerrado, desempenhei as funções de : dançarino, aderecista, assistente de ensaio e direção. E assumir a função de Diretor no projeto de Revitalização do Balé folclórico de Sergipe. Participei do Projeto Opera do Milho na condição e Ator. Em 1999 monto a Companhia de Artes Mafuá, sendo a primeira companhia de artes do Estado, focada na cultura popular (principalmente na cultura sergipana) desenvolvendo espetáculos, oficinas artísticas, projetos e assessorias. Montamos: A Viagem do Baleiro (Musical) 1999, Os Enganos do Amor (Teatro de Rua) 1999, Os Direitos da Criança e Adolescente (Teatro de Boneco):2000,Emília no País dos Livros (Teatro de Bonecos) 2001.",
+      "img_perfil": null
+    },
+    {
+      "id": "51",
+      "nome_cultural": "LUCAS RIBEIRO ROCHA",
+      "cpf": "04315462586",
+      "cnpj": null,
+      "biografia": "Aracajuano de 23 anos, sou formado em Psicologia pela Universidade Federal de Sergipe. Também sou músico e poeta. Em 2017, com o projeto Duodeno – um duo formado por mim e Thiago Rocha, meu irmão –, lancei o álbum Iniciativa Privada, no qual experimentamos texturas psicodélicas a partir de recursos sobretudo acústicos e poéticos. O álbum, cujas 10 das 11 músicas são de minha autoria, também contou com um encarte, em que as letras das composições foram dispostas em uma estética concretista. Desde então, no entanto, em termos de projeto autoral, vim-me dedicando à escrita do meu primeiro livro de poesia, Quando eu me engoli, o qual me exigiu mais de três anos de escrita, estudo, maturação e pesquisa. Na edição do Festival de Artes de São Cristóvão (FASC) de 2019, inclusive, apresentei o esboço desse projeto pela primeira vez ao público no formato de recital. No Projeto Verão de 2020, participei da edição especial do Slam Sergipe 2020 com uma poesia. Também neste ano, um projeto meu com dois poemas recitados foi selecionado no Edital Quarentena da Gente, promovido pelo Instituto Banese e pelo Governo do Estado de Sergipe.",
+      "img_perfil": null
+    },
+    {
+      "id": "52",
+      "nome_cultural": "EGICYANE LISBOA",
+      "cpf": "02426355557",
+      "cnpj": null,
+      "biografia": "Jornalista, escritora, poeta, mestra em Comunicação pela Universidade Federal de Sergipe (UFS), Pós-Graduada em Assessoria de Comunicação, Marketing Empresarial e Web jornalismo e Pedagoga. Membro fundadora da Academia Canindeense de Letras e Artes (ACLAS), ocupando a cadeira n°02. Duas obras publicadas em 2015, 'Personalidades Políticas de Canindé de São Francisco' e 'Unidos pelos Amor, abraçados pela fé', além de publicações de textos e poesias em Antologias realizadas em algumas cidades do interior do Estado (Nossa Senhora da Glória, Monte Alegre de Sergipe e Canindé) e na Capital sergipana. Como motivadora cultural recebi alguns prêmios e alguns certificados pelas poesias escritas.",
+      "img_perfil": null
+    },
+    {
+      "id": "53",
+      "nome_cultural": "THIAGO FRAGATA",
+      "cpf": "88633608553",
+      "cnpj": null,
+      "biografia": "Formado em História com especialização em História Cultural pela UFS. Como histopriador\/artista ou \"agitador cultural\" atuou por 30 anos na cena cultural de São Cristóvão (1990\/2020), minha cidade natal. Como poeta publiquei São Cristóvão Poética e Xilogravada\" em 2015. Escrevo poesias, artigos, textos para teatro, etc.",
+      "img_perfil": null
+    },
+    {
+      "id": "54",
+      "nome_cultural": "ANDRÉ COMANCHE",
+      "cpf": "04353770519",
+      "cnpj": null,
+      "biografia": "André Comanche(@do.conto.ao.traco) é um contador de histórias que sofre de incontinência gráfica e verbal: escreve enquanto desenha e desenha enquanto escreve. Enquanto estudava o mundo das narrativas, formou-se em História. Em 2016 lançou sua primeira série de quadrinhos, intitulada 'Tino, um caçador de si mesmo'. Em 2017, criou a iniciativa ‘Leitores Fantásticos’, que promove eventos, palestras e oficinas na área da literatura. Em 2018, foi finalista no 1° Prêmio ABERST de Literatura, na categoria ‘Melhor conto policial’. Em 2019, lançou seu primeiro livro, 'O dia em que minha vó me apresentou a morte', encontrando excelente receptividade de público e crítica. André é fundador do projeto social ‘Lê Gibi’, que incentiva a leitura em escolas públicas através da distribuição gratuita de quadrinhos. O projeto existe desde 2013. Em 2020, lançou seu segundo livro, o infantil 'Tem um monstro na minha orelha'. Ainda em 2020, foi ganhador do prêmio ALA(Academia de Letras de Aracaju) de Reconhecimento Cultural, na categoria Literatura e foi nomeado para a cadeira de nº 30 para a recém fundada Academia Literocultural de Sergipe, tendo como patrono o artista Artur Bispo do Rosário. Vídeos sobre meus trabalhos: Programa Plural, TV Aperipê ; Programa Combinado, TV Sergipe; Programa Terra Serigy, TV Sergipe; Programa SETV, TV Sergipe.",
+      "img_perfil": null
+    },
+    {
+      "id": "55",
+      "nome_cultural": "JULIANO BECK DE OLIVEIRA",
+      "cpf": "02863627597",
+      "cnpj": null,
+      "biografia": "Sou Juliano Beck, resido em Sergipe desde 1996 e toda a minha vida é dedicada à literatura, de variadas maneiras. Sou graduado em Letras Vernáculas e trabalho como professor e revisor textual desde 2011, prestando serviços para editoras e instituições acadêmicas e de pesquisa, como redator, organizador, revisor e copidesque. Desde 2014 mantenho o projeto Cicloteca Severina, que começou como sebo itinerante passando a organizar, a partir de 2017, o Encontro Cultural de Sebos, evento que fomenta a visibilidade deste setor cultural na cena sergipana. Como escritor, comecei a publicar no sítio eletrônico Bordel Semântico em 2010, sendo na segunda metade desta década somente sonetos, forma elegida para edição tardia do primeiro livro, a publicar.",
+      "img_perfil": null
+    },
+    {
+      "id": "56",
+      "nome_cultural": "PABLO VALADARES",
+      "cpf": "04880452580",
+      "cnpj": null,
+      "biografia": "Escritor desde os 12 anos, Pablo aos 16 anos (2015) intensificou seu fazer poético quando passou por uma fase de bullying e depressão. Nesse mesmo ano, ganhou seu primeiro prêmio pela Loja Maçônica Cotinguiba em Aracaju\/SE. Aos 18, ganhou seu primeiro prêmio nacional que o possibilitou lançar seu primeiro livro o “Minhas histórias, Nossas estórias”. O poeta hoje acumula mais de 16 prêmios sendo eles nacionais e estaduais. Foi selecionado também pelo projeto do Rio de Janeiro –Maktub Experience-, para abordar suas vivências de depressão e bullying com jovens da comunidade da cidade. Enquanto lançava seu primeiro livro nas cidades do Nordeste e Sul do país, ele vivia e escrevia intensamente o seu próximo livro, o Selvagem, lançado em agosto de 2021 que chegou como continuidade de sucesso poético, de inspiração farta, de necessidade de leitura. Além disso, foi um escritor atuante na pandemia sendo premiado pela funcaju com o poema com que mascára eu vou? e continuou presente nas escolas por meio virtual. Por fim, O jovem poeta continua a derramar palavras, trocar diálogos, somar experiências e multiplicar trocas com jovens leitores e até novos amantes do verbo ler. Tem sido um escritor presente junto ao público juvenil nas escolas com texto indicado como leitura obrigatória e aplicado em prova",
+      "img_perfil": null
+    },
+    {
+      "id": "57",
+      "nome_cultural": "DICURI PRODUÇÕES",
+      "cpf": "03567909592",
+      "cnpj": null,
+      "biografia": "A Dicuri Produções foi criada em 2014 pela atriz e produtora Isabel Santos e a produtora e publicitária Patrícia Santos. Em 06 anos de criação montou os espetáculos Senhora dos Restos (2014) texto Euler Lopes, direção Iradilson Bispo e Piedade, a seu dispô (2019), texto Euler Lopes, direção Rita Maia. A Dicuri Produções participou de diversas mostras e festivais em Sergipe e na região nordeste. Senhora dos restos foi o espetáculo com mais prêmios no Festival de Teatro de Guarabira – PB.",
+      "img_perfil": null
+    },
+    {
+      "id": "58",
+      "nome_cultural": "RONEY DAVID M.",
+      "cpf": "03939799548",
+      "cnpj": null,
+      "biografia": "É natural de Aracaju-SE, artista DRT-SE 754, ator, acrobata, diretor de teatro e pesquisador dos métodos teatrais de Meyerhold, a biomecânica e O Teatro da Crueldade de A. Artaud, Teatro da Crueldade; É oficineiro em técnicas circenses na formação de acrobatas de solo e aéreo através metodologia de exercícios de contorção, \nacroyoga, condicionamento físico, contato e improvisação e performance. Fundou dois importantes nomes do cenário cultural sergipano: o Grupo Retalhos de Teatro onde desenvolveu por 2 anos espetáculos do folclore nordestino, e a CIGARI - Cia. Gentileza de Artes Integradas onde inaugurou o \"Espaço CIGARI\" lançando o Projeto \"Artista Jovem Aprendiz\", este projeto disponibiliza até hoje vagas gratuitas para alunos da rede pública de ensino em oficinas de circo, dança, teatro, capoeira, percussão entre outras atividades culturais. Assinou a direção do primeiro espetáculo de Teatro de Sombras de Sergipe: \n\"Deixe-me-a-ma-la!\", recorde de público nos teatros apresentados. Foi durante 3 anos o \nCoordenador do Circo Contemporâneo na formação do \"Fórum Unificado de Circo, Dança e Teatro de Sergipe\", onde estabeleceu artigos e parágrafos na formação de editais dos principais festivais e o exercício da lei municipal da Quinzena de Teatro e Circo. Aos 16 anos \niniciou seus primeiros cursos e oficinas sob direção da atriz Dinha Barreto. Sua carreira profissional como ator iniciou na Cia. Brasileira de Teatro e no Grupo Raízes sob direção de Jorge Lins em ação ao projeto \"Oficinas do Ator\" e \"O Teatro vai à Escola\". Foi ator, acrobata, figurinista e oficineiro na Cia. Stultifera Navis sob direção de Lindemberg Monteiro. Atuou no Coletivo de Atores Educadores sob direção de Raimundo Venâncio onde foi oficineiro de figurino e reciclagem. Grupo Oxente de Teatro sob direção de Edmilsson Susassuna. Gravou para a \"Escolinha do Forró\" em serie de tv sergipana. Atualmente é integrante de bolsa universitária em projeto de docência",
+      "img_perfil": null
+    },
+    {
+      "id": "59",
+      "nome_cultural": "ANA CAROLINA AVES",
+      "cpf": "09280470590",
+      "cnpj": null,
+      "biografia": "Eu sou estudante de jornalismo, sempre tive muito contato com a escrita e a arte. Me identifico como escritora e amante de cinema, também tenho experiência com desenho e pintura.",
+      "img_perfil": null
+    },
+    {
+      "id": "60",
+      "nome_cultural": "FRANKIELLY MATTOS",
+      "cpf": "07347487528",
+      "cnpj": null,
+      "biografia": "Me chamo Frankielly, sou escritora através da empresa clube de autores, lancei meu primeiro livro em 2017. Trabalho com conteúdo variado. Relato sobre fatos reais referente a sentimentos no geral. Nome do meu livro é Resíduos Literários. Além de escritora, sou professora graduada de capoeira, musicista na Filarmônica Lira Santa Cruz de Poço Verde.",
+      "img_perfil": null
+    },
+    {
+      "id": "61",
+      "nome_cultural": "LARISSA TELES",
+      "cpf": "08423816516",
+      "cnpj": null,
+      "biografia": "Tenho 21 anos, comecei a escrever desde pequena, era meu modo terapêutico de lidar com todos os meus sentimentos. Sou estudante, amo ler e escrever, são minhas terapias essências. Acredito no poder das palavras e tenho o maior prazer do mundo quando sei que elas tocam o outro. Estou escrevendo meu primeiro livro e não existe sensação melhor que fazer algo que a gente gosta. Essa proposta da Funcap é maravilhosa, me sinto honrada em ter o que mostrar!",
+      "img_perfil": null
+    },
+    {
+      "id": "62",
+      "nome_cultural": "STELLA REGINA CÁCERES DA SILVA",
+      "cpf": "02126042448",
+      "cnpj": null,
+      "biografia": "Sou admiradora das artes desde muito cedo quando certa feita adormeci e acordei dentro do FASC numa apresentação do Mamulengo do Cheiroso. Paixão a primeira batida que outro transformou-se no meu coração. Hoje sou toda arte. Arte-educadora por formação acadêmica e escritora de romances  quando meu ritmo acelera para transformar-se em personagens de minha incansável criatividade. Faço de tudo um pouco, ate onde a minha (In) consciência me ajude. Sou inquieta e sempre vou em busca de novas\/velhas formas de arte, desde que me auxiliem a acalmar esta alma inquieta . Esta sou eu! Muito prazer!",
+      "img_perfil": null
+    },
+    {
+      "id": "63",
+      "nome_cultural": "EMANUELLE FFERREIRA",
+      "cpf": "04399020539",
+      "cnpj": null,
+      "biografia": "Emanuelle Ferreira dos Santos, nasceu em Salvador, no dia 01 de setembro de 1993. Desde pequena sempre foi fascinada por literatura, cuja grande influência está baseada nos queridos poetas brasileiros: Cecília Meireles, Carlos Drummond de Andrade, Cora Coralina e Augusto dos Anjos.  Começou a escrever aos 20 anos, tendo como inspiração os elementos da natureza e os sentimentos humanos. Seus poemas envolvem o leitor em um vasto oceano cósmico de admiração pelos encantos da vida cotidiana, com traços marcantes de sensibilidade e romantismo.",
+      "img_perfil": null
+    },
+    {
+      "id": "64",
+      "nome_cultural": "ISIS DA PENHA",
+      "cpf": "08268183586",
+      "cnpj": null,
+      "biografia": "Sou poeta cordelista. Meu primeiro folheto foi lançado a partir de uma oficina chamada \"De mito e poesia se faz um cordel\" que deu origem ao meu folheto intitulado \"Juno: Rainha dos céus\". Após esse folheto participei da \"I Antologia das Mulheres do Cordel Sergipano: Das Neves às Nuvens\". De lá para cá tenho atuação plena como poeta popular.",
+      "img_perfil": null
+    },
+    {
+      "id": "65",
+      "nome_cultural": "CHRISTINA RAMALHO",
+      "cpf": "83221689772",
+      "cnpj": null,
+      "biografia": "Escritora com 8 livros de poesia, 1 de conto e diversos de crônicas (como organizadora e como autora) publicados, sendo o primeiro deles \"Musa Carmesim\", (poema épico, 1998) e o último \"Ponteiros de papel\" (poemas, 2020, e-book gratuito). Autora de diversos livros de historiografia, teoria e crítica literária. Professora-doutora em Letras, vinculada ao curso de Letras Itabaiana desde 2012, quando passou a residir em Sergipe. Desenvolveu e desenvolve diversos projetos relacionados ao ensino de literatura, como \"Jovens cronistas do sertão\", \"Sergipe é Poesia!\", \"Lendo poemas: videoaulas\", \"Seramagipepá: um amoroso neologismo da união\" (trabalho de divulgação da produção cultural de Sergipe e do Amapá), entre outros, além de oficinas de criação de poemas, fotopoemas e crônicas. Desenvolve criações musicais com o grupo \"Acrópole Nordestina\", que já possui 20 canções autorais. Em 2005, recebeu a Medalha Afrânio Coutinho de Crítica Literária, da União Brasileira de Escritores (UBE\/RJ), pelo livro \"Fênix e harpia: faces míticas da poesia e da poética de Ivan Junqueira\", publicado pela Academia Brasileira de Letras. Em 2015 integrou o Júri do Prêmio Jabuti, na categoria \"contos e crônicas\". Recebeu os títulos de cidadã aracajuana (2016) e cidadã sergipana (2018). Suas criações literárias, artísticas e acadêmicas podem ser encontradas no site \"miXturas\": www.ramalhochris.com.",
+      "img_perfil": null
+    },
+    {
+      "id": "66",
+      "nome_cultural": "LUIS CARLOS REIS BACELAR",
+      "cpf": "24331031500",
+      "cnpj": null,
+      "biografia": "Sou Luis Carlos. 57 anos, casado, gosto muito de escrever e desenhar. Desenvolvo projetos sociais nas comunidades e este ano de 2020 lancei um livro que vinha trabalhando a mais de 4 anos. Não tive patrocinador e investir o proprio dinheiro que recebo do INSS para realizar meu sonho. Foi muito difícil mas em fim foi gratificante poder ajudar os jovens da atualidade ao contar a minha historia de vida. Agora desejo ampliar este trabalho em todo o estado de Sergipe e no restante do Brasil. Com fé em Jeova Deus e todos chegarem para colaborar com esse objetivo vou conseguir. Sou sergipano radicalizado em Sergipe desde 1986, morador do Município de Nossa Senhora do Socorro.",
+      "img_perfil": null
+    },
+    {
+      "id": "67",
+      "nome_cultural": "HUGO ARCANJO",
+      "cpf": "06295942520",
+      "cnpj": null,
+      "biografia": "Sou Hugo Arcanjo, poeta, escritor, músico, compositor e agitador cultural. Nascido em Umbaúba, criado em Cristinápolis, vivo em Aracaju desde 2010. Participo frequentemente de saraus, tive o blog Pateta Poeta na plataforma Blogspot de 2008 a 2015, lancei o livro de poesias \"Delimitação de Amores Infinitos\" em 2013, e participei da coletânea \"Poesias Escolhidas vol II: O Melhor de Mim\" (2015), sendo o único poeta sergipano entre os poetas brasileiros viventes em todo o país e no exterior, além de publicações em diversos zines. Ganhei o prêmio Mario Jorge de Poesia (2017), e me tornei membro correspondente da Academia Cristinapolitana de Letras e Humanidades (ACLH) em 2019.\nSou músico baterista da banda Café Sexy desde 2014, e temos feito parte da cena musical alternativa e independente da grande Aracaju, tendo tocado em pequenas casas de shows, bares, saraus, e eventos nome no estado, como o Sarau da Caixa D’Água (Lagarto-SE), Sarau do Coreto (Simão Dias-SE), Feira Estadual da Reforma Agrária, Festival de Música de Lagarto (FLAMP) e no Festival das Artes de São Cristóvão (FASC), participando também do Festival de Música do Instituto Federal de Sergipe (IFStar, edição 2018). Fui colunista e produtor no extinto coletivo e site “Zona Autoral” e do zine “Cale-SE”, que realizavam matérias sobre a arte independente sergipana. Sou agitador cultural ativo na cena artística da capital, participando, colaborando e realizando eventos de pequeno porte, auxiliando outras bandas independentes a realizarem apresentações, e divulgarem suas produções e eventos nas redes sociais, sendo um dos colaboradores de eventos como “Festival Utopia Autoral”, “Quanto Vale o Show?”, “Garajão”, e o projeto “Casa Cultural”.",
+      "img_perfil": null
+    },
+    {
+      "id": "68",
+      "nome_cultural": "MARIA GLÓRIA",
+      "cpf": "53288980525",
+      "cnpj": null,
+      "biografia": "Sergipana, poeta preta, que utiliza a palavra como arma de luta e liberdade. Maria Glória é poetisa, agitadora cultural, fundadora e coordenadora da casa do folclore “Zeca e Norberto” e membro fundadora da Academia de Letras e Artes de São Cristóvão",
+      "img_perfil": null
+    }
+  ]
+}

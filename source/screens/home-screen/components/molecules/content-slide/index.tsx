@@ -1,10 +1,10 @@
 import React from 'react'
 import { Container, Col, Row } from 'react-bootstrap'
-import { StyleSheet } from 'react-native'
 
 import Logo from '@/public/logo-funcap.png'
 import theme from '@/theme'
 import Image from 'next/image'
+import Link from 'next/link'
 
 import scss from './styles.module.scss'
 
@@ -12,10 +12,11 @@ import { useResources } from '@/hooks/utils/use-resources'
 
 type Props = {
   title: string
-  synopsis: string
+  link: string
+  description: string
 }
 
-const ContentSlide = ({ title, synopsis }: Props) => {
+const ContentSlide = ({ title, description, link }: Props) => {
   const { isFontReady } = useResources()
 
   if (!isFontReady) return null
@@ -84,7 +85,7 @@ const ContentSlide = ({ title, synopsis }: Props) => {
               </div> */}
 
                 <p data-iq-gsap="onStart" data-iq-position-y="80" data-iq-delay="0.8">
-                  {synopsis.trim().length > 0 && synopsis?.slice(0, 650).concat('...\n')}
+                  {description.trim().length > 0 && description?.slice(0, 650).concat('...\n')}
                 </p>
               </div>
               <div
@@ -93,12 +94,11 @@ const ContentSlide = ({ title, synopsis }: Props) => {
                 data-iq-position-y="80"
                 data-iq-delay="0.8"
               >
-                <a
-                  to="/show-details"
-                  className="btn btn-hover iq-button button-hover iq-border-radius-5"
-                >
-                  <i className="fa fa-play mr-2" aria-hidden="true"></i>Play Now
-                </a>
+                <Link href={link}>
+                  <a className="btn btn-hover iq-button button-hover iq-border-radius-5">
+                    <i className="fa fa-play mr-2" aria-hidden="true"></i>Play Now
+                  </a>
+                </Link>
               </div>
             </div>
             {/*   <div className="trending-list" data-wp_object-in="fadeInUp" data-delay-in="1.2">
@@ -173,5 +173,3 @@ const ContentSlide = ({ title, synopsis }: Props) => {
 }
 
 export default ContentSlide
-
-const styles = StyleSheet.create({})

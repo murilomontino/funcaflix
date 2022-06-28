@@ -4,6 +4,8 @@ import { NextServer } from 'next/dist/server/next'
 import Api from './routes/api'
 import Pages from './routes/pages'
 
+/* NextjsExpressRouter is a class that provides a method to create a Next.js router
+that can be used with Express. */
 class NextjsExpressRouter {
   constructor(private readonly express: Express, private readonly next: NextServer) {}
 

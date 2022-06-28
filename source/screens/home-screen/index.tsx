@@ -5,22 +5,27 @@ import SlideSwipper from '@/components/organism/slide-swipper'
 import CardCarousel from './components/organisms/card-carousel'
 import EventCarousel from './components/template/event-carousel'
 
+type Product = {
+  [key: string]: any
+  category: number
+  title: string
+  id: string
+  thumbnail: string
+  description: string
+}
+
 type Props = {
-  items: {
-    [key: string]: any
-    category: number
-  }[]
-  tvProgramsPlaylist: {
-    [key: string]: any
-  }
+  books: Product[]
+  tvProgramsPlaylist: Product[]
+  newestProducts: Product[]
 }
 
 // 5 categorias
 
-function HomeScreen({ items, tvProgramsPlaylist }: Props) {
-  const books = useMemo(
-    () => items.filter((item) => item?.category == 2 && item?.thumbnail !== 'Não informado'),
-    [items]
+function HomeScreen({ books, tvProgramsPlaylist, newestProducts }: Props) {
+  const booksMemo = useMemo(
+    () => books.filter((item) => item?.category == 2 && item?.thumbnail !== 'Não informado'),
+    [books]
   )
 
   const playlist = useMemo(
@@ -28,9 +33,14 @@ function HomeScreen({ items, tvProgramsPlaylist }: Props) {
     [tvProgramsPlaylist]
   )
 
+  const newestProductsMemo = useMemo(
+    () => newestProducts.filter((item) => item?.thumbnail !== 'Não informado'),
+    [newestProducts]
+  )
+
   return (
     <>
-      <CardCarousel items={playlist} />
+      <CardCarousel items={newestProductsMemo} />
       <div
         style={{
           marginTop: '-75px',
@@ -40,7 +50,7 @@ function HomeScreen({ items, tvProgramsPlaylist }: Props) {
         <SlideSwipper
           title="Literatura"
           id="iq-literatura"
-          items={books}
+          items={booksMemo}
           height="280px"
           link="literatura"
           itemsPerView={6.5}

@@ -10,12 +10,15 @@ type Props = {
     id: number
     playlistId: string
     title: string
+    idProduct: string
+    videoId: string
     thumbnail: string
   }[]
 }
 
 const TrendingMainSlider = ({ items }: Props) => {
   SwiperCore.use([Navigation])
+
   return (
     <section id="movieshow" className="iq-main-slider p-0 mb-3">
       <div id="prev" className="swiper-button swiper-button-prev">
@@ -37,7 +40,7 @@ const TrendingMainSlider = ({ items }: Props) => {
       >
         {items.map((item, index: number) => (
           <SwiperSlide key={item.id}>
-            <a href={`/programas-de-tv/${item.playlistId}`}>
+            <a href={`/video/${item.idProduct}?videoId=${item.videoId}`}>
               <div className="shows-img">
                 <img src={item.thumbnail} className="w-100 img1" alt="" />
                 <div className="shows-content">

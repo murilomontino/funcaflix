@@ -1,4 +1,5 @@
 import React from 'react'
+import Skeleton from 'react-loading-skeleton'
 
 import noCapa from '@/public/no-capa.jpg'
 import theme from '@/theme'
@@ -41,6 +42,14 @@ const CardSwipper = ({
   button = 'Assistir',
   linkDetails = '/',
 }: Props) => {
+  if (!thumbnail) {
+    return (
+      <div className="block-images position-relative">
+        <Skeleton height={height} width={width} />
+      </div>
+    )
+  }
+
   return (
     <div className="block-images position-relative">
       <div

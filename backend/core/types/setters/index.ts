@@ -12,6 +12,8 @@ export interface IProduct {
   active: boolean
   createdAt?: Date
   updatedAt?: Date
+  existSubProd?: boolean
+  idSubProd?: number
 }
 
 export interface IDocumentsProducts {
@@ -61,6 +63,7 @@ export interface IPlaylist {
 export interface ITVPrograms {
   id: number
   idProduct: number
+  subCategory: number
   title: string
   playlistId: string
   videoId: string

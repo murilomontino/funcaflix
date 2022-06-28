@@ -14,6 +14,7 @@ export class GetterTVPrograms extends GetterEntity<IGetterTVPrograms> implements
   public thumbnail: string
   public publishedAt: string
   public playlistId: string
+  public subCategory: number
   public createdAt?: Date
 
   public build(params: IGetterTVPrograms): GetterTVPrograms {
@@ -27,6 +28,7 @@ export class GetterTVPrograms extends GetterEntity<IGetterTVPrograms> implements
     this.publishedAt = params.publishedAt
     this.playlistId = params.playlistId
     this.createdAt = params.createdAt.toISOString() as any
+    this.subCategory = params.subCategory
     return this
   }
 
@@ -42,6 +44,7 @@ export class GetterTVPrograms extends GetterEntity<IGetterTVPrograms> implements
       publishedAt: this.publishedAt,
       playlistId: this.playlistId,
       createdAt: this.createdAt,
+      subCategory: this.subCategory,
     } as GetterTVPrograms
   }
 }

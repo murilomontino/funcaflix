@@ -7,6 +7,8 @@ import TitleCarousel from '@/components/molecule/title-carousel'
 
 import scss from './styles.module.scss'
 
+import { For } from '@/utils/tsx-controls'
+
 const Episodes = ({ item, handleChange }) => {
   const handleClick = () => {
     handleChange(item.videoId)
@@ -127,9 +129,11 @@ const OtherEpisodies = ({ items, title, onChangeEpisode }: Props) => {
                 }}
               >
                 <Row>
-                  {items.map((item, index) => (
-                    <Episodes key={index} item={item} handleChange={onChangeEpisode} />
-                  ))}
+                  <For items={items}>
+                    {(item, index) => (
+                      <Episodes key={index} item={item} handleChange={onChangeEpisode} />
+                    )}
+                  </For>
                 </Row>
               </div>
             </ReactInfiniteScroll>

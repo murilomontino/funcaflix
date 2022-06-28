@@ -17,6 +17,8 @@ export class GetterProduct extends GetterEntity<IGetterProduct> implements IProd
   public idUserRegistered: number
   public active: boolean
   public financialResource: number
+  public existSubProd?: boolean
+  public idSubProd?: number
   public createdAt?: Date
   public updatedAt?: Date
 
@@ -34,6 +36,8 @@ export class GetterProduct extends GetterEntity<IGetterProduct> implements IProd
     this.financialResource = params.financialResource
     this.createdAt = params.createdAt
     this.updatedAt = params.updatedAt
+    this.existSubProd = params.existSubProd
+    this.idSubProd = params.idSubProd
     return this
   }
 

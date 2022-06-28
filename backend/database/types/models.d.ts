@@ -78,6 +78,8 @@ export interface IModelInfoProducts {
     createdAt?: Date;
     updatedAt?: Date;
     active?: boolean;
+    existSubProd?: boolean;
+    idSubProd?: number;
 }
 export interface IModelMusic {
     id: number;

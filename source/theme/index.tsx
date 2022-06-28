@@ -36,8 +36,8 @@ export default {
     BACKGROUND_TITLE: '#142532',
     BAR_HEADER: '#111f29',
     BORDER_LIGHT: '#d9d9d9',
-    SKELETON: '#d9d9d9',
     BUTTON_INATIVE: '#3a3a3a',
+    BOX_SKELETON: '#3a3a3a',
     TARGET_TITLE: {
       _30: '#12415f4c',
       _50: '#12415f7f',

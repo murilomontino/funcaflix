@@ -3,6 +3,7 @@ import ReactPlayer from 'react-player'
 
 import Controls from './components/controls'
 import screenful from './screenfull'
+import scss from './styles.module.scss'
 
 import useDebounce from '@/hooks/utils/use-debounce'
 
@@ -47,6 +48,12 @@ const YoutubeVideo = ({ id }) => {
 
   const { playing, controls, light, muted, loop, playbackRate, pip, played, volume } = state
 
+  useEffect(() => {
+    setVideoId(id)
+  }, [id])
+
+  if (!videoId) return null
+
   const handleMouseMove = () => {
     controlsRef.current.style.visibility = 'visible'
     playerContainerRef.current.style.cursor = 'default'
@@ -60,12 +67,15 @@ const YoutubeVideo = ({ id }) => {
   const handleMouseLeave = () => {
     controlsRef.current.style.visibility = 'hidden'
   }
-
   useEffect(() => {
-    setVideoId(id)
-  }, [id])
-
-  if (!videoId) return null
+    if (playing) {
+      refAudio.current.currentTime = refVideo.current.getCurrentTime()
+      refAudio.current.play()
+    } else {
+      refAudio.current.currentTime = refVideo.current.getCurrentTime()
+      refAudio.current.pause()
+    }
+  }, [playing])
 
   const currentTime = refVideo && refVideo.current ? refVideo.current.getCurrentTime() : '00:00'
 
@@ -130,6 +140,14 @@ const YoutubeVideo = ({ id }) => {
       return { ...state, seeking: false, volume }
     })
   }
+
+  const handleEnd = () => {
+    setState((state) => {
+      refAudio.current.pause()
+      return { ...state, playing: false }
+    })
+  }
+
   const handleVolumeChange = (e: any, newValue: number) => {
     // console.log(newValue);
     setState((state) => {
@@ -147,9 +165,14 @@ const YoutubeVideo = ({ id }) => {
 
   const handlePlayPause = () => {
     setState((state) => {
-      refAudio.current.play()
+      const playing = !state.playing
+      /*   if (playing) {
+        refAudio.current.play()
+      } else {
+        refAudio.current.pause()
+      } */
       refAudio.current.currentTime = refVideo.current.getCurrentTime()
-      return { ...state, playing: !state.playing }
+      return { ...state, playing }
     })
   }
 
@@ -177,10 +200,7 @@ const YoutubeVideo = ({ id }) => {
   return (
     <div
       ref={playerContainerRef}
-      className="position-relative w-100 mt-2"
-      style={{
-        height: '90vh',
-      }}
+      className={`position-relative w-100 mt-2 ${scss['player-container']}`}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
@@ -193,10 +213,11 @@ const YoutubeVideo = ({ id }) => {
         light={light}
         loop={loop}
         playbackRate={playbackRate}
-        muted={muted}
+        muted
         onPause={() => {
           refAudio.current.pause()
         }}
+        onEnded={handleEnd}
         onProgress={handleProgress}
         height={'100%'}
         config={{

@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
+import Skeleton from 'react-loading-skeleton'
 
 import { build, db } from '@/database'
 import { FindAllProductsByCategory, FindAllTvProgramsUseCase } from '@/domain/usecases'
+import theme from '@/theme'
 import { useRouter } from 'next/router'
 import { GetStaticProps } from 'next/types'
 
 import TemplateFrontEnd from '@/components/templates/frontend'
 import DetailsScreen from '@/screens/details-movies-screen'
+
+import { Choose, When } from '@/utils/tsx-controls'
 
 const VideoPageDetails = ({ staticVideos, staticPlaylist }) => {
   const { videoId } = useRouter().query
@@ -16,9 +20,12 @@ const VideoPageDetails = ({ staticVideos, staticPlaylist }) => {
 
   useEffect(() => {
     if (videoId) {
-      setVideo(staticVideos.find((video) => video.videoId === videoId))
-      setId(videoId)
-      return
+      const video = staticVideos.find((video) => video.videoId === videoId)
+      if (video) {
+        setVideo(video)
+        setId(videoId)
+        return
+      }
     }
 
     setVideo(staticVideos[0])
@@ -29,13 +36,26 @@ const VideoPageDetails = ({ staticVideos, staticPlaylist }) => {
     }
   }, [videoId, staticVideos])
 
-  if (!staticVideos || !video || !id) {
-    return <p>Loading...</p>
-  }
+  const isLoading = useMemo(
+    () => staticVideos === null || staticVideos === undefined || !id || !video,
+    [staticVideos, id, video]
+  )
 
   return (
     <TemplateFrontEnd>
-      <DetailsScreen videoId={id} playlist={staticPlaylist} videos={staticVideos} item={video} />
+      <Choose>
+        <When condition={isLoading}>
+          <Skeleton width="100%" height={'90vh'} baseColor={theme.COLORS.BOX_SKELETON} />
+        </When>
+        <When condition={!isLoading}>
+          <DetailsScreen
+            videoId={id}
+            playlist={staticPlaylist}
+            videos={staticVideos}
+            item={video}
+          />
+        </When>
+      </Choose>
     </TemplateFrontEnd>
   )
 }
@@ -66,13 +86,24 @@ export const getStaticPaths = async (context) => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   await build()
+  const { playlistId } = params
 
-  const playlist = await (await db.ModelInfoProducts.findByPk(params.playlistId.toString())).get()
-  const audioVisualEither = await new FindAllTvProgramsUseCase().execute(null, {
-    playlistId: playlist.link,
-  })
+  const playlist = await (
+    await db.ModelInfoProducts.findOne({
+      where: { id: playlistId },
+    })
+  ).get()
 
-  const audioVisual = audioVisualEither.isLeft ? audioVisualEither.value : null
+  const audioVisualEither = await new FindAllTvProgramsUseCase().execute(
+    {
+      isNecessarySubCategory: false,
+    },
+    {
+      idProduct: playlist.id,
+    }
+  )
+
+  const audioVisual = audioVisualEither.isLeft() ? audioVisualEither.value : null
 
   return {
     props: {

@@ -15,23 +15,37 @@ type Response = {
   items: IGetterTVPrograms[]
 }
 
+type Props = {
+  category: string | string[]
+  subCategory: string | string[]
+}
+
 export class FindAllPlaylistAndItemsUseCase implements UseCase<unknown, Response[]> {
   constructor(
     private readonly getterTVPrograms: UseCase<unknown, GetterTVPrograms[]>,
-    private readonly getterPlaylistTVPrograms: UseCase<unknown, GetterPlaylistTVPrograms[]>
+    private readonly getterPlaylist: UseCase<unknown, GetterPlaylistTVPrograms[]>
   ) {}
 
-  async execute(): PromiseEither<Response[], Error> {
-    const playlists = await this.getterPlaylistTVPrograms.execute(null)
+  /**
+   * It gets all the playlists, then for each playlist it gets all the programs,
+   * then it returns an array of objects containing the playlist and the programs
+   * @param {Props}  - Props - The parameters that will be passed to the function.
+   * @returns An array of objects with the following structure:
+   */
+  async execute({ category, subCategory }: Props): PromiseEither<Response[], Error> {
+    const playlists = await this.getterPlaylist.execute({ category })
 
     if (playlists.isRight()) return right(new Error('Erro em Gerar as Playlists'))
 
     const tvProgramsItems: Response[] = []
 
     for await (const playlist of playlists.value) {
-      const programs = await this.getterTVPrograms.execute(null, {
-        playlistId: playlist.playlistId,
-      })
+      const programs = await this.getterTVPrograms.execute(
+        { subCategory },
+        {
+          playlistId: playlist.playlistId,
+        }
+      )
 
       const items = programs.isLeft() ? programs.value : []
 

@@ -13,6 +13,8 @@ type Props = {
     title: string
     thumbnail: string
     description: string
+    idProduct: string
+    videoId: string
   }
   item_width: number
   index: number
@@ -50,7 +52,11 @@ const CardContent = ({ item, item_width, index, refScroll, length, height, offse
           height: height,
         }}
       >
-        <ContentSlide title={item.title} synopsis={item.description} />
+        <ContentSlide
+          title={item.title}
+          description={item.description}
+          link={`video/${item.idProduct}?videoId=${item.videoId}`}
+        />
       </LinearGradient>
       <FormMoveButtons
         offset={offset}

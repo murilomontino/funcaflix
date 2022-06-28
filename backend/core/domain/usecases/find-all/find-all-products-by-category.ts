@@ -50,7 +50,7 @@ export class FindAllProductsByCategory implements UseCase<unknown, IGetterProduc
       },
       ...Object.fromEntries(mapConfig),
       order: [['createdAt', 'DESC']],
-      attributes: ['id', 'title', 'about', 'thumbnail', 'category', 'createdAt'],
+      attributes: ['id', 'title', 'about', 'thumbnail', 'category', 'link', 'createdAt'],
     })
 
     const products = await Promise.all([
@@ -64,6 +64,7 @@ export class FindAllProductsByCategory implements UseCase<unknown, IGetterProduc
           thumbnail: product.thumbnail,
           category: product.category,
           createdAt: product.createdAt.toISOString(),
+          link: product.link,
         } as IGetterProduct
       }),
     ])

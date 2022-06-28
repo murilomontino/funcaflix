@@ -4,9 +4,7 @@
 module.exports = (api) => {
   api.cache(true)
   return {
-    presets: ['@expo/next-adapter/babel', ['@babel/preset-typescript', {
-      allowDeclareFields: true
-    }],],
+    presets: ['@expo/next-adapter/babel'],
     plugins: [
       "@babel/plugin-transform-modules-commonjs",
       "@babel/plugin-proposal-class-properties",
@@ -16,10 +14,6 @@ module.exports = (api) => {
         legacy: true
       }],
       'babel-plugin-parameter-decorator',
-      ['@babel/plugin-transform-typescript', {
-        allowDeclareFields: true,
-        allowNamespaces: true
-      }],
       [
         'module-resolver',
         {

@@ -17,19 +17,28 @@ type QueryParams = {
   publishedAt: string
 }
 
-export class FindAllPlaylistTVProgramsUseCase
-  implements UseCase<unknown, GetterPlaylistTVPrograms[]>
-{
-  async execute(): PromiseEither<GetterPlaylistTVPrograms[], Error> {
+type Props = {
+  category?: string | string[]
+}
+
+const arrayNumberForArrayString = (arrayString: string | string[]) => {
+  const paramsArray = Array.isArray(arrayString) ? arrayString : [arrayString]
+  return paramsArray.map((category) => parseInt(category, 10))
+}
+
+export class FindAllPlaylistUseCase implements UseCase<unknown, GetterPlaylistTVPrograms[]> {
+  async execute({ category = ['152'] }: Props): PromiseEither<GetterPlaylistTVPrograms[], Error> {
     return await database.transaction(async (transaction) => {
+      const categoriesNumber = arrayNumberForArrayString(category)
+
       const productsModel = await db.ModelInfoProducts.findAll({
         where: {
-          category: 152,
+          category: categoriesNumber,
         },
         attributes: ['id', 'title', 'about', 'thumbnail', 'category'],
         transaction,
       })
-      const [modelsProducts] = await database.query(
+      const [rows] = await database.query(
         `
       SELECT 
         produto_id as productId, 
@@ -37,7 +46,7 @@ export class FindAllPlaylistTVProgramsUseCase
         count(*) as total, 
         MAX(data_de_publicacao) as publishedAt 
       FROM 
-        programas_de_tv
+        audiovisual
           GROUP BY playlist_id  
           ORDER BY MAX(data_de_publicacao)  DESC
     `,
@@ -46,12 +55,12 @@ export class FindAllPlaylistTVProgramsUseCase
         }
       )
 
-      const tvPrograms = await Promise.all([
+      const audioVisual = await Promise.all([
         ...productsModel
           .map((model) => {
             const product = model.get({ plain: true })
 
-            const program = modelsProducts.find(
+            const row = rows.find(
               (model: QueryParams) => model.productId === product.id
             ) as QueryParams
 
@@ -61,16 +70,16 @@ export class FindAllPlaylistTVProgramsUseCase
                 title: product.title,
                 description: product.about,
                 thumbnail: product.thumbnail,
-                publishedAt: program?.publishedAt || null,
-                count: program?.total || 0,
-                playlistId: program?.playlistId || null,
+                publishedAt: row?.publishedAt || null,
+                count: row?.total || 0,
+                playlistId: row?.playlistId || null,
               })
               .params()
           })
           .filter((tvProgram) => tvProgram.count > 0),
       ])
 
-      return left(tvPrograms)
+      return left(audioVisual)
     })
   }
 }

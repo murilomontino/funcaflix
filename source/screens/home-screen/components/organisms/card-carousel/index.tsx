@@ -1,6 +1,9 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
+import Skeleton from 'react-loading-skeleton'
 import { ScrollView, Animated, Platform } from 'react-native'
 import { useDimensions } from 'react-native-web-hooks'
+
+import theme from '@/theme'
 
 import CardContent from '../../molecules/card-content'
 
@@ -8,6 +11,7 @@ const OFFSET = 0
 
 type Props = {
   items: {
+    [key: string]: any
     title: string
     id: string
     thumbnail: string
@@ -43,8 +47,8 @@ export default function CardCarousel({ items }: Props) {
       refScroll.current.scrollTo({ x: ITEM_WIDTH * data.length, y: 0, animated: false })
     }
   }, [width]) */
-  if (isLoading) {
-    return <></>
+  if (isLoading || !items) {
+    return <Skeleton width="100%" height={'90vh'} baseColor={theme.COLORS.BOX_SKELETON} />
   }
 
   return (

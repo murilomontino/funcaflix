@@ -26,7 +26,7 @@ export class GetterPlaylistTVPrograms extends GetterEntity<IGetterPlaylist> impl
     this.thumbnail = params.thumbnail
     this.publishedAt = params.publishedAt
     this.count = params.count
-    this.playlistId = params.playlistId
+    this.playlistId = params.playlistId || params.link || 'Não Informado'
     this.link = params.link || 'Não Informado'
     return this
   }
