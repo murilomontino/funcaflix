@@ -24,7 +24,7 @@ const nextConfig = ((phase) => {
   const isProduction = phase === 'production'
 
   const _currentURL = isProduction ? process.env.API_URL : 'http://localhost:3000/api/'
-
+  
   return {
     eslint: {
       ignoreDuringBuilds: true,

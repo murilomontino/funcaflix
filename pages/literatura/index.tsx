@@ -7,7 +7,6 @@ import { FindAllProductsByCategory } from '@/domain/usecases'
 import { GetStaticProps } from 'next/types'
 
 import Loading from '@/components/molecule/loading'
-import TemplateFrontEnd from '@/components/templates/frontend'
 import ScreenBooks from '@/screens/books-screen'
 
 export default function Literatura({ staticBooks }) {
@@ -15,11 +14,7 @@ export default function Literatura({ staticBooks }) {
     return <Loading />
   }
 
-  return (
-    <TemplateFrontEnd>
-      <ScreenBooks books={staticBooks} />
-    </TemplateFrontEnd>
-  )
+  return <ScreenBooks books={staticBooks} />
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {

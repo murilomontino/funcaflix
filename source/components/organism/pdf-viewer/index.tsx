@@ -48,9 +48,9 @@ const PdfViewer = ({ id }: Props) => {
     setPageNumber(1)
     return id
       ? {
-          url: `http://localhost:3000/api/books/pdf/${id}`,
+          url: `${process.env._currentURL}books/pdf/${id}`,
           httpHeaders: {
-            authorization: 'Api-key 2458cdd1-b568-52eb-a99f-d7e006dface9',
+            authorization: `Api-key ${process.env.API_KEY}`,
           },
         }
       : null

@@ -49,7 +49,7 @@ export class FindAllProductsByCategory implements UseCase<unknown, IGetterProduc
         active: true,
       },
       ...Object.fromEntries(mapConfig),
-      order: [['createdAt', 'DESC']],
+      order: [['createdAt', 'ASC']],
       attributes: ['id', 'title', 'about', 'thumbnail', 'category', 'link', 'createdAt'],
     })
 

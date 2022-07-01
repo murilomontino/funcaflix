@@ -23,6 +23,8 @@ export default (Application: Express) => {
           'https:',
           'http://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.worker.js',
           'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.worker.js',
+          'https://1f36-45-185-177-247.ngrok.io',
+          'http://localhost:3000/api/*',
           'http://localhost:*',
           'https://www.youtube.com/s/player/f8cb7a3b/www-widgetapi.vflset/www-widgetapi.js',
           'https://www.youtube.com/iframe_api',

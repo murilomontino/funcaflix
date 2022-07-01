@@ -4,6 +4,7 @@ import Skeleton from 'react-loading-skeleton'
 import { build, db } from '@/database'
 import { FindAllProductsByCategory, FindAllTvProgramsUseCase } from '@/domain/usecases'
 import theme from '@/theme'
+import { database } from 'backend/database'
 import { useRouter } from 'next/router'
 import { GetStaticProps } from 'next/types'
 
@@ -64,6 +65,7 @@ export default VideoPageDetails
 
 export const getStaticPaths = async (context) => {
   await build()
+
   const audioVisual = await new FindAllProductsByCategory().execute(null, {
     category: ['152', '1'],
   })
@@ -80,6 +82,7 @@ export const getStaticPaths = async (context) => {
       params: { playlistId: playlist.id.toString() },
     })),
   ])
+  await database.close()
 
   return { paths, fallback: false }
 }
@@ -104,7 +107,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   )
 
   const audioVisual = audioVisualEither.isLeft() ? audioVisualEither.value : null
-
+  await database.close()
   return {
     props: {
       staticVideos: audioVisual,

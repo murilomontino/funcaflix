@@ -4,7 +4,6 @@ import { build } from '@/database'
 import { FindOneBookByIdProductUseCase, FindAllProductsByCategory } from '@/domain/usecases'
 import { GetStaticProps } from 'next/types'
 
-import TemplateFrontEnd from '@/components/templates/frontend'
 import ScreenBookID from '@/screens/book-id-screen'
 
 const LiteraturaId = ({ staticBook }) => {
@@ -12,11 +11,7 @@ const LiteraturaId = ({ staticBook }) => {
     return <div>Loading...</div>
   }
 
-  return (
-    <TemplateFrontEnd>
-      <ScreenBookID book={staticBook} />
-    </TemplateFrontEnd>
-  )
+  return <ScreenBookID book={staticBook} />
 }
 
 export default LiteraturaId

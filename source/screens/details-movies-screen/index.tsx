@@ -5,7 +5,7 @@ import theme from '@/theme'
 
 import DetailsMovies from '@/components/organism/details-movies'
 import OtherEpisodies from '@/components/organism/other-episodies'
-import YoutubeVideo from '@/components/organism/youtube-video'
+import VideoStream from '@/components/organism/video-stream'
 
 import { Choose, When } from '@/utils/tsx-controls'
 
@@ -27,7 +27,7 @@ const DetailsScreen = ({ videoId, playlist, videos, item }) => {
           <Skeleton width="100%" height={'90vh'} baseColor={theme.COLORS.BOX_SKELETON} />
         </When>
         <When condition={video}>
-          <YoutubeVideo id={video} />
+          <VideoStream id={video} />
         </When>
       </Choose>
 

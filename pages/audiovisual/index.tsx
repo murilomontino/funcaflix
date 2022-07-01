@@ -10,7 +10,6 @@ import {
 import { GetStaticProps } from 'next/types'
 
 import Loading from '@/components/molecule/loading'
-import TemplateFrontEnd from '@/components/templates/frontend'
 import ProgramsTVScreen from '@/screens/programs-tv-screen'
 
 export default function AudioVisual({ staticNewestVideos, staticPlaylist }) {
@@ -18,11 +17,7 @@ export default function AudioVisual({ staticNewestVideos, staticPlaylist }) {
     return <Loading />
   }
 
-  return (
-    <TemplateFrontEnd>
-      <ProgramsTVScreen newestItems={staticNewestVideos} playlist={staticPlaylist} />
-    </TemplateFrontEnd>
-  )
+  return <ProgramsTVScreen newestItems={staticNewestVideos} playlist={staticPlaylist} />
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {

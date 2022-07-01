@@ -93,7 +93,7 @@ const CarouselSwipper = ({
                   >
                     <For items={[...Array(itemsPerView + 0.5)]}>
                       {(item, index) => (
-                        <div className="block-images position-relative m-1">
+                        <div className="block-images position-relative m-1" key={index}>
                           <Skeleton
                             height={height}
                             width={280}

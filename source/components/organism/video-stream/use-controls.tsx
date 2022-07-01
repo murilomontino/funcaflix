@@ -1,9 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react'
-import ReactPlayer from 'react-player'
+import { useEffect, useState } from 'react'
 
-import Controls from './components/controls'
 import screenful from './screenfull'
-import scss from './styles.module.scss'
 
 import useDebounce from '@/hooks/utils/use-debounce'
 
@@ -21,10 +18,7 @@ const format = (seconds) => {
   return `${mm}:${ss}`
 }
 
-const YoutubeVideo = ({ id }) => {
-  const [videoId, setVideoId] = useState(id)
-  const [timeDisplayFormat, setTimeDisplayFormat] = useState('normal')
-
+function useControls({ controlsRef, playerContainerRef, refVideo, refAudio }) {
   const [state, setState] = useState({
     pip: false,
     playing: false,
@@ -32,27 +26,21 @@ const YoutubeVideo = ({ id }) => {
     light: false,
     muted: false,
     played: 0,
-    duration: 0,
     playbackRate: 1.0,
     volume: 1,
     loop: false,
     seeking: false,
   })
+  const [timeDisplayFormat, setTimeDisplayFormat] = useState('normal')
 
-  const refAudio = useRef(null)
-  const refVideo = useRef(null)
-  const controlsRef = useRef(null)
-  const playerContainerRef = useRef(null)
+  const currentTime = refVideo && refVideo.current ? refVideo.current.getCurrentTime() : '00:00'
+
+  const duration = refVideo && refVideo.current ? refVideo.current.getDuration() : '00:00'
+  const elapsedTime =
+    timeDisplayFormat == 'normal' ? format(currentTime) : `-${format(duration - currentTime)}`
+  const totalDuration = format(duration)
 
   const debounce = useDebounce()
-
-  const { playing, controls, light, muted, loop, playbackRate, pip, played, volume } = state
-
-  useEffect(() => {
-    setVideoId(id)
-  }, [id])
-
-  if (!videoId) return null
 
   const handleMouseMove = () => {
     controlsRef.current.style.visibility = 'visible'
@@ -68,21 +56,14 @@ const YoutubeVideo = ({ id }) => {
     controlsRef.current.style.visibility = 'hidden'
   }
   useEffect(() => {
-    if (playing) {
+    if (state.playing) {
       refAudio.current.currentTime = refVideo.current.getCurrentTime()
       refAudio.current.play()
     } else {
       refAudio.current.currentTime = refVideo.current.getCurrentTime()
       refAudio.current.pause()
     }
-  }, [playing])
-
-  const currentTime = refVideo && refVideo.current ? refVideo.current.getCurrentTime() : '00:00'
-
-  const duration = refVideo && refVideo.current ? refVideo.current.getDuration() : '00:00'
-  const elapsedTime =
-    timeDisplayFormat == 'normal' ? format(currentTime) : `-${format(duration - currentTime)}`
-  const totalDuration = format(duration)
+  }, [state.playing])
 
   const handleProgress = (changeState) => {
     const time = changeState.playedSeconds - refAudio.current.currentTime
@@ -110,7 +91,6 @@ const YoutubeVideo = ({ id }) => {
       return { ...state, seeking: false }
     })
   }
-
   const handleSeekChange = (e, newValue) => {
     setState((state) => {
       const played = parseFloat((newValue / 100).toString())
@@ -166,11 +146,6 @@ const YoutubeVideo = ({ id }) => {
   const handlePlayPause = () => {
     setState((state) => {
       const playing = !state.playing
-      /*   if (playing) {
-        refAudio.current.play()
-      } else {
-        refAudio.current.pause()
-      } */
       refAudio.current.currentTime = refVideo.current.getCurrentTime()
       return { ...state, playing }
     })
@@ -197,78 +172,32 @@ const YoutubeVideo = ({ id }) => {
     })
   }
 
-  return (
-    <div
-      ref={playerContainerRef}
-      className={`position-relative w-100 mt-2 ${scss['player-container']}`}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-    >
-      <ReactPlayer
-        ref={refVideo}
-        width={'100vw'}
-        pip={pip}
-        playing={playing}
-        controls={controls}
-        light={light}
-        loop={loop}
-        playbackRate={playbackRate}
-        muted
-        onPause={() => {
-          refAudio.current.pause()
-        }}
-        onEnded={handleEnd}
-        onProgress={handleProgress}
-        height={'100%'}
-        config={{
-          youtube: {
-            playerVars: {
-              autoplay: 1,
-              color: '#fff',
-              iv_load_policy: 3,
-              modestbranding: 1,
-              rel: 0,
-              showinfo: 0,
-            },
-          },
-          file: {
-            attributes: {
-              onContextMenu: (e) => e.preventDefault(),
-            },
-          },
-        }}
-        url={`http://localhost:3000/api/video?videoId=${videoId}`}
-      />
-      <audio
-        ref={refAudio}
-        src={`http://localhost:3000/api/audio?videoId=${videoId}`}
-        muted={muted}
-      />
-      <Controls
-        onPlayPause={handlePlayPause}
-        ref={controlsRef}
-        playing={playing}
-        played={played}
-        muted={muted}
-        playbackRate={playbackRate}
-        volume={volume}
-        elapsedTime={elapsedTime}
-        totalDuration={totalDuration}
-        onMute={handleMute}
-        onChangeDisplayFormat={handleDisplayFormat}
-        onToggleFullScreen={toggleFullScreen}
-        onVolumeChange={handleVolumeChange}
-        onDuration={handleDuration}
-        onSeekMouseDown={handleSeekMouseDown}
-        onVolumeSeekDown={handleVolumeSeekDown}
-        onSeekMouseUp={handleSeekMouseUp}
-        onPlaybackRateChange={handlePlaybackRate}
-        onSeek={handleSeekChange}
-        onRewind={handleRewind}
-        onFastForward={handleFastForward}
-      />
-    </div>
-  )
+  return {
+    ...state,
+    duration,
+    elapsedTime,
+    totalDuration,
+    timeDisplayFormat,
+    handleMouseLeave,
+    handleMouseMove,
+    handleSeekMouseDown,
+    handleSeekMouseUp,
+    handleProgress,
+    handleSeekChange,
+    handleRewind,
+    handleFastForward,
+    handleDuration,
+    handleVolumeSeekDown,
+    handleVolumeChange,
+    handlePlayPause,
+    toggleFullScreen,
+    handleDisplayFormat,
+    handlePlaybackRate,
+    handleMute,
+    handleEnd,
+    setState,
+    setTimeDisplayFormat,
+  }
 }
 
-export default YoutubeVideo
+export default useControls

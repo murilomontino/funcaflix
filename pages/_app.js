@@ -3,6 +3,8 @@
 import React from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 
+import { build } from 'backend/database'
+
 import RootContext from '@/context/Root'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -15,6 +17,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import '../styles/_styles.scss'
 import 'raf/polyfill'
 import 'setimmediate'
+import TemplateFrontEnd from '@/components/templates/frontend'
 
 const queryClient = new QueryClient()
 // This default export is required in a new `pages/_app.js` file.
@@ -22,8 +25,14 @@ export default function MyApp({ Component, pageProps }) {
   return (
     <QueryClientProvider client={queryClient}>
       <RootContext>
-        <Component {...pageProps} />
+        <TemplateFrontEnd>
+          <Component {...pageProps} />
+        </TemplateFrontEnd>
       </RootContext>
     </QueryClientProvider>
   )
+}
+
+export const getServerSideProps = async () => {
+  await build()
 }

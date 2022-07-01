@@ -9,18 +9,15 @@ import {
 } from '@/domain/usecases'
 import { GetStaticProps } from 'next/types'
 
-import TemplateFrontEnd from '@/components/templates/frontend'
 import HomeScreen from '@/screens/home-screen'
 
 export default function App({ staticBooks, staticPlaylist, staticNewestProducts }) {
   return (
-    <TemplateFrontEnd>
-      <HomeScreen
-        books={staticBooks}
-        tvProgramsPlaylist={staticPlaylist}
-        newestProducts={staticNewestProducts}
-      />
-    </TemplateFrontEnd>
+    <HomeScreen
+      books={staticBooks}
+      tvProgramsPlaylist={staticPlaylist}
+      newestProducts={staticNewestProducts}
+    />
   )
 }
 

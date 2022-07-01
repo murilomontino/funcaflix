@@ -9,15 +9,10 @@ import {
 } from '@/domain/usecases'
 import { GetStaticProps } from 'next/types'
 
-import TemplateFrontEnd from '@/components/templates/frontend'
 import ProgramsTVScreen from '@/screens/programs-tv-screen'
 
 export default function ProgramsTV({ staticNewestVideos, staticPlaylist }) {
-  return (
-    <TemplateFrontEnd>
-      <ProgramsTVScreen newestItems={staticNewestVideos} playlist={staticPlaylist} />
-    </TemplateFrontEnd>
-  )
+  return <ProgramsTVScreen newestItems={staticNewestVideos} playlist={staticPlaylist} />
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
