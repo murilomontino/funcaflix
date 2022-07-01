@@ -1,19 +1,61 @@
 import React from 'react'
 
-import { useRouter } from 'next/router'
+import { build } from '@/database'
+import { FindOneBookByIdProductUseCase, FindAllProductsByCategory } from '@/domain/usecases'
+import { GetStaticProps } from 'next/types'
 
-import TemplateFrontEnd from '@/components/templates/frontend'
 import ScreenBookID from '@/screens/book-id-screen'
 
-const Id = () => {
-  const router = useRouter()
-  const { id } = router.query
+const LiteraturaId = ({ staticBook }) => {
+  if (!staticBook) {
+    return <div>Loading...</div>
+  }
 
-  return (
-    <TemplateFrontEnd>
-      <ScreenBookID id={id?.toString()} />
-    </TemplateFrontEnd>
-  )
+  return <ScreenBookID book={staticBook} />
 }
 
-export default Id
+export default LiteraturaId
+
+export const getStaticPaths = async () => {
+  await build()
+  const books = await new FindAllProductsByCategory().execute(null, {
+    category: '2',
+  })
+
+  if (books.isRight()) {
+    return {
+      paths: [],
+      fallback: false,
+    }
+  }
+
+  const paths = books.value.map((book) => ({
+    params: { id: book.id?.toString() || -1 },
+  }))
+
+  return { paths, fallback: false }
+}
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  if (!params?.id) {
+    return {
+      props: {
+        staticBook: null,
+      },
+    }
+  }
+
+  await build()
+  const bookEither = await new FindOneBookByIdProductUseCase().execute(null, {
+    id: params.id?.toString(),
+  })
+
+  const book = bookEither.isLeft() ? bookEither.value : null
+
+  return {
+    props: {
+      staticBook: book,
+    },
+    revalidate: 60 * 60 * 24,
+  }
+}

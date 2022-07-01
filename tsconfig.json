@@ -1,10 +1,9 @@
 {
   "compilerOptions": {
     "jsx": "preserve",
-    "target": "ES2015",
-    "module": "esnext",
+    "target": "ESNext",
+    "module": "CommonJS",
     "types": [
-      "jest",
       "node"
     ],
     "allowJs": true,
@@ -23,23 +22,35 @@
     "baseUrl": ".",
     "paths": {
       "@/*": [
-        "./src/*"
-      ]
+        "./source/*",
+        "./backend/core/*"
+      ],
+      "@/database": [
+        "./database.ts"
+      ],
+      "@/public/*": [
+        "./public/*"
+      ],
     },
     "isolatedModules": true,
     "incremental": true
   },
   "include": [
-    "src/**/*",
+    "backend/**/*",
+    "app",
+    "source",
     "pages"
   ],
+  "ts-node": {
+    "transpileOnly": true,
+  },
   "exclude": [
-    "node_modules",
+    "node_modules/**/*",
     "babel.config.ts",
     "metro.config.ts",
     "jest.config.js",
     "next.config.ts",
-    "src/components/atom/date-picker/react-date-picker/**/*",
+    "source/components/atom/date-picker/react-date-picker/**/*",
   ],
   "extends": "expo/tsconfig.base",
   "rules": [

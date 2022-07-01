@@ -1,5 +1,7 @@
 # @generated: @expo/next-adapter@2.1.0
-node_modules/**/*
+node_modules
+!node_modules/next/dist/server/config.js
+.vscode
 .expo/*
 npm-debug.*
 *.jks
@@ -10,11 +12,11 @@ npm-debug.*
 *.orig.*
 web-build/
 web-report/
-
+environment
 # debug
 yarn-debug.log*
 yarn-error.log*
-
+cert
 # macOS
 .DS_Store
 

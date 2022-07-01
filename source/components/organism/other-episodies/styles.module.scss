@@ -1,0 +1,21 @@
+.w-250-px {
+  min-width: 150px;
+  width: 20vw;
+  max-width: 250px;
+}
+
+.h-150-px {
+  min-height: 75px;
+  height: 10vh;
+  max-height: 200px;
+}
+
+.btn {
+  :hover {
+    cursor: pointer;
+  }
+  :active {
+    opacity: 0.5;
+  }
+    
+}

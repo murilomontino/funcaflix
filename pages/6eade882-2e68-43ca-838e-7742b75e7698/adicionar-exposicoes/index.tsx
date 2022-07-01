@@ -3,16 +3,16 @@ import React from 'react'
 
 import Main from '@/modules/products/add-exhibition'
 
-import TemplateAddProduct from '@/components/templates/add-product'
+import TemplateAdmin from '@/components/templates/admin'
 
 import FormProductExhibitionProvider from '@/forms/Product/product-exhibition'
 
 export default function AddExhibition() {
   return (
-    <TemplateAddProduct>
+    <TemplateAdmin>
       <FormProductExhibitionProvider>
         <Main />
       </FormProductExhibitionProvider>
-    </TemplateAddProduct>
+    </TemplateAdmin>
   )
 }
