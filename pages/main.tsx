@@ -1,7 +1,6 @@
 // @generated: @expo/next-adapter@2.1.52
 import React from 'react'
 
-import { build } from '@/database'
 import {
   FindAllNewestAudioVisual,
   FindAllPlaylistUseCase,
@@ -22,7 +21,6 @@ export default function App({ staticBooks, staticPlaylist, staticNewestProducts 
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  await build()
   const books = await new FindAllProductsByCategory().execute(
     {},
     {

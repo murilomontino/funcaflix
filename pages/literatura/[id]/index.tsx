@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { build } from '@/database'
 import { FindOneBookByIdProductUseCase, FindAllProductsByCategory } from '@/domain/usecases'
+import { database } from 'backend/database'
 import { GetStaticProps } from 'next/types'
 
 import ScreenBookID from '@/screens/book-id-screen'
@@ -17,11 +17,11 @@ const LiteraturaId = ({ staticBook }) => {
 export default LiteraturaId
 
 export const getStaticPaths = async () => {
-  await build()
+  await database.sync()
   const books = await new FindAllProductsByCategory().execute(null, {
     category: '2',
   })
-
+  await database.close()
   if (books.isRight()) {
     return {
       paths: [],
@@ -44,12 +44,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       },
     }
   }
-
-  await build()
   const bookEither = await new FindOneBookByIdProductUseCase().execute(null, {
     id: params.id?.toString(),
   })
-
   const book = bookEither.isLeft() ? bookEither.value : null
 
   return {

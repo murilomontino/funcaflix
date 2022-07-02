@@ -8,7 +8,6 @@ import type { Server as ServerHTTPS } from 'https'
 import { createServer as CreateServerHTTPS } from 'https'
 import next from 'next'
 
-import { build } from '../backend/database'
 import Middleware from './middleware'
 import NextjsExpressRouter from './nextjs_express_router'
 import ServerIO from './socket-io'
@@ -61,7 +60,7 @@ class Server {
     await this.next.prepare()
     await this.middleware.init()
     await this.router.init()
-    await build()
+    /*  await build() */
     this.server = httpServer(this.express)
     this.server.listen(process.env.EXPRESS_PORT || 3000)
     this.io = new ServerIO(this.server)

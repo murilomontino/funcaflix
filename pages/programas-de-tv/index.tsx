@@ -1,7 +1,6 @@
 // @generated: @expo/next-adapter@2.1.52
 import React from 'react'
 
-import { build } from '@/database'
 import {
   FindAllPlaylistAndItemsUseCase,
   FindAllPlaylistUseCase,
@@ -16,7 +15,6 @@ export default function ProgramsTV({ staticNewestVideos, staticPlaylist }) {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  await build()
   const findAllPlaylistAndItemsUseCase = new FindAllPlaylistAndItemsUseCase(
     new FindAllTvProgramsUseCase(),
     new FindAllPlaylistUseCase()
@@ -40,7 +38,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
       revalidate: 60,
     }
   }
-
   return {
     props: {
       staticNewestVideos: newestVideos.value,

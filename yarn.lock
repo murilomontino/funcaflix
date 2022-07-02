@@ -12471,10 +12471,6 @@ typedarray@^0.0.6:
   resolved "https://registry.npmjs.org/typedarray/-/typedarray-0.0.6.tgz"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-"types-funcap@https://github.com/murilomontino/FUNCAP.Types.git":
-  version "1.0.0"
-  resolved "git+ssh://git@github.com/murilomontino/FUNCAP.Types.git#dbf4090b0a2ac928f74bd37e343df7cf21f8a8d9"
-
 typescript-compare@^0.0.2:
   version "0.0.2"
   resolved "https://registry.npmjs.org/typescript-compare/-/typescript-compare-0.0.2.tgz"

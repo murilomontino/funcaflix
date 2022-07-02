@@ -119,7 +119,6 @@
     "ts-node-dev": "^2.0.0",
     "tsconfig-paths": "^4.0.0",
     "tslib": "^2.4.0",
-    "types-funcap": "https://github.com/murilomontino/FUNCAP.Types.git",
     "typescript": "~4.5.5"
   },
   "scripts": {

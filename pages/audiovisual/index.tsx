@@ -1,7 +1,6 @@
 // @generated: @expo/next-adapter@2.1.52
 import React from 'react'
 
-import { build } from '@/database'
 import {
   FindAllPlaylistAndItemsUseCase,
   FindAllPlaylistUseCase,
@@ -21,7 +20,6 @@ export default function AudioVisual({ staticNewestVideos, staticPlaylist }) {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  await build()
   const findAllPlaylistAndItemsUseCase = new FindAllPlaylistAndItemsUseCase(
     new FindAllTvProgramsUseCase(),
     new FindAllPlaylistUseCase()
