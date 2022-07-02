@@ -22,7 +22,7 @@ cert
 
 # misc
 .DS_Store
-.env*
+.env
 
 .next
 

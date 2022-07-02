@@ -34,13 +34,13 @@ export const getStaticProps: GetStaticProps = async (context) => {
     subCategory: ['162', '161', '11', '12', '13', '42'],
   })
 
-  if (playlistAndItemsEither.isRight() || newestVideos.isRight()) {
+  if (process.env.ELECTION_PERIOD || playlistAndItemsEither.isRight() || newestVideos.isRight()) {
     return {
       props: {
         playlist: [],
         newestItems: [],
       },
-      revalidate: 60,
+      revalidate: 60 * 60 * 24,
     }
   }
 

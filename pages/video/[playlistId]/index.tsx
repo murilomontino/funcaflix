@@ -67,10 +67,10 @@ export const getStaticPaths = async (context) => {
     category: ['152', '1'],
   })
 
-  if (audioVisual.isRight()) {
+  if (process.env.ELECTION_PERIOD || audioVisual.isRight()) {
     return {
       paths: [],
-      fallback: false,
+      fallback: true,
     }
   }
 
@@ -84,6 +84,16 @@ export const getStaticPaths = async (context) => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
+  if (process.env.ELECTION_PERIOD) {
+    return {
+      props: {
+        staticVideos: [],
+        staticPlaylist: {},
+      },
+      revalidate: 60 * 60 * 24,
+    }
+  }
+
   const { playlistId } = params
 
   const playlist = await (

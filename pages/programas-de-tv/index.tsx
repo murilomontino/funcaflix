@@ -29,7 +29,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     subCategory: ['152'],
   })
 
-  if (playlistAndItemsEither.isRight() || newestVideos.isRight()) {
+  if (process.env.ELECTION_PERIOD || playlistAndItemsEither.isRight() || newestVideos.isRight()) {
     return {
       props: {
         playlist: [],
