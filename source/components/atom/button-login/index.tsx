@@ -22,18 +22,20 @@ const ButtonLogin = ({ textVisible = true }: Props) => {
   const color = useMemo(() => (hover ? 'orange' : theme.COLORS.TEXT), [hover])
 
   return (
-    <Link href={'https://funcap.mapacultural.acesso.se.gov.br/'}>
-      <Container ref={ref}>
-        <Button>
-          <React.Fragment>
-            <AntDesign name="login" size={iconSize} color={color} />
+    <Link href={'https://mapacultural.acesso.funcap.se.gov.br/'} passHref>
+      <a>
+        <Container ref={ref}>
+          <Button>
+            <React.Fragment>
+              <AntDesign name="login" size={iconSize} color={color} />
 
-            <Text fontSize={fontSize} color={color} textVisible={textVisible}>
-              Entrar
-            </Text>
-          </React.Fragment>
-        </Button>
-      </Container>
+              <Text fontSize={fontSize} color={color} textVisible={textVisible}>
+                Entrar
+              </Text>
+            </React.Fragment>
+          </Button>
+        </Container>
+      </a>
     </Link>
   )
 }

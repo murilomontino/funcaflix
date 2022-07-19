@@ -24,12 +24,7 @@ const LogoGoverno: React.FC<Props> = ({ size, textVisible = true }) => {
           height: fontSize,
         }}
       >
-        <Image
-          src={textVisible ? assets[0] : assets[1]}
-          layout="fill"
-          objectFit="contain"
-          alt="Logo do Governo"
-        />
+        <Image src={assets[1]} layout="fill" objectFit="contain" alt="Logo do Governo" />
       </TouchableOpacity>
     </a>
   )

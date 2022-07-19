@@ -17,10 +17,12 @@ const NavBar: React.FC<Props> = ({ flexDirection = 'row' }) => {
     >
       <ItemNavBar title="AUDIOVISUAL" link="/audiovisual" disabled />
       <ItemNavBar title="PROGRAMAS DE TV" link="/programas-de-tv" disabled />
-      <ItemNavBar title="LITERATURA" select={true} link="/literatura" />
+      <ItemNavBar title="LITERATURA" select={true} link="/literatura" disabled />
       <ItemNavBar title="MÚSICAS" select={true} link="/musicas" disabled />
       <ItemNavBar title="ARTES VISUAIS" link="/artes-visuais" disabled />
-      <ItemNavBar title="AGENDA CULTURAL" link="/agenda" />
+      <ItemNavBar title="AGENDA CULTURAL" link="/agenda" disabled />
+      <ItemNavBar title="PERFIS CULTURAIS" link="/perfil" disabled />
+      <ItemNavBar title="OPORTUNIDADES" link="/perfil" disabled />
     </View>
   )
 }

@@ -1,9 +1,7 @@
 import React from 'react'
 import { useScaledSize } from 'react-native-web-hooks'
 
-import LogoFuncap from '@/components/atom/logo-funcap'
-
-import { ContainerLogo, ContainerTitle, TitleLogo, Container } from './styles'
+import { ContainerTitle, TitleLogo, Container } from './styles'
 
 import { useSize } from '@/hooks/utils/use-size'
 
@@ -26,14 +24,14 @@ const HeaderLogo = ({ textSize = 1, widthLogo = 3, widthContainer = 100, subTitl
         justifyContent: size.width < 1127 ? 'center' : 'flex-start',
       }}
     >
-      <ContainerLogo
+      {/*   <ContainerLogo
         style={{
           width: widthContainer,
           maxWidth: widthContainer,
         }}
       >
         <LogoFuncap size={widthLogo} />
-      </ContainerLogo>
+      </ContainerLogo> */}
       <ContainerTitle>
         <TitleLogo
           style={{

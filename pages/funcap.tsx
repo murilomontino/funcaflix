@@ -8,16 +8,10 @@ import {
 } from '@/domain/usecases'
 import { GetStaticProps } from 'next/types'
 
-import HomeScreen from '@/screens/home-screen'
+import ComingSoonScreen from '@/screens/coming-soon-screen'
 
 export default function App({ staticBooks, staticPlaylist, staticNewestProducts }) {
-  return (
-    <HomeScreen
-      books={staticBooks}
-      tvProgramsPlaylist={staticPlaylist}
-      newestProducts={staticNewestProducts}
-    />
-  )
+  return <ComingSoonScreen />
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
