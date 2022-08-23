@@ -68,9 +68,11 @@ const nextConfig = ((phase) => {
     },
     // webpack configurado pra moti e react-reanimated v2
     env: {
+      ELECTION_PERIOD: process.env.ELECTION_PERIOD,
       API_KEY: process.env.API_KEY,
       _currentURL
-    }
+    },
+    
   }
 })(process.env.NODE_ENV)
 
