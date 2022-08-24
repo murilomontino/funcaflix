@@ -10,6 +10,8 @@ import Logo from '@/components/atom/logo-funcapflix'
 
 import { ContainerLogo, Title } from './styles'
 
+import { If } from '@/utils/tsx-controls'
+
 type Props = {
   title: string
   thumbnail: string
@@ -78,9 +80,11 @@ const CardSwipper = ({
           width: '100%',
         }}
       >
-        <ContainerLogo>
-          <Logo size={1.5} />
-        </ContainerLogo>
+        <If condition={!process.env.ELECTION_PERIOD}>
+          <ContainerLogo>
+            <Logo size={1.5} />
+          </ContainerLogo>
+        </If>
         <MotiView
           animate={{
             width: '100%',

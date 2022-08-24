@@ -1,9 +1,11 @@
 import React, { useRef } from 'react'
-import { StyleSheet, Text, TouchableOpacity, FontVariant } from 'react-native'
+import { StyleSheet, TouchableOpacity, FontVariant } from 'react-native'
 import { useHover } from 'react-native-web-hooks'
 
 import theme from '@/theme'
 import Link from 'next/link'
+
+import { Text as StyledText } from './styles'
 
 type Props = {
   title: string
@@ -11,6 +13,7 @@ type Props = {
   select?: boolean
   fontVariant?: FontVariant
   passHref?: boolean
+  disabled?: boolean
 }
 
 const ItemNavBar: React.FC<Props> = ({
@@ -19,44 +22,35 @@ const ItemNavBar: React.FC<Props> = ({
   select = true,
   fontVariant = 'small-caps',
   passHref = false,
+  disabled = false,
 }) => {
   const ref = useRef(null)
   const hover = useHover(ref)
 
-  const fontSize = 12
-
   if (passHref) {
     return (
       <a href={link} style={{ textDecoration: 'none' }}>
-        <TouchableOpacity style={styles.buttonNav}>
-          <Text
-            ref={ref}
-            style={[
-              { fontSize, fontVariant: [fontVariant] },
-              styles.textNav,
-              select && hover && styles.hoverText,
-            ]}
-          >
+        <TouchableOpacity style={styles.buttonNav} disabled={disabled}>
+          <StyledText disabled={disabled} hover={hover} ref={ref}>
+            {/* Icone <a className de cadeado /> */}
             {title}
-          </Text>
+          </StyledText>
         </TouchableOpacity>
       </a>
     )
   }
 
   return (
-    <TouchableOpacity style={styles.buttonNav}>
-      <Link href={link} passHref={passHref}>
-        <Text
+    <TouchableOpacity style={styles.buttonNav} disabled={disabled}>
+      <Link href={disabled ? '#' : link} passHref={passHref}>
+        <StyledText
+          disabled={disabled}
+          hover={hover}
           ref={ref}
-          style={[
-            { fontSize, fontVariant: [fontVariant] },
-            styles.textNav,
-            select && hover && styles.hoverText,
-          ]}
+          /*  style={[{ fontSize, fontVariant: [fontVariant] }, styles.textNav]} */
         >
           {title}
-        </Text>
+        </StyledText>
       </Link>
     </TouchableOpacity>
   )

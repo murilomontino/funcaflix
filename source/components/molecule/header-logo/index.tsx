@@ -1,9 +1,9 @@
 import React from 'react'
 import { useScaledSize } from 'react-native-web-hooks'
 
-import LogoFuncap from '@/components/atom/logo-funcap'
+import LogoFuncap from '@/components/atom/logo-funcapflix'
 
-import { ContainerLogo, ContainerTitle, TitleLogo, Container } from './styles'
+import { ContainerTitle, TitleLogo, Container, ContainerLogo } from './styles'
 
 import { useSize } from '@/hooks/utils/use-size'
 
@@ -18,12 +18,13 @@ const HeaderLogo = ({ textSize = 1, widthLogo = 3, widthContainer = 100, subTitl
   const { size } = useSize()
 
   const TEXT_SIZE = useScaledSize(textSize)
-  const SUB_TITLE_SIZE = useScaledSize(textSize - 1)
+  const SUB_TITLE_SIZE = useScaledSize(textSize - 1.1)
 
   return (
     <Container
       style={{
         justifyContent: size.width < 1127 ? 'center' : 'flex-start',
+        marginTop: 80,
       }}
     >
       <ContainerLogo
@@ -38,6 +39,7 @@ const HeaderLogo = ({ textSize = 1, widthLogo = 3, widthContainer = 100, subTitl
         <TitleLogo
           style={{
             fontSize: TEXT_SIZE,
+            textAlign: size.width < 1127 ? 'center' : 'left',
           }}
         >
           Fundação de Cultura e Arte Aperipê

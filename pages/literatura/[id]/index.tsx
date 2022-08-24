@@ -1,6 +1,5 @@
 import React from 'react'
 
-import { build } from '@/database'
 import { FindOneBookByIdProductUseCase, FindAllProductsByCategory } from '@/domain/usecases'
 import { GetStaticProps } from 'next/types'
 
@@ -17,11 +16,9 @@ const LiteraturaId = ({ staticBook }) => {
 export default LiteraturaId
 
 export const getStaticPaths = async () => {
-  await build()
   const books = await new FindAllProductsByCategory().execute(null, {
     category: '2',
   })
-
   if (books.isRight()) {
     return {
       paths: [],
@@ -44,12 +41,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       },
     }
   }
-
-  await build()
   const bookEither = await new FindOneBookByIdProductUseCase().execute(null, {
     id: params.id?.toString(),
   })
-
   const book = bookEither.isLeft() ? bookEither.value : null
 
   return {

@@ -4,6 +4,8 @@ import Logo from '@/public/logo-funcap.png'
 import theme from '@/theme'
 import Image from 'next/image'
 
+import { If } from '@/utils/tsx-controls'
+
 const EventContent = () => {
   return (
     <div className="trending-info align-items-center w-100 animated fadeInUp iq-ltr-direction">
@@ -19,7 +21,9 @@ const EventContent = () => {
                 'transparent linear-gradient(270deg, rgba(11, 1, 2, 0) 0%, rgba(135, 135, 135, 0.3) 100%)',
             }}
           >
-            <Image src={Logo} className="c-logo" alt="Logo Funcap" height={45} width={45} />
+            <If condition={!process.env.ELECTION_PERIOD}>
+              <Image src={Logo} className="c-logo" alt="Logo Funcap" height={45} width={45} />
+            </If>
             <h6
               style={{
                 fontFamily: theme.FONTS.TITLE_BOLD,

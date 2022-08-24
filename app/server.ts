@@ -8,7 +8,6 @@ import type { Server as ServerHTTPS } from 'https'
 import { createServer as CreateServerHTTPS } from 'https'
 import next from 'next'
 
-import { build } from '../backend/database'
 import Middleware from './middleware'
 import NextjsExpressRouter from './nextjs_express_router'
 import ServerIO from './socket-io'
@@ -29,9 +28,10 @@ const httpServer = (express: Express): ServerHTTP => {
  * @returns A server object
  */
 const httpsServer = (express: Express): ServerHTTPS => {
+  const path = process.cwd() + '/cert/'
   const options = {
-    key: fs.readFileSync('../cert/localhost.key'),
-    cert: fs.readFileSync('../cert/localhost.crt'),
+    key: fs.readFileSync(path + 'localhost.key'),
+    cert: fs.readFileSync(path + 'localhost.crt'),
   }
   return CreateServerHTTPS(options, express)
 }
@@ -56,12 +56,29 @@ class Server {
    * middleware, then calls the `init` function of the router, then calls the `build`
    * function, then creates an http server with the express app, then listens on the
    * port specified in the `EXPRESS_PORT` environment variable or 3000
+   * 
+   * Critérios de Avaliação para o relatório apresentado
+
+(1) Objetos de Estudo - 3 pontos
+O desenvolvimento deste projeto possibilitará ao estudante o emprego, ou ampliação, dos saberes e competências construídos ao longo do curso?
+O trabalho está contextualizado?
+Existe uma justificativa/motivação para a realização do estudo?    
+Os objetivos do trabalho estão claramente estabelecidos?
+Nota *
+(2) Andamento do estudo - 3 pontos
+A fundamentação teórica/revisão bibliográfica foi apresentada na profundidade adequada e está coerente com os objetivos do trabalho?
+O cronograma de atividades apresentado é razoável para execução durante o TCC 2?
+Nota *
+(3) Escrita do relatório - 4 pontos
+Apresenta redação clara e coesa?
+As normas ABNT foram seguidas?
+   * 
    */
   async start() {
     await this.next.prepare()
     await this.middleware.init()
     await this.router.init()
-    await build()
+    /*  await build() */
     this.server = httpServer(this.express)
     this.server.listen(process.env.EXPRESS_PORT || 3000)
     this.io = new ServerIO(this.server)
