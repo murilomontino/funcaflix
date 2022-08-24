@@ -19,8 +19,6 @@ const ButtonLogin = ({ textVisible = true }: Props) => {
   const fontSize = RFValue(10)
   const iconSize = RFValue(18)
 
-  console.log({ fontSize, iconSize })
-
   const ref = useRef(null)
   const hover = useHover(ref)
 
