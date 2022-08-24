@@ -9,7 +9,7 @@ type Props = {
   size: number
 }
 
-const LOGO = '/logo-funcap-texto.png'
+const LOGO = '/logo-default.png'
 const LINK = 'https://www.funcap.se.gov.br/'
 
 const LogoFuncap: React.FC<Props> = ({ size }) => {

@@ -1,47 +1,47 @@
-import React, { useEffect, useState } from 'react'
-import { Platform, StyleSheet } from 'react-native'
-import { useLayout } from 'react-native-web-hooks'
+import React from 'react'
 
-import Logo from '@/components/atom/logo-funcap'
-import LogoFuncapVertical from '@/components/atom/logo-funcap-vertical'
-import LogoGoverno from '@/components/atom/logo-governo'
+import Image from 'next/image'
+
 import AboutFooter from '@/components/molecule/about-footer'
 
-import { ContainerFooter, ContainerAbout, ContainerSocial, ContainerLogo } from './styles'
+import {
+  ContainerFooter,
+  ContainerAbout,
+  ContainerSocial,
+  ContainerLogo,
+  ContainerLinks,
+} from './styles'
 
 const Footer = () => {
-  const web = Platform.OS === 'web'
-
-  const [sizeNavBar, setSizeNavBar] = useState(web ? false : true)
-  const { onLayout, width } = useLayout()
-
-  web &&
-    useEffect(() => {
-      if (width < 720) {
-        setSizeNavBar(true)
-      } else {
-        setSizeNavBar(false)
-      }
-    }, [width])
-
-  // 720
-
   return (
-    <ContainerFooter onLayout={onLayout}>
+    <ContainerFooter>
       <ContainerAbout>
         <AboutFooter />
       </ContainerAbout>
       <ContainerSocial />
 
       <ContainerLogo>
-        {!sizeNavBar ? <LogoFuncapVertical size={8} /> : <Logo size={4} />}
-        <div style={{ padding: 12 }} />
-        <LogoGoverno size={!sizeNavBar ? 4 : 6} textVisible={!sizeNavBar} />
+        <ContainerLinks>
+          <Image
+            src={'/logo-funcap-texto.png'}
+            width={'200%'}
+            height={'125%'}
+            alt="Logo Funcap"
+            quality={100}
+          />
+        </ContainerLinks>
+        <ContainerLinks>
+          <Image
+            src={'/governo-logo-sergipe-texto.png'}
+            width={150}
+            height={100}
+            alt="Logo do Governo"
+            quality={100}
+          />
+        </ContainerLinks>
       </ContainerLogo>
     </ContainerFooter>
   )
 }
 
 export default Footer
-
-const styles = StyleSheet.create({})

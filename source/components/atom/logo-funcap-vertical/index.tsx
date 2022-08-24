@@ -1,22 +1,19 @@
 import React from 'react'
 import { TouchableOpacity } from 'react-native'
-import { useScaledSize } from 'react-native-web-hooks'
 
 import Image from 'next/image'
 
 type Props = {
   size: number
 }
-const LOGO = '/logo-funcap-vertical.png'
+const LOGO = '/logo-funcap-texto.png'
 const LINK = 'https://www.funcap.se.gov.br/'
 
 const LogoFuncap: React.FC<Props> = ({ size }) => {
-  const fontSize = useScaledSize(size)
-
   return (
     <a href={LINK} style={{ textDecoration: 'none' }}>
       <TouchableOpacity>
-        <Image src={LOGO} width={fontSize} height={fontSize} alt="Logo Funcap" />
+        <Image src={LOGO} width={'100%'} height={'100%'} objectFit="contain" alt="Logo Funcap" />
       </TouchableOpacity>
     </a>
   )

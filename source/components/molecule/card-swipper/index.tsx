@@ -6,9 +6,11 @@ import theme from '@/theme'
 import { MotiView } from 'moti'
 
 import ImageNext from '@/components/atom/image-next'
-import Logo from '@/components/atom/logo-funcap'
+import Logo from '@/components/atom/logo-funcapflix'
 
 import { ContainerLogo, Title } from './styles'
+
+import { If } from '@/utils/tsx-controls'
 
 type Props = {
   title: string
@@ -78,9 +80,11 @@ const CardSwipper = ({
           width: '100%',
         }}
       >
-        <ContainerLogo>
-          <Logo size={1.5} />
-        </ContainerLogo>
+        <If condition={!process.env.ELECTION_PERIOD}>
+          <ContainerLogo>
+            <Logo size={1.5} />
+          </ContainerLogo>
+        </If>
         <MotiView
           animate={{
             width: '100%',

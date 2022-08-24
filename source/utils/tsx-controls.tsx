@@ -47,3 +47,7 @@ export function Choose({ children }: PropsChoose) {
 export function Otherwise({ children, condition = true }) {
   return <React.Fragment>{children}</React.Fragment>
 }
+
+export function If({ condition, children }: PropsWhen) {
+  return condition ? <React.Fragment>{children}</React.Fragment> : null
+}

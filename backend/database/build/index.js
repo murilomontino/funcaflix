@@ -21,9 +21,7 @@ const build = async () => {
   console.log('Sincronizando banco de dados...');
 
   try {
-    _database.database.addModels([...Object.values(_models.db)]);
-
-    await _database.database.sync(); //await new Seeds(db).run()
+    await _database.database.sync({}); //await new Seeds(db).run()
 
     console.log('Banco de dados sincronizado com sucesso!');
   } catch (error) {

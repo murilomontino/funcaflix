@@ -1,16 +1,14 @@
-import background from '@/public/background-image.png'
 import theme from '@/theme'
 import styledWeb from 'styled-components'
 import styled from 'styled-components/native'
 
 export const ContainerBackground = styledWeb.div`
-  flex: 1;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 70vh;
   justify-content: center;
   align-items: center;
   background-size: cover;
-  background-image: url(${background});
+  
 `
 
 export const ContainerLogo = styled.View`
@@ -20,3 +18,33 @@ export const ContainerLogo = styled.View`
 export const Container = styled.View`
   padding: 20px;
 `
+
+export const LinkAnchor = styledWeb.a`
+  color: ${theme.COLORS.IMPORTANT};
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  :hover {
+    color:  ${theme.COLORS.IMPORTANT_HOVER};
+  }
+
+  
+`
+
+export const Warning = styledWeb.p`
+  color: ${theme.COLORS.WHITE};
+  padding: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+
+  strong {
+    color: ${theme.COLORS.IMPORTANT};
+    font-weight: bold;
+  }
+
+  `

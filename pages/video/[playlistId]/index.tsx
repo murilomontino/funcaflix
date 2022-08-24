@@ -1,10 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import Skeleton from 'react-loading-skeleton'
 
-import { build, db } from '@/database'
+import { db } from '@/database'
 import { FindAllProductsByCategory, FindAllTvProgramsUseCase } from '@/domain/usecases'
 import theme from '@/theme'
-import { database } from 'backend/database'
 import { useRouter } from 'next/router'
 import { GetStaticProps } from 'next/types'
 
@@ -64,16 +63,14 @@ const VideoPageDetails = ({ staticVideos, staticPlaylist }) => {
 export default VideoPageDetails
 
 export const getStaticPaths = async (context) => {
-  await build()
-
   const audioVisual = await new FindAllProductsByCategory().execute(null, {
     category: ['152', '1'],
   })
 
-  if (audioVisual.isRight()) {
+  if (process.env.ELECTION_PERIOD || audioVisual.isRight()) {
     return {
       paths: [],
-      fallback: false,
+      fallback: true,
     }
   }
 
@@ -82,13 +79,21 @@ export const getStaticPaths = async (context) => {
       params: { playlistId: playlist.id.toString() },
     })),
   ])
-  await database.close()
 
   return { paths, fallback: false }
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  await build()
+  if (process.env.ELECTION_PERIOD) {
+    return {
+      props: {
+        staticVideos: [],
+        staticPlaylist: {},
+      },
+      revalidate: 60 * 60 * 24,
+    }
+  }
+
   const { playlistId } = params
 
   const playlist = await (
@@ -107,7 +112,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   )
 
   const audioVisual = audioVisualEither.isLeft() ? audioVisualEither.value : null
-  await database.close()
   return {
     props: {
       staticVideos: audioVisual,

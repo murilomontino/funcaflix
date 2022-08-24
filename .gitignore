@@ -23,7 +23,7 @@ backup
 
 # misc
 .DS_Store
-.env*
+.env
 
 .next
 

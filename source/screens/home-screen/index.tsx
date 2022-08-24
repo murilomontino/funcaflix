@@ -5,6 +5,8 @@ import SlideSwipper from '@/components/organism/slide-swipper'
 import CardCarousel from './components/organisms/card-carousel'
 import EventCarousel from './components/template/event-carousel'
 
+import { If } from '@/utils/tsx-controls'
+
 type Product = {
   [key: string]: any
   category: number
@@ -40,7 +42,12 @@ function HomeScreen({ books, tvProgramsPlaylist, newestProducts }: Props) {
 
   return (
     <>
-      <CardCarousel items={newestProductsMemo} />
+      <div className="align-items-center px-lg-5">
+        <EventCarousel />
+      </div>
+      <If condition={newestProductsMemo?.length > 0}>
+        <CardCarousel items={newestProductsMemo} />
+      </If>
       <div
         style={{
           marginTop: '-75px',
@@ -56,19 +63,18 @@ function HomeScreen({ books, tvProgramsPlaylist, newestProducts }: Props) {
           itemsPerView={6.5}
           buttonText="Ler"
         />
-        <SlideSwipper
-          title="Programas de TV"
-          id="iq-tv"
-          height="200px"
-          items={playlist}
-          buttonText="Assistir"
-          allLink="programas-de-tv"
-          link="video"
-        />
 
-        <div className="align-items-center px-lg-5">
-          <EventCarousel />
-        </div>
+        <If condition={playlist?.length > 0}>
+          <SlideSwipper
+            title="Programas de TV"
+            id="iq-tv"
+            height="200px"
+            items={playlist}
+            buttonText="Assistir"
+            allLink="programas-de-tv"
+            link="video"
+          />
+        </If>
       </div>
     </>
   )
