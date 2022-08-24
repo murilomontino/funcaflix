@@ -4,7 +4,7 @@ import styled from 'styled-components/native'
 
 export const ContainerBackground = styledWeb.div`
   width: 100vw;
-  height: 75vh;
+  height: 70vh;
   justify-content: center;
   align-items: center;
   background-size: cover;
@@ -20,15 +20,17 @@ export const Container = styled.View`
 `
 
 export const LinkAnchor = styledWeb.a`
-  color: ${theme.COLORS.WHITE};
+  color: ${theme.COLORS.IMPORTANT};
   text-decoration: none;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 600;
   margin-top: 10px;
   margin-bottom: 10px;
   :hover {
-    color: orange;
+    color:  ${theme.COLORS.IMPORTANT_HOVER};
   }
+
+  
 `
 
 export const Warning = styledWeb.p`
@@ -38,4 +40,11 @@ export const Warning = styledWeb.p`
   font-weight: 600;
   margin-top: 10px;
   margin-bottom: 10px;
+  text-align: center;
+
+  strong {
+    color: ${theme.COLORS.IMPORTANT};
+    font-weight: bold;
+  }
+
   `

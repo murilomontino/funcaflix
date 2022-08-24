@@ -19,7 +19,7 @@ const OrderHeader = ({ logoLeft }) => {
   const [isLoading, setIsLoading] = useState(true)
 
   const height = useMemo(() => (logoLeft ? RFValue(25) : RFValue(40)), [logoLeft])
-  const width = useMemo(() => (logoLeft ? RFValue(45) : RFValue(90)), [logoLeft])
+  const width = useMemo(() => (logoLeft ? RFValue(65) : RFValue(100)), [logoLeft])
 
   useEffect(() => {
     if (Logo) {
@@ -51,7 +51,7 @@ const OrderHeader = ({ logoLeft }) => {
     <>
       <ButtonOpenMenu />
       <Link href="/">
-        <a style={{ textDecoration: 'none', marginLeft: '12px' }}>
+        <a style={{ textDecoration: 'none', margin: '12px' }}>
           <Image src={Logo} alt="Mapa Cultural" height={height} width={width} />
         </a>
       </Link>

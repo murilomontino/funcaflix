@@ -12,14 +12,17 @@ type Props = {
   textVisible?: boolean
 }
 
+const minValueIcon = (value: number) => (value <= 20 ? 30 : value)
+const minValueFont = (value: number) => (value <= 15 ? 20 : value)
+
 const ButtonLogin = ({ textVisible = true }: Props) => {
-  const fontSize = RFValue(8)
+  const fontSize = RFValue(10)
   const iconSize = RFValue(18)
 
   const ref = useRef(null)
   const hover = useHover(ref)
 
-  const color = useMemo(() => (hover ? 'orange' : theme.COLORS.TEXT), [hover])
+  const color = useMemo(() => (hover ? theme.COLORS.IMPORTANT : theme.COLORS.TEXT), [hover])
 
   return (
     <Link href={'https://mapacultural.acesso.funcap.se.gov.br/'} passHref>
@@ -27,9 +30,9 @@ const ButtonLogin = ({ textVisible = true }: Props) => {
         <Container ref={ref}>
           <Button>
             <React.Fragment>
-              <AntDesign name="login" size={iconSize} color={color} />
+              <AntDesign name="login" size={minValueIcon(iconSize)} color={color} />
 
-              <Text fontSize={fontSize} color={color} textVisible={textVisible}>
+              <Text fontSize={minValueFont(fontSize)} color={color} textVisible={textVisible}>
                 Entrar
               </Text>
             </React.Fragment>

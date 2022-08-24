@@ -41,7 +41,7 @@ const TemplateFrontEnd = ({ children }: Props) => {
   return (
     <Container>
       <>
-        <div id="back-to-top" style={{ zIndex: 99 }}>
+        <div id="back-to-top" style={{ zIndex: 999 }}>
           <div
             className="top"
             /*             to="#"
@@ -57,7 +57,9 @@ const TemplateFrontEnd = ({ children }: Props) => {
           <Header />
         </ContainerHeader>
         {children}
-        <Footer />
+        <div style={{ zIndex: 4 }}>
+          <Footer />
+        </div>
       </>
     </Container>
   )
