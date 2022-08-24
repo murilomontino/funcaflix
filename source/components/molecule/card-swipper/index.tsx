@@ -6,7 +6,7 @@ import theme from '@/theme'
 import { MotiView } from 'moti'
 
 import ImageNext from '@/components/atom/image-next'
-import Logo from '@/components/atom/logo-funcap'
+import Logo from '@/components/atom/logo-funcapflix'
 
 import { ContainerLogo, Title } from './styles'
 

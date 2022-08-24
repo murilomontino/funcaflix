@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import { View } from 'react-native'
 import { useScaledSize } from 'react-native-web-hooks'
 
 import Link from 'next/link'
@@ -23,21 +22,13 @@ const ComingSoonScreen = () => {
 
   useEffect(() => {
     alert(
-      `Fique ATENTO!!! O domínio mapas.cultura.se.gov.br será inativado a partir do dia 31 de Julho não podendo mais ser utilizado para acesso da plataforma. \nO novo domínio será https://mapacultural.funcap.se.gov.br/`
+      `Fique ATENTO!!! O domínio mapas.cultura.se.gov.br será inativado a partir do dia 31 de Outubro não podendo mais ser utilizado para acesso da plataforma. \nO novo domínio será https://mapacultural.funcap.se.gov.br/`
     )
   }, [])
 
   return (
     <ContainerBackground>
-      <View
-        style={{
-          flex: 1,
-          width: '100%',
-          height: '100%',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
+      <div className="d-flex flex-column justify-content-center align-items-center h-100 w-100">
         {isFontReady ? (
           <HeaderLogo
             widthLogo={WIDTH_NUMBER}
@@ -48,22 +39,17 @@ const ComingSoonScreen = () => {
           <SkeletonHeadLogo width={WIDTH_LOGO} textSize={TEXT_SIZE} />
         )}
         <Warning>
-          Fique ATENTO!!! O domínio mapas.cultura.se.gov.br será inativado a partir do dia{' '}
-          <strong
-            style={{
-              color: 'orange',
-              fontWeight: 'bold',
-            }}
-          >
-            31 DE JULHO
-          </strong>{' '}
-          não podendo mais ser utilizado para acesso na plataforma.
+          Em breve, novidades na Plataforma.
+          <br />
+          Fique atento, a partir do dia <strong>31 DE Outubro</strong> o domínio
+          mapas.cultura.se.gov.br será inativado.
+          <br />A plataforma passará a ser acessada pelo link:
         </Warning>
         <Link href={'https://mapacultural.funcap.se.gov.br/'} passHref>
           <LinkAnchor>https://mapacultural.funcap.se.gov.br/</LinkAnchor>
         </Link>
         <ButtonLogin />
-      </View>
+      </div>
     </ContainerBackground>
   )
 }

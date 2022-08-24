@@ -2,6 +2,7 @@ import React, { useRef } from 'react'
 import { StyleSheet, TouchableOpacity, FontVariant } from 'react-native'
 import { useHover } from 'react-native-web-hooks'
 
+import theme from '@/theme'
 import Link from 'next/link'
 
 import { Text as StyledText } from './styles'
@@ -59,11 +60,11 @@ export default ItemNavBar
 
 const styles = StyleSheet.create({
   textNav: {
-    color: '#fff',
+    color: theme.COLORS.TEXT_PRIMARY,
     fontWeight: '700',
   },
   hoverText: {
-    color: 'orange',
+    color: '#ffbd03',
     fontWeight: 'bold',
   },
   buttonNav: {

@@ -6,7 +6,7 @@ type PropsText = {
 }
 
 export const Text = styled.span<PropsText>`
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: #fff;
   font-weight: 700;
   font-variant: small-caps;
