@@ -78,8 +78,6 @@ export interface IModelInfoProducts {
     createdAt?: Date;
     updatedAt?: Date;
     active?: boolean;
-    existSubProd?: boolean;
-    idSubProd?: number;
 }
 export interface IModelMusic {
     id: number;
@@ -102,4 +100,38 @@ export interface IModelProgramsTV {
     thumbnail: string;
     active?: boolean;
     createdAt?: Date;
+}
+export interface IModelProject {
+    id: number;
+    idUser: number;
+    cpf: string;
+    nameProject: string;
+    summaryProject: string;
+    aboutProject: string;
+    typeProject: string;
+    urlProject: string;
+    dateStart: Date;
+    dateEnd: Date;
+    hourEnd: string;
+    status: number;
+    createdAt?: string;
+    updateAt?: string;
+    type: number;
+    company: string;
+    city: string;
+    amountOfVacancies: number;
+    amountOfEnrollment: number;
+    financialResource: string;
+    yearRelease: string;
+}
+export interface IModelDocProject {
+    id: number;
+    idProject: number;
+    file: string;
+    createdAt?: string;
+    name: string;
+    type: number;
+    typeFile: string;
+    link: string;
+    updated: boolean;
 }

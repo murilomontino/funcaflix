@@ -19,8 +19,6 @@ declare class ModelInfoProducts extends Model<IModelInfoProducts, IModelCreation
     createdAt: Date;
     updatedAt: Date;
     active: boolean;
-    existSubProd: boolean;
-    idSubProd: number;
     get params(): IModelInfoProducts;
 }
 export default ModelInfoProducts;

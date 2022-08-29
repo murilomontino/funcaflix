@@ -7,7 +7,7 @@ exports.default = void 0;
 
 var _sequelizeTypescript = require("sequelize-typescript");
 
-var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _dec8, _dec9, _dec10, _dec11, _dec12, _dec13, _dec14, _dec15, _dec16, _dec17, _dec18, _dec19, _class, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7, _descriptor8, _descriptor9, _descriptor10, _descriptor11, _descriptor12, _descriptor13, _descriptor14, _descriptor15, _descriptor16, _descriptor17, _descriptor18;
+var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _dec8, _dec9, _dec10, _dec11, _dec12, _dec13, _dec14, _dec15, _dec16, _dec17, _class, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7, _descriptor8, _descriptor9, _descriptor10, _descriptor11, _descriptor12, _descriptor13, _descriptor14, _descriptor15, _descriptor16;
 
 function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
 
@@ -143,20 +143,6 @@ let ModelInfoProducts = (_dec = (0, _sequelizeTypescript.Table)({
   field: 'ativo',
   defaultValue: false,
   comment: 'informa se o produto é visível ou não'
-}), _dec18 = (0, _sequelizeTypescript.Column)({
-  type: _sequelizeTypescript.DataType.BOOLEAN,
-  allowNull: false,
-  field: 'existe_sub_prod',
-  defaultValue: false,
-  comment: 'informa se o produto contém sub-produtos, exemplo: um evento pode conter vários eventos'
-}), _dec19 = (0, _sequelizeTypescript.Column)({
-  type: _sequelizeTypescript.DataType.INTEGER({
-    length: 11
-  }),
-  allowNull: false,
-  field: 'id_sub_produto',
-  defaultValue: 0,
-  comment: 'Este campo informa o id do produto pai, ou seja, se houver um valor aqui diferente de 0, este é um subproduto'
 }), _dec(_class = (_class2 = class ModelInfoProducts extends _sequelizeTypescript.Model {
   constructor(...args) {
     super(...args);
@@ -192,10 +178,6 @@ let ModelInfoProducts = (_dec = (0, _sequelizeTypescript.Table)({
     _initializerDefineProperty(this, "updatedAt", _descriptor15, this);
 
     _initializerDefineProperty(this, "active", _descriptor16, this);
-
-    _initializerDefineProperty(this, "existSubProd", _descriptor17, this);
-
-    _initializerDefineProperty(this, "idSubProd", _descriptor18, this);
   }
 
   get params() {
@@ -215,9 +197,7 @@ let ModelInfoProducts = (_dec = (0, _sequelizeTypescript.Table)({
       active: this.active,
       idInstitution: this.idInstitution,
       location: this.location,
-      thumbnail: this.thumbnail,
-      existSubProd: this.existSubProd,
-      idSubProd: this.idSubProd
+      thumbnail: this.thumbnail
     };
   }
 
@@ -297,16 +277,6 @@ let ModelInfoProducts = (_dec = (0, _sequelizeTypescript.Table)({
   writable: true,
   initializer: null
 }), _descriptor16 = _applyDecoratedDescriptor(_class2.prototype, "active", [_dec17], {
-  configurable: true,
-  enumerable: true,
-  writable: true,
-  initializer: null
-}), _descriptor17 = _applyDecoratedDescriptor(_class2.prototype, "existSubProd", [_dec18], {
-  configurable: true,
-  enumerable: true,
-  writable: true,
-  initializer: null
-}), _descriptor18 = _applyDecoratedDescriptor(_class2.prototype, "idSubProd", [_dec19], {
   configurable: true,
   enumerable: true,
   writable: true,
