@@ -3,8 +3,6 @@ import { useScaledSize } from 'react-native-web-hooks'
 
 import { GetterProjects } from '@/domain/entities'
 
-import HeaderLogo from '@/components/molecule/header-logo'
-import SkeletonHeadLogo from '@/components/molecule/header-logo/skeleton'
 import SlideSwipper from '@/components/organism/slide-swipper'
 
 import CardCarousel from './components/organisms/card-carousel'
@@ -67,11 +65,11 @@ function HomeScreen({ books, tvProgramsPlaylist, newestProducts, opportunities }
 
   return (
     <>
-      {isFontReady ? (
+      {/* {isFontReady ? (
         <HeaderLogo widthLogo={WIDTH_NUMBER} textSize={TEXT_NUMBER} subTitle="" />
       ) : (
         <SkeletonHeadLogo width={WIDTH_LOGO} textSize={TEXT_SIZE} />
-      )}
+      )} */}
       <If condition={newestProductsMemo?.length > 0}>
         <CardCarousel items={newestProductsMemo} />
       </If>
