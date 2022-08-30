@@ -126,7 +126,11 @@ const CarouselSwipper = ({
                   >
                     {items.map((item, index) => {
                       const queryOrBar = queryString ? queryString : '/'
-                      const linkDefinitive = `${link}${queryOrBar}${item.videoId || item.id}`
+                      let linkDefinitive = `${link}${queryOrBar}${item.videoId || item.id}`
+
+                      if (item.category === 8) {
+                        linkDefinitive = `https://mapacultural.acesso.funcap.se.gov.br/`
+                      }
 
                       return (
                         <SwiperSlide as="li" key={index} virtualIndex={index}>

@@ -1,14 +1,14 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import { useScaledSize } from 'react-native-web-hooks'
 
 import ItemNavBar from '@/components/atom/item-nav-bar'
 
 import colors from '@/global/colors'
 
-const AboutFooter = () => {
-  const fontSize = useScaledSize(0.7)
+const LINK_FUNCAP = 'https://www.funcap.se.gov.br/'
+const LINK_GOVERNO = 'https://www.se.gov.br/'
 
+const AboutFooter = () => {
   return (
     <>
       <View
@@ -22,10 +22,16 @@ const AboutFooter = () => {
           link="/politica-de-privacidade"
           fontVariant="proportional-nums"
         />
-        <ItemNavBar title="Sobre nós" link="www.google.com" fontVariant="proportional-nums" />
+        {/* <ItemNavBar title="Sobre nós" link="www.google.com" fontVariant="proportional-nums" /> */}
+        <ItemNavBar title="Funcap" link={LINK_FUNCAP} fontVariant="proportional-nums" />
+        <ItemNavBar
+          title="Governo do Estado de Sergipe"
+          link={LINK_GOVERNO}
+          fontVariant="proportional-nums"
+        />
       </View>
       <View>
-        <Text style={[{ fontSize: fontSize }, styles.textNav]}>
+        <Text style={[{ fontSize: '1rem' }, styles.textNav]}>
           © 2021 MAPA DA CULTURA DE SERGIPE. Todos os direitos reservados
         </Text>
       </View>

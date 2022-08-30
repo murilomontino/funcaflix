@@ -58,7 +58,7 @@ export default {
   },
   CONSTANTS: {
     HEADER_HIGHT: 70,
-    FOOTER_HIGHT: 200,
+    FOOTER_HIGHT: 100,
     SCREEN: {
       TINY: 576,
       SMALL: 768,

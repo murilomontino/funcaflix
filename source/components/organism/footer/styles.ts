@@ -27,22 +27,29 @@ export const ContainerSocial = styled.div`
 
 export const ContainerLogo = styled.div`
   display: flex;
-  flex: 2.5;
-  max-height: 100%;
+  flex: 1;
   max-width: 480px;
   justify-content: space-around;
-  align-items: center;
   flex-wrap: wrap;
   flex-direction: row;
 `
 
 export const ContainerLinks = styled.a`
   display: flex;
-  flex: 0.5;
   align-items: center;
   text-decoration: none;
 
   &:hover {
     cursor: pointer;
   }
+`
+
+export const TitleLogo = styled.h3`
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  text-align: center;
+  text-transform: capitalize;
+  font-variant: small-caps;
 `
