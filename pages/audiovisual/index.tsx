@@ -6,6 +6,7 @@ import {
   FindAllPlaylistUseCase,
   FindAllTvProgramsUseCase,
 } from '@/domain/usecases'
+import { build } from 'backend/database'
 import { GetStaticProps } from 'next/types'
 
 import Loading from '@/components/molecule/loading'
@@ -20,6 +21,7 @@ export default function AudioVisual({ staticNewestVideos, staticPlaylist }) {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
+  await build()
   const findAllPlaylistAndItemsUseCase = new FindAllPlaylistAndItemsUseCase(
     new FindAllTvProgramsUseCase(),
     new FindAllPlaylistUseCase()

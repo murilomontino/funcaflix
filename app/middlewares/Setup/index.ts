@@ -23,7 +23,7 @@ export default (Application: Express) => {
 
   Application.use(
     cors({
-      origin: production ? origin : '*',
+      origin: '*',
     })
   )
 

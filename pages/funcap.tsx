@@ -6,15 +6,31 @@ import {
   FindAllPlaylistUseCase,
   FindAllProductsByCategory,
 } from '@/domain/usecases'
+import { build } from 'backend/database'
 import { GetStaticProps } from 'next/types'
 
-import ComingSoonScreen from '@/screens/coming-soon-screen'
+import ComingSoon from '@/screens/coming-soon-screen'
+import HomeScreen from '@/screens/home-screen'
+
+const EM_BREVE = false
 
 export default function App({ staticBooks, staticPlaylist, staticNewestProducts }) {
-  return <ComingSoonScreen />
+  if (EM_BREVE) {
+    return <ComingSoon />
+  }
+
+  return (
+    <HomeScreen
+      books={staticBooks}
+      newestProducts={staticNewestProducts}
+      tvProgramsPlaylist={staticPlaylist}
+    />
+  )
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
+  await build()
+
   const books = (
     await new FindAllProductsByCategory().execute(
       {},

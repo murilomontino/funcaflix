@@ -1,4 +1,12 @@
-import { IProduct, IBook, IDatasheet, IDocumentsProducts, IPlaylist, ITVPrograms } from '../setters'
+import {
+  IProduct,
+  IBook,
+  IDatasheet,
+  IDocumentsProducts,
+  IPlaylist,
+  ITVPrograms,
+  IProjects,
+} from '../setters'
 export interface IGetterProduct extends IProduct {
   id: number
 }
@@ -31,3 +39,5 @@ export interface IGetterPlaylist extends IPlaylist {
 export interface IGetterTVPrograms extends ITVPrograms {
   id: number
 }
+
+export type IGetterProjects = IProjects

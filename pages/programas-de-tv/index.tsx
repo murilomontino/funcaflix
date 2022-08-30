@@ -6,6 +6,7 @@ import {
   FindAllPlaylistUseCase,
   FindAllTvProgramsUseCase,
 } from '@/domain/usecases'
+import { build } from 'backend/database'
 import { GetStaticProps } from 'next/types'
 
 import ProgramsTVScreen from '@/screens/programs-tv-screen'
@@ -15,6 +16,8 @@ export default function ProgramsTV({ staticNewestVideos, staticPlaylist }) {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
+  await build()
+
   const findAllPlaylistAndItemsUseCase = new FindAllPlaylistAndItemsUseCase(
     new FindAllTvProgramsUseCase(),
     new FindAllPlaylistUseCase()

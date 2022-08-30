@@ -3,6 +3,7 @@
 import React from 'react'
 
 import { FindAllProductsByCategory } from '@/domain/usecases'
+import { build } from 'backend/database'
 import { GetStaticProps } from 'next/types'
 
 import Loading from '@/components/molecule/loading'
@@ -17,6 +18,7 @@ export default function Literatura({ staticBooks }) {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
+  await build()
   const books = await new FindAllProductsByCategory().execute(null, {
     category: '2',
   })

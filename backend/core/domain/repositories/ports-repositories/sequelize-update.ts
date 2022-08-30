@@ -1,43 +1,36 @@
 /* eslint-disable no-unused-vars */
-import { database } from '@mapa-cultural/database'
+import { Either, left, right } from '@/shared/either'
 import assert from 'assert'
 import { Model, ModelStatic } from 'sequelize'
 
-import { Either, left, right } from '@/shared/either'
-
+import { database } from '../../../../database'
 import { Options } from '../interfaces/options'
 import { UpdateRepository } from '../interfaces/update-repository'
 
 type ID = { id: number }
 
 export class SequelizeUpdate<T> implements UpdateRepository<T> {
-	constructor(private readonly Model: ModelStatic<Model<T>>) {}
+  constructor(private readonly Model: ModelStatic<Model<T>>) {}
 
-	async run(
-		params: Partial<T> & ID,
-		options?: Options
-	): Promise<Either<T, Error>> {
-		assert(params.id, 'ID é obrigatório')
+  async run(params: Partial<T> & ID, options?: Options): Promise<Either<T, Error>> {
+    assert(params.id, 'ID é obrigatório')
 
-		return await database.transaction(
-			{ autocommit: false },
-			async (transaction) => {
-				const data = await this.Model.findByPk(params.id, {
-					...options,
-					transaction: options?.transaction || transaction,
-				})
+    return await database.transaction({ autocommit: false }, async (transaction) => {
+      const data = await this.Model.findByPk(params.id, {
+        ...options,
+        transaction: options?.transaction || transaction,
+      })
 
-				if (!data) {
-					return right(new Error('Não foi possível encontrar o objeto'))
-				}
+      if (!data) {
+        return right(new Error('Não foi possível encontrar o objeto'))
+      }
 
-				const updated = await data.update(params, {
-					...options,
-					transaction: options?.transaction || transaction,
-				})
+      const updated = await data.update(params, {
+        ...options,
+        transaction: options?.transaction || transaction,
+      })
 
-				return left(updated as unknown as T)
-			}
-		)
-	}
+      return left(updated as unknown as T)
+    })
+  }
 }
