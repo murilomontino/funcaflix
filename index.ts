@@ -10,7 +10,7 @@ config()
 const begin = async () => {
   await new Server(process.env.EXPRESS_PORT).start()
   console.log(
-    `Server running in HTTPS --- ${process.env.NODE_ENV} --- on port ${process.env.EXPRESS_PORT}`
+    `Server running in HTTP --- ${process.env.NODE_ENV} --- on port ${process.env.EXPRESS_PORT}`
   )
 }
 

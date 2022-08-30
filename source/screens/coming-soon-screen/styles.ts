@@ -8,7 +8,7 @@ export const ContainerBackground = styledWeb.div`
   justify-content: center;
   align-items: center;
   background-size: cover;
-  
+  margin-bottom: 72px;
 `
 
 export const ContainerLogo = styled.View`

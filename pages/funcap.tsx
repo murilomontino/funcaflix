@@ -1,12 +1,14 @@
 // @generated: @expo/next-adapter@2.1.52
 import React from 'react'
 
+import { GetterProjects } from '@/domain/entities'
 import {
   FindAllNewestAudioVisual,
   FindAllPlaylistUseCase,
   FindAllProductsByCategory,
 } from '@/domain/usecases'
 import { build } from 'backend/database'
+import { db } from 'backend/database'
 import { GetStaticProps } from 'next/types'
 
 import ComingSoon from '@/screens/coming-soon-screen'
@@ -14,7 +16,12 @@ import HomeScreen from '@/screens/home-screen'
 
 const EM_BREVE = false
 
-export default function App({ staticBooks, staticPlaylist, staticNewestProducts }) {
+export default function App({
+  staticBooks,
+  staticPlaylist,
+  staticNewestProducts,
+  staticOpportunities,
+}) {
   if (EM_BREVE) {
     return <ComingSoon />
   }
@@ -24,6 +31,7 @@ export default function App({ staticBooks, staticPlaylist, staticNewestProducts 
       books={staticBooks}
       newestProducts={staticNewestProducts}
       tvProgramsPlaylist={staticPlaylist}
+      opportunities={staticOpportunities}
     />
   )
 }
@@ -55,11 +63,24 @@ export const getStaticProps: GetStaticProps = async (context) => {
       ).value
     : []
 
+  const newestProjects = await db.ModelProject.findAll({
+    where: {
+      status: [1],
+    },
+
+    order: [['dateStart', 'DESC']],
+  })
+
+  const mapProjects = newestProjects.map((project) =>
+    new GetterProjects().build(project.get()).params()
+  )
+
   return {
     props: {
       staticBooks: books,
       staticPlaylist: playlist,
       staticNewestProducts: newestProducts,
+      staticOpportunities: mapProjects,
     },
     revalidate: 60 * 60 * 24,
   }

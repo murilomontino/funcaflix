@@ -1,6 +1,7 @@
 import React from 'react'
 import Skeleton from 'react-loading-skeleton'
 
+import LogoDefault from '@/public/brasao_governo-sergipe.webp'
 import noCapa from '@/public/no-capa.jpg'
 import theme from '@/theme'
 import { MotiView } from 'moti'
@@ -10,8 +11,6 @@ import Logo from '@/components/atom/logo-funcapflix'
 
 import { ContainerLogo, Title } from './styles'
 
-import { If } from '@/utils/tsx-controls'
-
 type Props = {
   title: string
   thumbnail: string
@@ -19,11 +18,16 @@ type Props = {
   height?: string
   button?: string
   linkDetails?: string
+  imageStatic?: boolean
 }
 
 const imageLoader = ({ src }) => {
   if (!src || src?.startsWith('Não')) {
     return noCapa
+  }
+
+  if (src?.startsWith('logo')) {
+    return LogoDefault
   }
 
   if (src && src.startsWith('http')) {
@@ -42,6 +46,7 @@ const CardSwipper = ({
   width = '100%',
   height = '160px',
   button = 'Assistir',
+  imageStatic = false,
   linkDetails = '/',
 }: Props) => {
   if (!thumbnail) {
@@ -62,6 +67,7 @@ const CardSwipper = ({
         }}
       >
         <ImageNext
+          imageStatic={thumbnail?.startsWith('logo')}
           image={imageLoader({ src: thumbnail })}
           layout="fill"
           unblur
@@ -80,11 +86,9 @@ const CardSwipper = ({
           width: '100%',
         }}
       >
-        <If condition={!process.env.ELECTION_PERIOD}>
-          <ContainerLogo>
-            <Logo size={1.5} />
-          </ContainerLogo>
-        </If>
+        <ContainerLogo>
+          <Logo size={1.5} />
+        </ContainerLogo>
         <MotiView
           animate={{
             width: '100%',
