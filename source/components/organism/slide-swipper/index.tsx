@@ -26,6 +26,7 @@ type Props = {
     title: string
     id: string
     thumbnail: string
+    category: number
   }[]
 }
 
