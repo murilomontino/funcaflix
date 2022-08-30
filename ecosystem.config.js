@@ -4,7 +4,7 @@ require('dotenv').config()
 module.exports = {
   apps: [
     {
-      name: 'server',
+      name: 'FuncapFLIX',
       script: 'yarn',
       args: 'start',
       watch: ['.next'],
