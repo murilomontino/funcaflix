@@ -6,6 +6,7 @@ import {
   FindAllPlaylistUseCase,
   FindAllProductsByCategory,
 } from '@/domain/usecases'
+import { build } from 'backend/database'
 import { GetStaticProps } from 'next/types'
 
 import ComingSoon from '@/screens/coming-soon-screen'
@@ -28,6 +29,8 @@ export default function App({ staticBooks, staticPlaylist, staticNewestProducts 
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
+  await build()
+
   const books = (
     await new FindAllProductsByCategory().execute(
       {},

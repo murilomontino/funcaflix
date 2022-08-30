@@ -16,6 +16,9 @@ const withTM = require('next-transpile-modules')([
   '@motify/core',
   '@motify/components'
 ])
+
+
+
 /**
  * @type {import('next').NextConfig}
  */
