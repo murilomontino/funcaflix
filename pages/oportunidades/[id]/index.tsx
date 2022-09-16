@@ -1,15 +1,15 @@
 import React from 'react'
 
-import { FindOneBookByIdProductUseCase, FindAllProductsByCategory } from '@/domain/usecases'
+import { FindAllOpportunities, FindByPKOpportunities } from '@/domain/usecases'
 import { build } from 'backend/database'
 import { GetStaticProps } from 'next/types'
 
-const OpportunitiesId = ({ staticBook }) => {
-  if (!staticBook) {
+const OpportunitiesId = ({ staticOpportunity }) => {
+  if (!staticOpportunity) {
     return <div>Loading...</div>
   }
 
-  return <>{JSON.stringify(staticBook)}</>
+  return <>{JSON.stringify(staticOpportunity, null, 2)}</>
 }
 
 export default OpportunitiesId
@@ -17,18 +17,17 @@ export default OpportunitiesId
 export const getStaticPaths = async () => {
   await build()
 
-  const books = await new FindAllProductsByCategory().execute(null, {
-    category: '2',
-  })
-  if (books.isRight()) {
+  const opportunities = await new FindAllOpportunities().execute()
+
+  if (opportunities.isRight()) {
     return {
       paths: [],
       fallback: false,
     }
   }
 
-  const paths = books.value.map((book) => ({
-    params: { id: book.id?.toString() || -1 },
+  const paths = opportunities.value.map((opportunity) => ({
+    params: { id: opportunity.id?.toString() || '-1' },
   }))
 
   return { paths, fallback: false }
@@ -40,18 +39,19 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   if (!params?.id) {
     return {
       props: {
-        staticBook: null,
+        staticOpportunity: null,
       },
     }
   }
-  const bookEither = await new FindOneBookByIdProductUseCase().execute(null, {
+  const opportunityEither = await new FindByPKOpportunities().execute(null, {
     id: params.id?.toString(),
   })
-  const book = bookEither.isLeft() ? bookEither.value : null
+
+  const opportunity = opportunityEither.isLeft() ? opportunityEither.value : {}
 
   return {
     props: {
-      staticBook: book,
+      staticOpportunity: opportunity,
     },
     revalidate: 60 * 60 * 24,
   }

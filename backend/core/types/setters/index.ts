@@ -97,3 +97,42 @@ export interface IProjects {
   financialResource: string
   yearRelease: string
 }
+
+export interface IDocProjects {
+  id: number
+  idProject: number
+  file: string
+  createdAt: string
+  name: string
+  type: number
+  typeFile: string
+  link: string
+  updated: boolean
+}
+
+export enum SocialNetwork {
+  FACEBOOK = 'facebook',
+  INSTAGRAM = 'instagram',
+  LINKEDIN = 'linkedin',
+  TWITTER = 'twitter',
+  YOUTUBE = 'youtube',
+}
+
+export type MediaSocial = {
+  type: SocialNetwork
+  link: string
+}
+export interface ICulturalProfile {
+  id: string | number
+  idUser: string | number
+  document: string
+  city: string
+  name: string
+  email: string
+  phone: string
+  thumbnail: string
+  about: string
+  mediaSocial: MediaSocial[]
+  createdAt: Date
+  updatedAt: Date
+}

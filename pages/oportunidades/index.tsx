@@ -1,7 +1,8 @@
 // @generated: @expo/next-adapter@2.1.52
 import React from 'react'
 
-import { build, db } from 'backend/database'
+import { FindAllOpportunities } from '@/domain/usecases'
+import { build } from 'backend/database'
 import { GetStaticProps } from 'next/types'
 
 import OpportunitiesScreen from '@/screens/opportunities-screen'
@@ -19,21 +20,11 @@ export default function Opportunities({ opportunities = [] }: Props) {
 export const getStaticProps: GetStaticProps = async (context) => {
   await build()
 
-  const newestProjects = await db.ModelProject.findAll({
-    where: {
-      status: [1],
-    },
-
-    order: [['dateStart', 'DESC']],
-  })
-
-  const mapProjects = newestProjects.map((project) =>
-    new GetterProjects().build(project.get()).params()
-  )
+  const opportunities = await new FindAllOpportunities().execute()
 
   return {
     props: {
-      opportunities: mapProjects,
+      opportunities: opportunities.isRight() ? [] : opportunities.value,
     },
     revalidate: 60 * 60 * 24,
   }

@@ -17,8 +17,12 @@
 @import './assets/css/variable.css';
 @import './assets/css/bootstrap.min.css';
 @import './assets/css/typography.css';
+@import './assets/css/typography-rtl.css';
 @import './assets/css/style.css';
 @import './assets/css/responsive.css';
 @import './assets/scss/bootstrap/bootstrap.scss';
 @import './assets/scss/helper/utilities';
-@import "~video-react/styles/scss/video-react"; // or import scss
+@import "~video-react/styles/scss/video-react";
+@import "./assets/vendor/@fortawesome/fontawesome-free/css/font-awesome.min.css";
+@import "./assets/vendor/@fortawesome/fontawesome-free/css/font-awesome.css"; 
+@import "./assets/vendor/@fortawesome/fontawesome-free/css/all.min.css"; // or import scss

@@ -71,9 +71,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     order: [['dateStart', 'DESC']],
   })
 
-  const mapProjects = newestProjects.map((project) =>
-    new GetterProjects().build(project.get()).params()
-  )
+  const mapProjects = newestProjects.map((project) => GetterProjects.build(project.get()).params())
 
   return {
     props: {

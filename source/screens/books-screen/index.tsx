@@ -26,12 +26,10 @@ const ScreenBooks = ({ books }: Props) => {
 
   const { isFontReady } = useResources()
 
-  const [hasMore, setHasMore] = useState(true)
   const [data, setData] = useState(books.slice(0, 50))
 
   const fetchMoreData = () => {
     setData((state) => [...state, ...books.slice(state.length, state.length + 50)])
-    setHasMore(data.length < books.length)
   }
 
   useEffect(() => {
@@ -39,6 +37,8 @@ const ScreenBooks = ({ books }: Props) => {
       setLoading(false)
     }
   }, [data])
+
+  const hasMore = data.length < books.length
 
   if (loading || !isFontReady) {
     return (

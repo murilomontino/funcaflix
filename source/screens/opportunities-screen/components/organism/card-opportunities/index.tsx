@@ -23,7 +23,7 @@ const CardOpportunities = ({ item }: Props) => {
   const { dateEnd, dateStart } = item
 
   const color = useMemo(() => {
-    if (new Date(dateEnd) < new Date()) return '#FF0000'
+    if (new Date(dateEnd) < new Date() || item?.status == 2) return '#FF0000'
     if (new Date(dateStart) > new Date()) return '#FFA500'
     return '#008000'
   }, [dateEnd, dateStart])

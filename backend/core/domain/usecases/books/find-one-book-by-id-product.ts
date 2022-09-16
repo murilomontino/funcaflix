@@ -5,12 +5,12 @@ import { IGetterBooks } from '@/types/getters'
 import { database, db } from '../../../../database'
 import { UseCase } from '../ports/use-case'
 
-type Params = {
+type ID = {
   id: string
 }
 
-export class FindOneBookByIdProductUseCase implements UseCase<unknown, IGetterBooks> {
-  async execute(_, params: Params): PromiseEither<IGetterBooks, Error> {
+export class FindOneBookByIdProductUseCase implements UseCase<ID, IGetterBooks> {
+  async execute(_, params: ID): PromiseEither<IGetterBooks, Error> {
     if (!params.id) {
       return right(new Error('Id é obrigatório'))
     }

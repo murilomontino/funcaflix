@@ -19,6 +19,8 @@ export const Title = styled.Text<TitleProps>`
   text-transform: uppercase;
 
   ${({ lg }) => lg && `font-size: 2.5rem;`}
+
+  ${({ md }) => md && `font-size: 2rem;`}
 `
 
 export const SubTitle = styled(MotiText)`

@@ -2018,9 +2018,9 @@ video {
 }
 
 .img-zoom {
-  -webkit-transition: transform 2s ease-in-out;
-  -o-transition: transform 2s ease-in-out;
-  transition: transform 2s ease-in-out;
+  -webkit-transition: transform 1s ease-in-out;
+  -o-transition: transform 1s ease-in-out;
+  transition: transform 1s ease-in-out;
   transform-origin: center center;
 }
 

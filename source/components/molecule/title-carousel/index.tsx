@@ -10,6 +10,7 @@ type Props = {
   title: string
   animation?: boolean
   lg?: boolean
+  md?: boolean
   isButton?: boolean
   link?: string
 }
@@ -18,6 +19,7 @@ const TitleCarousel = ({
   title = 'Não Informado',
   animation = true,
   lg = false,
+  md = false,
   isButton = true,
   link = '#',
 }: Props) => {
@@ -38,7 +40,9 @@ const TitleCarousel = ({
     <Container onMouseEnter={handleHover} onMouseLeave={handleLeave}>
       <Link href={link} passHref>
         <ContainerText disabled={!isButton}>
-          <Title lg={lg}>{title}</Title>
+          <Title lg={lg} md={md}>
+            {title}
+          </Title>
           <SubTitle
             animate={{
               opacity: hovered ? 1 : 0,

@@ -11,7 +11,7 @@ type Props = {
   children: React.ReactNode | React.FC | React.Component | JSX.Element
 }
 
-const TemplateFrontEnd = ({ children }: Props) => {
+const TemplateFrontEnd = ({ data, children }: Props) => {
   const [backToTop, setBackToTop] = useState(null)
 
   useEffect(() => {

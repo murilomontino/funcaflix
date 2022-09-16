@@ -42,7 +42,8 @@ const nextConfig = ((phase) => {
       disableStaticImages: true,
       domains: [
         'i.ytimg.com',
-        'localhost'
+        'localhost',
+        'loremflickr.com'
       ]
     },
     httpAgentOptions: new (require('https').Agent)({

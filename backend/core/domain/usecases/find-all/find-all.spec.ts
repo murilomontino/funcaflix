@@ -1,6 +1,9 @@
-import { GetterProjects } from '../../backend/core/domain/entities'
-import { FindAllNewestAudioVisual } from '../../backend/core/domain/usecases'
-import { build, db } from '../../database'
+import { describe, it, beforeAll, expect } from 'vitest'
+
+import { build, db } from '../../../../../database'
+import { GetterProjects } from '../../entities'
+
+import { FindAllNewestAudioVisual } from '..'
 
 describe('Verificação de caso de uso com bd', () => {
   beforeAll(async () => {
@@ -27,7 +30,7 @@ describe('Verificação de caso de uso com bd', () => {
     })
 
     const mapProjects = newestProjects.map((project) =>
-      new GetterProjects().build(project.get()).params()
+      GetterProjects.build(project.get()).params()
     )
 
     expect(mapProjects).toBeTruthy()
