@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import ReactInfiniteScroll from 'react-infinite-scroll-component'
 import { ActivityIndicator, StyleSheet } from 'react-native'
 
-import { CulturalProfileByCity } from '@/domain/repositories'
+import { CulturalProfileByCity, CulturalProfileBySegment } from '@/domain/repositories'
 import image from '@/public/images/banner-perfis-culturais-2.jpg'
 import { View } from 'moti'
 
@@ -14,7 +14,7 @@ import constants from '@/global/constants'
 import { useResources } from '@/hooks/utils/use-resources'
 
 type Props = {
-  profiles: CulturalProfileByCity[]
+  profiles: CulturalProfileByCity[] | CulturalProfileBySegment[]
 }
 
 const CulturalProfilesScreen = ({ profiles = [] }: Props) => {
@@ -25,7 +25,7 @@ const CulturalProfilesScreen = ({ profiles = [] }: Props) => {
   const [data, setData] = useState(profiles.slice(0, 50))
 
   const fetchMoreData = () => {
-    setData((state) => [...state, ...profiles.slice(state.length, state.length + 50)])
+    setData((state) => [...state, ...profiles.slice(state.length, state.length + 50) ] as any)
   }
 
   useEffect(() => {
@@ -55,7 +55,7 @@ const CulturalProfilesScreen = ({ profiles = [] }: Props) => {
       >
         <div className="overflow-hidden">
           {data.map((item, index) => (
-            <OtherArtists key={index} items={item.items} title={item.city} />
+            <OtherArtists key={index} items={item.items} title={item.city || item.segment} />
           ))}
         </div>
       </ReactInfiniteScroll>

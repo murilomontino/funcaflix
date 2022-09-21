@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Col } from 'react-bootstrap'
 
+import PersonDefault from '@/public/person-default.png'
 import Link from 'next/link'
 import { QRCodeSVG } from 'qrcode.react'
+
+import Img from '@/components/atom/image'
 
 import styles from './styles.module.scss'
 
@@ -66,6 +69,8 @@ const SocialMedia = () => {
 }
 
 const CardArtists = ({ item }) => {
+  const [imgSrc, setImgSrc] = useState(item.thumbnail)
+
   return (
     <Link href={'www.google.com'}>
       <Col
@@ -80,8 +85,9 @@ const CardArtists = ({ item }) => {
       >
         <div className="iq-card position-relative ">
           <QRCode value={item.name} />
-          <img
-            src={item.thumbnail}
+          <Img
+            image={item.thumbnail || PersonDefault}
+            staticImage={!item.thumbnail}
             style={{
               objectFit: 'cover',
               minHeight: '200px',

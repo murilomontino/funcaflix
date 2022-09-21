@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { IGetterCulturalProfile } from '@/types/getters'
-import { SocialNetwork } from '@/types/setters'
 import { faker } from '@faker-js/faker'
 import { describe, it, expect } from 'vitest'
 
@@ -10,19 +9,20 @@ import { GetterCulturalProfiles } from '.'
 const sut = () => {
   const profile = {
     id: faker.datatype.uuid(),
-    idUser: faker.datatype.uuid(),
-    document: faker.word.preposition(),
     name: faker.name.firstName() + ' ' + faker.name.lastName(),
     email: faker.internet.email(),
     phone: faker.phone.number(),
     thumbnail: faker.image.imageUrl(),
     about: faker.lorem.paragraph(),
-    createdAt: faker.date.past(),
-    mediaSocial: {
-      type: SocialNetwork.FACEBOOK,
-      link: faker.internet.url(),
-    },
-    updatedAt: faker.date.past(),
+    acting: faker.lorem.paragraph(),
+    facebook: faker.internet.url(),
+    instagram: faker.internet.url(),
+    segment: faker.lorem.word(),
+    twitter: faker.internet.url(),
+    type: faker.lorem.word(),
+    website: faker.internet.url(),
+    youtube: faker.internet.url(),
+    city: faker.address.city(),
   } as IGetterCulturalProfile
 
   return {

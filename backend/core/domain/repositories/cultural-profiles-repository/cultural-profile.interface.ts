@@ -6,6 +6,12 @@ export type CulturalProfileByCity = {
   items: IGetterCulturalProfile[]
 }
 
+export type CulturalProfileBySegment = {
+  segment: string
+  items: IGetterCulturalProfile[]
+}
+
 export interface CulturalProfileRepository {
   findAllByCity(): PromiseEither<CulturalProfileByCity[], Error>
+  findAllBySegment(): PromiseEither<CulturalProfileBySegment[], Error>
 }

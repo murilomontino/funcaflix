@@ -19,7 +19,5 @@ describe('Testes unitários de repositório em memória', () => {
       city: expect.any(String),
       items: expect.any(Array),
     })
-
-    console.log(result.value[0])
   })
 })

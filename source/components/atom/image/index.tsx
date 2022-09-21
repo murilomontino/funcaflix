@@ -25,26 +25,13 @@ const imageLoader = (image: string, staticImage: boolean) => {
     return image
   }
 
-  return process.env._currentURL + 'images/' + image
+  const url = process.env._currentURL + 'images/' + image
+
+  return url
 }
 
-const Img = ({
-  image,
-  style,
-  height = 200,
-  width = 150,
-  updateClassName,
-  staticImage = false,
-  ...rest
-}: Props) => {
+const Img = ({ image, staticImage = false, ...rest }: Props) => {
   const src = image.replace('imagens/', '')
-
-  const imageStyle = updateClassName
-    ? {}
-    : {
-        height,
-        width,
-      }
 
   const handleError = (e) => {
     e.onerror = ''
@@ -54,15 +41,7 @@ const Img = ({
 
   if (!image) return null
 
-  return (
-    <img
-      onError={handleError}
-      src={imageLoader(src, staticImage)}
-      style={{ ...imageStyle, ...style }}
-      loading="lazy"
-      {...rest}
-    />
-  )
+  return <img onError={handleError} src={imageLoader(src, staticImage)} loading="lazy" {...rest} />
 }
 
 export default Img

@@ -17,7 +17,7 @@ export class PathImageExistsUseCase implements UseCase<Params, PathLike> {
     const thumbnail = await db.ModelDocsProducts.findOne({
       where: {
         type: 104,
-        filePath: { [Op.like]: `%${uuid}%` },
+        file: { [Op.like]: `%${uuid}%` },
       },
       attributes: ['id', 'filePath'],
     })

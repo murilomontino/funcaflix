@@ -124,15 +124,18 @@ export type MediaSocial = {
 }
 export interface ICulturalProfile {
   id: string | number
-  idUser: string | number
-  document: string
   city: string
   name: string
+  type: string
+  thumbnail: string
   email: string
   phone: string
-  thumbnail: string
   about: string
-  mediaSocial: MediaSocial[]
-  createdAt: Date
-  updatedAt: Date
+  segment: string
+  acting: string
+  website: string
+  youtube: string
+  twitter: string
+  facebook: string
+  instagram: string
 }

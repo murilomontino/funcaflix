@@ -1,5 +1,4 @@
 // ------------------------------------------------------------
 // Repositories de Update
 export * from './ports-repositories'
-export * from './cultural-profiles-repository/cultural-profile.interface'
-export * from './in-memory-repositories'
+export * from './cultural-profiles-repository'

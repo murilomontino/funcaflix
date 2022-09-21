@@ -20,6 +20,14 @@ export class GetterCulturalProfiles
   createdAt: Date
   updatedAt: Date
   city: string
+  type: string
+  segment: string
+  acting: string
+  website: string
+  youtube: string
+  twitter: string
+  facebook: string
+  instagram: string
 
   private constructor() {
     super()
@@ -28,46 +36,42 @@ export class GetterCulturalProfiles
   static build(params: IGetterCulturalProfile): GetterCulturalProfiles {
     const {
       id,
-      idUser,
-      document,
       name,
       email,
       phone,
       thumbnail,
       about,
-      createdAt,
-      mediaSocial,
-      updatedAt,
+      acting,
+      facebook,
+      instagram,
+      segment,
+      twitter,
+      type,
+      website,
+      youtube,
       city,
     } = params
 
     return new GetterCulturalProfiles()
       .defineId(id)
-      .defineIdUser(idUser)
-      .defineDocument(document)
       .defineName(name)
       .defineEmail(email)
       .definePhone(phone)
       .defineThumbnail(thumbnail)
       .defineAbout(about)
-      .defineCreatedAt(createdAt)
-      .defineMediaSocial(mediaSocial)
       .defineCity(city)
-      .defineUpdatedAt(updatedAt)
+      .defineType(type)
+      .defineSegment(segment)
+      .defineActing(acting)
+      .defineWebsite(website)
+      .defineYoutube(youtube)
+      .defineTwitter(twitter)
+      .defineFacebook(facebook)
+      .defineInstagram(instagram)
   }
 
   public defineId(id: number | string) {
     this.id = id
-    return this
-  }
-
-  public defineIdUser(idUser: number | string) {
-    this.idUser = idUser
-    return this
-  }
-
-  public defineDocument(document: string) {
-    this.document = document
     return this
   }
 
@@ -96,23 +100,48 @@ export class GetterCulturalProfiles
     return this
   }
 
-  public defineMediaSocial(mediaSocial: MediaSocial[]) {
-    this.mediaSocial = mediaSocial
-    return this
-  }
-
-  public defineCreatedAt(createdAt: Date) {
-    this.createdAt = createdAt
-    return this
-  }
-
-  public defineUpdatedAt(updatedAt: Date) {
-    this.updatedAt = updatedAt
-    return this
-  }
-
   public defineCity(city: string) {
     this.city = city
+    return this
+  }
+
+  public defineType(type: string) {
+    this.type = type
+    return this
+  }
+
+  public defineSegment(segment: string) {
+    this.segment = segment
+    return this
+  }
+
+  public defineActing(acting: string) {
+    this.acting = acting
+    return this
+  }
+
+  public defineWebsite(website: string) {
+    this.website = website
+    return this
+  }
+
+  public defineYoutube(youtube: string) {
+    this.youtube = youtube
+    return this
+  }
+
+  public defineTwitter(twitter: string) {
+    this.twitter = twitter
+    return this
+  }
+
+  public defineFacebook(facebook: string) {
+    this.facebook = facebook
+    return this
+  }
+
+  public defineInstagram(instagram: string) {
+    this.instagram = instagram
     return this
   }
 

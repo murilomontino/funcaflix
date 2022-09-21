@@ -167,6 +167,10 @@ let ModelProject = (_dec = (0, _sequelizeTypescript.Table)({
     _initializerDefineProperty(this, "yearRelease", _descriptor21, this);
   }
 
+  static async securityCPF(instance) {
+    instance.cpf = '***.***.***-**';
+  }
+
 }, (_descriptor = _applyDecoratedDescriptor(_class2.prototype, "id", [_dec2], {
   configurable: true,
   enumerable: true,
@@ -272,6 +276,6 @@ let ModelProject = (_dec = (0, _sequelizeTypescript.Table)({
   enumerable: true,
   writable: true,
   initializer: null
-})), _class2)) || _class);
+}), _applyDecoratedDescriptor(_class2, "securityCPF", [_sequelizeTypescript.AfterFind], Object.getOwnPropertyDescriptor(_class2, "securityCPF"), _class2)), _class2)) || _class);
 var _default = ModelProject;
 exports.default = _default;
