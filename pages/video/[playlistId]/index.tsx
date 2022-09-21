@@ -1,10 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import Skeleton from 'react-loading-skeleton'
 
-import { db } from '@/database'
 import { FindAllProductsByCategory, FindAllTvProgramsUseCase } from '@/domain/usecases'
 import theme from '@/theme'
-import { build } from 'backend/database'
+import { db, build } from 'mapacultural-database'
 import { useRouter } from 'next/router'
 import { GetStaticProps } from 'next/types'
 

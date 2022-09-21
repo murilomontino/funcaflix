@@ -1,10 +1,10 @@
 import { left, PromiseEither, right } from '@/shared/either'
 import assert from 'assert'
 import { existsSync, PathLike } from 'fs'
+import { db } from 'mapacultural-database'
 import { resolve } from 'path'
 import { Op } from 'sequelize'
 
-import { db } from '../../../../../database'
 import { NotFoundProductError } from '../../errors'
 import { UseCase } from '../../ports/use-case'
 

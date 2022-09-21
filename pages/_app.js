@@ -3,7 +3,7 @@
 import React from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 
-import { build } from 'backend/database'
+import { build } from 'mapacultural-database'
 
 import RootContext from '@/context/Root'
 import 'bootstrap/dist/css/bootstrap.min.css'

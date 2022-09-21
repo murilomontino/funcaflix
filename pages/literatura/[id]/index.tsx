@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { FindOneBookByIdProductUseCase, FindAllProductsByCategory } from '@/domain/usecases'
-import { build } from 'backend/database'
+import { build } from 'mapacultural-database'
 import { GetStaticProps } from 'next/types'
 
 import ScreenBookID from '@/screens/book-id-screen'

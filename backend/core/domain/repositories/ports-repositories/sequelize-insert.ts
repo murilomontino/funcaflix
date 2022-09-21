@@ -2,9 +2,9 @@
 
 import { GetterEntity } from '@/domain/entities/getters/getter-entity'
 import { left, PromiseEither, right } from '@/shared/either'
+import { database } from 'mapacultural-database'
 import { ModelCtor, Model } from 'sequelize-typescript'
 
-import { database } from '../../../../database'
 import { InsertRepository } from '../interfaces/insert-repository'
 import { Options } from '../interfaces/options'
 

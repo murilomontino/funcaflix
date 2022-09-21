@@ -7,8 +7,7 @@ import {
   FindAllPlaylistUseCase,
   FindAllProductsByCategory,
 } from '@/domain/usecases'
-import { build } from 'backend/database'
-import { db } from 'backend/database'
+import { build, db } from 'mapacultural-database'
 import { GetStaticProps } from 'next/types'
 
 import ComingSoon from '@/screens/coming-soon-screen'

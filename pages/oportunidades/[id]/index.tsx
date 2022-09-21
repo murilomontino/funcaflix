@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { FindAllOpportunities, FindByPKOpportunities } from '@/domain/usecases'
-import { build } from 'backend/database'
+import { build } from 'mapacultural-database'
 import { GetStaticProps } from 'next/types'
 
 const OpportunitiesId = ({ staticOpportunity }) => {

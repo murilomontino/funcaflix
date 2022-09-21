@@ -2,7 +2,7 @@
 import React from 'react'
 
 import { FindAllOpportunities } from '@/domain/usecases'
-import { build } from 'backend/database'
+import { build } from 'mapacultural-database'
 import { GetStaticProps } from 'next/types'
 
 import OpportunitiesScreen from '@/screens/opportunities-screen'

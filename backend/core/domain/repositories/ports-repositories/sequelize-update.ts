@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { Either, left, right } from '@/shared/either'
 import assert from 'assert'
+import { database } from 'mapacultural-database'
 import { Model, ModelStatic } from 'sequelize'
 
-import { database } from '../../../../database'
 import { Options } from '../interfaces/options'
 import { UpdateRepository } from '../interfaces/update-repository'
 

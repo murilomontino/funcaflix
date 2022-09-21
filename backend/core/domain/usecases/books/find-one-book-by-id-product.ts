@@ -1,8 +1,8 @@
 import { GetterBook } from '@/domain/entities'
 import { left, PromiseEither, right } from '@/shared/either'
 import { IGetterBooks } from '@/types/getters'
+import { database, db } from 'mapacultural-database'
 
-import { database, db } from '../../../../database'
 import { UseCase } from '../ports/use-case'
 
 type ID = {

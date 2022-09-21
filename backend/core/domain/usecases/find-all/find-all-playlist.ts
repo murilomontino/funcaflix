@@ -6,8 +6,8 @@ ORDER BY `MAX(``data_de_publicacao``)`  DESC
 
 import { GetterPlaylistTVPrograms } from '@/domain/entities'
 import { left, PromiseEither } from '@/shared/either'
+import { database, db } from 'mapacultural-database'
 
-import { database, db } from '../../../../database'
 import { UseCase } from '../ports/use-case'
 
 type QueryParams = {

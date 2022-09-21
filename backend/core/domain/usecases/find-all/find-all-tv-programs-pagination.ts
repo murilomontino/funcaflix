@@ -1,8 +1,8 @@
 import { GetterTVPrograms } from '@/domain/entities/getters/getter-tv-programs'
 import { left, PromiseEither } from '@/shared/either'
+import { db } from 'mapacultural-database'
 import { Op } from 'sequelize'
 
-import { db } from '../../../../database'
 import { UseCase } from '../ports/use-case'
 
 type Props = {
