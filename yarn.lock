@@ -9713,10 +9713,10 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-mapacultural-database@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/mapacultural-database/-/mapacultural-database-1.0.2.tgz#5acdf3d8fc021cf1c402dfa15e60b5c74ec5e0ec"
-  integrity sha512-CQ0uomjHnR/O4WaY1etK3Pnskb7qJjf7/TGt5v+XRmZ47BWs/1EG/Uf9qhzS5VOhM6hUB7YK8d7WFfWlKEJCkA==
+mapacultural-database@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/mapacultural-database/-/mapacultural-database-1.0.4.tgz#cd24bb287b5968346f316f67ebd6b435b05e7538"
+  integrity sha512-BpKe/73+2ddNvdwewcgjRFTjSLPyeWmf2UUGeIzcRDPN2oTKBJNgAzDgSMxBXBsJvM/G0CHkaqGwi6CS2lgATA==
   dependencies:
     dotenv "^16.0.1"
     mariadb "^3.0.0"

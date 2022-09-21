@@ -1,6 +1,6 @@
 import { describe, it, beforeAll, expect } from 'vitest'
+import { build, db } from 'mapacultural-database'
 
-import { build, db } from '../../../../../database'
 import { GetterProjects } from '../../entities'
 
 import { FindAllNewestAudioVisual } from '..'
@@ -10,7 +10,7 @@ describe('Verificação de caso de uso com bd', () => {
     await build()
   })
 
-  it('Deve retornar todos os audiovisuais mais recentes', async () => {
+  it('Deve retornar todos os audiovisuais mais recentes (Integration)', async () => {
     const newestProducts = new FindAllNewestAudioVisual()
 
     const result = await newestProducts.execute(
@@ -20,9 +20,9 @@ describe('Verificação de caso de uso com bd', () => {
       }
     )
 
-    expect(result).toBeTruthy()
+    expect(result.isLeft()).toBeTruthy()
   })
-  it('Deve retornar todos os projetos ativos', async () => {
+  it('Deve retornar todos os projetos ativos (Integration)', async () => {
     const newestProjects = await db.ModelProject.findAll({
       where: {
         status: 1,

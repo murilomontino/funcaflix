@@ -28,7 +28,7 @@
     "formik": "^2.2.9",
     "fslightbox-react": "^1.6.2-2",
     "helmet": "^5.1.0",
-    "mapacultural-database": "^1.0.2",
+    "mapacultural-database": "^1.0.4",
     "mariadb": "^3.0.0",
     "moment": "^2.29.1",
     "moti": "^0.17.1",

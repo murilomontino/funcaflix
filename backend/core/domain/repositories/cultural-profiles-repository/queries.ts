@@ -12,12 +12,12 @@ export const QUERY_CULTURAL_PROFILE = `
     s.twitter, 
     s.facebook, 
     s.instagram,
-    (SELECT d.link FROM documentacao as d WHERE u.id=d.id_usuario AND d.tipo=10 LIMIT 1) as thumbnail
+    (SELECT d.arquivo FROM documentacao as d WHERE u.id=d.id_usuario AND d.tipo=10 LIMIT 1) as thumbnail
   FROM 
     usuario as u 
     JOIN 
       sobre as s ON(u.id=s.id_usuario) 
   ORDER BY 
     s.segmento, s.atuacao
-  LIMIT 1000;
+  LIMIT 100;
 `

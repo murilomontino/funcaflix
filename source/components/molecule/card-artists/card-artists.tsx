@@ -1,16 +1,18 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Col } from 'react-bootstrap'
 
 import PersonDefault from '@/public/person-default.png'
-import Link from 'next/link'
+import { IGetterCulturalProfile } from '@/types/getters'
 import { QRCodeSVG } from 'qrcode.react'
 
 import Img from '@/components/atom/image'
 
+import SocialMedia from '../social-media'
 import styles from './styles.module.scss'
 
-import colors from '@/global/colors'
-
+type Props = {
+  item: IGetterCulturalProfile
+}
 const QRCode = ({ value }) => {
   return (
     <div className={`position-absolute ${styles['qr-code-custom']}`}>
@@ -19,112 +21,26 @@ const QRCode = ({ value }) => {
   )
 }
 
-const SocialMedia = () => {
+const CardArtists = ({ item }: Props) => {
   return (
-    <div className={`block-social-info ${styles['social-custom']}`}>
-      <ul className="list-inline p-0 m-0 music-play-lists">
-        <li className="share">
-          <span>
-            <i
-              className="ri-share-fill"
-              style={{
-                color: colors.orange,
-              }}
-            ></i>
-          </span>
-          <div className="share-box">
-            <div className="d-flex align-items-center">
-              <a
-                to="https://www.facebook.com/sharer?u=https://iqonic.design/wp-themes/streamit_wp/movie/shadow/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="share-ico"
-                tabIndex="0"
-              >
-                <i className="ri-facebook-fill"></i>
-              </a>
-              <a
-                to="https://twitter.com/intent/tweet?text=Currentlyreading"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="share-ico"
-                tabIndex="0"
-              >
-                <i className="ri-twitter-fill"></i>
-              </a>
-              <a
-                to="#"
-                data-link="https://iqonic.design/wp-themes/streamit_wp/movie/shadow/"
-                className="share-ico iq-copy-link"
-                tabIndex="0"
-              >
-                <i className="ri-links-fill"></i>
-              </a>
-            </div>
-          </div>
-        </li>
-      </ul>
-    </div>
-  )
-}
+    <Col sm="6" md="4" lg="2" className={`block-images position-relative ${styles['btn']}`}>
+      <div className="iq-card position-relative ">
+        <QRCode value={item.name} />
+        <Img
+          endpoint="images/profile/"
+          image={item.thumbnail || PersonDefault}
+          staticImage={!item.thumbnail}
+          className="img-zoom img-fluid w-100 h-100"
+          alt={`Foto do artista ${item.name}`}
+        />
+        <SocialMedia {...item} />
 
-const CardArtists = ({ item }) => {
-  const [imgSrc, setImgSrc] = useState(item.thumbnail)
-
-  return (
-    <Link href={'www.google.com'}>
-      <Col
-        sm="6"
-        md="4"
-        lg="2"
-        className={`block-images position-relative ${styles['btn']}`}
-        style={{
-          minWidth: '125px',
-          margin: '10px 2px',
-        }}
-      >
-        <div className="iq-card position-relative ">
-          <QRCode value={item.name} />
-          <Img
-            image={item.thumbnail || PersonDefault}
-            staticImage={!item.thumbnail}
-            style={{
-              objectFit: 'cover',
-              minHeight: '200px',
-            }}
-            className="img-zoom img-fluid w-100 h-100"
-            alt={`Foto do artista ${item.name}`}
-          />
-          <SocialMedia />
-
-          <div
-            className="wrapper w-100 position-absolute"
-            style={{
-              bottom: '0',
-              left: '0',
-              height: '60px',
-              background: 'rgba(0, 0, 0, 0.5)',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <h6
-              className="text-white mb-0"
-              style={{
-                fontSize: '14px',
-                fontWeight: '500',
-                lineHeight: '1.5',
-                textAlign: 'center',
-                textTransform: 'uppercase',
-              }}
-            >
-              {item.name}
-            </h6>
-          </div>
+        <div className={`wrapper w-100 position-absolute ${styles['title-btn']}`}>
+          <h6 className="text-white mb-0">{item.name}</h6>
         </div>
-      </Col>
-    </Link>
+      </div>
+    </Col>
   )
 }
 
-export default CardArtists
+export default React.memo(CardArtists)

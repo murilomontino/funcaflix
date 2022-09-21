@@ -5,6 +5,7 @@ import { ImageProps } from 'next/image'
 
 type Props = {
   image?: string
+  endpoint?: string
   staticImage?: boolean
   height?: number | string
   width?: number | string
@@ -12,7 +13,7 @@ type Props = {
   url?: string
 } & Partial<ImageProps>
 
-const imageLoader = (image: string, staticImage: boolean) => {
+const imageLoader = (image: string, staticImage: boolean, endpoint = 'images/') => {
   if (!image || image?.startsWith('Não')) {
     return noCapa
   }
@@ -25,12 +26,12 @@ const imageLoader = (image: string, staticImage: boolean) => {
     return image
   }
 
-  const url = process.env._currentURL + 'images/' + image
+  const url = process.env._currentURL + endpoint + image
 
   return url
 }
 
-const Img = ({ image, staticImage = false, ...rest }: Props) => {
+const Img = ({ image, staticImage = false, endpoint, ...rest }: Props) => {
   const src = image.replace('imagens/', '')
 
   const handleError = (e) => {
@@ -41,7 +42,14 @@ const Img = ({ image, staticImage = false, ...rest }: Props) => {
 
   if (!image) return null
 
-  return <img onError={handleError} src={imageLoader(src, staticImage)} loading="lazy" {...rest} />
+  return (
+    <img
+      onError={handleError}
+      src={imageLoader(src, staticImage, endpoint)}
+      loading="lazy"
+      {...rest}
+    />
+  )
 }
 
 export default Img
