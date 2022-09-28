@@ -1,7 +1,7 @@
 import { GetterOption } from '@/domain/entities/getters/getter-options'
 import { left, PromiseEither } from '@/shared/either'
+import { db } from 'mapacultural-database'
 
-import { db } from '../../../../database'
 import { UseCase } from '../ports/use-case'
 
 export class GetAllOptionsByType implements UseCase<TypeOption, GetterOption[]> {

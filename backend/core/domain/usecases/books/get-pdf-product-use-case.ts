@@ -1,52 +1,47 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-namespace */
 import { PromiseEither } from '@/shared/either'
-import { Either, left, right } from '@/shared/either'
-import { existsSync, ReadStream } from 'fs'
-import { resolve } from 'path'
+import { left, right } from '@/shared/either'
+import { TypeDoc } from '@/types/ports'
 
-import { NotFoundProductError, MissingParamError } from '../errors'
+import { MissingParamError } from '../errors'
 import { UseCase } from '../ports/use-case'
 import { CreateReadStream } from '../utils/create-read-stream/create-read-stream'
+import { UseCasePathsExists } from '../utils/paths-exists/paths-exists.interface'
 
-export class GetPDFProductBookUseCase implements UseCase<GetPDFProduct.Params, ReadStream> {
-  constructor(private readonly StreamUseCase: CreateReadStream) {}
+export class GetPDFProductBookUseCase
+  implements UseCase<GetPDFProduct.Params, CreateReadStream.Stream>
+{
+  constructor(
+    private readonly StreamUseCase: CreateReadStream,
+    private readonly PathExistsUseCase: UseCasePathsExists
+  ) {}
 
-  async execute({ author, folder, id, title }: any): PromiseEither<ReadStream, Error> {
+  async execute({ id }): PromiseEither<CreateReadStream.Stream, Error> {
     // Verifica se os params são válidos, se não retorna um erro MissingParamError
     if (!id) {
       return right(new MissingParamError('id é obrigatório'))
     }
 
-    const path = resolve(process.env.PATH_PRODUCTS, folder, id)
+    const pathOrErr = await this.PathExistsUseCase.execute({ id, type: TypeDoc.PDF })
 
-    const arqExist = existsSync(path) // Verifica se o arquivo existe
-
-    // Caso o arquivo não exista emite um erro
-    if (!arqExist) {
-      return right(new NotFoundProductError(id, author, title))
+    if (pathOrErr.isRight()) {
+      return right(pathOrErr.value)
     }
 
-    const stream = await this.StreamUseCase.run({ path })
+    const stream = await this.StreamUseCase.run({ path: pathOrErr.value })
 
     if (stream.isRight()) {
       return right(stream.value)
     }
+
     // Retorna a stream para o pipe(res)
-    return left(stream.value as any)
+    return left(stream.value)
   }
 }
 
 export declare namespace GetPDFProduct {
   export type Params = {
     id: string
-    author: string
-    title: string
-    folder: string
   }
-  export type Stream = {
-    size: number
-    stream: ReadStream
-  }
-  export type Response = Either<Stream, NotFoundProductError>
 }

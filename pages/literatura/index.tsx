@@ -3,7 +3,7 @@
 import React from 'react'
 
 import { FindAllProductsByCategory } from '@/domain/usecases'
-import { build } from 'backend/database'
+import { build } from 'mapacultural-database'
 import { GetStaticProps } from 'next/types'
 
 import Loading from '@/components/molecule/loading'

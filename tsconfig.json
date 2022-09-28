@@ -49,7 +49,7 @@
     "node_modules/**/*",
     "babel.config.ts",
     "metro.config.ts",
-    "jest.config.js",
+    "vitest.config.js",
     "next.config.ts",
     "source/components/atom/date-picker/react-date-picker/**/*",
   ],

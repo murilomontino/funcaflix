@@ -7,8 +7,7 @@ import {
   FindAllPlaylistUseCase,
   FindAllProductsByCategory,
 } from '@/domain/usecases'
-import { build } from 'backend/database'
-import { db } from 'backend/database'
+import { build, db } from 'mapacultural-database'
 import { GetStaticProps } from 'next/types'
 
 import ComingSoon from '@/screens/coming-soon-screen'
@@ -71,9 +70,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     order: [['dateStart', 'DESC']],
   })
 
-  const mapProjects = newestProjects.map((project) =>
-    new GetterProjects().build(project.get()).params()
-  )
+  const mapProjects = newestProjects.map((project) => GetterProjects.build(project.get()).params())
 
   return {
     props: {

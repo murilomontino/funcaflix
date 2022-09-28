@@ -6,6 +6,8 @@ import {
   IPlaylist,
   ITVPrograms,
   IProjects,
+  IDocProjects,
+  ICulturalProfile,
 } from '../setters'
 export interface IGetterProduct extends IProduct {
   id: number
@@ -40,4 +42,8 @@ export interface IGetterTVPrograms extends ITVPrograms {
   id: number
 }
 
-export type IGetterProjects = IProjects
+export interface IGetterProjects extends IProjects {
+  docs: IDocProjects[]
+}
+
+export type IGetterCulturalProfile = ICulturalProfile

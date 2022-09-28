@@ -1,8 +1,8 @@
 import { left, PromiseEither, right } from '@/shared/either'
 import { IGetterProduct } from '@/types/getters'
+import { db } from 'mapacultural-database'
 import { Op } from 'sequelize'
 
-import { db } from '../../../../database'
 import { UseCase } from '../ports/use-case'
 
 enum ProductType {

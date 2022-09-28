@@ -7,7 +7,7 @@ const Books = Router()
 
 // Objeto que contém todas as rotas de produtos
 export const PathBooks = {
-  GET_PDF: '/books/pdf/:folder/:id',
+  GET_PDF: '/books/pdf/:id',
 }
 
 // Adiciona a rota /pdf/:id para retornar um livro em formato PDF

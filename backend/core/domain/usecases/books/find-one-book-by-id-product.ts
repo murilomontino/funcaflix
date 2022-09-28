@@ -1,16 +1,16 @@
 import { GetterBook } from '@/domain/entities'
 import { left, PromiseEither, right } from '@/shared/either'
 import { IGetterBooks } from '@/types/getters'
+import { database, db } from 'mapacultural-database'
 
-import { database, db } from '../../../../database'
 import { UseCase } from '../ports/use-case'
 
-type Params = {
+type ID = {
   id: string
 }
 
-export class FindOneBookByIdProductUseCase implements UseCase<unknown, IGetterBooks> {
-  async execute(_, params: Params): PromiseEither<IGetterBooks, Error> {
+export class FindOneBookByIdProductUseCase implements UseCase<ID, IGetterBooks> {
+  async execute(_, params: ID): PromiseEither<IGetterBooks, Error> {
     if (!params.id) {
       return right(new Error('Id é obrigatório'))
     }
@@ -62,8 +62,8 @@ export class FindOneBookByIdProductUseCase implements UseCase<unknown, IGetterBo
             genres: book.genres,
             id: book.id,
             idDocument: doc?.id || 'Não disponível',
-            pdf: doc?.filePath || 'Não disponível',
-            thumbnail: thumbnail?.filePath || 'Não Informado',
+            pdf: doc?.file || 'Não disponível',
+            thumbnail: thumbnail?.file || 'Não Informado',
             illustration: book.illustration,
             isbn: book.isbn,
             illustrator: book.illustrator,

@@ -1,4 +1,3 @@
-import { build } from 'backend/database'
 import { Express } from 'express'
 /* eslint-disable @typescript-eslint/no-var-requires */
 import express from 'express'
@@ -7,6 +6,7 @@ import type { Server as ServerHTTP } from 'http'
 import { createServer as CreateServerHTTP } from 'http'
 import type { Server as ServerHTTPS } from 'https'
 import { createServer as CreateServerHTTPS } from 'https'
+import { build } from 'mapacultural-database'
 import next from 'next'
 
 import Middleware from './middleware'
