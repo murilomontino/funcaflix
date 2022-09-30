@@ -25,7 +25,10 @@ const CardArtists = ({ item }: Props) => {
   return (
     <Col sm="6" md="4" lg="2" className={`block-images position-relative ${styles['btn']}`}>
       <div className="iq-card position-relative ">
-        <QRCode value={item.name} />
+        {/* name = item.name.lowercase#item.id (Sem espaços) */}
+        <QRCode value={
+          `${item.name.toLowerCase().replace(/ /g, '')}#${item.id}`
+        } />
         <Img
           endpoint="images/profile/"
           image={item.thumbnail || PersonDefault}

@@ -24,7 +24,7 @@
 	"plugins": [
 		"react",
 		"@typescript-eslint",
-		"prettier",
+		"plugin:prettier/recommended",
 		"eslint-plugin-import-helpers",
 		"unused-imports"
 	],
@@ -53,6 +53,7 @@
 			"off"
 		],
 		"no-console": "error",
+		"react/react-in-jsx-scope": "off",
 		"import-helpers/order-imports": [
 			"warn",
 			{
@@ -100,8 +101,8 @@
 		"metro.config.js",
 		"babel.config.js",
 		"node_modules",
-    "jest.config.js",
-    "next.config.js",
-    "src/components/atom/react-date-picker/**/*"
+		"jest.config.js",
+		"next.config.js",
+		"src/components/atom/react-date-picker/**/*"
 	]
 }
