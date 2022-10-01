@@ -1,13 +1,13 @@
 // @generated: @expo/next-adapter@2.1.52
 import React from 'react'
 
-import { GetterProjects } from '@/domain/entities'
 import {
   FindAllNewestAudioVisual,
+  FindAllOpportunities,
   FindAllPlaylistUseCase,
-  FindAllProductsByCategory,
+  FindAllProductsByCategory
 } from '@/domain/usecases'
-import { build, db } from 'mapacultural-database'
+import { build } from 'mapacultural-database'
 import { GetStaticProps } from 'next/types'
 
 import ComingSoon from '@/screens/coming-soon-screen'
@@ -62,22 +62,14 @@ export const getStaticProps: GetStaticProps = async (context) => {
       ).value
     : []
 
-  const newestProjects = await db.ModelProject.findAll({
-    where: {
-      status: [1],
-    },
-
-    order: [['dateStart', 'DESC']],
-  })
-
-  const mapProjects = newestProjects.map((project) => GetterProjects.build(project.get()).params())
+  const opportunitiesOrErr = await new FindAllOpportunities().execute()
 
   return {
     props: {
       staticBooks: books,
       staticPlaylist: playlist,
       staticNewestProducts: newestProducts,
-      staticOpportunities: mapProjects,
+      staticOpportunities: opportunitiesOrErr.isRight() ? [] : opportunitiesOrErr.value, 
     },
     revalidate: 60 * 60 * 24,
   }
