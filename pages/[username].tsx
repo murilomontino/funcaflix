@@ -3,10 +3,10 @@ import React from 'react'
 
 import { GetStaticProps } from 'next'
 
-import ScreenProfile from '@/screens/profile-screen'
+import ScreenProfile from '@/screens/profile-pages/SimplePage/SimplePage';
 
 export default function ProfilePage({ profile }) {
-  return <ScreenProfile profile={profile} />
+  return <ScreenProfile  />
 }
 
 export const getStaticPaths = async () => {
