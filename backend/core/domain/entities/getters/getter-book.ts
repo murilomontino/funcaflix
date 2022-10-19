@@ -5,6 +5,7 @@ import { IBook } from '@/types/setters'
 import { GetterEntity } from './getter-entity'
 
 export class GetterBook extends GetterEntity<IGetterBooks> implements IBook {
+  
   public id: number
   public idDocument: number
   public author: string
@@ -23,47 +24,141 @@ export class GetterBook extends GetterEntity<IGetterBooks> implements IBook {
   public pdf: string
   public thumbnail: string
 
-  public build(params: IGetterBooks): GetterBook {
-    this.id = params.id
-    this.idDocument = params.idDocument
-    this.author = params.author
-    this.title = params.title
-    this.subTitle = params.subTitle
-    this.isbn = params.isbn
-    this.publisher = params.publisher
-    this.publicationDate = params.publicationDate
-    this.numberOfPages = params.numberOfPages
-    this.dimensions = params.dimensions
-    this.synopsis = params.synopsis
-    this.illustration = params.illustration
-    this.illustrator = params.illustrator
-    this.genres = params.genres
-    this.tags = params.tags
-    this.pdf = params.pdf
-    this.thumbnail = params.thumbnail
 
+  constructor() {
+    super();
+  }
+
+  static build(params: IGetterBooks): GetterBook {
+    const {
+      id,
+      idDocument,
+      author,
+      title,
+      subTitle,
+      isbn,
+      publisher,
+      publicationDate,
+      numberOfPages,
+      dimensions,
+      synopsis,
+      illustration,
+      illustrator,
+      genres,
+      tags,
+      pdf,
+      thumbnail,
+    } = params
+
+
+    return new GetterBook()
+      .defineId(id)
+      .defineIdDocument(idDocument)
+      .defineAuthor(author)
+      .defineTitle(title)
+      .defineSubTitle(subTitle)
+      .defineIsbn(isbn)
+      .definePublisher(publisher)
+      .definePublicationDate(publicationDate)
+      .defineNumberOfPages(numberOfPages)
+      .defineDimensions(dimensions)
+      .defineSynopsis(synopsis)
+      .defineIllustration(illustration)
+      .defineIllustrator(illustrator)
+      .defineGenres(genres)
+      .defineTags(tags)
+      .definePdf(pdf)
+      .defineThumbnail(thumbnail)
+  }
+
+  public defineId(id: number) {
+    this.id = id
     return this
   }
 
-  public params() {
-    return {
-      id: this.id,
-      idDocument: this.idDocument,
-      author: this.author,
-      title: this.title,
-      subTitle: this.subTitle,
-      isbn: this.isbn,
-      publisher: this.publisher,
-      publicationDate: this.publicationDate,
-      numberOfPages: this.numberOfPages,
-      dimensions: this.dimensions,
-      synopsis: this.synopsis,
-      illustration: this.illustration,
-      illustrator: this.illustrator,
-      genres: this.genres,
-      tags: this.tags,
-      pdf: this.pdf,
-      thumbnail: this.thumbnail,
-    } as GetterBook
+  public defineIdDocument(idDocument: number) {
+    this.idDocument = idDocument
+    return this
+  }
+
+  public defineAuthor(author: string) {
+    this.author = author
+    return this
+  }
+
+  public defineTitle(title: string) {
+    this.title = title
+    return this
+  }
+
+  public defineSubTitle(subTitle: string) {
+    this.subTitle = subTitle
+    return this
+  }
+
+  public defineIsbn(isbn: string) {
+    this.isbn = isbn
+    return this
+  }
+
+  public definePublisher(publisher: string) {
+    this.publisher = publisher
+    return this
+  }
+
+  public definePublicationDate(publicationDate: string) {
+    this.publicationDate = publicationDate
+    return this
+  }
+
+  public defineNumberOfPages(numberOfPages: string) {
+    this.numberOfPages = numberOfPages
+    return this
+  }
+
+  public defineDimensions(dimensions: string) {
+    this.dimensions = dimensions
+    return this
+  }
+
+  public defineSynopsis(synopsis: string) {
+    this.synopsis = synopsis
+    return this
+  }
+
+  public defineIllustration(illustration: boolean) {
+    this.illustration = illustration
+    return this
+  }
+
+  public defineIllustrator(illustrator: string) {
+    this.illustrator = illustrator
+    return this
+  }
+
+  public defineGenres(genres: string) {
+    this.genres = genres
+    return this
+  }
+
+  public defineTags(tags: string) {
+    this.tags = tags
+    return this
+  }
+
+  public definePdf(pdf: string = null) {
+    this.pdf = pdf
+    return this
+  }
+
+  public defineThumbnail(thumbnail: string = null) {
+    this.thumbnail = thumbnail
+    return this
+  }
+
+  public params(): IGetterBooks {
+    return Object.assign({}, this)
   }
 }
+
+  

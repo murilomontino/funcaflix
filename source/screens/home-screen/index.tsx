@@ -80,6 +80,7 @@ function HomeScreen({ books, tvProgramsPlaylist, newestProducts, opportunities }
         }}
       >
         <SlideSwipper
+          existLogo={false}
           title="oportunidades"
           id="iq-oportunidades"
           items={opportunitiesCarousel}
