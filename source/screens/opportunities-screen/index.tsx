@@ -24,10 +24,20 @@ const OpportunitiesScreen = ({ opportunities = [] }: Props) => {
   const { isFontReady } = useResources()
 
   const [hasMore, setHasMore] = useState(true)
-  const [data, setData] = useState(opportunities.slice(0, 50))
+  const [data, setData] = useState(
+    opportunities.slice(0, 50)
+      .sort((a) => {
+        return a.status === 1 ? -1 : 1
+      })
+  )
 
   const fetchMoreData = () => {
-    setData((state) => [...state, ...opportunities.slice(state.length, state.length + 50)])
+    setData((state) =>
+      [...state, ...opportunities.slice(state.length, state.length + 50)]
+        .sort((a) => {
+          return a.status === 1 ? -1 : 1
+        })
+    )
     setHasMore(data.length < opportunities.length)
   }
 
