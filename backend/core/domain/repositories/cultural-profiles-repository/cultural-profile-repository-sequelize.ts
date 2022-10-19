@@ -40,9 +40,10 @@ export class CulturalProfileRepositorySequelize implements CulturalProfileReposi
       )
 
       const items = await Promise.all(
-        segments.map(async (segment) => {
+        segments
+        .map((segment) => {
           const items = culturalProfiles.filter(
-            (item: IGetterCulturalProfile) => item.segment === segment
+            (artist: IGetterCulturalProfile) => artist.segment === segment
           ) as IGetterCulturalProfile[]
           return { segment, items }
         })

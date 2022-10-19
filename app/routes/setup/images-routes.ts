@@ -24,7 +24,7 @@ Images.get(
     const imagePath = await pathUseCase.execute({ id: image, type: TypeDoc.IMG_PROFILE })
 
     if (imagePath.isRight()) {
-      return res.send(404).end()
+      return res.sendStatus(404).end()
     }
 
     req.query.path = imagePath.value.toString()
@@ -47,7 +47,7 @@ Images.get(
     const imagePath = await pathUseCase.execute({ id: image, type: TypeDoc.CAPA })
 
     if (imagePath.isRight()) {
-      return res.send(404).end()
+      return res.sendStatus(404).end()
     }
 
     req.query.path = imagePath.value.toString()

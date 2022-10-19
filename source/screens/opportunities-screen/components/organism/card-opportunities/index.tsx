@@ -1,52 +1,42 @@
-import React, { useMemo } from 'react'
-import { View } from 'react-native'
+import React from 'react'
 
 import { GetterProjects } from '@/domain/entities'
-import DefaultImg from '@/public/brasao_governo-sergipe.webp'
 
-import Img from '@/components/atom/image'
 
-import AboutCard from '../../molecules/about-card'
-import BasicInformationCard from '../../molecules/basic-information-card'
+import AboutDescription from '@/components/molecule/card-about-description'
+import CardBasicInformation from '@/components/molecule/card-basic-information'
 import FooterCard from '../../molecules/footer-card'
-import { viewStyles } from '../../styles'
-import { Card } from './styles'
 
-import { useSize } from '@/hooks/utils/use-size'
+import Card from '@/components/molecule/card'
+
+import { ContainerInformation, ContainerDate, Text } from './styles'
 
 type Props = {
   item: GetterProjects
 }
 
 const CardOpportunities = ({ item }: Props) => {
-  const { size } = useSize()
-  const { dateEnd, dateStart } = item
 
-  const color = useMemo(() => {
-    if (new Date(dateEnd) < new Date() || item?.status == 2) return '#FF0000'
-    if (new Date(dateStart) > new Date()) return '#FFA500'
-    return '#008000'
-  }, [dateEnd, dateStart])
+ 
+  const dateStartFormatted = new Date(item.dateStart).toLocaleDateString('pt-BR', { timeZone: 'UTC' })
+  const dateEndFormatted = new Date(item.dateEnd).toLocaleDateString('pt-BR', { timeZone: 'UTC' })
 
   return (
-    <Card color={color}>
-      <View
-        style={
-          (viewStyles.viewContainerImage,
-          size.width < 640 && {
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-          })
-        }
-      >
-        <Img image={DefaultImg} width={250} height={'100%'} staticImage />
-      </View>
-      <View style={[viewStyles.viewDetails]}>
-        <BasicInformationCard item={item} />
-        <AboutCard item={item} />
-        <FooterCard item={item} />
-      </View>
+    <Card item={item}>
+      <CardBasicInformation title={item.nameProject} >
+        <ContainerInformation>
+          <ContainerDate>
+            <Text>Data de Inicio:</Text>
+            <Text>{dateStartFormatted}</Text>
+          </ContainerDate>
+          <ContainerDate>
+            <Text>Data de Fim:</Text>
+            <Text>{dateEndFormatted}</Text>
+          </ContainerDate>
+        </ContainerInformation>
+      </CardBasicInformation>
+      <AboutDescription about={item.aboutProject} />
+      <FooterCard item={item} />
     </Card>
   )
 }

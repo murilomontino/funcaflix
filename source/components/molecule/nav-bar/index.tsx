@@ -15,11 +15,13 @@ const NavBar: React.FC<Props> = ({ flexDirection = 'row' }) => {
         marginLeft: 16,
       }}
     >
-      <ItemNavBar title="AUDIOVISUAL" link="/audiovisual" disabled />
       <ItemNavBar title="LITERATURA" select={true} link="/literatura" />
-      <ItemNavBar title="MÚSICAS" select={true} link="/musicas" disabled />
-      <ItemNavBar title="ARTES VISUAIS" link="/artes-visuais" disabled />
-      <ItemNavBar title="AGENDA" link="/agenda" disabled />
+      {/* 
+        <ItemNavBar title="AUDIOVISUAL" link="/audiovisual" disabled />
+        <ItemNavBar title="MÚSICAS" select={true} link="/musicas" disabled />
+        <ItemNavBar title="ARTES VISUAIS" link="/artes-visuais" disabled /> 
+        <ItemNavBar title="AGENDA" link="/agenda" disabled />
+      */}
       <ItemNavBar title="PERFIS" link="/perfis-culturais" />
       <ItemNavBar title="OPORTUNIDADES" link="/oportunidades" />
     </View>
