@@ -1,7 +1,6 @@
 import React from 'react'
 
 import noCapa from '@/public/no-capa.jpg'
-import { ImageProps } from 'next/image'
 
 type Props = {
   image?: string
@@ -11,7 +10,7 @@ type Props = {
   width?: number | string
   updateClassName?: string
   url?: string
-} & Partial<ImageProps>
+} &  React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>
 
 const imageLoader = (image: string, staticImage: boolean, endpoint = 'images/') => {
   if (!image || image?.startsWith('Não')) {

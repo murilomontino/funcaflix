@@ -3,8 +3,8 @@ import { Container, Col, Row } from 'react-bootstrap'
 import Skeleton from 'react-loading-skeleton'
 
 import theme from '@/theme'
-import SwiperCore, { EffectFade, Navigation, Thumbs, Pagination } from 'swiper'
-import { Swiper, SwiperSlide } from 'swiper/react'
+import SwipperCore, { EffectFade, Navigation, Thumbs, Pagination } from 'swiper'
+import { Swiper as Swipper, SwiperSlide as SwipperSlide } from 'swiper/react'
 
 import CardSwipper from '@/components/molecule/card-swipper'
 import TitleCarousel from '@/components/molecule/title-carousel'
@@ -17,6 +17,7 @@ type Props = {
   id: string
   buttonText?: string
   width?: string
+  existLogo?: boolean
   height?: string
   queryString?: string
   link?: string
@@ -38,6 +39,7 @@ const CarouselSwipper = ({
   height,
   queryString,
   allLink,
+  existLogo = true,
   itemsPerView = 5.5,
   link = '/',
   buttonText = 'Assistir',
@@ -45,7 +47,7 @@ const CarouselSwipper = ({
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    SwiperCore.use([EffectFade, Navigation, Thumbs, Pagination])
+    SwipperCore.use([EffectFade, Navigation, Thumbs, Pagination])
 
     setIsLoading(false)
   }, [])
@@ -107,7 +109,7 @@ const CarouselSwipper = ({
                   </div>
                 </When>
                 <When condition={!!items}>
-                  <Swiper
+                  <Swipper
                     navigation={{
                       prevEl: `#prev-${id}`,
                       nextEl: `#next-${id}`,
@@ -133,19 +135,20 @@ const CarouselSwipper = ({
                       }
 
                       return (
-                        <SwiperSlide as="li" key={index} virtualIndex={index}>
+                        <SwipperSlide as="li" key={index} virtualIndex={index}>
                           <CardSwipper
                             linkDetails={linkDefinitive}
                             title={item.title}
+                            existLogo={existLogo}
                             thumbnail={item.thumbnail}
                             width={width}
                             height={height}
                             button={buttonText}
                           />
-                        </SwiperSlide>
+                        </SwipperSlide>
                       )
                     })}
-                  </Swiper>
+                  </Swipper>
                 </When>
               </Choose>
             </div>

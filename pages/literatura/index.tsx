@@ -2,7 +2,7 @@
 // @generated: @expo/next-adapter@2.1.52
 import React from 'react'
 
-import { FindAllProductsByCategory } from '@/domain/usecases'
+import { FindAllBooksUseCase } from '@/domain/usecases'
 import { build } from 'mapacultural-database'
 import { GetStaticProps } from 'next/types'
 
@@ -19,12 +19,11 @@ export default function Literatura({ staticBooks }) {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   await build()
-  const books = await new FindAllProductsByCategory().execute(null, {
-    category: '2',
-  })
+  const booksOrErr = await new FindAllBooksUseCase().execute()
+
   return {
     props: {
-      staticBooks: books.value,
+      staticBooks: booksOrErr.isLeft() ? booksOrErr.value : [],
     },
     revalidate: 60 * 60 * 24,
   }

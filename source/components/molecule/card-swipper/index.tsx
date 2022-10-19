@@ -1,7 +1,7 @@
 import React from 'react'
 import Skeleton from 'react-loading-skeleton'
 
-import LogoDefault from '@/public/brasao_governo-sergipe.webp'
+import LogoDefault from '@/public/logo-default.png'
 import noCapa from '@/public/no-capa.jpg'
 import theme from '@/theme'
 import { MotiView } from 'moti'
@@ -10,6 +10,7 @@ import ImageNext from '@/components/atom/image-next'
 import Logo from '@/components/atom/logo-funcapflix'
 
 import { ContainerLogo, Title } from './styles'
+import { If } from '@/utils/tsx-controls'
 
 type Props = {
   title: string
@@ -19,6 +20,7 @@ type Props = {
   button?: string
   linkDetails?: string
   imageStatic?: boolean
+  existLogo?: boolean
 }
 
 const imageLoader = ({ src }) => {
@@ -47,6 +49,7 @@ const CardSwipper = ({
   height = '160px',
   button = 'Assistir',
   imageStatic = false,
+  existLogo = true,
   linkDetails = '/',
 }: Props) => {
   if (!thumbnail) {
@@ -86,9 +89,11 @@ const CardSwipper = ({
           width: '100%',
         }}
       >
-        <ContainerLogo>
-          <Logo size={1.5} />
-        </ContainerLogo>
+        <If condition={existLogo}>
+          <ContainerLogo>
+            <Logo size={1.5} />
+          </ContainerLogo>
+        </If>
         <MotiView
           animate={{
             width: '100%',

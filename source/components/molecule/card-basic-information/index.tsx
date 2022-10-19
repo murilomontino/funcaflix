@@ -1,19 +1,19 @@
+import { If } from '@/utils/tsx-controls'
 import React from 'react'
 import { View, Text, Platform } from 'react-native'
 import { useDimensions } from 'react-native-web-hooks'
 
-import { textStyles, viewStyles } from '../../styles'
+import { textStyles, viewStyles } from '../../../screens/books-screen/components/styles'
 
 type Props = {
-  item: {
-    id: number
-    title: string
-    about: string
-    thumbnail: string
-  }
+  title: string
+  author?: string
+  subTitle?: string
+  children?: React.ReactNode | React.ReactNode[] | JSX.Element | JSX.Element[]
 }
 
-const BookBasicInformation = ({ item }: Props) => {
+const BookBasicInformation = ({ title, author, subTitle, children }: Props) => {
+
   const web = Platform.OS === 'web'
   const { window, screen } = useDimensions()
   const size = web ? window : screen
@@ -36,28 +36,20 @@ const BookBasicInformation = ({ item }: Props) => {
           },
         ]}
       >
-        <Text style={[textStyles.attrText, { fontWeight: '700', fontSize: 12 }]}>{item.title}</Text>
-        {/*  {item.subTitulo ? (
+        <Text style={[textStyles.attrText, { fontWeight: '700', fontSize: 12 }]}>{title}</Text>
+        <If condition={!!subTitle}>
           <Text style={[textStyles.attrText, { fontWeight: '700', fontSize: 12 }]}>
-            {'-'} {item.subTitulo}
+           {"-"} {subTitle}
           </Text>
-        ) : (
-          <></>
-        )} */}
+        </If>
+
       </View>
-      {/*       <View
-        style={[
-          viewStyles.viewAttributes,
-          {
-            alignItems: 'center',
-          },
-        ]}
-      >
-        <Text style={[textStyles.attrText, { fontWeight: 'bold', textAlignVertical: 'center' }]}>
-          Genero:{' '}
-        </Text>
-        <GenerosLiterarios generos={item.generos} />
-      </View> */}
+      <If condition={!!author}>
+        <View>
+          <Text style={textStyles.authorFooter}>{author}</Text>
+        </View>
+      </If>
+      {children}
     </View>
   )
 }

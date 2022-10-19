@@ -70,77 +70,77 @@ export class GetterCulturalProfiles
       .defineInstagram(instagram)
   }
 
-  public defineId(id: number | string) {
+  public defineId(id: number | string = null) {
     this.id = id
     return this
   }
 
-  public defineName(name: string) {
+  public defineName(name: string = null) {
     this.name = name
     return this
   }
 
-  public defineEmail(email: string) {
+  public defineEmail(email: string = null) {
     this.email = email
     return this
   }
 
-  public definePhone(phone: string) {
+  public definePhone(phone: string = null) {
     this.phone = phone
     return this
   }
 
-  public defineThumbnail(thumbnail: string) {
+  public defineThumbnail(thumbnail: string = null) {
     this.thumbnail = thumbnail
     return this
   }
 
-  public defineAbout(about: string) {
+  public defineAbout(about: string = null) {
     this.about = about
     return this
   }
 
-  public defineCity(city: string) {
+  public defineCity(city: string = null) {
     this.city = city
     return this
   }
 
-  public defineType(type: string) {
+  public defineType(type: string = null) {
     this.type = type
     return this
   }
 
-  public defineSegment(segment: string) {
+  public defineSegment(segment: string = null) {
     this.segment = segment
     return this
   }
 
-  public defineActing(acting: string) {
+  public defineActing(acting: string = null) {
     this.acting = acting
     return this
   }
 
-  public defineWebsite(website: string) {
+  public defineWebsite(website: string = null) {
     this.website = website
     return this
   }
 
-  public defineYoutube(youtube: string) {
+  public defineYoutube(youtube: string = null) {
     this.youtube = youtube
     return this
   }
 
-  public defineTwitter(twitter: string) {
+  public defineTwitter(twitter: string = null) {
     this.twitter = twitter
     return this
   }
 
-  public defineFacebook(facebook: string) {
+  public defineFacebook(facebook: string = null) {
     this.facebook = facebook
     return this
   }
 
-  public defineInstagram(instagram: string) {
+  public defineInstagram(instagram: string = null ) {
     this.instagram = instagram
     return this
   }

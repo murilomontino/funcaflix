@@ -55,7 +55,7 @@ export class FindOneBookByIdProductUseCase implements UseCase<ID, IGetterBooks> 
       const book = bookModel.get()
 
       return left(
-        new GetterBook()
+        GetterBook
           .build({
             author: book.author,
             dimensions: book.dimensions,

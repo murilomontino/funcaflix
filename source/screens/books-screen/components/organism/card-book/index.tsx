@@ -1,47 +1,23 @@
 import React from 'react'
-import { View } from 'react-native'
 
-import Img from '@/components/atom/image'
-
-import BookBasicInformation from '../../molecules/book-basic-information'
+import CardBasicInformation from '@/components/molecule/card-basic-information'
 import BookFooter from '../../molecules/book-footer'
-import BookSinopse from '../../molecules/book-sinopse'
-import { viewStyles } from '../../styles'
-import { Card } from './styles'
+import AboutDescription from '@/components/molecule/card-about-description'
 
-import { useSize } from '@/hooks/utils/use-size'
+import Card from '@/components/molecule/card'
+import { GetterBook } from '@/domain/entities'
 
 type Props = {
-  item: {
-    id: number
-    title: string
-    about: string
-    thumbnail: string
-  }
+  item: GetterBook 
 }
 
 const CardBooks = ({ item }: Props) => {
-  const { size } = useSize()
 
   return (
-    <Card>
-      <View
-        style={
-          (viewStyles.viewContainerImage,
-          size.width < 640 && {
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-          })
-        }
-      >
-        <Img image={item.thumbnail} width={250} height={'100%'} />
-      </View>
-      <View style={[viewStyles.viewDetails]}>
-        <BookBasicInformation item={item} />
-        <BookSinopse item={item} />
+    <Card item={item as any}>
+        <CardBasicInformation title={item.title} subTitle={item.subTitle} author={item.author} />
+        <AboutDescription about={item.synopsis} />
         <BookFooter item={item} />
-      </View>
     </Card>
   )
 }
