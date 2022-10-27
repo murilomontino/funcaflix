@@ -17,13 +17,14 @@ export default function ProfilePage() {
 
   const fetchProfile = async () => {
     const [error, response] = await promiseErrorHandler(api.get(`/profiles/${id}`))
+    const { data, statusCode } = response.data
 
-    if (error) {
+    if (error || statusCode !== 200) {
       console.log(error)
       return
     }
 
-    setProfile(response.data)
+    setProfile(data)
   }
 
   useEffect(() => {
@@ -37,7 +38,7 @@ export default function ProfilePage() {
 
   }, [id])
 
-  if (loading || !id) return null
+  if (loading || !id || !profile) return null
 
   return <ScreenProfile profile={profile} />
 }

@@ -1,3 +1,4 @@
+import promiseErrorHandler from '@/helpers/error-handler'
 import { left, PromiseEither, right } from '@/shared/either'
 import { IGetterCulturalProfile } from '@/types/getters'
 import { database } from 'mapacultural-database'
@@ -55,7 +56,14 @@ export class CulturalProfileRepositorySequelize implements CulturalProfileReposi
 
   async findById(id: number): PromiseEither<IGetterCulturalProfile, Error> {
     return database.transaction(async (transaction) => {
-      const [profile] = await database.query(QUERY_CULTURAL_PROFILE_BY_ID(id), { transaction })      
+
+      const [error, profiles] = await promiseErrorHandler(
+        database.query(QUERY_CULTURAL_PROFILE_BY_ID(id), { transaction }) 
+      ) 
+            
+      if (error) return right(error)
+      
+      const [profile] = profiles
 
       if (!profile[0]) return right(new Error('Profile not found'))
 

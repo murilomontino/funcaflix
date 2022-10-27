@@ -139,6 +139,8 @@ export interface ICulturalProfile {
   twitter: string
   facebook: string
   instagram: string
+  hashtags: string
+  uf: string
 }
 
 export interface IUser {

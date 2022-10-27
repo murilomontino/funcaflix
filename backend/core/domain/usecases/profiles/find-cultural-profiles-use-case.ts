@@ -16,7 +16,7 @@ export class FindByIdProfileUseCase
 
   async execute(_, { id }: Props): PromiseEither<IGetterCulturalProfile, Error> {
     assert(id, 'id is required')
-
+    console.log('chega aki no use case')
     const profileOrErr = await this.culturalProfileRepository.findById(id)
 
     if (profileOrErr.isRight()) return right(new Error('Not implemented'))
