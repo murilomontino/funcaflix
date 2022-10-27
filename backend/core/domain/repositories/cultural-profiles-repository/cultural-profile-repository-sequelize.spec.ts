@@ -33,4 +33,10 @@ describe('Unit Test Cultural Profile Repository', () => {
       items: expect.any(Array),
     })
   })
+  it('should return find by id profile (Integration)', async () => {
+    const result = await instance.findById(1)
+    if (result.isLeft()) {
+      expect(result.value.id).toBeDefined()
+    }
+  })
 })

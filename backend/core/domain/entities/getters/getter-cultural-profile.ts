@@ -15,6 +15,7 @@ export class GetterCulturalProfiles
   email: string
   phone: string
   thumbnail: string
+  banner: string
   about: string
   mediaSocial: MediaSocial[]
   createdAt: Date
@@ -40,6 +41,7 @@ export class GetterCulturalProfiles
       email,
       phone,
       thumbnail,
+      banner,
       about,
       acting,
       facebook,
@@ -58,6 +60,7 @@ export class GetterCulturalProfiles
       .defineEmail(email)
       .definePhone(phone)
       .defineThumbnail(thumbnail)
+      .defineBanner(banner)
       .defineAbout(about)
       .defineCity(city)
       .defineType(type)
@@ -142,6 +145,11 @@ export class GetterCulturalProfiles
 
   public defineInstagram(instagram: string = null ) {
     this.instagram = instagram
+    return this
+  }
+
+  public defineBanner(banner: string = null) {
+    this.banner = banner
     return this
   }
 

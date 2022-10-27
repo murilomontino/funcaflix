@@ -13,6 +13,8 @@ import colors from '@/global/colors'
 import constants from '@/global/constants'
 import { useResources } from '@/hooks/utils/use-resources'
 
+import CarouselSwipper from '@/components/organism/slide-swipper'
+
 type Props = {
   profiles: CulturalProfileByCity[] | CulturalProfileBySegment[]
 }
@@ -43,9 +45,20 @@ const CulturalProfilesScreen = ({ profiles = [] }: Props) => {
       </View>
     )
   }
+
   return (
     <View style={styles.container}>
       <BreadCrumb title="Perfis Culturais" image={image} />
+
+      <CarouselSwipper
+          title="Literatura"
+          id="iq-literatura"
+          items={[]}
+          height="280px"
+          link="literatura"
+          itemsPerView={6.5}
+          buttonText="Ler"
+        />
 
       <ReactInfiniteScroll
         dataLength={data.length}

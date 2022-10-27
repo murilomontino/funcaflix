@@ -14,4 +14,5 @@ export type CulturalProfileBySegment = {
 export interface CulturalProfileRepository {
   findAllByCity(): PromiseEither<CulturalProfileByCity[], Error>
   findAllBySegment(): PromiseEither<CulturalProfileBySegment[], Error>
+  findById(id: number): PromiseEither<IGetterCulturalProfile, Error>
 }

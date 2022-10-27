@@ -18,21 +18,13 @@ export class PathExistsUseCase implements UseCasePathsExists {
     const uuid = id.split('.')[0]
 
     return database.transaction(async (transaction) => {
-      const file =
-        (await db.ModelDocsProducts.findOne({
+      const file = await db.ModelDocsProducts.findOne({
           where: {
             [Op.and]: [{ type }, { file: { [Op.like]: `%${uuid}%` } }],
           },
           transaction,
           attributes: ['id', 'filePath'],
-        })) ||
-        (await db.ModelDocuments.findOne({
-          where: {
-            [Op.and]: [{ type }, { file: { [Op.like]: `%${uuid}%` } }],
-          },
-          transaction,
-          attributes: ['id', 'filePath'],
-        }))
+        })
 
       if (!file) {
         return right(new NotFoundProductError(id))

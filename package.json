@@ -29,7 +29,7 @@
     "fslightbox-react": "^1.6.2-2",
     "helmet": "^5.1.0",
     "jquery": "^3.6.1",
-    "mapacultural-database": "^1.0.7",
+    "mapacultural-database": "^1.0.8",
     "mariadb": "^3.0.0",
     "moment": "^2.29.1",
     "moti": "^0.17.1",

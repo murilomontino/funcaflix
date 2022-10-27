@@ -1,4 +1,4 @@
-import { left, PromiseEither } from '@/shared/either'
+import { left, PromiseEither, right } from '@/shared/either'
 import { IGetterCulturalProfile } from '@/types/getters'
 import { database } from 'mapacultural-database'
 
@@ -7,7 +7,7 @@ import {
   CulturalProfileRepository,
   CulturalProfileBySegment,
 } from './cultural-profile.interface'
-import { QUERY_CULTURAL_PROFILE } from './queries'
+import { QUERY_CULTURAL_PROFILE, QUERY_CULTURAL_PROFILE_BY_ID } from './queries'
 
 export class CulturalProfileRepositorySequelize implements CulturalProfileRepository {
   async findAllByCity(): PromiseEither<CulturalProfileByCity[], Error> {
@@ -50,6 +50,16 @@ export class CulturalProfileRepositorySequelize implements CulturalProfileReposi
       )
 
       return left(items)
+    })
+  }
+
+  async findById(id: number): PromiseEither<IGetterCulturalProfile, Error> {
+    return database.transaction(async (transaction) => {
+      const [profile] = await database.query(QUERY_CULTURAL_PROFILE_BY_ID(id), { transaction })      
+
+      if (!profile[0]) return right(new Error('Profile not found'))
+
+      return left(profile[0] as IGetterCulturalProfile)
     })
   }
 }

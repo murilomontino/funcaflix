@@ -19,13 +19,4 @@ describe('Integration Tests Paths Images Exists', () => {
     expect(imagePath.isLeft()).toBeTruthy()
   })
 
-  it('should return true if image of profile exists (Integration)', async () => {
-    const pathUseCase = new PathExistsUseCase()
-    const imagePath = await pathUseCase.execute({
-      id: '5f5503688da0b',
-      type: TypeDoc.IMG_PROFILE,
-    })
-
-    expect(imagePath.isLeft()).toBeTruthy()
-  })
 })
