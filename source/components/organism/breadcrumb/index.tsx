@@ -37,12 +37,16 @@ const BreadCrumb = ({ title, image, children }: Props) => {
           </Col>
         </Row>
       </Container>
-      
+
       <If condition={!!children}>
-        <div className='position-absolute w-100 h-100' style={{
-          top: 0,
-        }}>
-          {children}
+        <div
+          className='position-absolute w-100 h-100 top-0'
+          style={{
+            zIndex: 99
+          }}>
+          <div className='d-flex w-100 h-100 position-relative'>
+            {children}
+          </div>
         </div>
       </If>
 

@@ -32,8 +32,7 @@ const CardArtists = ({ item }: Props) => {
   }, [name, id])
 
   return (
-    <Col sm="6" md="4" lg="2" className={`block-images position-relative ${styles['btn']}`}>
-      <div className="iq-card position-relative">
+      <div className={`iq-card position-relative ${styles['btn']}`}>
         <QRCode value={
           `${item.name.toLowerCase().replace(/ /g, '')}#${item.id}`
         } />
@@ -53,7 +52,6 @@ const CardArtists = ({ item }: Props) => {
           <SocialMedia {...item} />
         </div>
       </div>
-    </Col>
   )
 }
 

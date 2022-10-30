@@ -74,7 +74,8 @@ const nextConfig = ((phase) => {
     env: {
       ELECTION_PERIOD: process.env.ELECTION_PERIOD,
       API_KEY: process.env.API_KEY,
-      _currentURL
+      _currentURL,
+      URL: process.env.URL,
     },
     
   }

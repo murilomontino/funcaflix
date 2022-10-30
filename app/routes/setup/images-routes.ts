@@ -1,12 +1,14 @@
 import { TypeDoc } from '@/types/ports'
 import { Router } from 'express'
 
-import { PathExistsUseCase } from '../../../backend/core/domain/usecases'
-import { adaptFileRoute } from '../../adapters'
+import { PathExistsUseCase } from '@/domain/usecases'
+import { adaptFileRoute, adaptRoute } from '../../adapters'
 import { makeStreamOutImageComposer } from '../../composers/images-composers/make-image-out-stream'
 import { existsSync } from 'fs'
+import QRLogo from 'qrcode';
 
 import path from 'path'
+import { makeStreamOutQrCodeComposer } from 'app/composers/images-composers/make-qrcode-out-stream'
 
 const Images = Router()
 
@@ -15,6 +17,7 @@ export const PathImages = {
   GET_IMAGE: '/images/:image',
   GET_PROFILE_IMAGE: '/images/profile/:image',
   GET_BANNER_IMAGE: '/images/banner/:image',
+  GET_QRCODE_IMAGE: '/images/qrcode/:username',
 }
 
 Images.get(
@@ -91,6 +94,27 @@ Images.get(
     next()
   },
   adaptFileRoute(makeStreamOutImageComposer())
+)
+
+Images.get(
+  PathImages.GET_QRCODE_IMAGE,
+  async (req, res) => {
+    const { username } = req.params
+    const site = `${process.env.URL}/${username}`
+
+    // enviar qrcode para o cliente em formato de stream
+    res.type('png')
+    res.setHeader('Content-Disposition', `attachment; filename=${username}.png`)
+
+    return await QRLogo.toFileStream(res, site, {
+      width: 300,
+      margin: 1,
+      color: {
+        dark: '#000000',
+        light: '#ffffff'
+      }
+    })
+  }
 )
 
 export default Images

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { IGetterCulturalProfile } from '@/types/getters'
 
 import BreadCrumb from '@/components/organism/breadcrumb'
@@ -14,15 +14,19 @@ import {
 
 import NavigationProfile from '@/components/molecule/navigation-profile';
 import TabPaneOverview from './tab-contents/tab-pane-overview';
-import SocialMedia from '@/components/molecule/social-media'
 import useSocialMediaValid from '@/hooks/use-social-media-valid'
 import ButtonGroupSocialMedia from '@/components/molecule/social-media/button-group-social-media'
+import { QRCodeSVG } from 'qrcode.react'
+import ReactTooltip from 'react-tooltip';
+import DownloadQRCode from '@/components/molecule/download-qrcode'
 
-type Props = {
+type ProfileScreenProps = {
   profile: IGetterCulturalProfile
+  username: string
 }
 
-const ProfileScreen = ({ profile }: Props) => {
+const ProfileScreen = ({ profile, username }: ProfileScreenProps) => {
+  
 
   const {
     about,
@@ -77,8 +81,20 @@ const ProfileScreen = ({ profile }: Props) => {
             acting={acting}
           />
         </div>
+        <div className="position-absolute bottom-0 right-0 m-1">
+          <ReactTooltip />
+          <QRCodeSVG
+            data-tip="QRCode do seu Perfil. Baixe e Compartilhe em suas Redes Sociais"
+            value={`${process.env.URL}/${username}`}
+            size={128}
+            style={{
+              zIndex: 9999
+            }} />
+         
+            <DownloadQRCode username={username}/>
+          
+        </div>
       </BreadCrumb>
-
       <React.Fragment>
         <div className="page-content">
 

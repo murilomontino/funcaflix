@@ -7,19 +7,20 @@ import image from '@/public/images/banner-perfis-culturais-2.jpg'
 import { View } from 'moti'
 
 import BreadCrumb from '@/components/organism/breadcrumb'
-import OtherArtists from '@/components/organism/other-artists'
 
 import colors from '@/global/colors'
 import constants from '@/global/constants'
 import { useResources } from '@/hooks/utils/use-resources'
 
-import CarouselSwipper from '@/components/organism/slide-swipper'
+import CarouselSwipper from './slide-swipper-cultural-profile'
 
 type Props = {
   profiles: CulturalProfileByCity[] | CulturalProfileBySegment[]
+  itemsPerView?: number
 }
 
-const CulturalProfilesScreen = ({ profiles = [] }: Props) => {
+const CulturalProfilesScreen = ({ profiles = [], itemsPerView = 5.5,
+}: Props) => {
   const [loading, setLoading] = useState(true)
 
   const { isFontReady } = useResources()
@@ -27,7 +28,7 @@ const CulturalProfilesScreen = ({ profiles = [] }: Props) => {
   const [data, setData] = useState(profiles.slice(0, 50))
 
   const fetchMoreData = () => {
-    setData((state) => [...state, ...profiles.slice(state.length, state.length + 50) ] as any)
+    setData((state) => [...state, ...profiles.slice(state.length, state.length + 50)] as any)
   }
 
   useEffect(() => {
@@ -50,28 +51,21 @@ const CulturalProfilesScreen = ({ profiles = [] }: Props) => {
     <View style={styles.container}>
       <BreadCrumb title="Perfis Culturais" image={image} />
 
-      <CarouselSwipper
-          title="Literatura"
-          id="iq-literatura"
-          items={[]}
-          height="280px"
-          link="literatura"
-          itemsPerView={6.5}
-          buttonText="Ler"
-        />
+      {data.slice(0, 3).map((item, index) => {
+  
+        const id = (item.city || item.segment)
 
-      <ReactInfiniteScroll
-        dataLength={data.length}
-        next={fetchMoreData}
-        hasMore={hasMore}
-        loader={<h4>Loading...</h4>}
-      >
-        <div className="overflow-hidden">
-          {data.map((item, index) => (
-            <OtherArtists key={index} items={item.items} title={item.city || item.segment} />
-          ))}
-        </div>
-      </ReactInfiniteScroll>
+        return (
+
+          <CarouselSwipper
+            key={index}
+            title={id}
+            id={id.split(' ').join('-').toLowerCase()}
+            items={item.items}
+          />
+        )
+      })}
+
     </View>
   )
 }

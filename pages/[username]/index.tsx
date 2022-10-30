@@ -40,6 +40,6 @@ export default function ProfilePage() {
 
   if (loading || !id || !profile) return null
 
-  return <ScreenProfile profile={profile} />
+  return <ScreenProfile profile={profile} username={username as string} />
 }
 

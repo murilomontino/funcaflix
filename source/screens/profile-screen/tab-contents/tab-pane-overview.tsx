@@ -26,11 +26,15 @@ const TabPaneOverview = ({ name, email, phone, city, hashtags, segment, uf, abou
 
     return (
         <Row className={`w-100 justify-content-center align-content-lg-center m-2 ${styles['row-customize']}`}>
-            <Card className='w-30 m-1'>
+            <Card className='w-30 m-1'
+                style={{
+                    maxHeight: '380px',
+                }}>
                 <CardBody>
+
                     <Col lg={12}>
                         <h5 className="mb-3 text-black text-center">Informações:</h5>
-                        <div className="table-responsive">
+                        <div className="table-responsive" >
                             <Table className="table-borderless mb-0">
                                 <tbody>
                                     <tr>

@@ -2,6 +2,7 @@ import { If } from '@/utils/tsx-controls'
 import Link from 'next/link'
 import React from 'react'
 import ButtonSocialMedia from './button-social-media'
+import ReactTooltip from 'react-tooltip';
 
 type ButtonGroupSocialMediaProps = {
     fValid: boolean
@@ -28,26 +29,38 @@ const ButtonGroupSocialMedia = ({
 }: ButtonGroupSocialMediaProps) => {
     return (
         <div className="d-flex align-items-center">
+            <ReactTooltip />
+
             <If condition={fValid}>
                 <Link href={facebook} passHref>
-                    <ButtonSocialMedia icon="ri-facebook-fill" {...iconProps}/>
+                    <ButtonSocialMedia
+                        data-tip="Facebook"
+                        icon="ri-facebook-fill"
+                        {...iconProps}
+                    />
                 </Link>
             </If>
             <If condition={iValid}>
                 <Link href={instagram} passHref>
-                    <ButtonSocialMedia icon="ri-instagram-fill" {...iconProps}/>
+                    <ButtonSocialMedia
+                        data-tip="Instagram"
+                        icon="ri-instagram-fill" {...iconProps} />
                 </Link>
             </If>
 
             <If condition={tValid}>
                 <Link href={twitter} passHref>
-                    <ButtonSocialMedia icon="ri-twitter-fill" {...iconProps}/>
+                    <ButtonSocialMedia
+                        data-tip="Twitter"
+                        icon="ri-twitter-fill" {...iconProps} />
                 </Link>
             </If>
 
             <If condition={yValid}>
                 <Link href={youtube} passHref>
-                    <ButtonSocialMedia icon="ri-youtube-fill" {...iconProps}/>
+                    <ButtonSocialMedia
+                        data-tip="Youtube"
+                        icon="ri-youtube-fill" {...iconProps} />
                 </Link>
             </If>
         </div>
