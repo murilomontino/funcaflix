@@ -1,53 +1,44 @@
-import React, { useEffect, useState } from 'react'
-import { Container, Col, Row } from 'react-bootstrap'
+import React, { useEffect } from 'react'
+import { Col, Container, Row } from 'react-bootstrap'
 import Skeleton from 'react-loading-skeleton'
 
 import theme from '@/theme'
-import SwipperCore, { EffectFade, Navigation, Thumbs, Pagination } from 'swiper'
+import SwipperCore, { EffectFade, Navigation, Pagination, Thumbs } from 'swiper'
 import { Swiper as Swipper, SwiperSlide as SwipperSlide } from 'swiper/react'
 
 import TitleCarousel from '@/components/molecule/title-carousel'
 
-import { Choose, For, When } from '@/utils/tsx-controls'
-import CardArtists from '@/components/molecule/card-artists'
 import { ICulturalProfile } from '@/types/setters'
-import api from '@/services'
+import { Choose, For, When } from '@/utils/tsx-controls'
 
-type Props = {
+import CardArtists from '@/components/molecule/card-artists'
+import removeAccentsAndJoin from '@/helpers/strings-normalize'
+
+type CarouselSwipperProfilesProps = {
   title: string
   itemsPerView?: number
   id: string
-  buttonText?: string
-  width?: string
   height?: string
-  queryString?: string
-  link?: string
-  allLink?: string
+  fetchData: (arg: string) => Promise<ICulturalProfile[]>
 }
 
-const CarouselSwipper = ({
+const CarouselSwipperProfiles = ({
   title,
   id,
-  height,
-  allLink,
+  height = '240px',
   itemsPerView = 5.5,
-  link = '/',
-}: Props) => {
-  const [data, setData] = useState<ICulturalProfile[]>(null)
-
-  const [isLoading, setIsLoading] = useState(true)
-
-  const fetchData = async () => {
-    const {} = api.get('')
-  }
+  fetchData
+}: CarouselSwipperProfilesProps) => {
+  const [data, setData] = React.useState<ICulturalProfile[]>([])
+  const [isLoading, setIsLoading] = React.useState(true)
 
   useEffect(() => {
     SwipperCore.use([EffectFade, Navigation, Thumbs, Pagination])
-    setIsLoading(false)
-  }, [])
-
-  useEffect(() => {
-    fetchData()
+    const normalize = removeAccentsAndJoin(title)
+    fetchData(normalize).then((data) => {
+      setData(data)
+      setIsLoading(false)
+    })
   }, [])
 
   return (
@@ -56,7 +47,7 @@ const CarouselSwipper = ({
         <Row>
           <Col sm="12" className="overflow-hidden">
             <Choose>
-              <When condition={!data || isLoading}>
+              <When condition={data.length === 0 || isLoading}>
                 <div className="w-100 align-items-center justify-content-center d-flex">
                   <Skeleton
                     width={'90vw'}
@@ -67,7 +58,7 @@ const CarouselSwipper = ({
               </When>
               <When condition={!!title}>
                 <div className="d-flex align-items-center justify-content-between">
-                  <TitleCarousel title={title}  isButton={false} />
+                  <TitleCarousel title={title} isButton={false} />
                 </div>
               </When>
             </Choose>
@@ -80,7 +71,7 @@ const CarouselSwipper = ({
                 <i className="fa fa-chevron-right"></i>
               </div>
               <Choose>
-                <When condition={!data || isLoading}>
+                <When condition={data.length === 0 || isLoading}>
                   <div
                     id="favorite-contens"
                     className="favorites-slider d-flex list-inline row p-0 m-0"
@@ -100,35 +91,35 @@ const CarouselSwipper = ({
                             width={280}
                             baseColor={theme.COLORS.BOX_SKELETON}
                             borderRadius={2}
+                            circle
                           />
                         </div>
                       )}
                     </For>
                   </div>
                 </When>
-                <When condition={!!data}>
+                <When condition={data.length > 0}>
                   <Swipper
                     navigation={{
                       prevEl: `#prev-${id}`,
                       nextEl: `#next-${id}`,
                     }}
                     breakpoints={{
-                      320: { slidesPerView: itemsPerView - 3 },
-                      550: { slidesPerView: itemsPerView - 2 },
-                      991: { slidesPerView: itemsPerView - 1 },
-                      1400: { slidesPerView: itemsPerView },
+                      320: { slidesPerView: 1.5 },
+                      550: { slidesPerView: 3.5 },
+                      991: { slidesPerView: 4.5 },
+                      1400: { slidesPerView: 5.5 },
                     }}
                     loop={data.length > itemsPerView}
-                    slidesPerView={4}
-                    spaceBetween={20}
+                    slidesPerView={4.5}
+                    spaceBetween={0}
                     as="ul"
-                    className="favorites-slider list-inline  row p-0 m-0 iq-rtl-direction"
+                    className="favorites-slider list-inline row p-0 m-0"
                   >
                     {data.map((item, index) => {
-                    
                       return (
                         <SwipperSlide as="li" key={index} virtualIndex={index}>
-                          <CardArtists key={index} item={item} />
+                          <CardArtists item={item} />
                         </SwipperSlide>
                       )
                     })}
@@ -143,4 +134,4 @@ const CarouselSwipper = ({
   )
 }
 
-export default CarouselSwipper
+export default CarouselSwipperProfiles

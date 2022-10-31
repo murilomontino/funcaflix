@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import ReactInfiniteScroll from 'react-infinite-scroll-component'
+import React, { useState } from 'react'
 import { ActivityIndicator, StyleSheet } from 'react-native'
 
-import { CulturalProfileByCity, CulturalProfileBySegment } from '@/domain/repositories'
 import image from '@/public/images/banner-perfis-culturais-2.jpg'
 import { View } from 'moti'
 
@@ -12,34 +10,35 @@ import colors from '@/global/colors'
 import constants from '@/global/constants'
 import { useResources } from '@/hooks/utils/use-resources'
 
-import CarouselSwipper from './slide-swipper-cultural-profile'
+import NavigationProfile from '@/components/molecule/navigation-profile'
+
+import {
+  Col,
+  Container,
+  Row,
+  TabContent,
+  TabPane
+} from 'reactstrap'
+import TabPaneCitiesProfiles from './tab-pane/tab-pane-cities-profiles'
+import TabPaneSegmentsProfiles from './tab-pane/tab-pane-segments-profiles'
 
 type Props = {
-  profiles: CulturalProfileByCity[] | CulturalProfileBySegment[]
-  itemsPerView?: number
+  segments: string[]
+  cities: string[]
 }
 
-const CulturalProfilesScreen = ({ profiles = [], itemsPerView = 5.5,
-}: Props) => {
-  const [loading, setLoading] = useState(true)
+const CulturalProfilesScreen = ({ segments, cities }: Props) => {
 
   const { isFontReady } = useResources()
+  const [activeTab, setActiveTab] = useState('1');
 
-  const [data, setData] = useState(profiles.slice(0, 50))
-
-  const fetchMoreData = () => {
-    setData((state) => [...state, ...profiles.slice(state.length, state.length + 50)] as any)
-  }
-
-  useEffect(() => {
-    if (data) {
-      setLoading(false)
+  const toggleTab = (tab) => {
+    if (activeTab !== tab) {
+      setActiveTab(tab);
     }
-  }, [data])
+  };
 
-  const hasMore = data.length < profiles.length
-
-  if (loading || !isFontReady) {
+  if (!isFontReady) {
     return (
       <View style={styles.container}>
         <ActivityIndicator size="large" color={colors.white} />
@@ -48,25 +47,46 @@ const CulturalProfilesScreen = ({ profiles = [], itemsPerView = 5.5,
   }
 
   return (
-    <View style={styles.container}>
+    <React.Fragment>
       <BreadCrumb title="Perfis Culturais" image={image} />
 
-      {data.slice(0, 3).map((item, index) => {
-  
-        const id = (item.city || item.segment)
 
-        return (
+      <div className="page-content">
 
-          <CarouselSwipper
-            key={index}
-            title={id}
-            id={id.split(' ').join('-').toLowerCase()}
-            items={item.items}
-          />
-        )
-      })}
+        <Container fluid>
+          <Row>
+            <Col lg={12}>
+              <div className='p-2'>
+                <div className="d-flex w-100 justify-content-center">
+                  <NavigationProfile
+                    activeTab={activeTab}
+                    onChangeActiveTab={toggleTab}
+                    optionsTab={[
+                      'Segmentos',
+                      'Cidades'
+                    ]}
+                  />
+                </div>
 
-    </View>
+                <TabContent activeTab={activeTab} className="pt-4 text-muted">
+                  <TabPane tabId="1">
+                    <TabPaneSegmentsProfiles segments={segments} active={activeTab === "1"} />
+                  </TabPane>
+                </TabContent>
+
+                <TabContent activeTab={activeTab} className="pt-4 text-muted">
+                  <TabPane tabId="2">
+                    <TabPaneCitiesProfiles cities={cities} active={activeTab === "2"} />
+                  </TabPane>
+                </TabContent>
+              </div>
+            </Col>
+          </Row>
+
+        </Container>
+      </div>
+
+    </React.Fragment>
   )
 }
 

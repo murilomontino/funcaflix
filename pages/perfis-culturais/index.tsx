@@ -1,34 +1,28 @@
-// @generated: @expo/next-adapter@2.1.52
-import React from 'react'
-
-import {
-  CulturalProfileByCity,
-  CulturalProfileBySegment,
-  CulturalProfileRepositorySequelize,
-} from '@/domain/repositories'
-import { FindAllCulturalProfilesBySegmentUseCase } from '@/domain/usecases'
-import { GetStaticProps } from 'next/types'
+import React, { useEffect, useState } from 'react'
 
 import CulturalProfilesScreen from '@/screens/cultural-profiles-screen'
+import api from '@/services'
+import promiseErrorHandler from '@/utils/error-handler'
 
-type Props = {
-  profiles: CulturalProfileByCity[] | CulturalProfileBySegment[]
-}
+export default function CulturalProfiles() {
+  const [cities, setCities] = useState<string[]>([])
+  const [segments, setSegments] = useState<string[]>([])
 
-export default function CulturalProfiles({ profiles }: Props) {
-  return <CulturalProfilesScreen profiles={profiles} />
-}
+  const fetchData = async (type: 'segments' | 'cities') => {
+    const [err, response] = await promiseErrorHandler(api.get(`/profiles/${type}`))
 
-export const getStaticProps: GetStaticProps = async (context) => {
-  const use_case = new FindAllCulturalProfilesBySegmentUseCase(
-    new CulturalProfileRepositorySequelize()
-  )
-  const profiles = await use_case.execute()
+    if (err) {
+      return []
+    }
 
-  return {
-    props: {
-      profiles: profiles.isRight() ? [] : profiles.value,
-    },
-    revalidate: 60 * 60,
+    return response.data
   }
+
+  useEffect(() => {
+    fetchData('cities').then((data) => setCities(data))
+    fetchData('segments').then((data) => setSegments(data))
+  }, [])
+
+
+  return <CulturalProfilesScreen cities={cities} segments={segments} />
 }

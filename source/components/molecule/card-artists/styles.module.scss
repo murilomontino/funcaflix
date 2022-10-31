@@ -1,11 +1,15 @@
 /* The animation code */
 @keyframes scale-animation {
-    0%   {scale: 0.8;}
-    100% {scale: 1.0;}
+    0% {
+        scale: 0.8;
+    }
+
+    100% {
+        scale: 1.0;
+    }
 }
 
 .btn {
-    min-width: 125px;
     margin: 10px 2px;
 
     .title-btn {
@@ -17,11 +21,6 @@
         }
     }
 
-    img {
-        object-fit: cover;
-        min-height: 200px;
-    }
-
     :hover {
 
         .title-btn {
@@ -30,6 +29,7 @@
             animation-name: scale-animation;
             animation-duration: 1s;
             transform: scale(1.1);
+
             // Alinhar texto ao centro verticalmente e horizontalmente
             h6 {
                 text-align: center;
@@ -47,7 +47,7 @@
         .qr-code-custom {
             animation-name: scale-animation;
             animation-duration: 1s;
-            
+
             opacity: 1;
             transform: scale(1.1);
         }
@@ -82,6 +82,6 @@
     top: 0;
     margin-right: 4px;
     z-index: 2;
-    opacity: 0.2;
+    opacity: 0.6;
     transform: scale(0.85);
 }

@@ -27,7 +27,7 @@ const nextConfig = ((phase) => {
   const isProduction = phase === 'production'
 
   const _currentURL = isProduction ? process.env.API_URL : 'http://localhost:3000/api/'
-  
+
   return {
     eslint: {
       ignoreDuringBuilds: true,
@@ -60,14 +60,16 @@ const nextConfig = ((phase) => {
     },
     distDir: '.next',
     webpack5: true,
-    
+    experimental: {
+      forceSwcTransforms: true,
+    },
     webpack: (
       config,
       { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack, dir }
     ) => {
 
       return {
-        ...config,
+        ...config
       }
     },
     // webpack configurado pra moti e react-reanimated v2
@@ -77,7 +79,7 @@ const nextConfig = ((phase) => {
       _currentURL,
       URL: process.env.URL,
     },
-    
+
   }
 })(process.env.NODE_ENV)
 

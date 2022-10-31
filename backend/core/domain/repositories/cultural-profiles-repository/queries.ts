@@ -47,7 +47,7 @@ export const QUERY_CULTURAL_PROFILE_BY_SEGMENT = (segment: string) => `
   WHERE 
     s.segmento='${segment}'
   ORDER BY RAND()
-  LIMIT 50;
+  LIMIT 20;
 `
 
 export const QUERY_CULTURAL_PROFILE_BY_CITY = (city: string) => `
@@ -55,7 +55,7 @@ export const QUERY_CULTURAL_PROFILE_BY_CITY = (city: string) => `
   WHERE 
     e.localidade='${city}'
   ORDER BY RAND()
-  LIMIT 50;
+  LIMIT 20;
 `
 
 export const QUERY_GROUP_BY_SEGMENT = `
