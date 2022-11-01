@@ -32,10 +32,12 @@ const CarouselSwipperProfiles = ({
   const [data, setData] = React.useState<ICulturalProfile[]>([])
   const [isLoading, setIsLoading] = React.useState(true)
 
+  const normalize = removeAccentsAndJoin(title)
+
   useEffect(() => {
     SwipperCore.use([EffectFade, Navigation, Thumbs, Pagination])
-    const normalize = removeAccentsAndJoin(title)
-    fetchData(normalize).then((data) => {
+
+    fetchData(normalize as string).then((data) => {
       setData(data)
       setIsLoading(false)
     })
@@ -58,7 +60,9 @@ const CarouselSwipperProfiles = ({
               </When>
               <When condition={!!title}>
                 <div className="d-flex align-items-center justify-content-between">
-                  <TitleCarousel title={title} isButton={false} />
+                  <TitleCarousel title={title} link={`
+                    /perfis-culturais/${normalize}
+                  `} />
                 </div>
               </When>
             </Choose>

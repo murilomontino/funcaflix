@@ -11,14 +11,10 @@ import CardBooks from './components/organism/card-book'
 import colors from '@/global/colors'
 import constants from '@/global/constants'
 import { useResources } from '@/hooks/utils/use-resources'
+import type { IGetterBooks } from '@/types/getters'
 
 type Props = {
-  books: {
-    id: number
-    title: string
-    about: string
-    thumbnail: string
-  }[]
+  books: IGetterBooks[]
 }
 
 const ScreenBooks = ({ books }: Props) => {

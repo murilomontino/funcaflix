@@ -21,6 +21,7 @@ import {
 } from 'reactstrap'
 import TabPaneCitiesProfiles from './tab-pane/tab-pane-cities-profiles'
 import TabPaneSegmentsProfiles from './tab-pane/tab-pane-segments-profiles'
+import Loading from '@/components/atom/loading'
 
 type Props = {
   segments: string[]
@@ -38,13 +39,7 @@ const CulturalProfilesScreen = ({ segments, cities }: Props) => {
     }
   };
 
-  if (!isFontReady) {
-    return (
-      <View style={styles.container}>
-        <ActivityIndicator size="large" color={colors.white} />
-      </View>
-    )
-  }
+  if (!isFontReady) return <Loading />
 
   return (
     <React.Fragment>

@@ -5,14 +5,10 @@ import { useDimensions } from 'react-native-web-hooks'
 import Link from 'next/link'
 
 import { textStyles, viewStyles } from '../../styles'
+import { IGetterBooks } from '@/types/getters'
 
 type Props = {
-  item: {
-    id: number
-    title: string
-    about: string
-    thumbnail: string
-  }
+  item: IGetterBooks
 }
 
 const BookFooter = ({ item }: Props) => {

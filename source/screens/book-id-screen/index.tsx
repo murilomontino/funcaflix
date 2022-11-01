@@ -4,12 +4,10 @@ import PdfViewer from '@/components/organism/pdf-viewer'
 
 import InfoBook from './organism/info-book'
 import { Container } from './styles'
+import type { IGetterBooks } from '@/types/getters'
 
 type Props = {
-  book: {
-    [key: string]: any
-    pdf: string
-  }
+  book: IGetterBooks
 }
 
 const ScreenBookID = ({ book }: Props) => {

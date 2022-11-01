@@ -1,28 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 import CulturalProfilesScreen from '@/screens/cultural-profiles-screen'
-import api from '@/services'
-import promiseErrorHandler from '@/utils/error-handler'
 
-export default function CulturalProfiles() {
-  const [cities, setCities] = useState<string[]>([])
-  const [segments, setSegments] = useState<string[]>([])
+import fetchListCitiesOrSegments from '@/api/fetch-list-cities-or-segments'
 
-  const fetchData = async (type: 'segments' | 'cities') => {
-    const [err, response] = await promiseErrorHandler(api.get(`/profiles/${type}`))
+const CulturalProfiles = () => {
 
-    if (err) {
-      return []
-    }
+  const { data, isError, isLoading } = fetchListCitiesOrSegments()
 
-    return response.data
+
+  if (isLoading || isError) {
+    return null
   }
 
-  useEffect(() => {
-    fetchData('cities').then((data) => setCities(data))
-    fetchData('segments').then((data) => setSegments(data))
-  }, [])
-
-
-  return <CulturalProfilesScreen cities={cities} segments={segments} />
+  return (
+    <CulturalProfilesScreen cities={data.cities} segments={data.segments} />
+  )
 }
+
+export default CulturalProfiles

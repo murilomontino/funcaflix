@@ -5,7 +5,7 @@ import { IBook } from '@/types/setters'
 import { GetterEntity } from './getter-entity'
 
 export class GetterBook extends GetterEntity<IGetterBooks> implements IBook {
-  
+
   public id: number
   public idDocument: number
   public author: string
@@ -126,7 +126,7 @@ export class GetterBook extends GetterEntity<IGetterBooks> implements IBook {
     return this
   }
 
-  public defineIllustration(illustration: boolean) {
+  public defineIllustration(illustration: boolean = false) {
     this.illustration = illustration
     return this
   }
@@ -161,4 +161,4 @@ export class GetterBook extends GetterEntity<IGetterBooks> implements IBook {
   }
 }
 
-  
+

@@ -1,35 +1,42 @@
 import React from 'react'
 
-import { FindOneBookByIdProductUseCase, FindAllProductsByCategory } from '@/domain/usecases'
+import { FindOneBookByIdProductUseCase, FindAllBooksUseCase } from '@/domain/usecases'
 import { build } from 'mapacultural-database'
 import { GetStaticProps } from 'next/types'
 
 import ScreenBookID from '@/screens/book-id-screen'
+import Loading from '@/components/atom/loading'
 
-const LiteraturaId = ({ staticBook }) => {
-  if (!staticBook) {
-    return <div>Loading...</div>
-  }
+import type { IGetterBooks } from '@/types/getters'
 
-  return <ScreenBookID book={staticBook} />
+type Props = {
+  book: IGetterBooks
 }
 
-export default LiteraturaId
+const LiteraturaId = ({ book }: Props) => {
+
+  if (!book) {
+    return <Loading />
+  }
+
+  return <ScreenBookID book={book} />
+}
 
 export const getStaticPaths = async () => {
   await build()
 
-  const books = await new FindAllProductsByCategory().execute(null, {
-    category: '2',
-  })
-  if (books.isRight()) {
+  const booksOrErr = await new FindAllBooksUseCase().execute()
+
+  if (booksOrErr.isRight()) {
     return {
       paths: [],
       fallback: false,
     }
   }
 
-  const paths = books.value.map((book) => ({
+  const books = booksOrErr.extract()
+
+  const paths = books.map((book) => ({
     params: { id: book.id?.toString() || -1 },
   }))
 
@@ -39,22 +46,18 @@ export const getStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   await build()
 
-  if (!params?.id) {
-    return {
-      props: {
-        staticBook: null,
-      },
-    }
-  }
-  const bookEither = await new FindOneBookByIdProductUseCase().execute(null, {
+  const bookOrErr = await new FindOneBookByIdProductUseCase().execute(null, {
     id: params.id?.toString(),
   })
-  const book = bookEither.isLeft() ? bookEither.value : null
+
+  const book = bookOrErr.isLeft() ? bookOrErr.extract() : null
 
   return {
     props: {
-      staticBook: book,
+      book,
     },
     revalidate: 60 * 60 * 24,
   }
 }
+
+export default LiteraturaId
