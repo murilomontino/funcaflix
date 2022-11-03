@@ -21,9 +21,8 @@ export default function App({
   staticNewestProducts,
   staticOpportunities,
 }) {
-  if (EM_BREVE) {
-    return <ComingSoon />
-  }
+
+  if (EM_BREVE) return (<React.Fragment><ComingSoon /></React.Fragment>)
 
   return (
     <HomeScreen
@@ -52,14 +51,14 @@ export const getStaticProps: GetStaticProps = async (context) => {
     : []
   const newestProducts = !process.env.ELECTION_PERIOD
     ? (
-        await new FindAllNewestAudioVisual().execute(
-          {},
-          {
-            category: ['1', '152'],
-            limit: 10,
-          }
-        )
-      ).value
+      await new FindAllNewestAudioVisual().execute(
+        {},
+        {
+          category: ['1', '152'],
+          limit: 10,
+        }
+      )
+    ).value
     : []
 
   const opportunitiesOrErr = await new FindAllOpportunities().execute()
@@ -69,7 +68,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       staticBooks: books,
       staticPlaylist: playlist,
       staticNewestProducts: newestProducts,
-      staticOpportunities: opportunitiesOrErr.isRight() ? [] : opportunitiesOrErr.value, 
+      staticOpportunities: opportunitiesOrErr.isRight() ? [] : opportunitiesOrErr.value,
     },
     revalidate: 60 * 60 * 24,
   }

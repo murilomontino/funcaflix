@@ -128,6 +128,7 @@ export interface ICulturalProfile {
   name: string
   type: string
   thumbnail: string
+  banner: string
   email: string
   phone: string
   about: string
@@ -138,4 +139,39 @@ export interface ICulturalProfile {
   twitter: string
   facebook: string
   instagram: string
+  hashtags: string
+  uf: string
+}
+
+export interface IUser {
+  id: number;
+  cpf: string;
+  cpf_cnpj: string;
+  cpfRepresented: string;
+  representative: string;
+  email: string;
+  name: string;
+  type: string;
+  city: string;
+  password: string;
+  typeAccess: string;
+  dateRegister: string;
+  dateUpdate: string;
+  validAccount: number;
+  accessKey: string;
+  ipUsed: string;
+  accessCount: number;
+  updatedByAdmin: number;
+  idValidated: number;
+  typeUser: number;
+  sector: string;
+  agency: string;
+  migrated: string;
+  idMigrated: number;
+  columnControlDocs: number;
+  session: number;
+  dateLastAccess: string;
+  active: number;
+  dateLogout: string;
+  idAgency: number;
 }

@@ -1,5 +1,5 @@
-import { ControllerStreamOutFile } from '../../../backend/core/adapters/controller'
-import { ControllerFileGeneric } from '../../../backend/core/adapters/controller/helpers'
+import { ControllerStreamOutFile } from '@/adapters/controller'
+import { ControllerFileGeneric } from '@/adapters/controller/helpers'
 import {
   CreateReadStreamUseCase,
   LoadImageStreamUseCase,

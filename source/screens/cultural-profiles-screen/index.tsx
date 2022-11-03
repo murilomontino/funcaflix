@@ -1,65 +1,87 @@
-import React, { useEffect, useState } from 'react'
-import ReactInfiniteScroll from 'react-infinite-scroll-component'
+import React, { useState } from 'react'
 import { ActivityIndicator, StyleSheet } from 'react-native'
 
-import { CulturalProfileByCity, CulturalProfileBySegment } from '@/domain/repositories'
 import image from '@/public/images/banner-perfis-culturais-2.jpg'
 import { View } from 'moti'
 
 import BreadCrumb from '@/components/organism/breadcrumb'
-import OtherArtists from '@/components/organism/other-artists'
 
 import colors from '@/global/colors'
 import constants from '@/global/constants'
 import { useResources } from '@/hooks/utils/use-resources'
 
+import NavigationProfile from '@/components/molecule/navigation-profile'
+
+import {
+  Col,
+  Container,
+  Row,
+  TabContent,
+  TabPane
+} from 'reactstrap'
+import TabPaneCitiesProfiles from './tab-pane/tab-pane-cities-profiles'
+import TabPaneSegmentsProfiles from './tab-pane/tab-pane-segments-profiles'
+import Loading from '@/components/atom/loading'
+
 type Props = {
-  profiles: CulturalProfileByCity[] | CulturalProfileBySegment[]
+  segments: string[]
+  cities: string[]
 }
 
-const CulturalProfilesScreen = ({ profiles = [] }: Props) => {
-  const [loading, setLoading] = useState(true)
+const CulturalProfilesScreen = ({ segments, cities }: Props) => {
 
   const { isFontReady } = useResources()
+  const [activeTab, setActiveTab] = useState('1');
 
-  const [data, setData] = useState(profiles.slice(0, 50))
-
-  const fetchMoreData = () => {
-    setData((state) => [...state, ...profiles.slice(state.length, state.length + 50) ] as any)
-  }
-
-  useEffect(() => {
-    if (data) {
-      setLoading(false)
+  const toggleTab = (tab) => {
+    if (activeTab !== tab) {
+      setActiveTab(tab);
     }
-  }, [data])
+  };
 
-  const hasMore = data.length < profiles.length
+  if (!isFontReady) return <Loading />
 
-  if (loading || !isFontReady) {
-    return (
-      <View style={styles.container}>
-        <ActivityIndicator size="large" color={colors.white} />
-      </View>
-    )
-  }
   return (
-    <View style={styles.container}>
+    <React.Fragment>
       <BreadCrumb title="Perfis Culturais" image={image} />
 
-      <ReactInfiniteScroll
-        dataLength={data.length}
-        next={fetchMoreData}
-        hasMore={hasMore}
-        loader={<h4>Loading...</h4>}
-      >
-        <div className="overflow-hidden">
-          {data.map((item, index) => (
-            <OtherArtists key={index} items={item.items} title={item.city || item.segment} />
-          ))}
-        </div>
-      </ReactInfiniteScroll>
-    </View>
+
+      <div className="page-content">
+
+        <Container fluid>
+          <Row>
+            <Col lg={12}>
+              <div className='p-2'>
+                <div className="d-flex w-100 justify-content-center">
+                  <NavigationProfile
+                    activeTab={activeTab}
+                    onChangeActiveTab={toggleTab}
+                    optionsTab={[
+                      'Segmentos',
+                      'Cidades'
+                    ]}
+                  />
+                </div>
+
+                <TabContent activeTab={activeTab} className="pt-4 text-muted">
+                  <TabPane tabId="1">
+                    <TabPaneSegmentsProfiles segments={segments} active={activeTab === "1"} />
+                  </TabPane>
+                </TabContent>
+
+                <TabContent activeTab={activeTab} className="pt-4 text-muted">
+                  <TabPane tabId="2">
+                    <TabPaneCitiesProfiles cities={cities} active={activeTab === "2"} />
+                  </TabPane>
+                </TabContent>
+              </div>
+            </Col>
+          </Row>
+
+        </Container>
+      </div>
+
+    </React.Fragment>
   )
 }
 

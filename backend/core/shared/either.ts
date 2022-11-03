@@ -14,6 +14,11 @@ export class Left<L, A> {
   isRight(): this is Right<L, A> {
     return false
   }
+
+  extract(): L {
+    return this.value
+  }
+
 }
 
 export class Right<L, A> {
@@ -29,6 +34,10 @@ export class Right<L, A> {
 
   isRight(): this is Right<L, A> {
     return true
+  }
+
+  extract(): A {
+    throw new Error('Cannot extract the value of a Right(a)' + this.value)
   }
 }
 

@@ -15,6 +15,7 @@ export class GetterCulturalProfiles
   email: string
   phone: string
   thumbnail: string
+  banner: string
   about: string
   mediaSocial: MediaSocial[]
   createdAt: Date
@@ -28,10 +29,13 @@ export class GetterCulturalProfiles
   twitter: string
   facebook: string
   instagram: string
+  hashtags: string
+  uf: string
 
   private constructor() {
     super()
   }
+
 
   static build(params: IGetterCulturalProfile): GetterCulturalProfiles {
     const {
@@ -40,6 +44,7 @@ export class GetterCulturalProfiles
       email,
       phone,
       thumbnail,
+      banner,
       about,
       acting,
       facebook,
@@ -50,6 +55,8 @@ export class GetterCulturalProfiles
       website,
       youtube,
       city,
+      hashtags,
+      uf,
     } = params
 
     return new GetterCulturalProfiles()
@@ -58,6 +65,7 @@ export class GetterCulturalProfiles
       .defineEmail(email)
       .definePhone(phone)
       .defineThumbnail(thumbnail)
+      .defineBanner(banner)
       .defineAbout(about)
       .defineCity(city)
       .defineType(type)
@@ -68,6 +76,8 @@ export class GetterCulturalProfiles
       .defineTwitter(twitter)
       .defineFacebook(facebook)
       .defineInstagram(instagram)
+      .defineHashtags(hashtags)
+      .defineUf(uf)
   }
 
   public defineId(id: number | string = null) {
@@ -142,6 +152,21 @@ export class GetterCulturalProfiles
 
   public defineInstagram(instagram: string = null ) {
     this.instagram = instagram
+    return this
+  }
+
+  public defineBanner(banner: string = null) {
+    this.banner = banner
+    return this
+  }
+
+  public defineHashtags(hashtags: string = null) {
+    this.hashtags = hashtags
+    return this
+  }
+
+  public defineUf(uf: string = null) {
+    this.uf = uf
     return this
   }
 

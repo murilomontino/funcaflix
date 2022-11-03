@@ -8,6 +8,7 @@ import {
   IProjects,
   IDocProjects,
   ICulturalProfile,
+  IUser
 } from '../setters'
 export interface IGetterProduct extends IProduct {
   id: number
@@ -47,3 +48,5 @@ export interface IGetterProjects extends IProjects {
 }
 
 export type IGetterCulturalProfile = ICulturalProfile
+
+export type IGetterUser = IUser 

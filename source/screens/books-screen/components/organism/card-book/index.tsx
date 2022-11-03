@@ -5,19 +5,20 @@ import BookFooter from '../../molecules/book-footer'
 import AboutDescription from '@/components/molecule/card-about-description'
 
 import Card from '@/components/molecule/card'
-import { GetterBook } from '@/domain/entities'
+
+import type { IGetterBooks } from '@/types/getters'
 
 type Props = {
-  item: GetterBook 
+  item: IGetterBooks
 }
 
 const CardBooks = ({ item }: Props) => {
 
   return (
     <Card item={item as any}>
-        <CardBasicInformation title={item.title} subTitle={item.subTitle} author={item.author} />
-        <AboutDescription about={item.synopsis} />
-        <BookFooter item={item} />
+      <CardBasicInformation title={item.title} subTitle={item.subTitle} author={item.author} />
+      <AboutDescription about={item.synopsis} />
+      <BookFooter item={item} />
     </Card>
   )
 }

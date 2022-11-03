@@ -1,0 +1,7 @@
+{
+    "verbose": false,
+    "watch": ["app", "backend"],
+    "execMap": {
+        "ts": "ts-node"
+    }
+}

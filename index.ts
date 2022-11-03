@@ -14,4 +14,11 @@ const begin = async () => {
   )
 }
 
-begin()
+const beginOnlyAPI = async () => {
+  await new Server(process.env.EXPRESS_PORT).startOnlyExpress()
+  console.log(
+    `Server running in HTTP --- ${process.env.NODE_ENV} --- on port ${process.env.EXPRESS_PORT}`
+  )
+}
+
+process.env.API_ONLY === 'true' ? beginOnlyAPI() : begin()

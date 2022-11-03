@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 
 import Link from 'next/link'
 
@@ -7,6 +7,9 @@ import styles from './styles.module.scss'
 import colors from '@/global/colors'
 
 import { If } from '@/utils/tsx-controls'
+import ButtonSocialMedia from './button-social-media'
+import useSocialMediaValid from '@/hooks/use-social-media-valid'
+import ButtonGroupSocialMedia from './button-group-social-media'
 
 type Props = {
   youtube?: string
@@ -15,32 +18,22 @@ type Props = {
   twitter?: string
 }
 
-type PropsButton = {
-  icon: string
-} & React.AnchorHTMLAttributes<HTMLAnchorElement>
-
-// eslint-disable-next-line react/display-name
-const ButtonSocialMedia = React.forwardRef(
-  ({ onClick, href, target = '_blank', icon, ...rest }: PropsButton, ref) => {
-    return (
-      <a
-        href={href}
-        onClick={onClick}
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        ref={ref as any}
-        target={target}
-        rel="noopener noreferrer"
-        className="share-ico"
-        tabIndex={0}
-        {...rest}
-      >
-        <i className={icon}></i>
-      </a>
-    )
-  }
-)
 
 const SocialMedia = ({ facebook, instagram, twitter, youtube }: Props) => {
+
+  const { 
+    facebookValid, 
+    instagramValid, 
+    twitterValid, 
+    youtubeValid 
+  } = useSocialMediaValid({ facebook, instagram, twitter, youtube })
+
+  // verifica se não há nenhum link válido
+  if (!facebookValid && !instagramValid && !twitterValid && !youtubeValid) {
+    return null
+  }
+
+
   return (
     <div className={`block-social-info ${styles['social-custom']}`}>
       <ul className="list-inline p-0 m-0 music-play-lists">
@@ -54,30 +47,16 @@ const SocialMedia = ({ facebook, instagram, twitter, youtube }: Props) => {
             ></i>
           </span>
           <div className="share-box">
-            <div className="d-flex align-items-center">
-              <If condition={!!facebook && facebook !== 'Não declarou'}>
-                <Link href={facebook} passHref>
-                  <ButtonSocialMedia icon="ri-facebook-fill" />
-                </Link>
-              </If>
-              <If condition={!!instagram && instagram !== 'Não declarou'}>
-                <Link href={instagram} passHref>
-                  <ButtonSocialMedia icon="ri-instagram-fill" />
-                </Link>
-              </If>
-
-              <If condition={!!twitter && twitter !== 'Não declarou'}>
-                <Link href={twitter} passHref>
-                  <ButtonSocialMedia icon="ri-twitter-fill" />
-                </Link>
-              </If>
-
-              <If condition={!!youtube && youtube !== 'Não declarou'}>
-                <Link href={youtube} passHref>
-                  <ButtonSocialMedia icon="ri-youtube-fill" />
-                </Link>
-              </If>
-            </div>
+              <ButtonGroupSocialMedia 
+                fValid={facebookValid}
+                facebook={facebook}
+                iValid={instagramValid}
+                instagram={instagram}
+                tValid={twitterValid}
+                twitter={twitter}
+                yValid={youtubeValid}
+                youtube={youtube}              
+              />
           </div>
         </li>
       </ul>

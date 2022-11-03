@@ -13,6 +13,7 @@ const sut = () => {
     email: faker.internet.email(),
     phone: faker.phone.number(),
     thumbnail: faker.image.imageUrl(),
+    banner: faker.image.imageUrl(),
     about: faker.lorem.paragraph(),
     acting: faker.lorem.paragraph(),
     facebook: faker.internet.url(),
@@ -44,7 +45,7 @@ describe('Testes de entidades Getters', () => {
     const { id, ...rest } = profile
     const result = GetterCulturalProfiles.build(rest as any)
     const result2 = GetterCulturalProfiles.build({} as any)
-    expect(result.params().id).toBeUndefined()
-    expect(result2.params().id).toBeUndefined()
+    expect(result.params().id).toBeNull()
+    expect(result2.params().id).toBeNull()
   })
 })

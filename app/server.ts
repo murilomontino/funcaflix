@@ -51,30 +51,6 @@ class Server {
     this.router = new NextjsExpressRouter(this.express, this.next)
   }
 
-  /**
-   * > The `start` function is an asynchronous function that calls the `prepare`
-   * function of the next middleware, then calls the `init` function of the
-   * middleware, then calls the `init` function of the router, then calls the `build`
-   * function, then creates an http server with the express app, then listens on the
-   * port specified in the `EXPRESS_PORT` environment variable or 3000
-   * 
-   * Critérios de Avaliação para o relatório apresentado
-
-(1) Objetos de Estudo - 3 pontos
-O desenvolvimento deste projeto possibilitará ao estudante o emprego, ou ampliação, dos saberes e competências construídos ao longo do curso?
-O trabalho está contextualizado?
-Existe uma justificativa/motivação para a realização do estudo?    
-Os objetivos do trabalho estão claramente estabelecidos?
-Nota *
-(2) Andamento do estudo - 3 pontos
-A fundamentação teórica/revisão bibliográfica foi apresentada na profundidade adequada e está coerente com os objetivos do trabalho?
-O cronograma de atividades apresentado é razoável para execução durante o TCC 2?
-Nota *
-(3) Escrita do relatório - 4 pontos
-Apresenta redação clara e coesa?
-As normas ABNT foram seguidas?
-   * 
-   */
   async start() {
     await this.next.prepare()
     await this.middleware.init()
@@ -83,6 +59,14 @@ As normas ABNT foram seguidas?
     this.server.listen(process.env.EXPRESS_PORT || 3000)
     this.io = new ServerIO(this.server)
     await this.io.init()
+    await build()
+  }
+
+  async startOnlyExpress() {
+    await this.middleware.init()
+    this.router.initApi()
+    this.server = httpServer(this.express)
+    this.server.listen(process.env.EXPRESS_PORT || 3000)
     await build()
   }
 }

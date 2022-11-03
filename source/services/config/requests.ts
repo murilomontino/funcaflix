@@ -19,9 +19,15 @@ const TVPrograms = {
   fetchPlaylistItems: 'tv-programs/items',
 }
 
+const Profiles = {
+  fetchCities: 'profiles/cities',
+  fetchSegments: 'profiles/segments',
+}
+
 export default {
   OAuth,
   TVPrograms,
   Product,
   Book,
+  Profiles,
 }

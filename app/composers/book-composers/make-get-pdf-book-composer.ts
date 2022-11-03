@@ -1,10 +1,10 @@
-import { ControllerStreamOutFile } from '../../../backend/core/adapters/controller'
-import { ControllerFileGeneric } from '../../../backend/core/adapters/controller/helpers'
+import { ControllerStreamOutFile } from '@/adapters/controller'
+import { ControllerFileGeneric } from '@/adapters/controller/helpers'
 import {
   GetPDFProductBookUseCase,
   CreateReadStreamUseCase,
   PathExistsUseCase,
-} from '../../../backend/core/domain/usecases'
+} from '@/domain/usecases'
 
 export const makeGetPDFBooksComposer = (): ControllerFileGeneric => {
   const UseCase = new GetPDFProductBookUseCase(

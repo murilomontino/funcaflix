@@ -2,13 +2,15 @@ import React from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 
 import theme from '@/theme'
+import { If } from '@/utils/tsx-controls'
 
 type Props = {
   title: string
   image?: any
+  children?: JSX.Element | JSX.Element[]
 }
 
-const BreadCrumb = ({ title, image }: Props) => {
+const BreadCrumb = ({ title, image, children }: Props) => {
   return (
     <div
       className="iq-breadcrumb-one  iq-bg-over iq-over-dark-50"
@@ -35,6 +37,19 @@ const BreadCrumb = ({ title, image }: Props) => {
           </Col>
         </Row>
       </Container>
+
+      <If condition={!!children}>
+        <div
+          className='position-absolute w-100 h-100 top-0'
+          style={{
+            zIndex: 99
+          }}>
+          <div className='d-flex w-100 h-100 position-relative'>
+            {children}
+          </div>
+        </div>
+      </If>
+
     </div>
   )
 }
