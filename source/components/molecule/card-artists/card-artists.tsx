@@ -29,7 +29,7 @@ const CardArtists = ({ item }: Props) => {
     const nameNormalize = name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
     const names = nameNormalize.split(' ')
     const username = names[0] + names[names.length - 1]
-    return `/${username}@${id}`
+    return `${process.env.URL}/${username}@${id}`
   }, [name, id])
 
   return (
@@ -39,9 +39,7 @@ const CardArtists = ({ item }: Props) => {
         width: '240px',
         height: '240px',
       }}>
-      <QRCode value={
-        `${item.name.toLowerCase().replace(/ /g, '')}#${item.id}`
-      } />
+      <QRCode value={link} />
       <div className={`position-relative overflow-hidden rounded-circle`} >
         <Img
           endpoint="images/profile/"
