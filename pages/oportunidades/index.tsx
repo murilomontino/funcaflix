@@ -20,7 +20,7 @@ export default function Opportunities({ opportunities = [] }: Props) {
 export const getStaticProps: GetStaticProps = async (context) => {
   await build()
 
-  const opportunities = await new FindAllOpportunities().execute()
+  const opportunities = await new FindAllOpportunities().execute(null)
 
   return {
     props: {

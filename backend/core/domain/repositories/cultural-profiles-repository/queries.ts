@@ -49,6 +49,11 @@ export const QUERY_CULTURAL_PROFILE_BY_SEGMENT = (segment: string) => `
   ORDER BY RAND()
   LIMIT 20;
 `
+export const QUERY_CULTURAL_PROFILE_RAND = (length = 20) => `
+  ${QUERY_DEFAULT}
+  ORDER BY RAND()
+  LIMIT ${length};
+`
 
 export const QUERY_CULTURAL_PROFILE_BY_CITY = (city: string) => `
   ${QUERY_DEFAULT}

@@ -16,8 +16,9 @@ const NavBar: React.FC<Props> = ({ flexDirection = 'row' }) => {
       }}
     >
       <ItemNavBar title="LITERATURA" select={true} link="/literatura" />
+      <ItemNavBar title="AUDIOVISUAL" link="/audiovisual" />
+      <ItemNavBar title="PROGRAMAS DE TV" link="/programas-de-tv" />
       {/* 
-        <ItemNavBar title="AUDIOVISUAL" link="/audiovisual" disabled />
         <ItemNavBar title="MÚSICAS" select={true} link="/musicas" disabled />
         <ItemNavBar title="ARTES VISUAIS" link="/artes-visuais" disabled /> 
         <ItemNavBar title="AGENDA" link="/agenda" disabled />
