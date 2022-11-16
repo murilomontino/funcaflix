@@ -5,7 +5,7 @@ import SetupRoutes from './setup/routes'
 
 const YOUTUBE = 'https://www.youtube.com/watch?v='
 class Api {
-  constructor(private readonly express: Express) {}
+  constructor(private readonly express: Express) { }
 
   init() {
     this.express.get('/api/audio*', async (req, res) => {
@@ -43,6 +43,21 @@ class Api {
 
       video.pipe(res)
     })
+    this.express.get('/api/info/:videoId', async (req, res) => {
+      try {
+        const { videoId } = req.params
+
+        const url = YOUTUBE + videoId.toString()
+
+        const info = await ytdl.getInfo(url)
+
+        res.json(info)
+      } catch (error) {
+        res.json({ videoDetails: { isPrivate: true } })
+      }
+
+    })
+
     SetupRoutes(this.express)
   }
 }
