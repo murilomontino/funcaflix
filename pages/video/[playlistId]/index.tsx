@@ -11,27 +11,38 @@ import TemplateFrontEnd from '@/components/templates/frontend'
 import DetailsScreen from '@/screens/details-movies-screen'
 
 import { Choose, When } from '@/utils/tsx-controls'
+import api from '@/services'
 
 const VideoPageDetails = ({ staticVideos, staticPlaylist }) => {
   const { videoId } = useRouter().query
 
   const [video, setVideo] = useState(null)
   const [id, setId] = useState(null)
+  const [info, setInfo] = useState(null)
+
+  const fetchInfoVideo = async (videoId) => {
+    const response = await api.get(`info/${videoId}`)
+    setInfo(response.data.videoDetails)
+  }
 
   useEffect(() => {
-    if (videoId) {
-      const video = staticVideos?.find((video) => video.videoId === videoId)
-      if (video) {
-        setVideo(video)
-        setId(videoId)
-        return
-      }
-    }
+    if (!videoId) {
+      if (staticVideos?.length === 0) return
 
-    if (staticVideos?.length > 0) {
       setVideo(staticVideos?.[0])
       setId(staticVideos?.[0].videoId)
+
+      return
     }
+
+    fetchInfoVideo(videoId)
+    setId(videoId)
+
+    const video = staticVideos?.find((video) => video.videoId === videoId)
+    if (!video) return
+
+    setVideo(video)
+
 
     return () => {
       setVideo(null)
@@ -43,9 +54,21 @@ const VideoPageDetails = ({ staticVideos, staticPlaylist }) => {
     [staticVideos, id, video]
   )
 
+  if (info?.isPrivate) {
+    return (
+      <div className="container w-100 d-flex justify-content-center align-items-center" style={{ height: '80vh' }}>
+        <div className="row">
+          <div className="col-12">
+            <h1>Este vídeo está privado</h1>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <Choose>
-      <When condition={isLoading}>
+      <When condition={true}>
         <Skeleton width="100%" height={'90vh'} baseColor={theme.COLORS.BOX_SKELETON} />
       </When>
       <When condition={!isLoading}>
