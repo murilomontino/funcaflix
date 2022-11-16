@@ -50,7 +50,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const promiseAudioVisualOrErr = new FindAllPlaylistUseCase().execute({
     category: ['1'],
   })
-  const promiseNewestProductsOrErr = new FindAllNewestAudioVisual().execute({}, { category: ['1', '152'], limit: 10, })
+  const promiseNewestProductsOrErr = new FindAllNewestAudioVisual().execute({}, { category: ['1'], limit: 10, })
   const promiseOpportunitiesOrErr = new FindAllOpportunities().execute({ status: [1] })
   const promiseProfilesOrErr = new FindByRandomProfileUseCase(
     new CulturalProfileRepositorySequelize()
