@@ -1,15 +1,13 @@
 import React, { useMemo } from 'react'
-import { useScaledSize } from 'react-native-web-hooks'
-
 import { GetterProjects } from '@/domain/entities'
 
 import SlideSwipper from '@/components/organism/slide-swipper'
 
 import CardCarousel from './components/organisms/card-carousel'
 
-import { useResources } from '@/hooks/utils/use-resources'
-
 import { If } from '@/utils/tsx-controls'
+import { IGetterCulturalProfile } from '@/types/getters'
+import CarouselSwipperProfiles from '@/components/molecule/carousel-swipper-profiles'
 
 type Product = {
   [key: string]: any
@@ -23,21 +21,15 @@ type Product = {
 type Props = {
   books: Product[]
   tvProgramsPlaylist: Product[]
+  audioVisualPlaylist: Product[]
   newestProducts: Product[]
   opportunities: GetterProjects[]
+  profiles: IGetterCulturalProfile[]
 }
 
 // 5 categorias
 
-function HomeScreen({ books, tvProgramsPlaylist, newestProducts, opportunities }: Props) {
-  const { isFontReady } = useResources()
-
-  const WIDTH_NUMBER = 7
-  const TEXT_NUMBER = 2
-
-  const TEXT_SIZE = useScaledSize(TEXT_NUMBER)
-  const WIDTH_LOGO = useScaledSize(WIDTH_NUMBER)
-
+function HomeScreen({ books, tvProgramsPlaylist, newestProducts, opportunities, profiles, audioVisualPlaylist }: Props) {
   const opportunitiesCarousel: Product[] = useMemo(() => {
     return opportunities.map((opportunity) => ({
       id: opportunity.id as unknown as string,
@@ -53,7 +45,7 @@ function HomeScreen({ books, tvProgramsPlaylist, newestProducts, opportunities }
     [books]
   )
 
-  const playlist = useMemo(
+  const playlistTvPrograms = useMemo(
     () => tvProgramsPlaylist.filter((item) => item?.thumbnail !== 'Não informado'),
     [tvProgramsPlaylist]
   )
@@ -63,32 +55,37 @@ function HomeScreen({ books, tvProgramsPlaylist, newestProducts, opportunities }
     [newestProducts]
   )
 
+  const playlistAudioVisual = useMemo(
+    () => audioVisualPlaylist.filter((item) => item?.thumbnail !== 'Não informado'),
+    [audioVisualPlaylist]
+  )
+
   return (
     <>
-      {/* {isFontReady ? (
-        <HeaderLogo widthLogo={WIDTH_NUMBER} textSize={TEXT_NUMBER} subTitle="" />
-      ) : (
-        <SkeletonHeadLogo width={WIDTH_LOGO} textSize={TEXT_SIZE} />
-      )} */}
       <If condition={newestProductsMemo?.length > 0}>
         <CardCarousel items={newestProductsMemo} />
       </If>
-      <div
-        style={{
-          marginTop: '75px',
-          marginBottom: '10vh',
-        }}
-      >
-        <SlideSwipper
-          existLogo={false}
-          title="oportunidades"
-          id="iq-oportunidades"
-          items={opportunitiesCarousel}
-          height="200px"
-          link="oportunidades"
-          itemsPerView={6.5}
-          buttonText="Ler"
+      <div style={{
+        marginTop: '-8vh',
+      }}>
+        <CarouselSwipperProfiles
+          title="Perfis Culturais"
+          id='iq-perfis-culturais'
+          profiles={profiles}
         />
+
+        <If condition={opportunitiesCarousel?.length > 0}>
+          <SlideSwipper
+            existLogo={false}
+            title="oportunidades"
+            id="iq-oportunidades"
+            items={opportunitiesCarousel}
+            height="200px"
+            link="oportunidades"
+            itemsPerView={6.5}
+            buttonText="Ler"
+          />
+        </If>
 
         <SlideSwipper
           title="Literatura"
@@ -100,14 +97,26 @@ function HomeScreen({ books, tvProgramsPlaylist, newestProducts, opportunities }
           buttonText="Ler"
         />
 
-        <If condition={playlist?.length > 0}>
+        <If condition={playlistTvPrograms?.length > 0}>
           <SlideSwipper
             title="Programas de TV"
             id="iq-tv"
             height="200px"
-            items={playlist}
+            items={playlistTvPrograms}
             buttonText="Assistir"
             allLink="programas-de-tv"
+            link="video"
+          />
+        </If>
+
+        <If condition={playlistAudioVisual?.length > 0}>
+          <SlideSwipper
+            title="AudioVisual"
+            id="iq-audiovisual"
+            height="200px"
+            items={playlistAudioVisual}
+            buttonText="Assistir"
+            allLink="audiovisual"
             link="video"
           />
         </If>

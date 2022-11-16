@@ -5,12 +5,17 @@ import { db, database } from 'mapacultural-database'
 
 import { UseCase } from '../ports/use-case'
 
+
+type FindAllOpportunitiesProps = {
+  status?: number[]
+}
+
 export class FindAllOpportunities implements UseCase<unknown, IGetterProjects[]> {
-  async execute(): PromiseEither<IGetterProjects[], Error> {
+  async execute({ status = [1, 2] }: FindAllOpportunitiesProps): PromiseEither<IGetterProjects[], Error> {
     return await database.transaction(async (transaction) => {
       const newestProjects = await db.ModelProject.findAll({
         where: {
-          status: [1, 2],
+          status: status || [1, 2],
         },
 
         order: [['status', 'DESC']],

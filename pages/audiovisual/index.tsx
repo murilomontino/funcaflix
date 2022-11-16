@@ -1,42 +1,49 @@
-// @generated: @expo/next-adapter@2.1.52
+import React from 'react'
+import {
+  FindAllPlaylistAndItemsUseCase,
+  FindAllTvProgramsUseCase,
+  FindAllPlaylistUseCase
+} from "@/domain/usecases"
+import AudioVisualScreen from "@/screens/programs-tv-screen";
+import { build } from "mapacultural-database";
+import type { GetStaticProps } from "next";
 
-const AudioVisual = () => {
-  return null
+const AudioVisual = ({ staticNewestVideos, staticPlaylist }) => {
+  return <AudioVisualScreen newestItems={staticNewestVideos} playlist={staticPlaylist} />
 }
 
-// export const getStaticProps: GetStaticProps = async (context) => {
-//   await build()
-//   const findAllPlaylistAndItemsUseCase = new FindAllPlaylistAndItemsUseCase(
-//     new FindAllTvProgramsUseCase(),
-//     new FindAllPlaylistUseCase()
-//   )
+export const getStaticProps: GetStaticProps = async (context) => {
+  await build()
 
-//   const newestVideos = await new FindAllTvProgramsUseCase().execute(
-//     { subCategory: ['162', '161', '11', '12', '13', '42'] },
-//     { pageSize: '10' }
-//   )
-//   const playlistAndItemsEither = await findAllPlaylistAndItemsUseCase.execute({
-//     category: ['1'],
-//     subCategory: ['162', '161', '11', '12', '13', '42'],
-//   })
+  const findAllPlaylistAndItemsUseCase = new FindAllPlaylistAndItemsUseCase(
+    new FindAllTvProgramsUseCase(),
+    new FindAllPlaylistUseCase()
+  )
 
-//   if (process.env.ELECTION_PERIOD || playlistAndItemsEither.isRight() || newestVideos.isRight()) {
-//     return {
-//       props: {
-//         playlist: [],
-//         newestItems: [],
-//       },
-//       revalidate: 60 * 60 * 24,
-//     }
-//   }
+  const promiseNewestVideosOrErr = new FindAllTvProgramsUseCase().execute(
+    { subCategory: ['162', '161', '11', '12', '13', '42'] },
+    { pageSize: '10' }
+  )
+  const promisePlaylistAndItemsOrErr = await findAllPlaylistAndItemsUseCase.execute({
+    category: ['1'],
+    subCategory: ['162', '161', '11', '12', '13', '42'],
+  })
 
-//   return {
-//     props: {
-//       staticNewestVideos: newestVideos.value,
-//       staticPlaylist: playlistAndItemsEither.value,
-//     },
-//     revalidate: 60 * 60 * 24,
-//   }
-// }
+  const [newestVideosOrErr, playlistAndItemsOrErr] = await Promise.all([
+    promiseNewestVideosOrErr,
+    promisePlaylistAndItemsOrErr
+  ])
+
+  const newestVideos = newestVideosOrErr.isLeft() && newestVideosOrErr.extract()
+  const playlistAndItems = playlistAndItemsOrErr.isLeft() && playlistAndItemsOrErr.extract()
+
+  return {
+    props: {
+      staticNewestVideos: newestVideos || [],
+      staticPlaylist: playlistAndItems || [],
+    },
+    revalidate: 60 * 60 * 24,
+  }
+}
 
 export default AudioVisual

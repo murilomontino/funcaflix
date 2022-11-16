@@ -9677,10 +9677,10 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-mapacultural-database@^1.0.8:
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/mapacultural-database/-/mapacultural-database-1.0.8.tgz#4f6438433f02cddaf16584234350e3c030e2e8b2"
-  integrity sha512-eBXGQnHeAj9XlpQwIjEoXMok7j4hVfxyUlMtgxaySx1Hb2D8/KuZ8HiPfaoHFt61N+RTp1sf1jzDGMA3y+dnyw==
+mapacultural-database@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/mapacultural-database/-/mapacultural-database-1.0.9.tgz#c8b3a5507902799f029ca2d54d3b97a1e455cee9"
+  integrity sha512-wWhcxZuDt3cpogli00DC3usgNEPMJmIcZoU0BnaXcufBXsu6HV+qPl0/48+pqsk0dq0XV0NQTy1RGZ06FG+LuA==
   dependencies:
     dotenv "^16.0.1"
     mariadb "^3.0.0"
@@ -15268,10 +15268,10 @@ youtube-player@5.5.2:
     load-script "^1.0.0"
     sister "^3.0.0"
 
-ytdl-core@^4.11.0:
-  version "4.11.0"
-  resolved "https://registry.yarnpkg.com/ytdl-core/-/ytdl-core-4.11.0.tgz#79a3ea94d9d662b4b3acecdb1372ed3f1a9ea9db"
-  integrity sha512-Q3hCLiUA9AOGQXzPvno14GN+HgF9wsO1ZBHlj0COTcyxjIyFpWvMfii0UC4/cAbVaIjEdbWB71GdcGuc4J1Lmw==
+ytdl-core@^4.11.2:
+  version "4.11.2"
+  resolved "https://registry.yarnpkg.com/ytdl-core/-/ytdl-core-4.11.2.tgz#c2341916b9757171741a2fa118b6ffbb4ffd92f7"
+  integrity sha512-D939t9b4ZzP3v0zDvehR2q+KgG97UTgrTKju3pOPGQcXtl4W6W5z0EpznzcJFu+OOpl7S7Ge8hv8zU65QnxYug==
   dependencies:
     m3u8stream "^0.8.6"
     miniget "^4.2.2"

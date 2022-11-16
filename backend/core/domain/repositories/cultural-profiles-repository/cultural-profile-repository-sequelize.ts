@@ -4,6 +4,7 @@ import promiseErrorHandler from '@/helpers/error-handler'
 import removeAccentsAndJoin from '@/helpers/strings-normalize'
 import { left, PromiseEither, right } from '@/shared/either'
 import { IGetterCulturalProfile } from '@/types/getters'
+import { ICulturalProfile } from '@/types/setters'
 import { database } from 'mapacultural-database'
 
 import {
@@ -19,10 +20,13 @@ import {
   QUERY_CULTURAL_PROFILE_BY_ID,
   QUERY_CULTURAL_PROFILE_BY_SEGMENT,
   QUERY_GROUP_BY_CITY,
-  QUERY_GROUP_BY_SEGMENT
+  QUERY_GROUP_BY_SEGMENT,
+  QUERY_CULTURAL_PROFILE_RAND
+
 } from './queries'
 
 const HOUR = 3600
+const DAY = HOUR * 24
 
 export class CulturalProfileRepositorySequelize implements CulturalProfileRepository {
   async findAllByCity(): PromiseEither<CulturalProfileByCity[], Error> {
@@ -238,6 +242,30 @@ export class CulturalProfileRepositorySequelize implements CulturalProfileReposi
 
     return right(new Error('Not found'))
 
+  }
+
+  async findRandom(length = 20): PromiseEither<ICulturalProfile[], Error> {
+
+    const cacheOrErr = await GetterCache.execute('::random-profile-culture-home')
+
+    if (cacheOrErr.isLeft()) {
+      return left(JSON.parse(cacheOrErr.value))
+    }
+
+    return database.transaction(async (transaction) => {
+
+      const [error, profiles] = await promiseErrorHandler(
+        database.query(QUERY_CULTURAL_PROFILE_RAND(length), { transaction })
+      )
+
+      if (error) return right(error)
+
+      const profilesArray = profiles[0].map((item: any) => item as ICulturalProfile)
+
+      await SetterCache.execute('::random-profile-culture-home', JSON.stringify(profilesArray), DAY)
+
+      return left(profilesArray)
+    })
   }
 }
 

@@ -19,25 +19,37 @@ type Params = {
 }
 
 export class FindAllNewestAudioVisual implements UseCase<unknown, IGetterTVPrograms[]> {
+
+  async configMapAttributes(params: Params): Promise<Map<string, unknown>> {
+    const config = new Map()
+    params.limit && config.set('limit', params.limit)
+
+    return config
+  }
+
+  async convertArrayStringToNumber(arrayString: string[] | string): Promise<number[]> {
+    const arrayAux = Array.isArray(arrayString) ? arrayString : [arrayString]
+
+    const arrayNumber: number[] = []
+    arrayAux.forEach((item) => {
+      arrayNumber.push(parseInt(item.toString(), 10))
+    })
+    return arrayNumber
+  }
+
+  // um array está contido em outro array - return true or false
+  isSubset = (arr1: number[], arr2: number[]) => arr1.some((val) => arr2.includes(val))
+
   async execute(_, params: Params): PromiseEither<IGetterTVPrograms[], Error> {
     if (!params.category) {
       return right(new Error('Categoria é obrigatório'))
     }
 
-    const mapConfig = new Map()
-    params.limit && mapConfig.set('limit', params.limit)
+    const config = await this.configMapAttributes(params)
+    const categoryArrayInt = await this.convertArrayStringToNumber(params.category)
+    const isInArray = this.isSubset(categoryArrayInt, [...Object.values(ProductType)] as number[])
 
-    const categoryArrayString = Array.isArray(params.category) ? params.category : [params.category]
-    const categoryArrayInt = categoryArrayString.map((category) => parseInt(category, 10))
-
-    const isInArray = Object.values(ProductType).some((type) =>
-      categoryArrayInt.includes(parseInt(type.toString(), 10))
-    )
-
-    // id deve ser um ProductType
-    if (!isInArray) {
-      return right(new Error('Id deve ser uma categoria válida'))
-    }
+    if (!isInArray) return right(new Error('Deve ser uma categoria válida'))
 
     return await database.transaction(async (transaction) => {
       const modelsPlaylist = await db.ModelInfoProducts.findAll({
@@ -49,7 +61,7 @@ export class FindAllNewestAudioVisual implements UseCase<unknown, IGetterTVProgr
           ],
           active: true,
         },
-        ...Object.fromEntries(mapConfig),
+        ...Object.fromEntries(config),
         order: [['createdAt', 'DESC']],
         attributes: ['id', 'title', 'about', 'thumbnail', 'category', 'createdAt'],
         transaction,

@@ -20,11 +20,12 @@ export default function Opportunities({ opportunities = [] }: Props) {
 export const getStaticProps: GetStaticProps = async (context) => {
   await build()
 
-  const opportunities = await new FindAllOpportunities().execute()
+  const opportunitiesOrErr = await new FindAllOpportunities().execute({ status: [1, 2] })
+  const opportunities = opportunitiesOrErr.isLeft() && opportunitiesOrErr.extract()
 
   return {
     props: {
-      opportunities: opportunities.isRight() ? [] : opportunities.value,
+      opportunities: opportunities || [],
     },
     revalidate: 60 * 60 * 24,
   }
