@@ -68,7 +68,7 @@ const VideoPageDetails = ({ staticVideos, staticPlaylist }) => {
 
   return (
     <Choose>
-      <When condition={true}>
+      <When condition={isLoading}>
         <Skeleton width="100%" height={'90vh'} baseColor={theme.COLORS.BOX_SKELETON} />
       </When>
       <When condition={!isLoading}>
