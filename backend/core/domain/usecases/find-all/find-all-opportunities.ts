@@ -15,7 +15,7 @@ export class FindAllOpportunities implements UseCase<unknown, IGetterProjects[]>
     return await database.transaction(async (transaction) => {
       const newestProjects = await db.ModelProject.findAll({
         where: {
-          status,
+          status: status || [1, 2],
         },
 
         order: [['status', 'DESC']],

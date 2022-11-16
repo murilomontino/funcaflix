@@ -14,33 +14,34 @@ const arrayNumberForArrayString = (arrayString: string | string[]) => {
   const paramsArray = Array.isArray(arrayString) ? arrayString : [arrayString]
   return paramsArray.map((category) => parseInt(category, 10))
 }
+
 export class FindAllTvProgramsUseCase implements UseCase<unknown, GetterTVPrograms[]> {
+
+  async config(params) {
+    const map = new Map()
+    params.playlistId && map.set('playlistId', params.playlistId)
+    params.idProduct && map.set('idProduct', params.idProduct)
+    params.isNecessarySubCategory && map.set('subCategory', { [Op.in]: params.subCategoryNumber })
+    return map
+  }
+
   async execute(
     { subCategory = ['152'], isNecessarySubCategory = true }: Props,
     { page = '0', pageSize = '50', playlistId = null, idProduct = null }
   ): PromiseEither<GetterTVPrograms[], Error> {
-    const whereMaps = new Map()
 
     const subCategoryNumber = arrayNumberForArrayString(subCategory)
+    const mapConfig = await this.config({ playlistId, idProduct, isNecessarySubCategory, subCategoryNumber })
 
-    playlistId && whereMaps.set('playlistId', playlistId)
-    idProduct && whereMaps.set('idProduct', idProduct)
-
-    isNecessarySubCategory &&
-      whereMaps.set('subCategory', {
-        [Op.in]: subCategoryNumber,
-      })
     const size = parseInt(pageSize, 10)
-
     const offset = parseInt(page) * size
-    const limit = size
 
     const { rows } = await db.ModelAudioVisual.findAndCountAll({
       where: {
-        ...Object.fromEntries(whereMaps),
+        ...Object.fromEntries(mapConfig),
         active: true,
       },
-      limit,
+      limit: size,
       offset,
       order: [['publishedAt', 'DESC']],
     })

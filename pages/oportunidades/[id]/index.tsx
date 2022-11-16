@@ -17,7 +17,7 @@ export default OpportunitiesId
 export const getStaticPaths = async () => {
   await build()
 
-  const opportunities = await new FindAllOpportunities().execute()
+  const opportunities = await new FindAllOpportunities().execute({ status: [1, 2] })
 
   if (opportunities.isRight()) {
     return {

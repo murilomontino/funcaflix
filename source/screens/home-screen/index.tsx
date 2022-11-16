@@ -21,6 +21,7 @@ type Product = {
 type Props = {
   books: Product[]
   tvProgramsPlaylist: Product[]
+  audioVisualPlaylist: Product[]
   newestProducts: Product[]
   opportunities: GetterProjects[]
   profiles: IGetterCulturalProfile[]
@@ -28,7 +29,7 @@ type Props = {
 
 // 5 categorias
 
-function HomeScreen({ books, tvProgramsPlaylist, newestProducts, opportunities, profiles }: Props) {
+function HomeScreen({ books, tvProgramsPlaylist, newestProducts, opportunities, profiles, audioVisualPlaylist }: Props) {
   const opportunitiesCarousel: Product[] = useMemo(() => {
     return opportunities.map((opportunity) => ({
       id: opportunity.id as unknown as string,
@@ -44,7 +45,7 @@ function HomeScreen({ books, tvProgramsPlaylist, newestProducts, opportunities, 
     [books]
   )
 
-  const playlist = useMemo(
+  const playlistTvPrograms = useMemo(
     () => tvProgramsPlaylist.filter((item) => item?.thumbnail !== 'Não informado'),
     [tvProgramsPlaylist]
   )
@@ -54,17 +55,19 @@ function HomeScreen({ books, tvProgramsPlaylist, newestProducts, opportunities, 
     [newestProducts]
   )
 
+  const playlistAudioVisual = useMemo(
+    () => audioVisualPlaylist.filter((item) => item?.thumbnail !== 'Não informado'),
+    [audioVisualPlaylist]
+  )
+
   return (
     <>
       <If condition={newestProductsMemo?.length > 0}>
         <CardCarousel items={newestProductsMemo} />
       </If>
-      <div
-        style={{
-          marginTop: '75px',
-          marginBottom: '10vh',
-        }}
-      >
+      <div style={{
+        marginTop: '-8vh',
+      }}>
         <CarouselSwipperProfiles
           title="Perfis Culturais"
           id='iq-perfis-culturais'
@@ -84,8 +87,6 @@ function HomeScreen({ books, tvProgramsPlaylist, newestProducts, opportunities, 
           />
         </If>
 
-
-
         <SlideSwipper
           title="Literatura"
           id="iq-literatura"
@@ -96,14 +97,26 @@ function HomeScreen({ books, tvProgramsPlaylist, newestProducts, opportunities, 
           buttonText="Ler"
         />
 
-        <If condition={playlist?.length > 0}>
+        <If condition={playlistTvPrograms?.length > 0}>
           <SlideSwipper
             title="Programas de TV"
             id="iq-tv"
             height="200px"
-            items={playlist}
+            items={playlistTvPrograms}
             buttonText="Assistir"
             allLink="programas-de-tv"
+            link="video"
+          />
+        </If>
+
+        <If condition={playlistAudioVisual?.length > 0}>
+          <SlideSwipper
+            title="AudioVisual"
+            id="iq-audiovisual"
+            height="200px"
+            items={playlistAudioVisual}
+            buttonText="Assistir"
+            allLink="audiovisual"
             link="video"
           />
         </If>

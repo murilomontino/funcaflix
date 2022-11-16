@@ -21,10 +21,11 @@ const EM_BREVE = false
 
 export default function App({
   staticBooks,
-  staticPlaylist,
+  staticTvProgramsPlaylist,
   staticNewestProducts,
   staticOpportunities,
   staticProfiles,
+  staticAudioVisualPlaylist,
 }) {
 
   if (EM_BREVE) return (<React.Fragment><ComingSoon /></React.Fragment>)
@@ -33,9 +34,10 @@ export default function App({
     <HomeScreen
       books={staticBooks}
       newestProducts={staticNewestProducts}
-      tvProgramsPlaylist={staticPlaylist}
+      tvProgramsPlaylist={staticTvProgramsPlaylist}
       opportunities={staticOpportunities}
       profiles={staticProfiles}
+      audioVisualPlaylist={staticAudioVisualPlaylist}
     />
   )
 }
@@ -45,6 +47,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   const promiseBooksOrErr = new FindAllProductsByCategory().execute({}, { category: '2', })
   const promisePlaylistOrErr = new FindAllPlaylistUseCase().execute({})
+  const promiseAudioVisualOrErr = new FindAllPlaylistUseCase().execute({
+    category: ['1'],
+  })
   const promiseNewestProductsOrErr = new FindAllNewestAudioVisual().execute({}, { category: ['1', '152'], limit: 10, })
   const promiseOpportunitiesOrErr = new FindAllOpportunities().execute({ status: [1] })
   const promiseProfilesOrErr = new FindByRandomProfileUseCase(
@@ -57,12 +62,14 @@ export const getStaticProps: GetStaticProps = async (context) => {
     newestProductsOrErr,
     opportunitiesOrErr,
     profilesOrErr,
+    audioVisualPlaylistOrErr,
   ] = await Promise.all([
     promiseBooksOrErr,
     promisePlaylistOrErr,
     promiseNewestProductsOrErr,
     promiseOpportunitiesOrErr,
     promiseProfilesOrErr,
+    promiseAudioVisualOrErr,
   ])
 
   const books = booksOrErr.isLeft() && booksOrErr.extract()
@@ -70,14 +77,16 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const newestProducts = newestProductsOrErr.isLeft() && newestProductsOrErr.extract()
   const opportunities = opportunitiesOrErr.isLeft() && opportunitiesOrErr.extract()
   const profiles = profilesOrErr.isLeft() && profilesOrErr.extract()
+  const audioVisualPlaylist = audioVisualPlaylistOrErr.isLeft() && audioVisualPlaylistOrErr.extract()
 
   return {
     props: {
       staticBooks: books || [],
-      staticPlaylist: playlist || [],
+      staticTvProgramsPlaylist: playlist || [],
       staticNewestProducts: newestProducts || [],
       staticOpportunities: opportunities || [],
       staticProfiles: profiles || [],
+      staticAudioVisualPlaylist: audioVisualPlaylist || [],
     },
     revalidate: 60 * 60 * 24,
   }

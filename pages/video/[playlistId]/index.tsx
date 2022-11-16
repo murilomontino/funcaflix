@@ -20,7 +20,7 @@ const VideoPageDetails = ({ staticVideos, staticPlaylist }) => {
 
   useEffect(() => {
     if (videoId) {
-      const video = staticVideos.find((video) => video.videoId === videoId)
+      const video = staticVideos?.find((video) => video.videoId === videoId)
       if (video) {
         setVideo(video)
         setId(videoId)
@@ -28,8 +28,10 @@ const VideoPageDetails = ({ staticVideos, staticPlaylist }) => {
       }
     }
 
-    setVideo(staticVideos[0])
-    setId(staticVideos[0].videoId)
+    if (staticVideos?.length > 0) {
+      setVideo(staticVideos?.[0])
+      setId(staticVideos?.[0].videoId)
+    }
 
     return () => {
       setVideo(null)
@@ -42,21 +44,19 @@ const VideoPageDetails = ({ staticVideos, staticPlaylist }) => {
   )
 
   return (
-    <TemplateFrontEnd>
-      <Choose>
-        <When condition={isLoading}>
-          <Skeleton width="100%" height={'90vh'} baseColor={theme.COLORS.BOX_SKELETON} />
-        </When>
-        <When condition={!isLoading}>
-          <DetailsScreen
-            videoId={id}
-            playlist={staticPlaylist}
-            videos={staticVideos}
-            item={video}
-          />
-        </When>
-      </Choose>
-    </TemplateFrontEnd>
+    <Choose>
+      <When condition={isLoading}>
+        <Skeleton width="100%" height={'90vh'} baseColor={theme.COLORS.BOX_SKELETON} />
+      </When>
+      <When condition={!isLoading}>
+        <DetailsScreen
+          videoId={id}
+          playlist={staticPlaylist}
+          videos={staticVideos || []}
+          item={video}
+        />
+      </When>
+    </Choose>
   )
 }
 
@@ -88,16 +88,6 @@ export const getStaticPaths = async (context) => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   await build()
 
-  if (process.env.ELECTION_PERIOD) {
-    return {
-      props: {
-        staticVideos: [],
-        staticPlaylist: {},
-      },
-      revalidate: 60 * 60 * 24,
-    }
-  }
-
   const { playlistId } = params
 
   const playlist = await (
@@ -106,7 +96,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     })
   ).get()
 
-  const audioVisualEither = await new FindAllTvProgramsUseCase().execute(
+  const audioVisualOrErr = await new FindAllTvProgramsUseCase().execute(
     {
       isNecessarySubCategory: false,
     },
@@ -115,10 +105,11 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     }
   )
 
-  const audioVisual = audioVisualEither.isLeft() ? audioVisualEither.value : null
+  const audioVisual = audioVisualOrErr.isLeft() && audioVisualOrErr.extract()
+
   return {
     props: {
-      staticVideos: audioVisual,
+      staticVideos: audioVisual || [],
       staticPlaylist: {
         ...playlist,
         createdAt: playlist?.createdAt?.toISOString(),
