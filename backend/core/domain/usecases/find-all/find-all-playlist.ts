@@ -34,6 +34,7 @@ export class FindAllPlaylistUseCase implements UseCase<unknown, GetterPlaylistTV
       const productsModel = await db.ModelInfoProducts.findAll({
         where: {
           category: categoriesNumber,
+          active: true,
         },
         attributes: ['id', 'title', 'about', 'thumbnail', 'category'],
         transaction,
