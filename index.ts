@@ -5,20 +5,31 @@ import { config } from 'dotenv'
 
 import Server from './app/server'
 
+import { database } from 'mapacultural-database'
+
 config()
 
+const server = new Server(process.env.EXPRESS_PORT)
+
 const begin = async () => {
-  await new Server(process.env.EXPRESS_PORT).start()
+  await server.start()
   console.log(
     `Server running in HTTP --- ${process.env.NODE_ENV} --- on port ${process.env.EXPRESS_PORT}`
   )
 }
 
 const beginOnlyAPI = async () => {
-  await new Server(process.env.EXPRESS_PORT).startOnlyExpress()
+  await server.startOnlyExpress()
   console.log(
     `Server running in HTTP --- ${process.env.NODE_ENV} --- on port ${process.env.EXPRESS_PORT}`
   )
 }
+
+// aguardar as conexoes serem encerradas para só então encerrar o programa
+process.on('SIGTERM', async () => {
+  console.log('server ending', new Date().toISOString())
+  await database.close()
+  await server.close(() => process.exit())
+})
 
 process.env.API_ONLY === 'true' ? beginOnlyAPI() : begin()

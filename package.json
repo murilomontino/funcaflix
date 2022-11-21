@@ -139,7 +139,7 @@
     "dev-js": "node index.js",
     "data-dev": "cross-env NODE_ENV=development ts-node-dev --respawn --no-notify --transpile-only -r tsconfig-paths/register database/script.ts",
     "android": "expo start --android",
-    "start": "cross-env NODE_ENV=production ts-node -r tsconfig-paths/register index.ts",
+    "start": "cross-env NODE_ENV=production ts-node -r tsconfig-paths/register fork.ts",
     "dev": "cross-env NODE_ENV=development ts-node -r tsconfig-paths/register index.ts",
     "dev:api": "cross-env NODE_ENV=development API_ONLY=true nodemon -r tsconfig-paths/register index.ts",
     "ios": "expo start --ios",
