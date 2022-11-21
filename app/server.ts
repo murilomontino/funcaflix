@@ -51,6 +51,10 @@ class Server {
     this.router = new NextjsExpressRouter(this.express, this.next)
   }
 
+  async close(callback: () => void) {
+    this.server.close(callback)
+  }
+
   async start() {
     await this.next.prepare()
     await this.middleware.init()
