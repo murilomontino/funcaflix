@@ -8,8 +8,8 @@ module.exports = {
       script: 'yarn',
       args: 'start',
       watch: ['.next'],
-      instances: 'max',
-      exec_mode: 'cluster',
+      //instances: 'max',
+      //exec_mode: 'cluster',
     },
   ],
 }

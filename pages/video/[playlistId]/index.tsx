@@ -19,6 +19,8 @@ const VideoPageDetails = ({ staticVideos, staticPlaylist }) => {
   const [video, setVideo] = useState(null)
   const [id, setId] = useState(null)
   const [info, setInfo] = useState(null)
+  const [loading, setLoading] = useState(true)
+
 
   const fetchInfoVideo = async (videoId) => {
     const response = await api.get(`info/${videoId}`)
@@ -27,31 +29,31 @@ const VideoPageDetails = ({ staticVideos, staticPlaylist }) => {
 
   useEffect(() => {
     if (!videoId) {
-      if (staticVideos?.length === 0) return
-
+      if (staticVideos?.length === 0) return setLoading(false)
       setVideo(staticVideos?.[0])
       setId(staticVideos?.[0].videoId)
-
-      return
+      return setLoading(false)
     }
 
     fetchInfoVideo(videoId)
     setId(videoId)
 
     const video = staticVideos?.find((video) => video.videoId === videoId)
-    if (!video) return
+    
+    if (!video) return  setLoading(false)
 
     setVideo(video)
+    setLoading(false)
 
 
     return () => {
       setVideo(null)
     }
-  }, [videoId, staticVideos])
+  }, [videoId, staticVideos, loading])
 
   const isLoading = useMemo(
-    () => staticVideos === null || staticVideos === undefined || !id || !video,
-    [staticVideos, id, video]
+    () => (staticVideos === null || staticVideos === undefined || !id || !video) && loading,
+    [staticVideos, id, video, loading]
   )
 
   if (info?.isPrivate) {

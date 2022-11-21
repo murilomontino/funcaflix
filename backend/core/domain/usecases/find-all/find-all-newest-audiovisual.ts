@@ -55,9 +55,9 @@ export class FindAllNewestAudioVisual implements UseCase<unknown, IGetterTVProgr
       const modelsPlaylist = await db.ModelInfoProducts.findAll({
         where: {
           [Op.or]: [
-            ...categoryArrayInt.map((category) => ({
-              category: category,
-            })),
+            {id: 1008},
+            {id: 1011},
+            {id: 1020},
           ],
           active: true,
         },

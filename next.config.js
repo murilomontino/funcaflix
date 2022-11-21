@@ -60,9 +60,9 @@ const nextConfig = ((phase) => {
     },
     distDir: '.next',
     webpack5: true,
-    experimental: {
-      forceSwcTransforms: true,
-    },
+    // experimental: {
+    //  forceSwcTransforms: true,
+    // },
     webpack: (
       config,
       { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack, dir }
