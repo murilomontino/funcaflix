@@ -18,6 +18,7 @@ export const PathImages = {
   GET_PROFILE_IMAGE: '/images/profile/:image',
   GET_BANNER_IMAGE: '/images/banner/:image',
   GET_QRCODE_IMAGE: '/images/qrcode/:username',
+  GET_FAVICON: '/images/fav/:image',
 }
 
 Images.get(
@@ -28,10 +29,10 @@ Images.get(
     const { image } = req.params
 
     const imagePath = path.join(
-      process.env.PATH_PRODUCTS, 
-      process.env.HASH_KEY, 
-      'perfil', 
-      'foto_banner', 
+      process.env.PATH_PRODUCTS,
+      process.env.HASH_KEY,
+      'perfil',
+      'foto_banner',
       image
     )
 
@@ -55,10 +56,10 @@ Images.get(
     const { image } = req.params
 
     const imagePath = path.join(
-      process.env.PATH_PRODUCTS, 
-      process.env.HASH_KEY, 
-      'perfil', 
-      'foto_perfil', 
+      process.env.PATH_PRODUCTS,
+      process.env.HASH_KEY,
+      'perfil',
+      'foto_perfil',
       image
     )
 
@@ -72,6 +73,35 @@ Images.get(
     next()
   },
   adaptFileRoute(makeStreamOutImageComposer())
+)
+
+Images.get(
+  PathImages.GET_FAVICON,
+  async (req, res, next) => {
+    // Constrói o caminho da imagem
+
+    const { image } = req.params
+
+    const imagePath = path.join(
+      process.cwd(),
+      'public',
+      image
+    )
+
+    console.log(imagePath)
+
+    if (!existsSync(imagePath)) {
+      return res.sendStatus(404).end()
+    }
+
+    console.log(image)
+    req.query.path = imagePath
+
+    next()
+
+  },
+  adaptFileRoute(makeStreamOutImageComposer())
+
 )
 
 Images.get(

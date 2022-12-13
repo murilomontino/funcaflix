@@ -49,5 +49,7 @@ export function Otherwise({ children, condition = true }) {
 }
 
 export function If({ condition, children }: PropsWhen) {
-  return condition ? <React.Fragment>{children}</React.Fragment> : null
+  if (!condition) return null
+
+  return <React.Fragment>{children}</React.Fragment>
 }

@@ -2,11 +2,9 @@ import React, { useState } from 'react'
 import { ActivityIndicator, StyleSheet } from 'react-native'
 
 import image from '@/public/images/banner-perfis-culturais-2.jpg'
-import { View } from 'moti'
 
 import BreadCrumb from '@/components/organism/breadcrumb'
 
-import colors from '@/global/colors'
 import constants from '@/global/constants'
 import { useResources } from '@/hooks/utils/use-resources'
 
@@ -22,6 +20,8 @@ import {
 import TabPaneCitiesProfiles from './tab-pane/tab-pane-cities-profiles'
 import TabPaneSegmentsProfiles from './tab-pane/tab-pane-segments-profiles'
 import Loading from '@/components/atom/loading'
+import InputTopic from '@/components/molecule/input-topic'
+import TabPaneSearchProfiles from './tab-pane/tab-pane-search'
 
 type Props = {
   segments: string[]
@@ -45,7 +45,6 @@ const CulturalProfilesScreen = ({ segments, cities }: Props) => {
     <React.Fragment>
       <BreadCrumb title="Perfis Culturais" image={image} />
 
-
       <div className="page-content">
 
         <Container fluid>
@@ -58,7 +57,8 @@ const CulturalProfilesScreen = ({ segments, cities }: Props) => {
                     onChangeActiveTab={toggleTab}
                     optionsTab={[
                       'Segmentos',
-                      'Cidades'
+                      'Cidades',
+                      'Busca',
                     ]}
                   />
                 </div>
@@ -72,6 +72,12 @@ const CulturalProfilesScreen = ({ segments, cities }: Props) => {
                 <TabContent activeTab={activeTab} className="pt-4 text-muted">
                   <TabPane tabId="2">
                     <TabPaneCitiesProfiles cities={cities} active={activeTab === "2"} />
+                  </TabPane>
+                </TabContent>
+
+                <TabContent activeTab={activeTab} className="pt-4 text-muted">
+                  <TabPane tabId="3">
+                    <TabPaneSearchProfiles active={activeTab === "3"} />
                   </TabPane>
                 </TabContent>
               </div>
