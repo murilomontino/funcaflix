@@ -6,7 +6,7 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import { build } from 'mapacultural-database'
 
 import RootContext from '@/context/Root'
-import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/css/bootstrap.css'
 
 import 'swiper/swiper-bundle.min.css'
 import 'swiper/swiper.min.css'

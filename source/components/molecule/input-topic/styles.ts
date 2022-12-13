@@ -22,16 +22,3 @@ export const Input = styled.TextInput`
   border-color: ${theme.COLORS.BORDER_BUTTON};
 `
 
-export const ContainerIcon = styled.View`
-  background-color: ${theme.COLORS.WHITE};
-  align-items: center;
-  justify-content: center;
-  border-radius: 2px;
-  border-left-width: 0px;
-  border-top-left-radius: 0px;
-  border-bottom-left-radius: 0px;
-  border-color: ${theme.COLORS.BORDER_BUTTON};
-  border-width: 0.4px;
-  border-left: 0;
-  padding-right: 4px;
-`

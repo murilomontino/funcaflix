@@ -21,7 +21,8 @@ import {
   QUERY_CULTURAL_PROFILE_BY_SEGMENT,
   QUERY_GROUP_BY_CITY,
   QUERY_GROUP_BY_SEGMENT,
-  QUERY_CULTURAL_PROFILE_RAND
+  QUERY_CULTURAL_PROFILE_RAND,
+  QUERY_CULTURAL_PROFILE_SEARCH
 
 } from './queries'
 
@@ -263,6 +264,31 @@ export class CulturalProfileRepositorySequelize implements CulturalProfileReposi
       const profilesArray = profiles[0].map((item: any) => item as ICulturalProfile)
 
       await SetterCache.execute('::random-profile-culture-home', JSON.stringify(profilesArray), DAY)
+
+      return left(profilesArray)
+    })
+  }
+
+  async findSearch(search: string): PromiseEither<ICulturalProfile[], Error> {
+
+    const cacheOrErr = await GetterCache.execute(`::search-profile-culture-home::${search}`)
+
+    if (cacheOrErr.isLeft()) {
+      return left(JSON.parse(cacheOrErr.value))
+    }
+
+    return database.transaction(async (transaction) => {
+
+      const [error, profiles] = await promiseErrorHandler(
+        database
+          .query(QUERY_CULTURAL_PROFILE_SEARCH(search), { transaction })
+      )
+
+      if (error) return right(error)
+
+      const profilesArray = profiles[0].map((item: any) => item as ICulturalProfile)
+
+      await SetterCache.execute(`::search-profile-culture-home::${search}`, JSON.stringify(profilesArray), DAY)
 
       return left(profilesArray)
     })

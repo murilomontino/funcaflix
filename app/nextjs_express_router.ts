@@ -7,7 +7,7 @@ import Pages from './routes/pages'
 /* NextjsExpressRouter is a class that provides a method to create a Next.js router
 that can be used with Express. */
 class NextjsExpressRouter {
-  constructor(private readonly express: Express, private readonly next: NextServer) {}
+  constructor(private readonly express: Express, private readonly next: NextServer) { }
 
   async init() {
     this.initApi()

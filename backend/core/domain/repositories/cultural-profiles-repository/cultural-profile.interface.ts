@@ -25,4 +25,5 @@ export interface CulturalProfileRepository {
   findGroupBySegment(): PromiseEither<string[], Error>
   findCityOrSegmentName(name: string): PromiseEither<CityOrSegmentNameResponse, Error>
   findRandom(length: number): PromiseEither<IGetterCulturalProfile[], Error>
+  findSearch(search: string): PromiseEither<IGetterCulturalProfile[], Error>
 }

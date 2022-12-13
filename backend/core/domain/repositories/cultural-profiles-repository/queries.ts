@@ -63,6 +63,15 @@ export const QUERY_CULTURAL_PROFILE_BY_CITY = (city: string) => `
   LIMIT 20;
 `
 
+export const QUERY_CULTURAL_PROFILE_SEARCH = (search: string) => `
+  ${QUERY_DEFAULT}
+  WHERE
+    u.nome LIKE '%${search}%' OR
+    s.segmento LIKE '%${search}%' OR
+    s.atuacao LIKE '%${search}%' OR
+    e.localidade LIKE '%${search}%';
+`
+
 export const QUERY_GROUP_BY_SEGMENT = `
 SELECT segmento as segment FROM sobre GROUP BY segmento;
 `
