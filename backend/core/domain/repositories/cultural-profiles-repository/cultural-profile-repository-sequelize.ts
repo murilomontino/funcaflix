@@ -1,11 +1,13 @@
 import GetterCache from '@/helpers/cache/getter-cache/getter-cache-use-case'
 import SetterCache from '@/helpers/cache/setter-cache/setter-cache-use-case'
 import promiseErrorHandler from '@/helpers/error-handler'
-import removeAccentsAndJoin from '@/helpers/strings-normalize'
 import { left, PromiseEither, right } from '@/shared/either'
 import { IGetterCulturalProfile } from '@/types/getters'
 import { ICulturalProfile } from '@/types/setters'
 import { database } from 'mapacultural-database'
+
+import segmentos from '../../constants/segmentos.json'
+import localidades from '../../constants/localidades.json'
 
 import {
   CulturalProfileByCity,
@@ -100,10 +102,12 @@ export class CulturalProfileRepositorySequelize implements CulturalProfileReposi
       return left(JSON.parse(cacheOrErr.value))
     }
 
+    const term = segmentos[segment]
+
     return database.transaction(async (transaction) => {
 
       const [error, queryResult] = await promiseErrorHandler(
-        database.query(QUERY_CULTURAL_PROFILE_BY_SEGMENT(segment), { transaction })
+        database.query(QUERY_CULTURAL_PROFILE_BY_SEGMENT(term), { transaction })
       )
 
       if (error) return right(error)
@@ -126,10 +130,12 @@ export class CulturalProfileRepositorySequelize implements CulturalProfileReposi
       return left(JSON.parse(cacheOrErr.value))
     }
 
+    const term = localidades[city]
+
     return database.transaction(async (transaction) => {
 
       const [error, queryResult] = await promiseErrorHandler(
-        database.query(QUERY_CULTURAL_PROFILE_BY_CITY(city), { transaction })
+        database.query(QUERY_CULTURAL_PROFILE_BY_CITY(term), { transaction })
       )
 
       if (error) return right(error)
@@ -209,28 +215,10 @@ export class CulturalProfileRepositorySequelize implements CulturalProfileReposi
 
   async findCityOrSegmentName(name: string): PromiseEither<CityOrSegmentNameResponse, Error> {
 
-    const [segmentsCacheOrErr, citiesCacheOrErr] = await Promise.all([
-      GetterCache.execute('::segments'),
-      GetterCache.execute('::cities')
-    ])
-
-
-    if (segmentsCacheOrErr.isRight() || citiesCacheOrErr.isRight()) {
-
-      const generateOrErr = await this.generateCache()
-
-      if (generateOrErr.isRight()) return right(new Error('Cache not found'))
-
-      return this.findCityOrSegmentName(name)
-    }
-
-    const segments: string[] = JSON.parse(segmentsCacheOrErr.value)
-    const cities: string[] = JSON.parse(citiesCacheOrErr.value)
-
-    const [segmentFound, cityFound] = await Promise.all([
-      segments.find((segment: string) => removeAccentsAndJoin(segment) === name),
-      cities.find((city: string) => removeAccentsAndJoin(city) === name)
-    ])
+    const [segmentFound, cityFound] = [
+      segmentos[name],
+      localidades[name]
+    ]
 
     if (segmentFound) return left({
       name: segmentFound,

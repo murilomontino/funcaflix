@@ -6,6 +6,8 @@ import assert from 'assert'
 
 import { UseCase } from '../ports/use-case'
 
+import localidades from '../../constants/localidades.json'
+
 type Props = {
   city: string
 }
@@ -18,13 +20,7 @@ export class FindAllByCityProfileUseCase
   async execute(_, { city }: Props): PromiseEither<IGetterCulturalProfile[], Error> {
     assert(city, 'city is required')
 
-    const cities = await this.culturalProfileRepository.findGroupByCity()
-
-    if (cities.isRight()) return right(new Error('Erro no banco de dados: Não foi possível buscar as cidades'))
-
-    const cityFound = cities.value.find((item) =>
-      removeAccentsAndJoin(item) === removeAccentsAndJoin(city)
-    )
+    const cityFound = localidades[city]
 
     if (!cityFound) return right(new Error('Cidade não encontrada'))
 
