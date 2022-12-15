@@ -5,8 +5,6 @@ import assert from 'assert'
 
 import { UseCase } from '../ports/use-case'
 
-import segmentos from '../../constants/segmentos.json'
-
 type Props = {
   segment: string
 }
@@ -19,11 +17,7 @@ export class FindAllBySegmentProfileUseCase
   async execute(_, { segment }: Props): PromiseEither<IGetterCulturalProfile[], Error> {
     assert(segment, 'segment is required')
 
-    const segmentFound = segmentos[segment]
-
-    if (!segmentFound) return right(new Error('Segmento não encontrado'))
-
-    const profileOrErr = await this.culturalProfileRepository.findAllByWhereSegment(segmentFound)
+    const profileOrErr = await this.culturalProfileRepository.findAllByWhereSegment(segment)
 
     if (profileOrErr.isRight()) return right(new Error('Erro no banco de dados'))
 

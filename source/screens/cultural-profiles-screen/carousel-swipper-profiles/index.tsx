@@ -29,8 +29,7 @@ const CarouselSwipperProfiles = ({
   fetchData
 }: CarouselSwipperProfilesProps) => {
   const [data, setData] = React.useState<ICulturalProfile[]>([])
-  const [isLoading, setIsLoading] = React.useState(true)
-
+  const [fetching, setFetching] = React.useState<boolean>(false)
   const normalize = removeCharacterSpecialAndJoin(title)
 
   useEffect(() => {
@@ -38,10 +37,11 @@ const CarouselSwipperProfiles = ({
 
     fetchData(normalize as string).then((data) => {
       setData(data)
-      setIsLoading(false)
+      setFetching(true)
     })
   }, [])
 
+  if (data.length === 0 && fetching) return null
 
   return (
     <section id={id} className={'overflow-hidden mb-5 position-relative'}>
