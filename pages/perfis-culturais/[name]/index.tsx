@@ -4,7 +4,7 @@ import { CulturalProfileRepositorySequelize } from '@/domain/repositories'
 
 import { build } from 'mapacultural-database'
 import type { GetStaticProps } from 'next'
-import removeAccentsAndJoin from '@/helpers/strings-normalize'
+import { removeCharacterSpecialAndJoin } from '@/helpers/strings-normalize'
 import { IGetterCulturalProfile } from '@/types/getters'
 import CulturalProfilesNameScreen from '@/screens/cultural-profiles-names-screen'
 
@@ -37,7 +37,7 @@ export const getStaticPaths = async () => {
 
     const paths = [...citiesOrErr.value, ...segmentsOrErr.value].map((item) => ({
         params: {
-            name: removeAccentsAndJoin(item)
+            name: removeCharacterSpecialAndJoin(item)
         },
     }))
 
@@ -62,13 +62,11 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         }
     }
 
-    const profiles = await (async () => {
-        if (cityOrSegmentTitleTypeOrErr.value.type === 'city') {
-            return (await new CulturalProfileRepositorySequelize().findAllByWhereCity(name as string))
-        }
+    const repository = new CulturalProfileRepositorySequelize()
 
-        return (await new CulturalProfileRepositorySequelize().findAllByWhereSegment(name as string))
-    })()
+    const profiles = cityOrSegmentTitleTypeOrErr.value.type === 'city' ?
+        await repository.findAllByWhereCity(name as string) :
+        await repository.findAllByWhereSegment(name as string)
 
     if (profiles.isRight()) {
         return {
