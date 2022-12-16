@@ -36,8 +36,8 @@ const CardArtists = ({ item }: Props) => {
     <div
       className={`${styles['btn']} position-relative m-1`}
       style={{
-        width: '240px',
-        height: '240px',
+        width: '220px',
+        height: '220px',
       }}>
       <QRCode value={link} />
       <div className={`position-relative overflow-hidden rounded-circle`} >
@@ -46,8 +46,8 @@ const CardArtists = ({ item }: Props) => {
           image={item.thumbnail || PersonDefault}
           staticImage={!item.thumbnail}
           style={{
-            width: '240px',
-            height: '240px',
+            width: '220px',
+            height: '220px',
           }}
           className="img-zoom rounded-circle w-100 h-100"
           alt={`Foto do artista ${item.name}`}
