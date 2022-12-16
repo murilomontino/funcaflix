@@ -24,15 +24,16 @@ const NavigationProfile = ({ activeTab, onChangeActiveTab, optionsTab }: Navigat
 
                 <For items={optionsTab} >
                     {(item, index) => (
-                        <NavItem key={`#${item.toLowerCase()}-${index}`}>
+                        <NavItem key={`#${item.toLowerCase()}-${index}`}  >
                             <NavLink
                                 href={`#${item.toLowerCase()}-tab`}
-                                className={classnames({ 
-                                    [styles['nav-link-customize']]:  activeTab === (index+1).toString()
-                                 })}
-                                onClick={() => { onChangeActiveTab((index+1).toString()); }}
+                                className={classnames({
+                                    [styles['nav-link-customize-active']]: activeTab === (index + 1).toString(),
+                                    [styles['nav-link-customize']]: true,
+                                })}
+                                onClick={() => { onChangeActiveTab((index + 1).toString()); }}
                             >
-                                <span className="d-none d-md-inline-block">{item}</span>
+                                <span className="d-md-inline-block">{item}</span>
                             </NavLink>
                         </NavItem>
                     )}

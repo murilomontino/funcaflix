@@ -52,7 +52,7 @@ const TabPaneSegmentsProfiles = ({ segments, active }: SegmentsProps) => {
             const id = removeCharacterSpecialAndJoin(item).slice(0, 3) + index
 
             return (
-              <CarouselSwipperProfiles title={item} id={id} fetchData={fetchData} />
+              <CarouselSwipperProfiles key={id} title={item} id={id} fetchData={fetchData} />
             )
           }}
         </For>
