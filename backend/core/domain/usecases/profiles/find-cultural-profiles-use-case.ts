@@ -12,14 +12,14 @@ type Props = {
 export class FindByIdProfileUseCase
   implements UseCase<unknown, IGetterCulturalProfile>
 {
-  constructor(private readonly culturalProfileRepository: CulturalProfileRepository) {}
+  constructor(private readonly culturalProfileRepository: CulturalProfileRepository) { }
 
   async execute(_, { id }: Props): PromiseEither<IGetterCulturalProfile, Error> {
-    assert(id, 'id is required')
+    if (!id) return right(new Error('id is required'))
 
     const profileOrErr = await this.culturalProfileRepository.findById(id)
 
-    if (profileOrErr.isRight()) return right(new Error('Not implemented'))
+    if (profileOrErr.isRight()) return right(new Error('Not Found Profile'))
 
     return left(profileOrErr.value)
   }

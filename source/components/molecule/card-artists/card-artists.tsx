@@ -10,6 +10,8 @@ import Link from 'next/link'
 import SocialMedia from '../social-media'
 import styles from './styles.module.scss'
 
+import { normalize } from '@/helpers/strings-normalize'
+
 type Props = {
   item: IGetterCulturalProfile
 }
@@ -25,11 +27,9 @@ const QRCode = ({ value }) => {
 const CardArtists = ({ item }: Props) => {
 
   const { name, id } = item
+
   const link = React.useMemo(() => {
-    const nameNormalize = name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-    const names = nameNormalize.split(' ')
-    const username = names[0] + names[names.length - 1]
-    return `${process.env.URL}/${username}@${id}`
+    return normalize(name, id)
   }, [name, id])
 
   return (

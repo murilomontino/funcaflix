@@ -8,7 +8,7 @@ import { Swiper as Swipper, SwiperSlide as SwipperSlide } from 'swiper/react'
 
 import { ICulturalProfile } from '@/types/setters'
 
-import { removeCharacterSpecialAndJoin } from '@/helpers/strings-normalize'
+import { usernameGenerate } from '@/helpers/strings-normalize'
 
 type CarouselSwipperProfilesProps = {
   title: string
@@ -20,6 +20,8 @@ type CarouselSwipperProfilesProps = {
 
 const CardArtistsLazy = React.lazy(() => import('@/components/molecule/card-artists'))
 const TitleCarouselLazy = React.lazy(() => import('@/components/molecule/title-carousel'))
+
+
 
 const CarouselSwipperProfiles = ({
   title,

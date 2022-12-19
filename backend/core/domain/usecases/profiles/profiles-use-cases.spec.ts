@@ -6,7 +6,7 @@ import { IGetterCulturalProfile } from '@/types/getters'
 
 class CulturalProfileRepositoryStub {
   async findById(id: number): PromiseEither<IGetterCulturalProfile, Error> {
-    return  Promise.resolve(left({
+    return Promise.resolve(left({
       id: id,
     } as IGetterCulturalProfile))
   }
@@ -45,10 +45,6 @@ describe('Verificação de caso de uso profiles use case', () => {
     })
 
     expect(result.isRight()).toBeTruthy()
-
-    if (result.isRight()) {
-      expect(result.value.message).toEqual('id is required')
-    }
   })
 
 })

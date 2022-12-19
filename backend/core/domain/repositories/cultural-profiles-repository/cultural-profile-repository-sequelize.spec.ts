@@ -39,4 +39,10 @@ describe('Unit Test Cultural Profile Repository', () => {
       expect(result.value.id).toBeDefined()
     }
   })
+  it('should return find by id 400 profile (Integration)', async () => {
+    const result = await instance.findById(400)
+    if (result.isLeft()) {
+      expect(result.value.id).toBeDefined()
+    }
+  })
 })
