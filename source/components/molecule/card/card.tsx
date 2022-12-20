@@ -14,9 +14,10 @@ import { useSize } from '@/hooks/utils/use-size'
 type Props = {
     item: GetterProjects | GetterBook
     children: React.ReactNode | React.ReactNode[] | JSX.Element | JSX.Element[]
+    endpoint?: string
 }
 
-const CardDefault = ({ item, children }: Props) => {
+const CardDefault = ({ item, children, endpoint }: Props) => {
     const { size } = useSize()
     const { dateEnd, dateStart, status, thumbnail } = (() => {
         if (
@@ -28,7 +29,7 @@ const CardDefault = ({ item, children }: Props) => {
                 dateEnd: item.dateEnd,
                 dateStart: item.dateStart,
                 status: item.status,
-                thumbnail: null,
+                thumbnail: item.thumbnail || null,
             }
         }
 
@@ -41,6 +42,7 @@ const CardDefault = ({ item, children }: Props) => {
         if (new Date(dateStart) > new Date()) return '#FFA500'
         return '#008000'
     }, [dateEnd, dateStart])
+
 
     return (
         <Card color={color}>
@@ -55,13 +57,14 @@ const CardDefault = ({ item, children }: Props) => {
                 }
             >
                 <Img
+                    endpoint={endpoint}
                     image={thumbnail || DefaultImg}
                     style={{
                         objectFit: 'cover',
                         width: 250,
                         height: '100%',
                     }}
-                    staticImage={!thumbnail} 
+                    staticImage={!thumbnail}
                 />
             </View>
             <View style={[viewStyles.viewDetails]}>

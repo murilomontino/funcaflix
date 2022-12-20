@@ -18,12 +18,13 @@ type Props = {
   width?: string
   height?: string
   button?: string
+  endpoint?: string
   linkDetails?: string
   imageStatic?: boolean
   existLogo?: boolean
 }
 
-const imageLoader = ({ src }) => {
+const imageLoader = ({ src, endpoint = '' }) => {
   if (!src || src?.startsWith('Não')) {
     return noCapa
   }
@@ -37,7 +38,7 @@ const imageLoader = ({ src }) => {
   }
 
   const uuid = src.replace('imagens/', '')
-  const URL = process.env._currentURL + 'images/' + uuid
+  const URL = process.env._currentURL + 'images' + '/' + endpoint + uuid
 
   return URL
 }
@@ -45,10 +46,10 @@ const imageLoader = ({ src }) => {
 const CardSwipper = ({
   title,
   thumbnail,
+  endpoint,
   width = '100%',
   height = '160px',
   button = 'Assistir',
-  imageStatic = false,
   existLogo = true,
   linkDetails = '/',
 }: Props) => {
@@ -71,7 +72,7 @@ const CardSwipper = ({
       >
         <ImageNext
           imageStatic={thumbnail?.startsWith('logo')}
-          image={imageLoader({ src: thumbnail })}
+          image={imageLoader({ src: thumbnail, endpoint })}
           layout="fill"
           unblur
           style={{

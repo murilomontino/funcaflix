@@ -10,9 +10,9 @@ type Props = {
   width?: number | string
   updateClassName?: string
   url?: string
-} &  React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>
+} & React.DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>
 
-const imageLoader = (image: string, staticImage: boolean, endpoint = 'images/') => {
+const imageLoader = (image: string, staticImage: boolean, endpoint = '') => {
   if (!image || image?.startsWith('Não')) {
     return noCapa
   }
@@ -25,7 +25,7 @@ const imageLoader = (image: string, staticImage: boolean, endpoint = 'images/') 
     return image
   }
 
-  const url = process.env._currentURL + endpoint + image
+  const url = process.env._currentURL + 'images/' + endpoint + '/' + image
 
   return url
 }

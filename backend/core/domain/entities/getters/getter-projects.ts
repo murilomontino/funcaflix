@@ -27,6 +27,7 @@ export class GetterProjects extends GetterEntity<IGetterProjects> implements IPr
   financialResource: string
   yearRelease: string
   docs: IDocProjects[]
+  thumbnail?: string
 
   private constructor() {
     super()
@@ -194,6 +195,11 @@ export class GetterProjects extends GetterEntity<IGetterProjects> implements IPr
 
   public defineYearRelease(yearRelease: string) {
     this.yearRelease = yearRelease
+    return this
+  }
+
+  public defineThumbnail(thumbnail: string) {
+    this.thumbnail = thumbnail
     return this
   }
 }

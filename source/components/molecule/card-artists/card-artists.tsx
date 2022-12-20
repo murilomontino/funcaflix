@@ -42,7 +42,7 @@ const CardArtists = ({ item }: Props) => {
       <QRCode value={link} />
       <div className={`position-relative overflow-hidden rounded-circle`} >
         <Img
-          endpoint="images/profile/"
+          endpoint="profile"
           image={item.thumbnail || PersonDefault}
           staticImage={!item.thumbnail}
           style={{

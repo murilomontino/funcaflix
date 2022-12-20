@@ -16,6 +16,7 @@ const Images = Router()
 export const PathImages = {
   GET_IMAGE: '/images/:image',
   GET_PROFILE_IMAGE: '/images/profile/:image',
+  GET_PROJECT_IMAGE: '/images/project/:image',
   GET_BANNER_IMAGE: '/images/banner/:image',
   GET_QRCODE_IMAGE: '/images/qrcode/:username',
   GET_FAVICON: '/images/fav/:image',
@@ -60,6 +61,32 @@ Images.get(
       process.env.HASH_KEY,
       'perfil',
       'foto_perfil',
+      image
+    )
+
+    if (!existsSync(imagePath)) {
+      return res.sendStatus(404).end()
+    }
+
+    req.query.path = imagePath
+    req.params.path = imagePath
+
+    next()
+  },
+  adaptFileRoute(makeStreamOutImageComposer())
+)
+
+Images.get(
+  PathImages.GET_PROJECT_IMAGE,
+  async (req, res, next) => {
+    // Constrói o caminho da imagem
+
+    const { image } = req.params
+
+    const imagePath = path.join(
+      process.env.PATH_PRODUCTS,
+      process.env.HASH_KEY,
+      'editais',
       image
     )
 
