@@ -40,6 +40,7 @@ function LeiAldirBlankPage({ books, opportunities }: Props) {
       <If condition={opportunitiesCarousel?.length > 0}>
         <SlideSwipper
           existLogo={false}
+          endpoint="project/"
           title="oportunidades"
           id="iq-oportunidades"
           items={opportunitiesCarousel}
