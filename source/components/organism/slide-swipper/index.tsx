@@ -21,6 +21,7 @@ type Props = {
   height?: string
   queryString?: string
   link?: string
+  endpoint?: string
   allLink?: string
   items: {
     [key: string]: any
@@ -38,6 +39,7 @@ const CarouselSwipper = ({
   width,
   height,
   queryString,
+  endpoint,
   allLink,
   existLogo = true,
   itemsPerView = 5.5,
@@ -137,6 +139,7 @@ const CarouselSwipper = ({
                       return (
                         <SwipperSlide as="li" key={index} virtualIndex={index}>
                           <CardSwipper
+                            endpoint={endpoint}
                             linkDetails={linkDefinitive}
                             title={item.title}
                             existLogo={existLogo}

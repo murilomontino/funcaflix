@@ -21,6 +21,8 @@ const sut = () => {
     segment: faker.lorem.word(),
     twitter: faker.internet.url(),
     type: faker.lorem.word(),
+    uf: faker.address.state(),
+    hashtags: faker.lorem.words(),
     website: faker.internet.url(),
     youtube: faker.internet.url(),
     city: faker.address.city(),

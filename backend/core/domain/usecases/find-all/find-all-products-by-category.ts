@@ -13,26 +13,55 @@ enum ProductType {
   Exposicao = 5,
 }
 
+type WhereType = {
+  [key: string]: unknown
+}
+
 type Params = {
   category: string | string[]
   limit?: number
+  where?: WhereType
 }
 
 export class FindAllProductsByCategory implements UseCase<unknown, IGetterProduct[]> {
-  async execute(_, params: Params): PromiseEither<IGetterProduct[], Error> {
-    if (!params.category) {
-      return right(new Error('Categoria é obrigatório'))
-    }
 
+  async configWhere(params: WhereType) {
+    const mapWhere = new Map()
+    Object.keys(params).map((key) => {
+      if (!!params[key]) {
+        mapWhere.set(key, params[key])
+      }
+    })
+
+    return mapWhere
+  }
+
+  async config(params: Params) {
     const mapConfig = new Map()
     params.limit && mapConfig.set('limit', params.limit)
 
+    return mapConfig
+  }
+
+  async categoriesInArray(params: Params): Promise<[boolean, number[]]> {
     const categoryArrayString = Array.isArray(params.category) ? params.category : [params.category]
     const categoryArrayInt = categoryArrayString.map((category) => parseInt(category, 10))
 
     const isInArray = Object.values(ProductType).some((type) =>
       categoryArrayInt.includes(parseInt(type.toString(), 10))
     )
+
+    return [isInArray, categoryArrayInt]
+  }
+
+  async execute(_, params: Params): PromiseEither<IGetterProduct[], Error> {
+    if (!params.category) {
+      return right(new Error('Categoria é obrigatório'))
+    }
+
+    const mapConfig = await this.config(params)
+    const mapWhere = await this.configWhere(params?.where || {})
+    const [isInArray, categoryArrayInt] = await this.categoriesInArray(params)
 
     // id deve ser um ProductType
     if (!isInArray) {
@@ -47,6 +76,7 @@ export class FindAllProductsByCategory implements UseCase<unknown, IGetterProduc
           })),
         ],
         active: true,
+        ...Object.fromEntries(mapWhere),
       },
       ...Object.fromEntries(mapConfig),
       order: [['createdAt', 'ASC']],

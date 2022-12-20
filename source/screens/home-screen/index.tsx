@@ -35,7 +35,7 @@ function HomeScreen({ books, tvProgramsPlaylist, newestProducts, opportunities, 
       id: opportunity.id as unknown as string,
       title: opportunity.nameProject,
       description: opportunity.aboutProject,
-      thumbnail: 'logo',
+      thumbnail: opportunity.thumbnail || 'logo',
       category: 8,
     }))
   }, [opportunities])
@@ -76,7 +76,7 @@ function HomeScreen({ books, tvProgramsPlaylist, newestProducts, opportunities, 
 
         <If condition={opportunitiesCarousel?.length > 0}>
           <SlideSwipper
-            existLogo={false}
+            endpoint='project/'
             title="oportunidades"
             id="iq-oportunidades"
             items={opportunitiesCarousel}

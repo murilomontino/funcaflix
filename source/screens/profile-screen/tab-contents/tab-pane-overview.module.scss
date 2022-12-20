@@ -1,5 +1,5 @@
 .row-customize {
-    
+
     p::selection {
         color: aliceblue;
         background-color: #899097;
@@ -16,6 +16,11 @@
     }
 
     h5::selection {
+        color: aliceblue;
+        background-color: #899097;
+    }
+
+    h6::selection {
         color: aliceblue;
         background-color: #899097;
     }

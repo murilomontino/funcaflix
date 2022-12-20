@@ -18,4 +18,16 @@ export function removeCharacterSpecialAndJoin(str: string) {
     return removeCharacterSpecial(removeAccents(str)).split(' ').join('-').toLowerCase()
 }
 
+export const usernameGenerate = (name: string) => {
+    const nameNormalize = name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-zA-Z0-9 ]/g, '')
+    const names = nameNormalize.split(' ')
+    const username = names[0] + names[names.length - 1]
+    return username
+}
+
+export const normalize = (name: string, id: number | string) => {
+    const username = usernameGenerate(name)
+    return `${process.env.URL}/${username}@${id}`
+}
+
 export default removeAccentsAndJoin

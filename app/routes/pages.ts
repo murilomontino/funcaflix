@@ -12,7 +12,7 @@ class Pages {
 
   initDefaultPages() {
     this.express.get('/', (req, res) => {
-      return this.next.render(req, res, `/funcap`, req.query)
+      return this.next.render(req, res, `/home`, req.query)
     })
 
     this.express.get('/video/*', (req, res) => {

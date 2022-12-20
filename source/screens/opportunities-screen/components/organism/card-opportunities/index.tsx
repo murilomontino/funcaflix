@@ -1,7 +1,6 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 
 import { GetterProjects } from '@/domain/entities'
-
 
 import AboutDescription from '@/components/molecule/card-about-description'
 import CardBasicInformation from '@/components/molecule/card-basic-information'
@@ -17,12 +16,14 @@ type Props = {
 
 const CardOpportunities = ({ item }: Props) => {
 
- 
   const dateStartFormatted = new Date(item.dateStart).toLocaleDateString('pt-BR', { timeZone: 'UTC' })
   const dateEndFormatted = new Date(item.dateEnd).toLocaleDateString('pt-BR', { timeZone: 'UTC' })
 
   return (
-    <Card item={item}>
+    <Card
+      endpoint='project'
+      item={item}
+    >
       <CardBasicInformation title={item.nameProject} >
         <ContainerInformation>
           <ContainerDate>

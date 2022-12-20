@@ -14,6 +14,8 @@ import {
 
 import NavigationProfile from '@/components/molecule/navigation-profile';
 import TabPaneOverview from './tab-contents/tab-pane-overview';
+import TabPaneEvents from './tab-contents/tab-pane-events';
+
 import useSocialMediaValid from '@/hooks/use-social-media-valid'
 import ButtonGroupSocialMedia from '@/components/molecule/social-media/button-group-social-media'
 import { QRCodeSVG } from 'qrcode.react'
@@ -26,7 +28,7 @@ type ProfileScreenProps = {
 }
 
 const ProfileScreen = ({ profile, username }: ProfileScreenProps) => {
-  
+
 
   const {
     about,
@@ -90,9 +92,9 @@ const ProfileScreen = ({ profile, username }: ProfileScreenProps) => {
             style={{
               zIndex: 9999
             }} />
-         
-            <DownloadQRCode username={username}/>
-          
+
+          <DownloadQRCode username={username} />
+
         </div>
       </BreadCrumb>
       <React.Fragment>
@@ -108,6 +110,7 @@ const ProfileScreen = ({ profile, username }: ProfileScreenProps) => {
                       onChangeActiveTab={toggleTab}
                       optionsTab={[
                         'Sobre',
+                        'Eventos',
                       ]}
                     />
                   </div>
@@ -143,7 +146,11 @@ const ProfileScreen = ({ profile, username }: ProfileScreenProps) => {
                         hashtags={hashtags}
                       />
                     </TabPane>
+                    <TabPane tabId="2">
+                      <TabPaneEvents />
+                    </TabPane>
                   </TabContent>
+
                 </div>
               </Col>
             </Row>
