@@ -18,7 +18,7 @@ type Props = {
   books: IGetterProduct[]
   opportunities: GetterProjects[]
   events: IGetterProduct[]
-  participation: IGetterProduct[]
+  participation?: IGetterProduct[]
   workshops: IGetterProduct[]
   tvProgramsPlaylist: IGetterProduct[]
 }
@@ -73,29 +73,29 @@ function LeiAldirBlankPage({ books, opportunities, events, participation, tvProg
           id="iq-eventos"
           disabled
           items={events as unknown as Product[]}
-          height="280px"
+          height="200px"
           link="eventos"
           itemsPerView={6.5}
           buttonText=""
         />
 
-        <SlideSwipper
+        {/* <SlideSwipper
           title="Participação"
           id="iq-participacao"
           disabled
           items={participation as unknown as Product[]}
-          height="280px"
+          height="200px"
           link="participacao"
           itemsPerView={6.5}
           buttonText=""
-        />
+        /> */}
 
         <SlideSwipper
           title="Oficinas"
           id="iq-workshops"
           disabled
           items={workshops as unknown as Product[]}
-          height="280px"
+          height="200px"
           link="workshops"
           itemsPerView={6.5}
           buttonText=""

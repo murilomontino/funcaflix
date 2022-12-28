@@ -39,7 +39,7 @@ const imageLoader = ({ src, endpoint = '' }) => {
   }
 
   const uuid = src.replace('imagens/', '')
-  const URL = process.env._currentURL + 'images' + '/' + endpoint + uuid
+  const URL = process.env._currentURL + 'images' + '/' + uuid
 
   return URL
 }

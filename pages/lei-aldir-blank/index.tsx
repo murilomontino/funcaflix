@@ -37,7 +37,7 @@ const LeiAldirBlank = ({
                 opportunities={staticOpportunities}
                 books={staticBooks}
                 events={staticEvents}
-                participation={staticParticipation}
+                // participation={staticParticipation}
                 tvProgramsPlaylist={staticTvProgramsPlaylist}
                 workshops={staticWorkshops}
             />

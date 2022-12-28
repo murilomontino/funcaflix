@@ -10,18 +10,18 @@ describe('Verificação de caso de uso com bd', () => {
     await build()
   })
 
-  it('Deve retornar todos os audiovisuais mais recentes (Integration)', async () => {
-    const newestProducts = new FindAllNewestAudioVisual()
+  // it('Deve retornar todos os audiovisuais mais recentes (Integration)', async () => {
+  //   const newestProducts = new FindAllNewestAudioVisual()
 
-    const result = await newestProducts.execute(
-      {},
-      {
-        category: '1',
-      }
-    )
+  //   const result = await newestProducts.execute(
+  //     {},
+  //     {
+  //       category: '1',
+  //     }
+  //   )
 
-    expect(result.isLeft()).toBeTruthy()
-  })
+  //   expect(result.isLeft()).toBeTruthy()
+  // })
   it('Deve retornar todos os projetos ativos (Integration)', async () => {
     const newestProjects = await db.ModelProject.findAll({
       where: {

@@ -142,7 +142,6 @@ const CarouselSwipper = ({
                         <SwipperSlide as="li" key={index} virtualIndex={index}>
                           <CardSwipper
                             disabled={disabled}
-                            endpoint={endpoint}
                             linkDetails={linkDefinitive}
                             title={item.title}
                             existLogo={existLogo}
