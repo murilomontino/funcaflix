@@ -17,6 +17,7 @@ type Props = {
   id: string
   buttonText?: string
   width?: string
+  disabled?: boolean
   existLogo?: boolean
   height?: string
   queryString?: string
@@ -38,6 +39,7 @@ const CarouselSwipper = ({
   items,
   width,
   height,
+  disabled = false,
   queryString,
   endpoint,
   allLink,
@@ -139,6 +141,7 @@ const CarouselSwipper = ({
                       return (
                         <SwipperSlide as="li" key={index} virtualIndex={index}>
                           <CardSwipper
+                            disabled={disabled}
                             endpoint={endpoint}
                             linkDetails={linkDefinitive}
                             title={item.title}

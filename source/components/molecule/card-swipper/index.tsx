@@ -15,6 +15,7 @@ import { If } from '@/utils/tsx-controls'
 type Props = {
   title: string
   thumbnail: string
+  disabled?: boolean
   width?: string
   height?: string
   button?: string
@@ -47,6 +48,7 @@ const CardSwipper = ({
   title,
   thumbnail,
   endpoint,
+  disabled,
   width = '100%',
   height = '160px',
   button = 'Assistir',
@@ -120,20 +122,24 @@ const CardSwipper = ({
         </div> 
         */}
         <div
+
           className="ml-2 position-absolute"
           style={{
             width: 'fit-content',
             bottom: '20px',
           }}
         >
-          <a
-            href={linkDetails}
-            role="button"
-            className="btn btn-hover iq-button button-hover iq-border-radius-5"
-          >
-            <i className="fa fa-play mr-1" aria-hidden="true"></i>
-            {button}
-          </a>
+          <If condition={!disabled}>
+            <a
+              href={linkDetails}
+              role="button"
+              className="btn btn-hover iq-button button-hover iq-border-radius-5"
+            >
+              <i className="fa fa-play mr-1" aria-hidden="true"></i>
+              {button}
+            </a>
+          </If>
+
         </div>
       </div>
       {/* <div className="block-social-info">

@@ -7,7 +7,6 @@ import { GetterEntity } from './getter-entity'
 export class GetterBook extends GetterEntity<IGetterBooks> implements IBook {
 
   public id: number
-  public idDocument: number
   public author: string
   public title: string
   public subTitle: string
@@ -25,14 +24,13 @@ export class GetterBook extends GetterEntity<IGetterBooks> implements IBook {
   public thumbnail: string
 
 
-  constructor() {
+  private constructor() {
     super();
   }
 
   static build(params: IGetterBooks): GetterBook {
     const {
       id,
-      idDocument,
       author,
       title,
       subTitle,
@@ -53,7 +51,6 @@ export class GetterBook extends GetterEntity<IGetterBooks> implements IBook {
 
     return new GetterBook()
       .defineId(id)
-      .defineIdDocument(idDocument)
       .defineAuthor(author)
       .defineTitle(title)
       .defineSubTitle(subTitle)
@@ -76,12 +73,7 @@ export class GetterBook extends GetterEntity<IGetterBooks> implements IBook {
     return this
   }
 
-  public defineIdDocument(idDocument: number) {
-    this.idDocument = idDocument
-    return this
-  }
-
-  public defineAuthor(author: string) {
+  public defineAuthor(author: string = null) {
     this.author = author
     return this
   }
@@ -91,37 +83,37 @@ export class GetterBook extends GetterEntity<IGetterBooks> implements IBook {
     return this
   }
 
-  public defineSubTitle(subTitle: string) {
+  public defineSubTitle(subTitle: string = '') {
     this.subTitle = subTitle
     return this
   }
 
-  public defineIsbn(isbn: string) {
+  public defineIsbn(isbn: string = '') {
     this.isbn = isbn
     return this
   }
 
-  public definePublisher(publisher: string) {
+  public definePublisher(publisher: string = '') {
     this.publisher = publisher
     return this
   }
 
-  public definePublicationDate(publicationDate: string) {
+  public definePublicationDate(publicationDate: string = '') {
     this.publicationDate = publicationDate
     return this
   }
 
-  public defineNumberOfPages(numberOfPages: string) {
+  public defineNumberOfPages(numberOfPages: string = '') {
     this.numberOfPages = numberOfPages
     return this
   }
 
-  public defineDimensions(dimensions: string) {
+  public defineDimensions(dimensions: string = '') {
     this.dimensions = dimensions
     return this
   }
 
-  public defineSynopsis(synopsis: string) {
+  public defineSynopsis(synopsis: string = '') {
     this.synopsis = synopsis
     return this
   }
@@ -131,17 +123,17 @@ export class GetterBook extends GetterEntity<IGetterBooks> implements IBook {
     return this
   }
 
-  public defineIllustrator(illustrator: string) {
+  public defineIllustrator(illustrator: string = '') {
     this.illustrator = illustrator
     return this
   }
 
-  public defineGenres(genres: string) {
+  public defineGenres(genres: string = null) {
     this.genres = genres
     return this
   }
 
-  public defineTags(tags: string) {
+  public defineTags(tags: string = null) {
     this.tags = tags
     return this
   }
@@ -152,6 +144,13 @@ export class GetterBook extends GetterEntity<IGetterBooks> implements IBook {
   }
 
   public defineThumbnail(thumbnail: string = null) {
+    if (typeof thumbnail === 'string') {
+      const thumbnailSplit = thumbnail.split('/')
+      const thumbnailName = thumbnailSplit[thumbnailSplit.length - 1]
+      this.thumbnail = thumbnailName
+      return this
+    }
+
     this.thumbnail = thumbnail
     return this
   }

@@ -10,8 +10,8 @@ export interface IProduct {
   idUser: number
   idUserRegistered: number
   active: boolean
-  createdAt?: Date
-  updatedAt?: Date
+  createdAt?: Date | string
+  updatedAt?: Date | string
   existSubProd?: boolean
   idSubProd?: number
 }
@@ -35,7 +35,6 @@ export interface IDatasheet {
 }
 
 export interface IBook {
-  idDocument: number
   author: string
   title: string
   subTitle: string
