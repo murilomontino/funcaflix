@@ -30,6 +30,19 @@ const AboutFooter = () => {
           fontVariant="proportional-nums"
         />
       </View>
+      <View
+        style={{
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+        }}
+      >
+        <ItemNavBar
+          title="Lei Aldir Blank"
+          link="/lei-aldir-blank"
+          fontVariant="proportional-nums"
+        />
+        {/* <ItemNavBar title="Sobre nós" link="www.google.com" fontVariant="proportional-nums" /> */}
+      </View>
       <View>
         <Text style={[{ fontSize: '1rem' }, styles.textNav]}>
           © 2021 MAPA DA CULTURA DE SERGIPE. Todos os direitos reservados
