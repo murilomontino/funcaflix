@@ -14,6 +14,8 @@ type Props = {
 
 const CardBooks = ({ item }: Props) => {
 
+  console.log(item)
+
   return (
     <Card item={item as any}>
       <CardBasicInformation title={item.title} subTitle={item.subTitle} author={item.author} />

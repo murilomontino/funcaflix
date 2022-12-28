@@ -4,6 +4,7 @@ import { db } from 'mapacultural-database'
 import { Op } from 'sequelize'
 
 import { UseCase } from '../ports/use-case'
+import { GetterProduct } from '@/domain/entities'
 
 enum ProductType {
   AudioVisual = 1,
@@ -87,15 +88,16 @@ export class FindAllProductsByCategory implements UseCase<unknown, IGetterProduc
       ...modelsProducts.map((model) => {
         const product = model.get({ plain: true })
 
-        return {
+        return GetterProduct.build({
           id: product.id,
           title: product.title,
           about: product.about,
           thumbnail: product.thumbnail,
           category: product.category,
-          createdAt: product.createdAt.toISOString(),
+          createdAt: product.createdAt,
           link: product.link,
-        } as IGetterProduct
+        } as IGetterProduct)
+          .params()
       }),
     ])
 

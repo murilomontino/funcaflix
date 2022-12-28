@@ -14,6 +14,7 @@ export class FindAllBooksUseCase implements UseCase<unknown, IGetterBooks[]> {
         database.query(QUERY_ALL_BOOKS, { transaction })
       )
 
+      console.log(error)
       if (error) return right(error)
 
       const books = booksAndOptions[0].map((book: IGetterBooks) => {

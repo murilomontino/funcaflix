@@ -16,6 +16,7 @@ import { GetStaticProps } from 'next/types'
 
 import ComingSoon from '@/screens/coming-soon-screen'
 import HomeScreen from '@/screens/home-screen'
+import { CATEGORIES } from '@/types/constants'
 
 const EM_BREVE = false
 
@@ -45,12 +46,16 @@ export default function App({
 export const getStaticProps: GetStaticProps = async (context) => {
   await build()
 
-  const promiseBooksOrErr = new FindAllProductsByCategory().execute({}, { category: '2', })
+  const promiseBooksOrErr = new FindAllProductsByCategory().execute({}, { category: CATEGORIES.LITERATURE, })
   const promisePlaylistOrErr = new FindAllPlaylistUseCase().execute({})
   const promiseAudioVisualOrErr = new FindAllPlaylistUseCase().execute({
-    category: ['1'],
+    category: [CATEGORIES.AUDIOVISUAL],
   })
-  const promiseNewestProductsOrErr = new FindAllNewestAudioVisual().execute({}, { category: ['1'], limit: 5, })
+  const promiseNewestProductsOrErr = new FindAllNewestAudioVisual().execute({}, {
+    category: [
+      CATEGORIES.AUDIOVISUAL,
+    ], limit: 5,
+  })
   const promiseOpportunitiesOrErr = new FindAllOpportunities().execute({ status: [1] })
   const promiseProfilesOrErr = new FindByRandomProfileUseCase(
     new CulturalProfileRepositorySequelize()
