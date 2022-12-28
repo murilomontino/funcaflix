@@ -25,9 +25,9 @@ const imageLoader = (image: string, staticImage: boolean, endpoint = '') => {
     return image
   }
 
-  const endpointValid = endpoint !== '' ? `${endpoint}/` : ''
+  // const endpointValid = endpoint !== '' ? `${endpoint}/` : ''
 
-  const url = process.env._currentURL + 'images/' + endpointValid + image
+  const url = process.env._currentURL + 'images/' + image
 
   return url
 }
