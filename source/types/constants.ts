@@ -4,6 +4,6 @@ export enum CATEGORIES {
     AUDIO = "3",
     EVENT = "4",
     EXPOSITION = "5",
-    WORKSHOPS = "152",
+    WORKSHOP = "152",
     PARTICIPATION = "163",
 }

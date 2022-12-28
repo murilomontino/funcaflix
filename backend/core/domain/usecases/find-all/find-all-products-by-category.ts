@@ -6,12 +6,24 @@ import { Op } from 'sequelize'
 import { UseCase } from '../ports/use-case'
 import { GetterProduct } from '@/domain/entities'
 
+
+/**
+ * AUDIOVISUAL = "1",
+    LITERATURE = "2",
+    AUDIO = "3",
+    EVENT = "4",
+    EXPOSITION = "5",
+    WORKSHOP = "152",
+    PARTICIPATION = "163",
+ */
 enum ProductType {
   AudioVisual = 1,
   Livro = 2,
   Audio = 3,
   Evento = 4,
   Exposicao = 5,
+  Oficina = 152,
+  Participacao = 163,
 }
 
 type WhereType = {

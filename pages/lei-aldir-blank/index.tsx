@@ -7,11 +7,27 @@ import { FindAllOpportunities, FindAllProductsByCategory } from '@/domain/usecas
 import { build } from 'mapacultural-database'
 import LeiAldirBlankScreen from '@/screens/lei-aldir-blank-screen'
 import HeaderLogo from '@/components/molecule/header-logo'
+import { CATEGORIES } from '@/types/constants'
+import { IGetterProduct } from '@/types/getters'
+import { GetterProjects } from '@/domain/entities'
+
+type StaticProps = {
+    staticBooks: IGetterProduct[]
+    staticTvProgramsPlaylist: IGetterProduct[]
+    staticOpportunities: GetterProjects[]
+    staticWorkshops: IGetterProduct[]
+    staticEvents: IGetterProduct[]
+    staticParticipation: IGetterProduct[]
+}
 
 const LeiAldirBlank = ({
     staticBooks,
     staticOpportunities,
-}) => {
+    staticEvents,
+    staticParticipation,
+    staticTvProgramsPlaylist,
+    staticWorkshops
+}: StaticProps) => {
     return (
         <>
             <div className="my-2" >
@@ -20,6 +36,10 @@ const LeiAldirBlank = ({
             <LeiAldirBlankScreen
                 opportunities={staticOpportunities}
                 books={staticBooks}
+                events={staticEvents}
+                participation={staticParticipation}
+                tvProgramsPlaylist={staticTvProgramsPlaylist}
+                workshops={staticWorkshops}
             />
         </>
     )
@@ -29,14 +49,36 @@ export const getStaticProps: GetStaticProps = async (context) => {
     await build()
 
     const promiseBooksOrErr = new FindAllProductsByCategory().execute({}, {
-        category: '2',
+        category: CATEGORIES.LITERATURE,
+        where: {
+            financialResource: 61,
+        }
+    })
+
+    const promiseWorkshopsOrErr = new FindAllProductsByCategory().execute({}, {
+        category: CATEGORIES.WORKSHOP,
+        where: {
+            financialResource: 61,
+        }
+    })
+
+    const promiseEventsOrErr = new FindAllProductsByCategory().execute({}, {
+        category: CATEGORIES.EVENT,
+        where: {
+            financialResource: 61,
+        }
+    })
+
+    const promiseParticipationOrErr = new FindAllProductsByCategory().execute({}, {
+        category: CATEGORIES.PARTICIPATION,
         where: {
             financialResource: 61,
         }
     })
 
     const promiseOpportunitiesOrErr = new FindAllOpportunities().execute({
-        status: [1, 2], params: {
+        status: [1, 2],
+        params: {
             where: {
                 idUser: 12110,
             }
@@ -45,7 +87,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 
     const promiseAudioVisualOrErr = new FindAllProductsByCategory().execute({}, {
-        category: '1',
+        category: CATEGORIES.AUDIOVISUAL,
         limit: 10,
         where: {
             financialResource: 61,
@@ -56,21 +98,33 @@ export const getStaticProps: GetStaticProps = async (context) => {
         booksOrErr,
         playlistOrErr,
         opportunitiesOrErr,
+        workshopsOrErr,
+        eventsOrErr,
+        participationOrErr,
     ] = await Promise.all([
         promiseBooksOrErr,
         promiseAudioVisualOrErr,
-        promiseOpportunitiesOrErr
+        promiseOpportunitiesOrErr,
+        promiseWorkshopsOrErr,
+        promiseEventsOrErr,
+        promiseParticipationOrErr,
     ])
 
     const books = booksOrErr.isLeft() && booksOrErr.extract()
     const playlist = playlistOrErr.isLeft() && playlistOrErr.extract()
     const opportunities = opportunitiesOrErr.isLeft() && opportunitiesOrErr.extract()
+    const workshops = workshopsOrErr.isLeft() && workshopsOrErr.extract()
+    const events = eventsOrErr.isLeft() && eventsOrErr.extract()
+    const participation = participationOrErr.isLeft() && participationOrErr.extract()
 
     return {
         props: {
             staticBooks: books || [],
             staticTvProgramsPlaylist: playlist || [],
             staticOpportunities: opportunities || [],
+            staticWorkshops: workshops || [],
+            staticEvents: events || [],
+            staticParticipation: participation || [],
         },
         revalidate: 60 * 60 * 24,
     }
