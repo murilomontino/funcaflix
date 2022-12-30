@@ -1,15 +1,13 @@
-import React from 'react'
-
 import type { GetStaticProps } from 'next'
+import React from 'react'
 
 import { FindAllOpportunities, FindAllProductsByCategory } from '@/domain/usecases'
 
-import { build } from 'mapacultural-database'
-import LeiAldirBlankScreen from '@/screens/lei-aldir-blank-screen'
-import HeaderLogo from '@/components/molecule/header-logo'
+import { GetterProjects } from '@/domain/entities'
+import LeiAldirBlankScreen from '@/screens/lei-aldir-blanc-screen'
 import { CATEGORIES } from '@/types/constants'
 import { IGetterProduct } from '@/types/getters'
-import { GetterProjects } from '@/domain/entities'
+import { build } from 'mapacultural-database'
 
 type StaticProps = {
     staticBooks: IGetterProduct[]
@@ -17,31 +15,26 @@ type StaticProps = {
     staticOpportunities: GetterProjects[]
     staticWorkshops: IGetterProduct[]
     staticEvents: IGetterProduct[]
-    staticParticipation: IGetterProduct[]
 }
 
 const LeiAldirBlank = ({
     staticBooks,
     staticOpportunities,
     staticEvents,
-    staticParticipation,
     staticTvProgramsPlaylist,
     staticWorkshops
 }: StaticProps) => {
+    const key = React.useId();
     return (
-        <>
-            <div className="my-2" >
-                <HeaderLogo />
-            </div>
-            <LeiAldirBlankScreen
-                opportunities={staticOpportunities}
-                books={staticBooks}
-                events={staticEvents}
-                // participation={staticParticipation}
-                tvProgramsPlaylist={staticTvProgramsPlaylist}
-                workshops={staticWorkshops}
-            />
-        </>
+        <LeiAldirBlankScreen
+            key={key}
+            opportunities={staticOpportunities}
+            books={staticBooks}
+            events={staticEvents}
+            // participation={staticParticipation}
+            tvProgramsPlaylist={staticTvProgramsPlaylist}
+            workshops={staticWorkshops}
+        />
     )
 }
 
@@ -69,12 +62,12 @@ export const getStaticProps: GetStaticProps = async (context) => {
         }
     })
 
-    const promiseParticipationOrErr = new FindAllProductsByCategory().execute({}, {
-        category: CATEGORIES.PARTICIPATION,
-        where: {
-            financialResource: 61,
-        }
-    })
+    // const promiseParticipationOrErr = new FindAllProductsByCategory().execute({}, {
+    //     category: CATEGORIES.PARTICIPATION,
+    //     where: {
+    //         financialResource: 61,
+    //     }
+    // })
 
     const promiseOpportunitiesOrErr = new FindAllOpportunities().execute({
         status: [1, 2],
@@ -100,14 +93,14 @@ export const getStaticProps: GetStaticProps = async (context) => {
         opportunitiesOrErr,
         workshopsOrErr,
         eventsOrErr,
-        participationOrErr,
+        // participationOrErr,
     ] = await Promise.all([
         promiseBooksOrErr,
         promiseAudioVisualOrErr,
         promiseOpportunitiesOrErr,
         promiseWorkshopsOrErr,
         promiseEventsOrErr,
-        promiseParticipationOrErr,
+        // promiseParticipationOrErr,
     ])
 
     const books = booksOrErr.isLeft() && booksOrErr.extract()
@@ -115,7 +108,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     const opportunities = opportunitiesOrErr.isLeft() && opportunitiesOrErr.extract()
     const workshops = workshopsOrErr.isLeft() && workshopsOrErr.extract()
     const events = eventsOrErr.isLeft() && eventsOrErr.extract()
-    const participation = participationOrErr.isLeft() && participationOrErr.extract()
+    // const participation = participationOrErr.isLeft() && participationOrErr.extract()
 
     return {
         props: {
@@ -124,7 +117,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
             staticOpportunities: opportunities || [],
             staticWorkshops: workshops || [],
             staticEvents: events || [],
-            staticParticipation: participation || [],
+            // staticParticipation: participation || [],
         },
         revalidate: 60 * 60 * 24,
     }

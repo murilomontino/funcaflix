@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react'
 import { IGetterCulturalProfile } from '@/types/getters'
+import React, { useState } from 'react'
 
 import BreadCrumb from '@/components/organism/breadcrumb'
 
@@ -12,15 +12,15 @@ import {
   TabPane,
 } from 'reactstrap'
 
-import NavigationProfile from '@/components/molecule/navigation-profile';
-import TabPaneOverview from './tab-contents/tab-pane-overview';
-import TabPaneEvents from './tab-contents/tab-pane-events';
+import NavigationProfile from '@/components/molecule/navigation-profile'
+import TabPaneEvents from '@/components/tab-contents/tab-pane-events'
+import TabPaneOverview from '@/components/tab-contents/tab-pane-overview'
 
-import useSocialMediaValid from '@/hooks/use-social-media-valid'
-import ButtonGroupSocialMedia from '@/components/molecule/social-media/button-group-social-media'
-import { QRCodeSVG } from 'qrcode.react'
-import ReactTooltip from 'react-tooltip';
 import DownloadQRCode from '@/components/molecule/download-qrcode'
+import ButtonGroupSocialMedia from '@/components/molecule/social-media/button-group-social-media'
+import useSocialMediaValid from '@/hooks/use-social-media-valid'
+import { QRCodeSVG } from 'qrcode.react'
+import ReactTooltip from 'react-tooltip'
 
 type ProfileScreenProps = {
   profile: IGetterCulturalProfile

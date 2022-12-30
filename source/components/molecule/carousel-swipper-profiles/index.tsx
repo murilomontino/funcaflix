@@ -12,7 +12,7 @@ import { ICulturalProfile } from '@/types/setters'
 import { Choose, For, When } from '@/utils/tsx-controls'
 
 import CardArtists from '@/components/molecule/card-artists'
-import removeAccentsAndJoin from '@/helpers/strings-normalize'
+import { removeCharacterSpecialAndJoin } from '@/helpers/strings-normalize'
 
 type CarouselSwipperProfilesProps = {
   title: string
@@ -31,7 +31,7 @@ const CarouselSwipperProfiles = ({
 }: CarouselSwipperProfilesProps) => {
   const [isLoading, setIsLoading] = React.useState(true)
 
-  const normalize = removeAccentsAndJoin(title)
+  const normalize = removeCharacterSpecialAndJoin(title)
 
   useEffect(() => {
     SwipperCore.use([EffectFade, Navigation, Thumbs, Pagination])

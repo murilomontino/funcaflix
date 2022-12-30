@@ -1,4 +1,4 @@
-import React, { useEffect, Suspense } from 'react'
+import React, { Suspense, useEffect } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import Skeleton from 'react-loading-skeleton'
 
@@ -32,7 +32,7 @@ const CarouselSwipperProfiles = ({
 }: CarouselSwipperProfilesProps) => {
   const [data, setData] = React.useState<ICulturalProfile[]>([])
   const [fetching, setFetching] = React.useState<boolean>(false)
-  const normalize = removeCharacterSpecialAndJoin(title)
+  const normalize = usernameGenerate(title)
 
   useEffect(() => {
     SwipperCore.use([EffectFade, Navigation, Thumbs, Pagination])

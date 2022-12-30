@@ -4,6 +4,8 @@ import ReactTooltip from 'react-tooltip';
 
 import styles from './tab-pane-overview.module.scss'
 
+const DEVELOPMENT = true
+
 const events = [
     {
         id: 1,
@@ -56,6 +58,8 @@ const events = [
 ]
 
 const TabPaneEvents = () => {
+    if (DEVELOPMENT) return null
+
     return (
         <>
             {
