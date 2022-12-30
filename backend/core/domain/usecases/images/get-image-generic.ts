@@ -55,8 +55,6 @@ export class GetImageGenericUseCase implements UseCase<Params, Stream> {
             return right(new NotFoundProductError('Image not found'))
         }
 
-        console.log({ makePathImage })
-
         const stream = await this.StreamUseCase.run({ path: makePathImage, encoding })
 
         if (stream.isRight()) {

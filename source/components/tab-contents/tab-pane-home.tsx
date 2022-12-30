@@ -1,9 +1,8 @@
-import React, { useMemo } from 'react'
 import { GetterProjects } from '@/domain/entities'
+import { IGetterProduct } from '@/types/getters'
+import React, { useMemo } from 'react'
 
 import SlideSwipper from '@/components/organism/slide-swipper'
-import { If } from '@/utils/tsx-controls'
-import { IGetterProduct } from '@/types/getters'
 
 type Product = {
   [key: string]: any
@@ -14,7 +13,7 @@ type Product = {
   description: string
 }
 
-type Props = {
+type TabPaneHomeProps = {
   books: IGetterProduct[]
   opportunities: GetterProjects[]
   events: IGetterProduct[]
@@ -23,39 +22,15 @@ type Props = {
   tvProgramsPlaylist: IGetterProduct[]
 }
 
-function LeiAldirBlankPage({ books, opportunities, events, participation, tvProgramsPlaylist, workshops }: Props) {
-
-  const opportunitiesCarousel: Product[] = useMemo(() => {
-    return opportunities.map((opportunity) => ({
-      id: opportunity.id as unknown as string,
-      title: opportunity.nameProject,
-      description: opportunity.aboutProject,
-      thumbnail: 'logo',
-      category: 8,
-    }))
-  }, [opportunities])
+const TabPaneHome = ({ books, events, opportunities, tvProgramsPlaylist, workshops, participation }: TabPaneHomeProps) => {
 
   const booksMemo = useMemo(
     () => books.filter((item) => item?.category == 2 && item?.thumbnail !== 'Não informado'),
     [books]
   )
 
-
   return (
-    <>
-      <If condition={opportunitiesCarousel?.length > 0}>
-        <SlideSwipper
-          existLogo={false}
-          endpoint="project/"
-          title="oportunidades"
-          id="iq-oportunidades"
-          items={opportunitiesCarousel}
-          height="200px"
-          link="oportunidades"
-          itemsPerView={6.5}
-          buttonText="Ler"
-        />
-      </If>
+    <React.Fragment>
       <div>
 
         <SlideSwipper
@@ -103,8 +78,8 @@ function LeiAldirBlankPage({ books, opportunities, events, participation, tvProg
 
 
       </div>
-    </>
+    </React.Fragment>
   )
 }
 
-export default LeiAldirBlankPage
+export default TabPaneHome

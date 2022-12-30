@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ActivityIndicator, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 
 import image from '@/public/images/banner-perfis-culturais-2.jpg'
 
@@ -10,6 +10,7 @@ import { useResources } from '@/hooks/utils/use-resources'
 
 import NavigationProfile from '@/components/molecule/navigation-profile'
 
+import Loading from '@/components/atom/loading'
 import {
   Col,
   Container,
@@ -19,8 +20,7 @@ import {
 } from 'reactstrap'
 import TabPaneCitiesProfiles from './tab-pane/tab-pane-cities-profiles'
 import TabPaneSegmentsProfiles from './tab-pane/tab-pane-segments-profiles'
-import Loading from '@/components/atom/loading'
-import InputTopic from '@/components/molecule/input-topic'
+
 import TabPaneSearchProfiles from './tab-pane/tab-pane-search'
 
 type Props = {
@@ -46,7 +46,6 @@ const CulturalProfilesScreen = ({ segments, cities }: Props) => {
       <BreadCrumb title="Perfis Culturais" image={image} />
 
       <div className="page-content">
-
         <Container fluid>
           <Row>
             <Col lg={12}>
