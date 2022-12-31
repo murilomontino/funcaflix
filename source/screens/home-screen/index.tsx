@@ -1,13 +1,15 @@
-import React, { useMemo } from 'react'
 import { GetterProjects } from '@/domain/entities'
+import React from 'react'
 
 import SlideSwipper from '@/components/organism/slide-swipper'
 
 import CardCarousel from './components/organisms/card-carousel'
 
-import { If } from '@/utils/tsx-controls'
-import { IGetterCulturalProfile } from '@/types/getters'
+import Advertisement from '@/components/molecule/advertisement'
 import CarouselSwipperProfiles from '@/components/molecule/carousel-swipper-profiles'
+import { IGetterCulturalProfile } from '@/types/getters'
+import { If } from '@/utils/tsx-controls'
+
 
 type Product = {
   [key: string]: any
@@ -30,7 +32,8 @@ type Props = {
 // 5 categorias
 
 function HomeScreen({ books, tvProgramsPlaylist, newestProducts, opportunities, profiles, audioVisualPlaylist }: Props) {
-  const opportunitiesCarousel: Product[] = useMemo(() => {
+
+  const opportunitiesCarousel: Product[] = React.useMemo(() => {
     return opportunities.map((opportunity) => ({
       id: opportunity.id as unknown as string,
       title: opportunity.nameProject,
@@ -40,22 +43,22 @@ function HomeScreen({ books, tvProgramsPlaylist, newestProducts, opportunities, 
     }))
   }, [opportunities])
 
-  const booksMemo = useMemo(
+  const booksMemo = React.useMemo(
     () => books.filter((item) => item?.category == 2 && item?.thumbnail !== 'Não informado'),
     [books]
   )
 
-  const playlistTvPrograms = useMemo(
+  const playlistTvPrograms = React.useMemo(
     () => tvProgramsPlaylist.filter((item) => item?.thumbnail !== 'Não informado'),
     [tvProgramsPlaylist]
   )
 
-  const newestProductsMemo = useMemo(
+  const newestProductsMemo = React.useMemo(
     () => newestProducts.filter((item) => item?.thumbnail !== 'Não informado'),
     [newestProducts]
   )
 
-  const playlistAudioVisual = useMemo(
+  const playlistAudioVisual = React.useMemo(
     () => audioVisualPlaylist.filter((item) => item?.thumbnail !== 'Não informado'),
     [audioVisualPlaylist]
   )
@@ -73,7 +76,7 @@ function HomeScreen({ books, tvProgramsPlaylist, newestProducts, opportunities, 
           id='iq-perfis-culturais'
           profiles={profiles}
         />
-
+        <Advertisement />
         <If condition={opportunitiesCarousel?.length > 0}>
           <SlideSwipper
             endpoint='project/'
@@ -86,7 +89,6 @@ function HomeScreen({ books, tvProgramsPlaylist, newestProducts, opportunities, 
             buttonText="Ler"
           />
         </If>
-
         <SlideSwipper
           title="Literatura"
           id="iq-literatura"
