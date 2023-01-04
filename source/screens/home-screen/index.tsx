@@ -71,12 +71,13 @@ function HomeScreen({ books, tvProgramsPlaylist, newestProducts, opportunities, 
       <div style={{
         marginTop: '-8vh',
       }}>
+        <Advertisement />
         <CarouselSwipperProfiles
           title="Perfis Culturais"
           id='iq-perfis-culturais'
           profiles={profiles}
         />
-        <Advertisement />
+
         <If condition={opportunitiesCarousel?.length > 0}>
           <SlideSwipper
             endpoint='project/'
