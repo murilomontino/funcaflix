@@ -47,3 +47,7 @@ backup
 /.pnp
 .pnp.js
 # @end @expo/next-adapter
+certs/all
+certs/client
+certs/server
+certs/*.pem
