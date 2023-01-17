@@ -5,7 +5,7 @@ module.exports = {
   apps: [
     {
       name: 'funcaflix',
-      script: 'yarn',
+      script: 'npm',
       args: 'start',
       watch: ['.next'],
       //instances: 'max',

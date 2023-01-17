@@ -71,7 +71,6 @@ function HomeScreen({ books, tvProgramsPlaylist, newestProducts, opportunities, 
       <div style={{
         marginTop: '-8vh',
       }}>
-        <Advertisement />
         <CarouselSwipperProfiles
           title="Perfis Culturais"
           id='iq-perfis-culturais'

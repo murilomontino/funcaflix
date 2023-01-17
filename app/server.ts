@@ -20,6 +20,9 @@ import ServerIO from './socket-io'
  * object.
  */
 const httpServer = (express: Express): ServerHTTP => {
+  console.log(
+    `Server running in HTTP --- ${process.env.NODE_ENV} --- on port ${process.env.EXPRESS_PORT}`
+  )
   return CreateServerHTTP(express)
 }
 
@@ -29,11 +32,14 @@ const httpServer = (express: Express): ServerHTTP => {
  * @returns A server object
  */
 const httpsServer = (express: Express): ServerHTTPS => {
-  const path = process.cwd() + '/cert/'
+  const path = process.cwd() + '/certs/'
   const options = {
-    key: fs.readFileSync(path + 'localhost.key'),
-    cert: fs.readFileSync(path + 'localhost.crt'),
+    key: fs.readFileSync(path + 'privkey.pem'),
+    cert: fs.readFileSync(path + 'cert.pem'),
   }
+  console.log(
+    `Server running in HTTPS --- ${process.env.NODE_ENV} --- on port ${process.env.EXPRESS_PORT}`
+  )
   return CreateServerHTTPS(options, express)
 }
 
@@ -59,7 +65,7 @@ class Server {
     await this.next.prepare()
     await this.middleware.init()
     await this.router.init()
-    this.server = httpServer(this.express)
+    this.server = httpsServer(this.express)
     this.server.listen(process.env.EXPRESS_PORT || 3000)
     this.io = new ServerIO(this.server)
     await this.io.init()

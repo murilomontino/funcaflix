@@ -13,16 +13,10 @@ const server = new Server(process.env.EXPRESS_PORT)
 
 const begin = async () => {
   await server.start()
-  console.log(
-    `Server running in HTTP --- ${process.env.NODE_ENV} --- on port ${process.env.EXPRESS_PORT}`
-  )
 }
 
 const beginOnlyAPI = async () => {
   await server.startOnlyExpress()
-  console.log(
-    `Server running in HTTP --- ${process.env.NODE_ENV} --- on port ${process.env.EXPRESS_PORT}`
-  )
 }
 
 // aguardar as conexoes serem encerradas para só então encerrar o programa
