@@ -1,0 +1,40 @@
+version: "3.3"
+name: Funcaflix
+networks:
+  funcap-networks:
+    driver: bridge
+
+services:
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+
+  mariadb:
+    image: mariadb
+    restart: always
+    networks:
+      - funcap-networks
+    volumes:
+      - ./mariadb-data:/var/lib/mysql
+      - ./backup-database:/backup-database
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    networks:
+      - funcap-networks
+    ports:
+      - 5051:80
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=mariadb
+      - UPLOAD_LIMIT=150M
+      - MEMORY_LIMIT=1024M
+      - MAX_EXECUTION_TIME=900
+    depends_on:
+      - mariadb

@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 
-import DrawerProvider from './DrawerMenu'
-import LoadingContextProvider from './LoadingModal'
-import ToastContextProvider from './ToastModal'
+import DrawerProvider from './DrawerMenu';
+import LoadingContextProvider from './LoadingModal';
+import ToastContextProvider from './ToastModal';
 
 type Props = {
   children: React.ReactNode
