@@ -32,6 +32,9 @@
       "@/public/*": [
         "./public/*"
       ],
+      "@/types/*": [
+        "./types/*"
+      ],
     },
     "isolatedModules": true,
     "incremental": true
@@ -40,7 +43,8 @@
     "backend/**/*",
     "app",
     "source",
-    "pages"
+    "pages",
+    "types"
   ],
   "ts-node": {
     "transpileOnly": true,
@@ -52,6 +56,7 @@
     "vitest.config.js",
     "next.config.ts",
     "source/components/atom/date-picker/react-date-picker/**/*",
+    ".docker"
   ],
   "extends": "expo/tsconfig.base",
   "rules": [

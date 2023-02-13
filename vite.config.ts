@@ -10,10 +10,12 @@ export default defineConfig({
     deps: {
       inline: true,
     },
+    exclude: ['**/node_modules/**', '**/dist/**', "**/.docker/**"],
   },
   resolve: {
     alias: {
       '@/database': path.resolve(__dirname, 'backend', 'database'),
+      '@/types': path.resolve(__dirname, 'types'),
       '@': path.resolve(__dirname, 'backend', 'core'),
     },
   },

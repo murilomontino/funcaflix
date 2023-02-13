@@ -1,4 +1,4 @@
-import { FinancialResources } from 'types-funcap'
+import { FinancialResources } from 'types-funcap';
 
 enum Options {
   AudioVisual = 1,
@@ -6,6 +6,8 @@ enum Options {
   Audio = 3,
   Event = 4,
   Exhibition = 5,
+  Workshop = 152,
+  Participation = 163,
   Single = 6,
   Album = 7,
   AlbumInterprete = 8,
@@ -60,6 +62,8 @@ export const mapCategoryProduct: { label: string; value: number }[] = [
   { label: 'Evento', value: EnumCategory.Event },
   { label: 'Exposição', value: EnumCategory.Exhibition },
   { label: 'Música', value: EnumCategory.Audio },
+  { label: 'Oficina', value: Options.Workshop },
+  { label: 'Participação', value: Options.Participation },
 ]
 
 export const mapSubCategory = {
