@@ -5,6 +5,7 @@ import { CATEGORIES } from '@/types/constants'
 import { UseCase } from '../ports/use-case'
 
 import { IProductsRepository } from '@/domain/repositories/products-repository/products-repository.interface'
+import { isValid } from '@/helpers'
 import { MissingParamError } from '../errors'
 
 type Params = {
@@ -25,7 +26,7 @@ export class FindAllProductsByCategoryAndUser implements UseCase<unknown, IGette
   async execute(_, params: Params): PromiseEither<IGetterProduct[], Error> {
     const { idUser } = params
 
-    if (!idUser) {
+    if (!isValid(idUser)) {
       return right(new MissingParamError({ parameter: 'idUser' }))
     }
 
