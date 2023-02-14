@@ -1,14 +1,16 @@
 import { Controller } from '@/adapters/controller'
 import { ControllerGeneric } from '@/adapters/controller/helpers'
+import { SequelizeProductsRepository } from '@/domain/repositories/products-repository'
 import {
-  FindAllProductsByCategory
+  FindAllProductsByCategoryAndUser,
 } from '@/domain/usecases'
 import { CATEGORIES } from '@/types/constants'
 
 export const makeGetLiteratureByIDProfileComposer = (): ControllerGeneric => {
   return new Controller(
-    new FindAllProductsByCategory(
-      CATEGORIES.LITERATURE
+    new FindAllProductsByCategoryAndUser(
+      CATEGORIES.LITERATURE,
+      new SequelizeProductsRepository()
     )
   )
 }

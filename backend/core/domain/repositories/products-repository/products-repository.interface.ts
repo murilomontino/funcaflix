@@ -15,7 +15,7 @@ export type Params = {
 
 export type categories = CATEGORIES | CATEGORIES[]
 
-export interface ProductsRepository {
+export interface IProductsRepository {
     findAll(): PromiseEither<IGetterProduct[], Error>
     findAllProductsByCategory(categories: categories): PromiseEither<IGetterProduct[], Error>
     findAllProductsByUser(id: number): PromiseEither<IGetterProduct[], Error>

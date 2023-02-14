@@ -1,10 +1,10 @@
 import { InvalidParamError, MissingParamError } from '@/domain/usecases/errors'
-import { converteInArray, existItemsInArray, isValid, verifiesCategories } from '@/helpers'
+import { convertInArray, existItemsInArray, isValid, verifiesCategories } from '@/helpers'
 import promiseErrorHandler from '@/helpers/error-handler'
 import { PromiseEither, left, right } from '@/shared/either'
 import { IGetterProduct } from '@/types/getters'
 import { db } from 'mapacultural-database'
-import { ProductsRepository, categories } from './products-repository.interface'
+import { IProductsRepository, categories } from './products-repository.interface'
 
 function generateProduct(product: any): IGetterProduct {
     const { id, title, about, thumbnail, category, link, createdAt, idUser } = product.get({ plain: true })
@@ -22,10 +22,11 @@ function generateProduct(product: any): IGetterProduct {
 
 async function genericDBModelFindAll(
     where: object = {},
+    active = true
 ) {
     return await db.ModelInfoProducts.findAll({
         where: {
-            active: true,
+            active,
             ...where
         },
         order: [['createdAt', 'ASC']],
@@ -33,7 +34,7 @@ async function genericDBModelFindAll(
     })
 }
 
-export class SequelizeProductsRepository implements ProductsRepository {
+export class SequelizeProductsRepository implements IProductsRepository {
 
     async findAll(): PromiseEither<IGetterProduct[], Error> {
         const [err, model] = await promiseErrorHandler(genericDBModelFindAll({}))
@@ -48,11 +49,11 @@ export class SequelizeProductsRepository implements ProductsRepository {
 
     async findAllProductsByCategory(categories: categories): PromiseEither<IGetterProduct[], Error> {
         // Verifica se a categoria foi passada como parâmetro e se for um array, se ele não está vazio
-        if (!categories || (Array.isArray(categories) && categories.length === 0)) {
+        if (!isValid(categories) || !existItemsInArray(categories)) {
             return right(new MissingParamError({ parameter: 'categoria' }))
         }
 
-        const treatmentCategories = converteInArray(categories)
+        const treatmentCategories = convertInArray(categories) as string[]
 
         if (!verifiesCategories(treatmentCategories)) {
             return right(new InvalidParamError({ parameter: 'categoria' }))
@@ -93,13 +94,13 @@ export class SequelizeProductsRepository implements ProductsRepository {
 
         if (!isValid(idUser)) return right(new MissingParamError({ parameter: 'idUser' }))
 
-        if (!isValid(categories) || !existItemsInArray(categories)) {
+        if (!isValid(categories)) {
             return right(new MissingParamError({ parameter: 'categoria' }))
         }
 
-        const treatmentCategories = converteInArray(categories)
+        const treatmentCategories = convertInArray(categories) as string[]
 
-        if (!verifiesCategories(treatmentCategories)) {
+        if (!verifiesCategories(treatmentCategories) || !existItemsInArray(treatmentCategories)) {
             return right(new InvalidParamError({ parameter: 'categoria' }))
         }
 

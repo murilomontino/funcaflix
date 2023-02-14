@@ -133,7 +133,26 @@ describe('Unit Test Cultural Products Repository', () => {
     expect(errIfUndefined.isRight()).toBeTruthy()
     expect(errIfUndefined.value).toBeInstanceOf(MissingParamError)
     expect(errIfEmpty.isRight()).toBeTruthy()
-    expect(errIfEmpty.value).toBeInstanceOf(MissingParamError)
+    expect(errIfEmpty.value).toBeInstanceOf(InvalidParamError)
+    expect(errIfInvalid.isRight()).toBeTruthy()
+    expect(errIfInvalid.value).toBeInstanceOf(InvalidParamError)
+
+  })
+
+  it('should throw error if not pass categories and user id (Unitary)', async () => {
+    const { sut } = await makeSut()
+
+    const errIfNull = await sut.findAllProductsByUserAndCategory(null, [CATEGORIES.AUDIOVISUAL])
+    const errIfUndefined = await sut.findAllProductsByUserAndCategory(undefined, [CATEGORIES.AUDIOVISUAL])
+    const errIfEmpty = await sut.findAllProductsByUserAndCategory(1, [])
+    const errIfInvalid = await sut.findAllProductsByUserAndCategory(1, ['invalid'] as unknown as CATEGORIES[])
+
+    expect(errIfNull.isRight()).toBeTruthy()
+    expect(errIfNull.value).toBeInstanceOf(MissingParamError)
+    expect(errIfUndefined.isRight()).toBeTruthy()
+    expect(errIfUndefined.value).toBeInstanceOf(MissingParamError)
+    expect(errIfEmpty.isRight()).toBeTruthy()
+    expect(errIfEmpty.value).toBeInstanceOf(InvalidParamError)
     expect(errIfInvalid.isRight()).toBeTruthy()
     expect(errIfInvalid.value).toBeInstanceOf(InvalidParamError)
 

@@ -8,9 +8,15 @@ import {
   CulturalProfileByCity,
   CulturalProfileBySegment,
   CulturalProfileRepository,
-} from '../cultural-profiles-repository/cultural-profile.interface'
+} from './cultural-profile.interface'
 
-export class CulturalProfileRepositoryInMemory implements CulturalProfileRepository {
+export class InMemoryCulturalProfileRepository implements CulturalProfileRepository {
+  async findRandom(length: number): PromiseEither<ICulturalProfile[], Error> {
+    throw new Error('Method not implemented.')
+  }
+  async findSearch(search: string): PromiseEither<ICulturalProfile[], Error> {
+    throw new Error('Method not implemented.')
+  }
   private props = { items: [] as IGetterCulturalProfile[] }
 
   async findById(id: number): PromiseEither<ICulturalProfile, Error> {

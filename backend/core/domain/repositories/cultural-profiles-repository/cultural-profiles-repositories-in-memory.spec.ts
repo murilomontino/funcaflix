@@ -1,9 +1,9 @@
-import { describe, it, expect } from 'vitest'
+import { describe, expect, it } from 'vitest'
 
-import { CulturalProfileRepositoryInMemory } from './cultural-profiles-repositories-in-memory'
+import { InMemoryCulturalProfileRepository } from "./in-memory-cultural-profiles-repositories"
 
 const sut = () => {
-  const culturalProfileRepository = new CulturalProfileRepositoryInMemory()
+  const culturalProfileRepository = new InMemoryCulturalProfileRepository()
   return {
     repository: culturalProfileRepository,
   }
