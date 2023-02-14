@@ -1,8 +1,8 @@
-import React, { useId } from 'react'
+import React from 'react';
 
 import ReactTooltip from 'react-tooltip';
 
-import styles from './tab-pane-overview.module.scss'
+import styles from './tab-pane-overview.module.scss';
 
 const DEVELOPMENT = true
 
@@ -57,14 +57,26 @@ const events = [
     },
 ]
 
-const TabPaneEvents = () => {
-    if (DEVELOPMENT) return null
+type EventProps = {
+    events: {
+        id: number
+        name: string
+        date: string
+        hour: string
+        local: string
+        description: string
+    }[]
+}
+
+const TabPaneEvents = (props: EventProps) => {
+    console.log('TabPaneEvents', props)
+    // if (DEVELOPMENT) return null
 
     return (
         <>
             {
                 events.map(({ name, date, hour, local, description }) => {
-                    const id = useId()
+                    const id = React.useId()
                     return (
                         <div
                             key={id}

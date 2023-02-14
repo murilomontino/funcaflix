@@ -6,6 +6,9 @@ config()
 export default defineConfig({
   root: __dirname,
   test: {
+    coverage: {
+      provider: 'istanbul' // or 'c8'
+    },
     testTimeout: 5000000,
     deps: {
       inline: true,

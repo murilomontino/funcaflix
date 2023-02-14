@@ -1,13 +1,19 @@
 import { adaptRoute } from 'app/adapters'
 import {
-  makeGetProfileComposer,
+  makeGetAudioVisualByIDProfileComposer,
+  makeGetEventsByIDProfileComposer,
+  makeGetLiteratureByIDProfileComposer,
+  makeGetMusicsByIDProfileComposer,
   makeGetProfileByCityComposer,
+  makeGetProfileBySearchComposer,
   makeGetProfileBySegmentComposer,
-  makeGetProfileBySearchComposer
+  makeGetProfileComposer,
+  makeGetWorkshopsByIDProfileComposer
 } from 'app/composers/profiles-composers'
 import { Router } from 'express'
 
 import { CulturalProfileRepositorySequelize } from '@/domain/repositories'
+
 
 const Profiles = Router()
 
@@ -17,7 +23,12 @@ export const PATHS = {
   GET_CITIES: '/profiles/cities',
   GET_ITEMS_BY_SEGMENT: '/profiles/segment/:segment',
   GET_ITEMS_BY_CITY: '/profiles/city/:city',
-  SEARCH: '/profiles/search/:search'
+  SEARCH: '/profiles/search/:search',
+  EVENTS: '/profiles/:idUser/events',
+  LITERATURE: '/profiles/:idUser/literature',
+  AUDIOVISUAL: '/profiles/:idUser/audiovisual',
+  WORKSHOPS: '/profiles/:idUser/workshops',
+  MUSICS: '/profiles/:idUser/musics'
 }
 
 Profiles.get(PATHS.GET_SEGMENTS, async (req, res) => {
@@ -51,5 +62,15 @@ Profiles.get(PATHS.GET_ITEMS_BY_SEGMENT, adaptRoute(makeGetProfileBySegmentCompo
 Profiles.get(PATHS.GET_ITEMS_BY_CITY, adaptRoute(makeGetProfileByCityComposer()))
 
 Profiles.get(PATHS.SEARCH, adaptRoute(makeGetProfileBySearchComposer()))
+
+Profiles.get(PATHS.EVENTS, adaptRoute(makeGetEventsByIDProfileComposer()))
+
+Profiles.get(PATHS.LITERATURE, adaptRoute(makeGetLiteratureByIDProfileComposer()))
+
+Profiles.get(PATHS.AUDIOVISUAL, adaptRoute(makeGetAudioVisualByIDProfileComposer()))
+
+Profiles.get(PATHS.WORKSHOPS, adaptRoute(makeGetWorkshopsByIDProfileComposer()))
+
+Profiles.get(PATHS.MUSICS, adaptRoute(makeGetMusicsByIDProfileComposer()))
 
 export default Profiles

@@ -1,9 +1,9 @@
 import { database } from 'mapacultural-database'
-import { describe, it, expect, beforeEach, beforeAll } from 'vitest'
+import { beforeAll, beforeEach, describe, expect, it } from 'vitest'
 
 import { BookRepositorySequelize } from './books-repository-sequelize'
 
-describe('Unit Test Cultural Profile Repository', () => {
+describe('Unit Test Cultural Books Repository', () => {
   let instance: BookRepositorySequelize
 
   beforeAll(async () => {

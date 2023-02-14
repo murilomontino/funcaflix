@@ -49,3 +49,4 @@ backup
 # @end @expo/next-adapter
 .docker/mariadb-data
 .docker/backup-database
+coverage

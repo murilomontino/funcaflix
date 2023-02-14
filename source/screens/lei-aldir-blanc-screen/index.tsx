@@ -65,7 +65,7 @@ function LeiAldirBlankPage({ books, opportunities, events, tvProgramsPlaylist, w
                     />
                   </TabPane>
                   <TabPane tabId="2">
-                    <TabPaneEvents />
+                    <TabPaneEvents events={events} />
                   </TabPane>
                 </TabContent>
 
