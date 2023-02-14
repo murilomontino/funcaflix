@@ -18,9 +18,8 @@ import {
   TabContent,
   TabPane
 } from 'reactstrap'
-import TabPaneCitiesProfiles from './tab-pane/tab-pane-cities-profiles'
-import TabPaneSegmentsProfiles from './tab-pane/tab-pane-segments-profiles'
 
+import TabPaneItemsProfile from './tab-pane/tab-pane-items-profiles'
 import TabPaneSearchProfiles from './tab-pane/tab-pane-search'
 
 type Props = {
@@ -64,13 +63,13 @@ const CulturalProfilesScreen = ({ segments, cities }: Props) => {
 
                 <TabContent activeTab={activeTab} className="pt-4 text-muted">
                   <TabPane tabId="1">
-                    <TabPaneSegmentsProfiles segments={segments} active={activeTab === "1"} />
+                    <TabPaneItemsProfile items={segments} active={activeTab === "1"} route='segment' />
                   </TabPane>
                 </TabContent>
 
                 <TabContent activeTab={activeTab} className="pt-4 text-muted">
                   <TabPane tabId="2">
-                    <TabPaneCitiesProfiles cities={cities} active={activeTab === "2"} />
+                    <TabPaneItemsProfile items={cities} active={activeTab === "2"} route='city' />
                   </TabPane>
                 </TabContent>
 

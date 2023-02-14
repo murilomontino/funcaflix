@@ -5,11 +5,6 @@ import { useQuery } from 'react-query';
 
 const DAY = 60 * 60 * 24
 
-type GetProps = {
-    data: ICulturalProfile | null
-    statusCode: number
-}
-
 const fetchUsernameProfile = (id: string) => {
     if (!id) return {
         data: null,
@@ -25,10 +20,10 @@ const fetchUsernameProfile = (id: string) => {
                 [errEvents, responseEvents],
             ] = await Promise.all([
                 promiseErrorHandler(
-                    api.get<GetProps>(`/profiles/${id}`),
+                    api.get<ICulturalProfile>(`/profiles/${id}`),
                 ),
                 promiseErrorHandler(
-                    api.get<GetProps>(`/profiles/${id}/events`),
+                    api.get(`/profiles/${id}/events`),
                 ),
             ])
 
@@ -36,10 +31,10 @@ const fetchUsernameProfile = (id: string) => {
                 throw new Error('Não foi possível fazer a requisição', { cause: errProfile })
             }
 
-            const { data, statusCode } = responseProfile.data
+            const { data, status } = responseProfile
 
-            if (statusCode !== 200) {
-                throw new Error(`Não foi possível fazer a requisição. Status code: ${statusCode}`, { cause: data })
+            if (status !== 200) {
+                throw new Error(`A Requisição apresentou problemas. Status code: ${status}`, { cause: data })
             }
 
             return {

@@ -15,22 +15,14 @@ export const adaptRoute = (controller: ControllerGeneric) => {
 
     const LOG = `[${req.method}] ${req.url} - ${httpResponse.statusCode}`
 
-    if (httpResponse.statusCode === 200) {
-      res
-        .status(200)
-        .send({
-          statusCode: httpResponse.statusCode,
-          data: httpResponse.body,
-        })
-        .end()
-    } else {
-      res
-        .status(200)
-        .send({
-          statusCode: httpResponse.statusCode,
-          error: httpResponse.body,
-        })
-        .end()
+    res
+      .status(httpResponse.statusCode)
+      .send(httpResponse.body)
+      .end()
+
+    if (process.env.NODE_ENV === 'development') {
+      console.log(LOG)
     }
+
   }
 }

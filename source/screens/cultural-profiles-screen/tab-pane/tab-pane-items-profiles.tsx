@@ -9,32 +9,31 @@ import CarouselSwipperProfiles from '../carousel-swipper-profiles'
 import ReactInfiniteScroll from 'react-infinite-scroll-component'
 
 type CitiesProps = {
-  cities: string[]
+  items: string[]
   active: boolean
+  route: 'city' | 'segment'
 }
 
-const TabPaneCitiesProfiles = ({ cities, active }: CitiesProps) => {
-
-
+const TabPaneItemsProfiles = ({ items, active, route }: CitiesProps) => {
 
   if (!active) return null
 
-  const [data, setData] = React.useState<string[]>(cities.slice(0, 10))
+  const [data, setData] = React.useState<string[]>(items.slice(0, 10))
 
   const fetchMoreData = () => {
     setTimeout(() => {
-      setData(state => [...state, ...cities.slice(state.length, state.length + 10)])
+      setData(state => [...state, ...items.slice(state.length, state.length + 10)])
     }, 200)
   }
 
-  const hasMore = data.length < cities.length
+  const hasMore = data.length < items.length
 
-  const fetchData = async (city: string) => {
-    const [err, response] = await promiseErrorHandler(api.get(`profiles/city/${city}`))
+  const fetchData = async (item: string) => {
+    const [err, response] = await promiseErrorHandler(api.get(`profiles/${route}/${item}`))
 
     if (err) return []
 
-    return response.data?.data as ICulturalProfile[]
+    return response.data as ICulturalProfile[]
   }
 
   return (
@@ -67,4 +66,4 @@ const TabPaneCitiesProfiles = ({ cities, active }: CitiesProps) => {
   )
 }
 
-export default TabPaneCitiesProfiles
+export default TabPaneItemsProfiles

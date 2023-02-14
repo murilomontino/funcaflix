@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 require('dotenv').config()
 
-import { database, db } from '@mapa-cultural/database'
+import { database, db } from 'mapacultural-database'
 
 export const build = async () => {
 	database.addModels([...Object.values(db)])
@@ -14,6 +14,7 @@ async function main() {
 
 main()
 
-export * from './domain/usecases'
 export * from './domain/entities'
 export * from './domain/repositories'
+export * from './domain/usecases'
+
