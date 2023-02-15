@@ -2,6 +2,7 @@ import { InvalidParamError, MissingParamError } from '@/domain/usecases/errors'
 import { convertInArray, existItemsInArray, isValid, verifiesCategories } from '@/helpers'
 import promiseErrorHandler from '@/helpers/error-handler'
 import { PromiseEither, left, right } from '@/shared/either'
+import { CATEGORIES } from '@/types/constants'
 import { IGetterProduct } from '@/types/getters'
 import { db } from 'mapacultural-database'
 import { IProductsRepository, categories } from './products-repository.interface'
@@ -35,6 +36,20 @@ async function genericDBModelFindAll(
 }
 
 export class SequelizeProductsRepository implements IProductsRepository {
+    async findAllByFinancialResourceAndCategory(financialResource: number, category: CATEGORIES)
+        : PromiseEither<IGetterProduct[], Error> {
+        const [err, model] = await promiseErrorHandler(genericDBModelFindAll({
+            financialResource,
+            category,
+        }))
+
+        if (err) {
+            return right(err)
+        }
+
+        const products = model.map(generateProduct)
+        return left(products)
+    }
 
     async findAll(): PromiseEither<IGetterProduct[], Error> {
         const [err, model] = await promiseErrorHandler(genericDBModelFindAll({}))
@@ -118,5 +133,4 @@ export class SequelizeProductsRepository implements IProductsRepository {
 
         return left(products)
     }
-
 }
