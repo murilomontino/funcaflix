@@ -12,7 +12,6 @@ const withPlugins = require('next-compose-plugins')
 const withFonts = require('next-fonts')
 const withImages = require('next-images')
 const withTM = require('next-transpile-modules')([
-  'react-native-reanimated',
   'moti',
   '@motify/core',
   '@motify/components'
@@ -52,6 +51,7 @@ const nextConfig = ((phase) => {
     },
     experimental: {
       forceSwcTransforms: true
+
     },
     generateBuildId: async () => {
       if (process.env.BUILD_ID) {
