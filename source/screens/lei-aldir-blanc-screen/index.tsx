@@ -1,12 +1,4 @@
-import { GetterProjects } from '@/domain/entities'
 import React, { useState } from 'react'
-
-import NavigationProfile from '@/components/molecule/navigation-profile'
-import { IGetterProduct } from '@/types/getters'
-import HeaderLeiAldirBlanc from './header-lei-aldir-blanc'
-
-import TabPaneEvents from '@/components/tab-contents/tab-pane-events'
-import TabPaneHome from '@/components/tab-contents/tab-pane-home'
 import {
   Col,
   Container,
@@ -14,6 +6,16 @@ import {
   TabContent,
   TabPane,
 } from 'reactstrap'
+
+import { GetterProjects } from '@/domain/entities'
+import { IGetterProduct } from '@/types/getters'
+
+import NavigationProfile from '@/components/molecule/navigation-profile'
+import TabPaneEvents from '@/components/tab-contents/tab-pane-events'
+import TabPaneHome from '@/components/tab-contents/tab-pane-home'
+
+import HeaderLeiAldirBlanc from './header-lei-aldir-blanc'
+
 
 type Props = {
   books: IGetterProduct[]
@@ -65,7 +67,7 @@ function LeiAldirBlankPage({ books, opportunities, events, tvProgramsPlaylist, w
                     />
                   </TabPane>
                   <TabPane tabId="2">
-                    <TabPaneEvents events={events} />
+                    <TabPaneEvents events={events as any} />
                   </TabPane>
                 </TabContent>
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import Skeleton from 'react-loading-skeleton'
-import { ScrollView, Animated, Platform } from 'react-native'
+import { Animated, Platform, ScrollView } from 'react-native'
 import { useDimensions } from 'react-native-web-hooks'
 
 import theme from '@/theme'
@@ -29,7 +29,7 @@ export default function CardCarousel({ items }: Props) {
     return () => {
       setData(null)
     }
-  }, [])
+  }, [items])
 
   const scrollX = useRef(new Animated.Value(0)).current
 

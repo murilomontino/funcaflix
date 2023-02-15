@@ -1,6 +1,7 @@
 // @generated: @expo/next-adapter@2.1.52
 import React from 'react'
 
+import { CulturalProfileRepositorySequelize } from '@/domain/repositories'
 import {
   FindAllNewestAudioVisual,
   FindAllOpportunities,
@@ -8,15 +9,12 @@ import {
   FindAllProductsByCategory,
   FindByRandomProfileUseCase,
 } from '@/domain/usecases'
-
-import { CulturalProfileRepositorySequelize } from '@/domain/repositories'
-
+import { CATEGORIES } from '@/types/constants'
 import { build } from 'mapacultural-database'
 import { GetStaticProps } from 'next/types'
 
 import ComingSoon from '@/screens/coming-soon-screen'
 import HomeScreen from '@/screens/home-screen'
-import { CATEGORIES } from '@/types/constants'
 
 const EM_BREVE = false
 

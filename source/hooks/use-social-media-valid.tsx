@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 
 const useSocialMediaValid = ({ facebook, instagram, twitter, youtube }) => {
   const [facebookValid, instagramValid, twitterValid, youtubeValid] = useMemo(() => {

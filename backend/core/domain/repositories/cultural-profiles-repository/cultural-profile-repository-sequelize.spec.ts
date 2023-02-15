@@ -1,5 +1,6 @@
-import { database } from 'mapacultural-database'
 import { describe, it, expect, beforeEach, beforeAll } from 'vitest'
+
+import { database } from 'mapacultural-database'
 
 import { CulturalProfileRepositorySequelize } from './cultural-profile-repository-sequelize'
 

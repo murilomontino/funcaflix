@@ -1,7 +1,7 @@
-import { object, string, number, bool } from 'yup'
 
 import { Either, left, PromiseEither, right } from '@/shared/either'
 import { IDatasheet } from '@/types/setters'
+import { object, string, number, bool } from 'yup'
 
 export class SetterDataSheet implements IDatasheet {
 	public readonly idProduct: number

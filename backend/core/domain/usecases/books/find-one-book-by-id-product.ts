@@ -6,7 +6,6 @@ import assert from 'assert'
 import { database } from 'mapacultural-database'
 
 import { UseCase } from '../ports/use-case'
-
 import { QUERY_GETTER_ID_BOOK } from './queries'
 
 type FindOneBookByIdProductProps = {

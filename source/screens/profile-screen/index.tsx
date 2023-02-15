@@ -1,9 +1,5 @@
-import { IGetterCulturalProfile } from '@/types/getters'
 import React, { useState } from 'react'
-
-import BreadCrumb from '@/components/organism/breadcrumb'
-
-import CardProfile from '@/components/molecule/card-profile'
+import ReactTooltip from 'react-tooltip'
 import {
   Col,
   Container,
@@ -12,15 +8,20 @@ import {
   TabPane,
 } from 'reactstrap'
 
+import { IGetterCulturalProfile } from '@/types/getters'
+import { QRCodeSVG } from 'qrcode.react'
+
+import CardProfile from '@/components/molecule/card-profile'
+import DownloadQRCode from '@/components/molecule/download-qrcode'
 import NavigationProfile from '@/components/molecule/navigation-profile'
+import ButtonGroupSocialMedia from '@/components/molecule/social-media/button-group-social-media'
+import BreadCrumb from '@/components/organism/breadcrumb'
 import TabPaneEvents from '@/components/tab-contents/tab-pane-events'
 import TabPaneOverview from '@/components/tab-contents/tab-pane-overview'
 
-import DownloadQRCode from '@/components/molecule/download-qrcode'
-import ButtonGroupSocialMedia from '@/components/molecule/social-media/button-group-social-media'
 import useSocialMediaValid from '@/hooks/use-social-media-valid'
-import { QRCodeSVG } from 'qrcode.react'
-import ReactTooltip from 'react-tooltip'
+
+
 
 type ProfileScreenProps = {
   profile: IGetterCulturalProfile
@@ -147,7 +148,7 @@ const ProfileScreen = ({ profile, username }: ProfileScreenProps) => {
                       />
                     </TabPane>
                     <TabPane tabId="2">
-                      <TabPaneEvents />
+                      <TabPaneEvents events={[]} />
                     </TabPane>
                   </TabContent>
 

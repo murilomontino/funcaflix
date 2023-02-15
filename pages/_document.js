@@ -3,8 +3,8 @@ import React from 'react'
 import { getInitialProps } from '@expo/next-adapter/document'
 import Document, { Head, Main, NextScript, Html } from 'next/document'
 
-import favIcon32x32 from '../public/favicon-32x32.png'
 import favIcon16x16 from '../public/favicon-16x16.png'
+import favIcon32x32 from '../public/favicon-32x32.png'
 import favIcon from '../public/favicon.ico'
 
 class CustomDocument extends Document {

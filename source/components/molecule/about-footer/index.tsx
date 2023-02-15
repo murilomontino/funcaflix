@@ -1,5 +1,6 @@
-import ItemNavBar from '@/components/atom/item-nav-bar'
 import React from 'react'
+
+import ItemNavBar from '@/components/atom/item-nav-bar'
 
 const LINK_FUNCAP = 'https://www.funcap.se.gov.br/'
 const LINK_GOVERNO = 'https://www.se.gov.br/'

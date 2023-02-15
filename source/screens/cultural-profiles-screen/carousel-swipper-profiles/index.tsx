@@ -2,13 +2,13 @@ import React, { Suspense, useEffect } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import Skeleton from 'react-loading-skeleton'
 
+import { usernameGenerate } from '@/helpers/strings-normalize'
 import theme from '@/theme'
+import { ICulturalProfile } from '@/types/setters'
 import SwipperCore, { EffectFade, Navigation, Pagination, Thumbs } from 'swiper'
 import { Swiper as Swipper, SwiperSlide as SwipperSlide } from 'swiper/react'
 
-import { ICulturalProfile } from '@/types/setters'
 
-import { usernameGenerate } from '@/helpers/strings-normalize'
 
 type CarouselSwipperProfilesProps = {
   title: string

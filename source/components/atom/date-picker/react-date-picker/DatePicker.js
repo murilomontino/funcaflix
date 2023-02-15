@@ -9,18 +9,16 @@ exports["default"] = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
-var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _makeEventProps = _interopRequireDefault(require("make-event-props"));
-
 var _mergeClassNames = _interopRequireDefault(require("merge-class-names"));
 
 var _reactCalendar = _interopRequireDefault(require("react-calendar"));
-
 var _reactFit = _interopRequireDefault(require("react-fit"));
 
-var _DateInput = _interopRequireDefault(require("./DateInput"));
+var _propTypes = _interopRequireDefault(require("prop-types"));
 
+var _DateInput = _interopRequireDefault(require("./DateInput"));
 var _propTypes2 = require("./shared/propTypes");
 
 var _excluded = ["calendarClassName", "className", "onChange", "value"],

@@ -1,5 +1,5 @@
-import os from 'os';
 import cluster from 'cluster';
+import os from 'os';
 
 const runPrimaryProcess = () => {
     const cpus = os.cpus().length * 2;

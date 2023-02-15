@@ -2,10 +2,10 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 
 import { config } from 'dotenv'
+import { database } from 'mapacultural-database'
 
 import Server from './app/server'
 
-import { database } from 'mapacultural-database'
 
 config()
 

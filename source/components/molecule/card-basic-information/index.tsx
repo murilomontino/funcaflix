@@ -1,9 +1,10 @@
-import { If } from '@/utils/tsx-controls'
 import React from 'react'
 import { View, Text, Platform } from 'react-native'
 import { useDimensions } from 'react-native-web-hooks'
 
 import { textStyles, viewStyles } from '../../../screens/books-screen/components/styles'
+
+import { If } from '@/utils/tsx-controls'
 
 type Props = {
   title: string

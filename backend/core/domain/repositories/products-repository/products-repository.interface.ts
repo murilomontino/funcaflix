@@ -17,6 +17,7 @@ export type categories = CATEGORIES | CATEGORIES[]
 
 export interface IProductsRepository {
     findAll(): PromiseEither<IGetterProduct[], Error>
+    findAllByFinancialResourceAndCategory(financialResource: number, category: CATEGORIES): PromiseEither<IGetterProduct[], Error>
     findAllProductsByCategory(categories: categories): PromiseEither<IGetterProduct[], Error>
     findAllProductsByUser(id: number): PromiseEither<IGetterProduct[], Error>
     findAllProductsByUserAndCategory(id: number, categories: categories): PromiseEither<IGetterProduct[], Error>

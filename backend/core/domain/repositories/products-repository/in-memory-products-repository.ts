@@ -1,5 +1,6 @@
 import { PromiseEither } from '@/shared/either'
 import { IGetterProduct } from '@/types/getters'
+
 import { IProductsRepository, categories } from './products-repository.interface'
 
 export class InMemoryProductsRepository implements IProductsRepository {

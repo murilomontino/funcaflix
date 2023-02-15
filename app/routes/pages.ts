@@ -19,10 +19,6 @@ class Pages {
       return this.next.render(req, res, `/video/*`, req.query)
     })
 
-    this.express.get('/lei-aldir-blanc', (req, res) => {
-      return this.next.render(req, res, `/lei-aldir-blanc`, req.query)
-    })
-
     this.express.get('*', (req, res) => {
       return this.next.render(req, res, `${req.path}`, req.query)
     })

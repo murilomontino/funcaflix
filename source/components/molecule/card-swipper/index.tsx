@@ -10,6 +10,7 @@ import ImageNext from '@/components/atom/image-next'
 import Logo from '@/components/atom/logo-funcapflix'
 
 import { ContainerLogo, Title } from './styles'
+
 import { If } from '@/utils/tsx-controls'
 
 type Props = {

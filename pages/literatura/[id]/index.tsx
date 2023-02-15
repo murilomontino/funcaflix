@@ -1,13 +1,13 @@
 import React from 'react'
 
 import { FindOneBookByIdProductUseCase, FindAllBooksUseCase } from '@/domain/usecases'
+import type { IGetterBooks } from '@/types/getters'
 import { build } from 'mapacultural-database'
 import { GetStaticProps } from 'next/types'
 
-import ScreenBookID from '@/screens/book-id-screen'
 import Loading from '@/components/atom/loading'
+import ScreenBookID from '@/screens/book-id-screen'
 
-import type { IGetterBooks } from '@/types/getters'
 
 type Props = {
   book: IGetterBooks

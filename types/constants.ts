@@ -7,3 +7,7 @@ export enum CATEGORIES {
     WORKSHOP = "152",
     PARTICIPATION = "163",
 }
+
+export enum FINANCIAL_RESOURCES {
+    "lei-aldir-blanc" = 61,
+}

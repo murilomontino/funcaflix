@@ -1,6 +1,7 @@
-import colors from '@/global/colors'
 import React from 'react'
 import { ActivityIndicator } from 'react-native'
+
+import colors from '@/global/colors'
 
 const Loading = () => {
     return (

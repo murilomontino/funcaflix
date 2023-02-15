@@ -1,9 +1,9 @@
 import { describe, it, beforeAll, expect } from 'vitest'
+
 import { build, db } from 'mapacultural-database'
 
 import { GetterProjects } from '../../entities'
 
-import { FindAllNewestAudioVisual } from '..'
 
 describe('Verificação de caso de uso com bd', () => {
   beforeAll(async () => {

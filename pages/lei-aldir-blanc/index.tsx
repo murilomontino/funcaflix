@@ -1,39 +1,41 @@
-import type { GetStaticProps } from 'next'
 import React from 'react'
 
-import { FindAllOpportunities, FindAllProductsByCategory } from '@/domain/usecases'
 
 import { GetterProjects } from '@/domain/entities'
-import LeiAldirBlankScreen from '@/screens/lei-aldir-blanc-screen'
-import { CATEGORIES } from '@/types/constants'
+import { SequelizeProductsRepository } from '@/domain/repositories/products-repository'
+import { FindAllOpportunities, FindAllProductsByFinancialResource } from '@/domain/usecases'
+import { CATEGORIES, FINANCIAL_RESOURCES } from '@/types/constants'
 import { IGetterProduct } from '@/types/getters'
 import { build } from 'mapacultural-database'
+import type { GetStaticProps } from 'next'
+
+import LeiAldirBlankScreen from '@/screens/lei-aldir-blanc-screen'
 
 type StaticProps = {
-    staticBooks: IGetterProduct[]
-    staticTvProgramsPlaylist: IGetterProduct[]
-    staticOpportunities: GetterProjects[]
-    staticWorkshops: IGetterProduct[]
-    staticEvents: IGetterProduct[]
+    books: IGetterProduct[]
+    audiovisual: IGetterProduct[]
+    opportunities: GetterProjects[]
+    workshops: IGetterProduct[]
+    events: IGetterProduct[]
 }
 
 const LeiAldirBlank = ({
-    staticBooks,
-    staticOpportunities,
-    staticEvents,
-    staticTvProgramsPlaylist,
-    staticWorkshops
+    books,
+    opportunities,
+    events,
+    audiovisual,
+    workshops
 }: StaticProps) => {
     const key = React.useId();
     return (
         <LeiAldirBlankScreen
             key={key}
-            opportunities={staticOpportunities}
-            books={staticBooks}
-            events={staticEvents}
+            opportunities={opportunities}
+            books={books}
+            events={events}
             // participation={staticParticipation}
-            tvProgramsPlaylist={staticTvProgramsPlaylist}
-            workshops={staticWorkshops}
+            tvProgramsPlaylist={audiovisual}
+            workshops={workshops}
         />
     )
 }
@@ -41,35 +43,17 @@ const LeiAldirBlank = ({
 export const getStaticProps: GetStaticProps = async (context) => {
     await build()
 
-    const promiseBooksOrErr = new FindAllProductsByCategory().execute({}, {
-        category: CATEGORIES.LITERATURE,
-        where: {
-            financialResource: 61,
-        }
-    })
+    const repository = new SequelizeProductsRepository()
 
-    const promiseWorkshopsOrErr = new FindAllProductsByCategory().execute({}, {
-        category: CATEGORIES.WORKSHOP,
-        where: {
-            financialResource: 61,
-        }
-    })
+    const booksPromise = new FindAllProductsByFinancialResource(repository)
+        .defineCategory(CATEGORIES.LITERATURE)
+        .execute(null, { financialResource: FINANCIAL_RESOURCES['lei-aldir-blanc'] })
 
-    const promiseEventsOrErr = new FindAllProductsByCategory().execute({}, {
-        category: CATEGORIES.EVENT,
-        where: {
-            financialResource: 61,
-        }
-    })
+    const audioVisualPromise = new FindAllProductsByFinancialResource(repository)
+        .defineCategory(CATEGORIES.AUDIOVISUAL)
+        .execute(null, { financialResource: FINANCIAL_RESOURCES['lei-aldir-blanc'] })
 
-    // const promiseParticipationOrErr = new FindAllProductsByCategory().execute({}, {
-    //     category: CATEGORIES.PARTICIPATION,
-    //     where: {
-    //         financialResource: 61,
-    //     }
-    // })
-
-    const promiseOpportunitiesOrErr = new FindAllOpportunities().execute({
+    const promiseOpportunities = new FindAllOpportunities().execute({
         status: [1, 2],
         params: {
             where: {
@@ -78,14 +62,13 @@ export const getStaticProps: GetStaticProps = async (context) => {
         }
     })
 
+    const promiseWorkshopsOrErr = new FindAllProductsByFinancialResource(repository)
+        .defineCategory(CATEGORIES.WORKSHOP)
+        .execute(null, { financialResource: FINANCIAL_RESOURCES['lei-aldir-blanc'] })
 
-    const promiseAudioVisualOrErr = new FindAllProductsByCategory().execute({}, {
-        category: CATEGORIES.AUDIOVISUAL,
-        limit: 10,
-        where: {
-            financialResource: 61,
-        }
-    })
+    const promiseEventsOrErr = new FindAllProductsByFinancialResource(repository)
+        .defineCategory(CATEGORIES.EVENT)
+        .execute(null, { financialResource: FINANCIAL_RESOURCES['lei-aldir-blanc'] })
 
     const [
         booksOrErr,
@@ -93,14 +76,14 @@ export const getStaticProps: GetStaticProps = async (context) => {
         opportunitiesOrErr,
         workshopsOrErr,
         eventsOrErr,
-        // participationOrErr,
+        // participationOrErr
     ] = await Promise.all([
-        promiseBooksOrErr,
-        promiseAudioVisualOrErr,
-        promiseOpportunitiesOrErr,
+        booksPromise,
+        audioVisualPromise,
+        promiseOpportunities,
         promiseWorkshopsOrErr,
         promiseEventsOrErr,
-        // promiseParticipationOrErr,
+        // promiseParticipationOrErr
     ])
 
     const books = booksOrErr.isLeft() && booksOrErr.extract()
@@ -112,11 +95,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
     return {
         props: {
-            staticBooks: books || [],
-            staticTvProgramsPlaylist: playlist || [],
-            staticOpportunities: opportunities || [],
-            staticWorkshops: workshops || [],
-            staticEvents: events || [],
+            books: books || [],
+            audiovisual: playlist || [],
+            opportunities: opportunities || [],
+            workshops: workshops || [],
+            events: events || [],
             // staticParticipation: participation || [],
         },
         revalidate: 60 * 60 * 24,

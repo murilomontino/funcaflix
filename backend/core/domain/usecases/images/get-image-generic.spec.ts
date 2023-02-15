@@ -1,10 +1,11 @@
 import { describe, expect, it } from 'vitest'
 
-import { GetImageGenericUseCase } from './get-image-generic'
-
 import {
   CreateReadStreamUseCase,
 } from '@/domain/usecases'
+
+import { GetImageGenericUseCase } from './get-image-generic'
+
 
 const makeSut = () => {
   const sut = new GetImageGenericUseCase(

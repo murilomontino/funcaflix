@@ -1,11 +1,11 @@
 import React from 'react'
 
 import { CulturalProfileRepositorySequelize } from '@/domain/repositories'
-
-import { build } from 'mapacultural-database'
-import type { GetStaticProps } from 'next'
 import { removeCharacterSpecialAndJoin } from '@/helpers/strings-normalize'
 import { IGetterCulturalProfile } from '@/types/getters'
+import { build } from 'mapacultural-database'
+import type { GetStaticProps } from 'next'
+
 import CulturalProfilesNameScreen from '@/screens/cultural-profiles-names-screen'
 
 type Props = {

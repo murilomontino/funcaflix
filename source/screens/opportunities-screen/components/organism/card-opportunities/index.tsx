@@ -1,13 +1,12 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 
 import { GetterProjects } from '@/domain/entities'
 
+import Card from '@/components/molecule/card'
 import AboutDescription from '@/components/molecule/card-about-description'
 import CardBasicInformation from '@/components/molecule/card-basic-information'
+
 import FooterCard from '../../molecules/footer-card'
-
-import Card from '@/components/molecule/card'
-
 import { ContainerInformation, ContainerDate, Text } from './styles'
 
 type Props = {

@@ -3,8 +3,9 @@ import promiseErrorHandler from '@/helpers/error-handler'
 import { left, PromiseEither, right } from '@/shared/either'
 import { IGetterBooks } from '@/types/getters'
 import { database } from 'mapacultural-database'
-import { QUERY_ALL_BOOKS } from './queries'
+
 import { UseCase } from '../ports/use-case'
+import { QUERY_ALL_BOOKS } from './queries'
 
 export class FindAllBooksUseCase implements UseCase<unknown, IGetterBooks[]> {
   async execute(): PromiseEither<IGetterBooks[], Error> {
