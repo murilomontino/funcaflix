@@ -106,6 +106,7 @@
   "scripts": {
     "test": "cross-env NODE_ENV=test vitest",
     "start": "cross-env NODE_ENV=production ts-node -r tsconfig-paths/register fork.ts",
+    "start:server": "cross-env NODE_ENV=production ts-node -r tsconfig-paths/register index.ts",
     "dev": "cross-env NODE_ENV=development ts-node -r tsconfig-paths/register index.ts",
     "dev:api": "cross-env NODE_ENV=development API_ONLY=true nodemon -r tsconfig-paths/register index.ts",
     "build": "cross-env NODE_ENV=production next build",

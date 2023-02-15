@@ -34,6 +34,11 @@ const nextConfig = ((phase) => {
     typescript: {
       ignoreBuildErrors: true,
     },
+    // transpilePackages: [  'react-native-reanimated',
+    //   'moti',
+    //   '@motify/core',
+    //   '@motify/components'
+    // ],
     images: {
       /*  loader: 'akamai',
       path: '/', */
@@ -46,13 +51,8 @@ const nextConfig = ((phase) => {
       ]
     },
     experimental: {
-      forceSwcTransforms: true,
-      outputFileTracingRoot: '.next',
+      forceSwcTransforms: true
     },
-    amp: {
-      canonicalBase: 'https://mapacultural.funcap.se.gov.br/',
-    },
-    dynamicAssetPrefix: true,
     generateBuildId: async () => {
       if (process.env.BUILD_ID) {
         return process.env.BUILD_ID
@@ -60,7 +60,6 @@ const nextConfig = ((phase) => {
         return `${new Date().getTime()}`
       }
     },
-    assetPrefix: isProduction ? process.env.URL : '',
     distDir: '.next',
     env: {
       ELECTION_PERIOD: process.env.ELECTION_PERIOD,
