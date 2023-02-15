@@ -1,7 +1,6 @@
 import { CulturalProfileRepository } from '@/domain/repositories'
 import { left, PromiseEither, right } from '@/shared/either'
 import { IGetterCulturalProfile } from '@/types/getters'
-import assert from 'assert'
 
 import { UseCase } from '../ports/use-case'
 

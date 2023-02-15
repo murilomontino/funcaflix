@@ -1,5 +1,4 @@
 import React from 'react';
-
 import ReactTooltip from 'react-tooltip';
 
 import styles from './tab-pane-overview.module.scss';

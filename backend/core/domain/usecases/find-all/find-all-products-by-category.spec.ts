@@ -1,7 +1,8 @@
-import { build } from 'mapacultural-database'
 import { beforeAll, describe, expect, it } from 'vitest'
 
 import { CATEGORIES } from '@/types/constants'
+import { build } from 'mapacultural-database'
+
 import { FindAllProductsByCategory } from './find-all-products-by-category'
 
 const makeSut = (category: CATEGORIES = null) => {

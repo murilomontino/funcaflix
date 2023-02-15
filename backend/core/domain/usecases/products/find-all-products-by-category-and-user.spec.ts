@@ -1,8 +1,10 @@
-import { build } from 'mapacultural-database'
 import { beforeAll, describe, expect, it } from 'vitest'
 
 import { IProductsRepository, InMemoryProductsRepository, SequelizeProductsRepository } from '@/domain/repositories/products-repository'
 import { CATEGORIES } from '@/types/constants'
+import { build } from 'mapacultural-database'
+
+
 import { MissingParamError } from '../errors'
 import { FindAllProductsByCategoryAndUser } from './find-all-products-by-category-and-user'
 

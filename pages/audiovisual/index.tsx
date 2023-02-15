@@ -1,12 +1,14 @@
 import React from 'react'
+
 import {
   FindAllPlaylistAndItemsUseCase,
   FindAllTvProgramsUseCase,
   FindAllPlaylistUseCase
 } from "@/domain/usecases"
-import AudioVisualScreen from "@/screens/programs-tv-screen";
 import { build } from "mapacultural-database";
 import type { GetStaticProps } from "next";
+
+import AudioVisualScreen from "@/screens/programs-tv-screen";
 
 const AudioVisual = ({ staticNewestVideos, staticPlaylist }) => {
   return <AudioVisualScreen newestItems={staticNewestVideos} playlist={staticPlaylist} />

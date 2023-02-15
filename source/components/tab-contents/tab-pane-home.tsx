@@ -1,6 +1,7 @@
+import React, { useMemo } from 'react'
+
 import { GetterProjects } from '@/domain/entities'
 import { IGetterProduct } from '@/types/getters'
-import React, { useMemo } from 'react'
 
 import SlideSwipper from '@/components/organism/slide-swipper'
 

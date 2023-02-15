@@ -1,8 +1,8 @@
 import React from 'react'
+import { Container } from 'react-bootstrap'
 
 import advertisement_01 from './advertisement.jpg'
 
-import { Container } from 'react-bootstrap'
 
 const Advertisement = () => {
     return (

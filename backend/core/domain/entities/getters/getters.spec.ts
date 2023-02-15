@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { describe, it, expect } from 'vitest'
+
 import { IGetterCulturalProfile } from '@/types/getters'
 import { faker } from '@faker-js/faker'
-import { describe, it, expect } from 'vitest'
 
 import { GetterCulturalProfiles } from '.'
 

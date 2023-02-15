@@ -1,12 +1,13 @@
-import { left, PromiseEither, right } from '@/shared/either'
-import { IGetterProduct } from '@/types/getters'
 
-import { UseCase } from '../ports/use-case'
 
 import { IProductsRepository } from '@/domain/repositories/products-repository/products-repository.interface'
 import { isValid } from '@/helpers'
+import { left, PromiseEither, right } from '@/shared/either'
 import { CATEGORIES } from '@/types/constants'
+import { IGetterProduct } from '@/types/getters'
+
 import { MissingParamError } from '../errors'
+import { UseCase } from '../ports/use-case'
 
 type Params = {
   financialResource?: number

@@ -1,5 +1,6 @@
-import { database } from 'mapacultural-database'
 import { beforeAll, beforeEach, describe, expect, it } from 'vitest'
+
+import { database } from 'mapacultural-database'
 
 import { BookRepositorySequelize } from './books-repository-sequelize'
 

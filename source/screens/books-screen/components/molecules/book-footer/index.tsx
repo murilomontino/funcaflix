@@ -2,10 +2,10 @@ import React from 'react'
 import { View, Text, TouchableOpacity, Platform } from 'react-native'
 import { useDimensions } from 'react-native-web-hooks'
 
+import { IGetterBooks } from '@/types/getters'
 import Link from 'next/link'
 
 import { textStyles, viewStyles } from '../../styles'
-import { IGetterBooks } from '@/types/getters'
 
 type Props = {
   item: IGetterBooks

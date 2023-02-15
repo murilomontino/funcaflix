@@ -1,17 +1,17 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import Skeleton from 'react-loading-skeleton'
 
 import { FindAllProductsByCategory, FindAllTvProgramsUseCase } from '@/domain/usecases'
 import theme from '@/theme'
-import { db, build } from 'mapacultural-database'
+import { build, db } from 'mapacultural-database'
 import { useRouter } from 'next/router'
 import { GetStaticProps } from 'next/types'
 
-import TemplateFrontEnd from '@/components/templates/frontend'
 import DetailsScreen from '@/screens/details-movies-screen'
 
-import { Choose, When } from '@/utils/tsx-controls'
 import api from '@/services'
+
+import { Choose, When } from '@/utils/tsx-controls'
 
 const VideoPageDetails = ({ staticVideos, staticPlaylist }) => {
   const { videoId } = useRouter().query
@@ -39,8 +39,8 @@ const VideoPageDetails = ({ staticVideos, staticPlaylist }) => {
     setId(videoId)
 
     const video = staticVideos?.find((video) => video.videoId === videoId)
-    
-    if (!video) return  setLoading(false)
+
+    if (!video) return setLoading(false)
 
     setVideo(video)
     setLoading(false)

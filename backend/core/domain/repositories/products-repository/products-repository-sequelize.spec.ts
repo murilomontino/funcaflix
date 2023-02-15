@@ -1,8 +1,10 @@
-import { build } from 'mapacultural-database'
 import { beforeAll, describe, expect, it } from 'vitest'
 
 import { InvalidParamError, MissingParamError } from '@/domain/usecases/errors'
 import { CATEGORIES } from '@/types/constants'
+import { build } from 'mapacultural-database'
+
+
 import { SequelizeProductsRepository } from './sequelize-products-repository'
 
 const makeSut = async () => {

@@ -1,11 +1,11 @@
 import React, { useMemo } from 'react'
 import { View } from 'react-native'
+import { StyleSheet } from 'react-native'
 
 import { GetterProjects, GetterBook } from '@/domain/entities'
 import DefaultImg from '@/public/logo-default.png'
 
 import Img from '@/components/atom/image'
-import { StyleSheet } from 'react-native'
 
 import { Card } from './styles'
 

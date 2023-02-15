@@ -1,11 +1,16 @@
-import { removeCharacterSpecialAndJoin } from '@/helpers/strings-normalize'
-import api from '@/services'
-import { ICulturalProfile } from '@/types/setters'
-import promiseErrorHandler from '@/utils/error-handler'
-import { For } from '@/utils/tsx-controls'
 import React from 'react'
 import ReactInfiniteScroll from 'react-infinite-scroll-component'
+
+import { removeCharacterSpecialAndJoin } from '@/helpers/strings-normalize'
+import { ICulturalProfile } from '@/types/setters'
+
+import api from '@/services'
+
 import CarouselSwipperProfiles from '../carousel-swipper-profiles'
+
+import promiseErrorHandler from '@/utils/error-handler'
+import { For } from '@/utils/tsx-controls'
+
 
 type SegmentsProps = {
   segments: string[]

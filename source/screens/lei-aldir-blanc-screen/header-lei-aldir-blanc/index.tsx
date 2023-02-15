@@ -1,14 +1,14 @@
 import React from 'react'
-
-import BreadCrumb from '@/components/organism/breadcrumb'
+import ReactTooltip from 'react-tooltip'
 
 import LogoLeiAldirBlank from '@/public/images/lei-aldir-blanc-logo.png'
 import ThumbnailLeiAldirBlank from '@/public/images/lei-aldir-blanc.jpg'
+import { QRCodeSVG } from 'qrcode.react'
 
 import CardProfile from '@/components/molecule/card-profile'
 import DownloadQRCode from '@/components/molecule/download-qrcode'
-import { QRCodeSVG } from 'qrcode.react'
-import ReactTooltip from 'react-tooltip'
+import BreadCrumb from '@/components/organism/breadcrumb'
+
 
 const HeaderLeiAldirBlank = () => {
     const name = 'Lei Aldir Blank'

@@ -1,13 +1,15 @@
 // @generated: @expo/next-adapter@2.1.52
 import React from 'react'
+
 import {
   FindAllPlaylistAndItemsUseCase,
   FindAllTvProgramsUseCase,
   FindAllPlaylistUseCase
 } from "@/domain/usecases"
-import ProgramsTVScreen from "@/screens/programs-tv-screen";
 import { build } from "mapacultural-database";
 import type { GetStaticProps } from "next";
+
+import ProgramsTVScreen from "@/screens/programs-tv-screen";
 
 const ProgramsTV = ({ staticNewestVideos, staticPlaylist }) => {
   return <ProgramsTVScreen newestItems={staticNewestVideos} playlist={staticPlaylist} />

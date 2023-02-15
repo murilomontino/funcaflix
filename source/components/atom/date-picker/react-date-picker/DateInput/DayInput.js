@@ -7,15 +7,14 @@ exports["default"] = DayInput;
 
 var _react = _interopRequireDefault(require("react"));
 
-var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _dateUtils = require("@wojtekmaj/date-utils");
+var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _Input = _interopRequireDefault(require("./Input"));
 
 var _propTypes2 = require("../shared/propTypes");
-
 var _utils = require("../shared/utils");
+var _Input = _interopRequireDefault(require("./Input"));
 
 var _excluded = ["maxDate", "minDate", "month", "year"];
 

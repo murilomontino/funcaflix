@@ -1,6 +1,7 @@
+import { describe, it, expect, beforeAll } from 'vitest'
+
 import { TypeDoc } from '@/types/ports'
 import { build } from 'mapacultural-database'
-import { describe, it, expect, beforeAll } from 'vitest'
 
 import { PathExistsUseCase } from './paths-exists-use-case'
 

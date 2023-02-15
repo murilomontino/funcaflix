@@ -1,10 +1,11 @@
 import { GetterBook } from '@/domain/entities';
-import { BookRepository } from './book.interface'
-import { PromiseEither, left, right } from '@/shared/either';
-
-import { QUERY_ALL_BOOKS } from './queries'
-import { database } from 'mapacultural-database';
 import promiseErrorHandler from '@/helpers/error-handler';
+import { PromiseEither, left, right } from '@/shared/either';
+import { database } from 'mapacultural-database';
+
+import { BookRepository } from './book.interface'
+import { QUERY_ALL_BOOKS } from './queries'
+
 
 export class BookRepositorySequelize implements BookRepository {
     findAll(): PromiseEither<GetterBook[], Error> {

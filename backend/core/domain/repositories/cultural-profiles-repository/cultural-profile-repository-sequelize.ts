@@ -6,16 +6,14 @@ import { IGetterCulturalProfile } from '@/types/getters'
 import { ICulturalProfile } from '@/types/setters'
 import { database } from 'mapacultural-database'
 
-import segmentos from '../../constants/segmentos.json'
 import localidades from '../../constants/localidades.json'
-
+import segmentos from '../../constants/segmentos.json'
 import {
   CulturalProfileByCity,
   CulturalProfileBySegment,
   CulturalProfileRepository,
   CityOrSegmentNameResponse
 } from './cultural-profile.interface'
-
 import {
   QUERY_CULTURAL_PROFILE,
   QUERY_CULTURAL_PROFILE_BY_CITY,

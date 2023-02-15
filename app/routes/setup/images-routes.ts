@@ -1,13 +1,11 @@
-import { TypeDoc } from '@/types/ports'
 import { Router } from 'express'
-
-import { PathExistsUseCase } from '@/domain/usecases'
-import { adaptFileRoute } from '../../adapters'
-import { makeStreamOutImageComposer, makeImageOutGenericComposer } from '../../composers/images-composers'
 import { existsSync } from 'fs'
+import path from 'path'
 import QRLogo from 'qrcode';
 
-import path from 'path'
+import { adaptFileRoute } from '../../adapters'
+import { makeStreamOutImageComposer, makeImageOutGenericComposer } from '../../composers/images-composers'
+
 
 const Images = Router()
 

@@ -8,7 +8,6 @@ exports["default"] = NativeInput;
 var _react = _interopRequireDefault(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
-
 var _dateUtils = require("@wojtekmaj/date-utils");
 
 var _propTypes2 = require("../shared/propTypes");

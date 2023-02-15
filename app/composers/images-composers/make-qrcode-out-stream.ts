@@ -1,4 +1,4 @@
-import { ControllerStreamOutFile, Controller } from '@/adapters/controller'
+import { Controller } from '@/adapters/controller'
 import { ControllerGeneric } from '@/adapters/controller/helpers'
 
 import {

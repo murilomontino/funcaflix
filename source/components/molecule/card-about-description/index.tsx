@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react'
 
 import styled from 'styled-components'
+
 import colors from '@/global/colors'
 
 const Text = styled.p`

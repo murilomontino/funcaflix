@@ -1,3 +1,4 @@
+import { CulturalProfileRepositorySequelize } from '@/domain/repositories'
 import { adaptRoute } from 'app/adapters'
 import {
   makeGetAudioVisualByIDProfileComposer,
@@ -12,7 +13,6 @@ import {
 } from 'app/composers/profiles-composers'
 import { Router } from 'express'
 
-import { CulturalProfileRepositorySequelize } from '@/domain/repositories'
 
 
 const Profiles = Router()

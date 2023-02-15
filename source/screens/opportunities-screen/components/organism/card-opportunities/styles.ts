@@ -1,5 +1,6 @@
-import colors from '@/global/colors'
 import styled from 'styled-components/native'
+
+import colors from '@/global/colors'
 
 export const ContainerInformation = styled.View`
   align-items: flex-start;

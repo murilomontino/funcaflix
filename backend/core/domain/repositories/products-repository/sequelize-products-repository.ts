@@ -5,6 +5,7 @@ import { PromiseEither, left, right } from '@/shared/either'
 import { CATEGORIES } from '@/types/constants'
 import { IGetterProduct } from '@/types/getters'
 import { db } from 'mapacultural-database'
+
 import { IProductsRepository, categories } from './products-repository.interface'
 
 function generateProduct(product: any): IGetterProduct {
@@ -16,7 +17,7 @@ function generateProduct(product: any): IGetterProduct {
         thumbnail,
         category,
         link,
-        createdAt,
+        createdAt: createdAt.toISOString(),
         idUser,
     } as IGetterProduct
 }
