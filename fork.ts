@@ -2,7 +2,7 @@ import cluster from 'cluster';
 import os from 'os';
 
 const runPrimaryProcess = () => {
-    const cpus = os.cpus().length * 2;
+    const cpus = os.cpus().length;
 
     console.log(`Primary ${process.pid} is running`);
     console.log(`Forking Server with ${cpus} processes\n`);

@@ -12,12 +12,11 @@ const withPlugins = require('next-compose-plugins')
 const withFonts = require('next-fonts')
 const withImages = require('next-images')
 const withTM = require('next-transpile-modules')([
+  'react-native-reanimated',
   'moti',
   '@motify/core',
   '@motify/components'
 ])
-
-
 
 /**
  * @type {import('next').NextConfig}
@@ -46,10 +45,13 @@ const nextConfig = ((phase) => {
         'loremflickr.com'
       ]
     },
-    httpAgentOptions: new (require('https').Agent)({
-      rejectUnauthorized: false
-    }),
-
+    experimental: {
+      forceSwcTransforms: true,
+      outputFileTracingRoot: '.next',
+    },
+    amp: {
+      canonicalBase: 'https://mapacultural.funcap.se.gov.br/',
+    },
     dynamicAssetPrefix: true,
     generateBuildId: async () => {
       if (process.env.BUILD_ID) {
@@ -58,28 +60,14 @@ const nextConfig = ((phase) => {
         return `${new Date().getTime()}`
       }
     },
+    assetPrefix: isProduction ? process.env.URL : '',
     distDir: '.next',
-    webpack5: true,
-    // experimental: {
-    //  forceSwcTransforms: true,
-    // },
-    webpack: (
-      config,
-      { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack, dir }
-    ) => {
-
-      return {
-        ...config
-      }
-    },
-    // webpack configurado pra moti e react-reanimated v2
     env: {
       ELECTION_PERIOD: process.env.ELECTION_PERIOD,
       API_KEY: process.env.API_KEY,
       _currentURL,
       URL: process.env.URL,
     },
-
   }
 })(process.env.NODE_ENV)
 
