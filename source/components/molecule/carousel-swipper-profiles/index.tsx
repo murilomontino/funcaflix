@@ -2,17 +2,17 @@ import React, { useEffect } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import Skeleton from 'react-loading-skeleton'
 
+import { removeCharacterSpecialAndJoin } from '@/helpers/strings-normalize'
 import theme from '@/theme'
+import { ICulturalProfile } from '@/types/setters'
 import SwipperCore, { EffectFade, Navigation, Pagination, Thumbs } from 'swiper'
 import { Swiper as Swipper, SwiperSlide as SwipperSlide } from 'swiper/react'
 
+import CardArtists from '@/components/molecule/card-artists'
 import TitleCarousel from '@/components/molecule/title-carousel'
 
-import { ICulturalProfile } from '@/types/setters'
 import { Choose, For, When } from '@/utils/tsx-controls'
 
-import CardArtists from '@/components/molecule/card-artists'
-import { removeCharacterSpecialAndJoin } from '@/helpers/strings-normalize'
 
 type CarouselSwipperProfilesProps = {
   title: string

@@ -1,16 +1,16 @@
 import React from 'react'
 
+import { normalize } from '@/helpers/strings-normalize'
 import PersonDefault from '@/public/person-default.png'
 import { IGetterCulturalProfile } from '@/types/getters'
+import Link from 'next/link'
 import { QRCodeSVG } from 'qrcode.react'
 
 import Img from '@/components/atom/image'
 
-import Link from 'next/link'
 import SocialMedia from '../social-media'
 import styles from './styles.module.scss'
 
-import { normalize } from '@/helpers/strings-normalize'
 
 type Props = {
   item: IGetterCulturalProfile

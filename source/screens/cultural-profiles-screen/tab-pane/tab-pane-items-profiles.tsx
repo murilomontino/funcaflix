@@ -1,12 +1,17 @@
+import React from 'react'
+import ReactInfiniteScroll from 'react-infinite-scroll-component'
+
 import promiseErrorHandler from '@/helpers/error-handler'
 import { removeCharacterSpecialAndJoin } from '@/helpers/strings-normalize'
-import api from '@/services'
 import { ICulturalProfile } from '@/types/setters'
-import { For } from '@/utils/tsx-controls'
-import React from 'react'
+
+import api from '@/services'
+
 import CarouselSwipperProfiles from '../carousel-swipper-profiles'
 
-import ReactInfiniteScroll from 'react-infinite-scroll-component'
+import { For } from '@/utils/tsx-controls'
+
+
 
 type CitiesProps = {
   items: string[]

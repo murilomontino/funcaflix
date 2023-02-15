@@ -1,8 +1,10 @@
 import { describe, it, expect } from 'vitest'
-import { FindByIdProfileUseCase } from './find-cultural-profiles-use-case'
-import { CulturalProfileRepository } from '../../repositories/cultural-profiles-repository/cultural-profile.interface'
+
 import { left, PromiseEither } from '@/shared/either'
 import { IGetterCulturalProfile } from '@/types/getters'
+
+import { CulturalProfileRepository } from '../../repositories/cultural-profiles-repository/cultural-profile.interface'
+import { FindByIdProfileUseCase } from './find-cultural-profiles-use-case'
 
 class CulturalProfileRepositoryStub {
   async findById(id: number): PromiseEither<IGetterCulturalProfile, Error> {

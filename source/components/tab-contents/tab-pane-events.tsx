@@ -1,5 +1,4 @@
 import React from 'react';
-
 import ReactTooltip from 'react-tooltip';
 
 import styles from './tab-pane-overview.module.scss';
@@ -69,7 +68,7 @@ type EventProps = {
 }
 
 const TabPaneEvents = (props: EventProps) => {
-    console.log('TabPaneEvents', props)
+    // console.log('TabPaneEvents', props)
     // if (DEVELOPMENT) return null
 
     return (

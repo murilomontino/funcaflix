@@ -1,8 +1,10 @@
 // @generated: @expo/next-adapter@2.1.52
-import fetchUsernameProfile from '@/api/fetch-username';
-import ScreenProfile from '@/screens/profile-screen';
-import { useRouter } from 'next/router';
 import React from 'react';
+
+import fetchUsernameProfile from '@/api/fetch-username';
+import { useRouter } from 'next/router';
+
+import ScreenProfile from '@/screens/profile-screen';
 
 const ErrorComponent = () => (
   <div

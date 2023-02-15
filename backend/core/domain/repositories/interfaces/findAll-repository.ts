@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 
+import { Either } from '@/shared/either'
 import { Transaction } from 'sequelize/types'
 
-import { Either } from '@/shared/either'
 
 /*
 	Interface Partial<Record<keyof Omit<T, 'id' | 'produtoId'>, boolean>>

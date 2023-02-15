@@ -1,20 +1,22 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
+
+import type { IGetterBooks } from '@/types/getters'
 
 import PdfViewer from '@/components/organism/pdf-viewer'
 
 import InfoBook from './organism/info-book'
 import { Container } from './styles'
-import type { IGetterBooks } from '@/types/getters'
 
 type Props = {
   book: IGetterBooks
 }
 
 const ScreenBookID = ({ book }: Props) => {
-  if (!book) return null
 
   const [pdf, setPDF] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
+
+  if (!book) return null
 
   useEffect(() => {
     if (book.pdf) {
@@ -22,6 +24,7 @@ const ScreenBookID = ({ book }: Props) => {
       setIsLoading(false)
     }
   }, [])
+
 
   if (isLoading) {
     return <div>Loading...</div>

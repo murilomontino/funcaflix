@@ -1,13 +1,16 @@
-import { GetterProjects } from '@/domain/entities'
 import React from 'react'
 
+import { GetterProjects } from '@/domain/entities'
+import { IGetterCulturalProfile } from '@/types/getters'
+
+import Advertisement from '@/components/molecule/advertisement'
+import CarouselSwipperProfiles from '@/components/molecule/carousel-swipper-profiles'
 import SlideSwipper from '@/components/organism/slide-swipper'
 
 import CardCarousel from './components/organisms/card-carousel'
 
-import Advertisement from '@/components/molecule/advertisement'
-import CarouselSwipperProfiles from '@/components/molecule/carousel-swipper-profiles'
-import { IGetterCulturalProfile } from '@/types/getters'
+
+
 import { If } from '@/utils/tsx-controls'
 
 

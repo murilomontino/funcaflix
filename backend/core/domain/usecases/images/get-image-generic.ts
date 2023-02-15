@@ -1,11 +1,11 @@
 import { left, PromiseEither, right } from '@/shared/either'
 import assert from 'assert'
 import { existsSync, ReadStream } from 'fs'
+import path from 'path'
 
 import { NotFoundProductError } from '../errors'
 import { UseCase } from '../ports/use-case'
 import { CreateReadStream } from '../utils/create-read-stream/create-read-stream'
-import path from 'path'
 
 export class GetImageGenericUseCase implements UseCase<Params, Stream> {
     folders = [

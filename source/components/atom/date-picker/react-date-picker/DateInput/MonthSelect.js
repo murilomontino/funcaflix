@@ -8,15 +8,11 @@ exports["default"] = MonthSelect;
 var _react = _interopRequireDefault(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
-
 var _mergeClassNames = _interopRequireDefault(require("merge-class-names"));
-
 var _dateUtils = require("@wojtekmaj/date-utils");
 
 var _dateFormatter = require("../shared/dateFormatter");
-
 var _propTypes2 = require("../shared/propTypes");
-
 var _utils = require("../shared/utils");
 
 var _excluded = ["ariaLabel", "className", "inputRef", "locale", "maxDate", "minDate", "placeholder", "short", "value", "year"];

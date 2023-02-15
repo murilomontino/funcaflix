@@ -1,15 +1,12 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 
-import Link from 'next/link'
 
+import ButtonGroupSocialMedia from './button-group-social-media'
 import styles from './styles.module.scss'
 
 import colors from '@/global/colors'
-
-import { If } from '@/utils/tsx-controls'
-import ButtonSocialMedia from './button-social-media'
 import useSocialMediaValid from '@/hooks/use-social-media-valid'
-import ButtonGroupSocialMedia from './button-group-social-media'
+
 
 type Props = {
   youtube?: string

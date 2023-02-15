@@ -1,3 +1,5 @@
+
+
 import { IProductsRepository } from '@/domain/repositories/products-repository/products-repository.interface'
 import { isValid } from '@/helpers'
 import { left, PromiseEither, right } from '@/shared/either'
@@ -8,30 +10,33 @@ import { MissingParamError } from '../errors'
 import { UseCase } from '../ports/use-case'
 
 type Params = {
-  idUser?: number
+  financialResource?: number
 }
 
-export class FindAllProductsByCategoryAndUser implements UseCase<unknown, IGetterProduct[]> {
+export class FindAllProductsByFinancialResource implements UseCase<unknown, IGetterProduct[]> {
 
   constructor(
-    private readonly _category: CATEGORIES,
     private readonly repository: IProductsRepository,
+    private category?: CATEGORIES
   ) { }
 
-  get category(): CATEGORIES {
-    return this._category
+  defineCategory(category: CATEGORIES) {
+    this.category = category
+    return this
   }
 
   async execute(_, params: Params): PromiseEither<IGetterProduct[], Error> {
-    const { idUser } = params
+    const { financialResource } = params
 
-    if (!isValid(idUser)) {
-      return right(new MissingParamError({ parameter: 'idUser' }))
+    if (!isValid(financialResource)) {
+      return right(new MissingParamError({ parameter: 'financialResource' }))
     }
 
-    const productsOrErr = await this.repository.findAllProductsByUserAndCategory(
-      idUser, this.category
-    )
+    if (!isValid(this.category)) {
+      return right(new MissingParamError({ parameter: 'category' }))
+    }
+
+    const productsOrErr = await this.repository.findAllByFinancialResourceAndCategory(financialResource, this.category)
 
     if (productsOrErr.isRight()) {
       return right(productsOrErr.value)

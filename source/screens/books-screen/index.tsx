@@ -3,6 +3,7 @@ import ReactInfiniteScroll from 'react-infinite-scroll-component'
 import { ActivityIndicator, StyleSheet, View } from 'react-native'
 
 import image from '@/public/images/literatura.jpg'
+import type { IGetterBooks } from '@/types/getters'
 
 import BreadCrumb from '@/components/organism/breadcrumb'
 
@@ -11,7 +12,6 @@ import CardBooks from './components/organism/card-book'
 import colors from '@/global/colors'
 import constants from '@/global/constants'
 import { useResources } from '@/hooks/utils/use-resources'
-import type { IGetterBooks } from '@/types/getters'
 
 type Props = {
   books: IGetterBooks[]

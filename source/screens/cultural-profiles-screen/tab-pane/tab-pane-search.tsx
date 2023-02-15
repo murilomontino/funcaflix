@@ -1,15 +1,18 @@
+
+import React, { useEffect, useDeferredValue } from 'react'
+import ReactInfiniteScroll from 'react-infinite-scroll-component'
+import { Col } from 'reactstrap'
+
 import promiseErrorHandler from '@/helpers/error-handler'
+import { IGetterCulturalProfile } from '@/types/getters'
+import { ICulturalProfile } from '@/types/setters'
+
+import CardArtists from '@/components/molecule/card-artists'
+import InputTopic from '@/components/molecule/input-topic'
 
 import api from '@/services'
-import { ICulturalProfile } from '@/types/setters'
-import { Choose, For, When } from '@/utils/tsx-controls'
-import React, { useEffect, useDeferredValue } from 'react'
 
-import ReactInfiniteScroll from 'react-infinite-scroll-component'
-import InputTopic from '@/components/molecule/input-topic'
-import { Col } from 'reactstrap'
-import CardArtists from '@/components/molecule/card-artists'
-import { IGetterCulturalProfile } from '@/types/getters'
+import { Choose, For, When } from '@/utils/tsx-controls'
 
 
 

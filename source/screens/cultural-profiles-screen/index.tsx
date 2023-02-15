@@ -1,16 +1,5 @@
 import React, { useState } from 'react'
 import { StyleSheet } from 'react-native'
-
-import image from '@/public/images/banner-perfis-culturais-2.jpg'
-
-import BreadCrumb from '@/components/organism/breadcrumb'
-
-import constants from '@/global/constants'
-import { useResources } from '@/hooks/utils/use-resources'
-
-import NavigationProfile from '@/components/molecule/navigation-profile'
-
-import Loading from '@/components/atom/loading'
 import {
   Col,
   Container,
@@ -20,7 +9,20 @@ import {
 } from 'reactstrap'
 
 import TabPaneItemsProfile from './tab-pane/tab-pane-items-profiles'
+
+import image from '@/public/images/banner-perfis-culturais-2.jpg'
+
+import Loading from '@/components/atom/loading'
+import NavigationProfile from '@/components/molecule/navigation-profile'
+import BreadCrumb from '@/components/organism/breadcrumb'
+
 import TabPaneSearchProfiles from './tab-pane/tab-pane-search'
+
+import constants from '@/global/constants'
+import { useResources } from '@/hooks/utils/use-resources'
+
+
+
 
 type Props = {
   segments: string[]

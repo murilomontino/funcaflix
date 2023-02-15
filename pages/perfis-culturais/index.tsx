@@ -1,8 +1,9 @@
 import React from 'react'
 
+import fetchListCitiesOrSegments from '@/api/fetch-list-cities-or-segments'
+
 import CulturalProfilesScreen from '@/screens/cultural-profiles-screen'
 
-import fetchListCitiesOrSegments from '@/api/fetch-list-cities-or-segments'
 
 const CulturalProfiles = () => {
 

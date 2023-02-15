@@ -8,12 +8,8 @@
 		}
 	},
 	"extends": [
-		"eslint:recommended",
-		"plugin:react/recommended",
-		"plugin:@typescript-eslint/recommended",
-		"prettier"
+		"next/core-web-vitals",
 	],
-	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
 		"ecmaFeatures": {
 			"jsx": true
@@ -22,9 +18,6 @@
 		"sourceType": "module"
 	},
 	"plugins": [
-		"react",
-		"@typescript-eslint",
-		"plugin:prettier/recommended",
 		"eslint-plugin-import-helpers",
 		"unused-imports"
 	],
@@ -34,22 +27,10 @@
 			"unix"
 		],
 		"react/prop-types": 0,
-		"prettier/prettier": [
-			"error",
-			{
-				"singleQuote": true,
-				"printWidth": 100,
-				"tabWidth": 2,
-				"useTabs": false,
-				"semi": false,
-				"trailingComma": "es5",
-				"space-before-function-paren": [
-					"error",
-					"always"
-				]
-			}
-		],
 		"@typescript-eslint/no-extra-semi": [
+			"off"
+		],
+		"@typescript-eslint/ban-types": [
 			"off"
 		],
 		"no-console": "error",
@@ -64,6 +45,7 @@
 						"/^react/",
 						"/^react-native/"
 					],
+					"/^vitest/",
 					"/^@react/",
 					"/^expo/",
 					"/^redux/",
@@ -98,11 +80,14 @@
 		"unused-imports/no-unused-imports": "error"
 	},
 	"ignorePatterns": [
+		"coverage",
+		".docker",
 		"metro.config.js",
 		"babel.config.js",
 		"node_modules",
 		"jest.config.js",
 		"next.config.js",
-		"src/components/atom/react-date-picker/**/*"
+		"source/components/atom/react-date-picker/**/*",
+		"styles/**/*"
 	]
 }

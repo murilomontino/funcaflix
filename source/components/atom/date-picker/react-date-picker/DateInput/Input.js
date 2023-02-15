@@ -9,12 +9,10 @@ exports["default"] = Input;
 
 var _react = _interopRequireDefault(require("react"));
 
-var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _mergeClassNames = _interopRequireDefault(require("merge-class-names"));
-
 var _mergeRefs = _interopRequireDefault(require("merge-refs"));
-
+var _propTypes = _interopRequireDefault(require("prop-types"));
 var _updateInputWidth = _interopRequireWildcard(require("update-input-width"));
 
 var _propTypes2 = require("../shared/propTypes");

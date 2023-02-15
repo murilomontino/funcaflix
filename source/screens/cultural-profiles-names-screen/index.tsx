@@ -1,26 +1,23 @@
 import React, { useCallback, useDeferredValue, useEffect, useState } from 'react'
-
-import image from '@/public/images/banner-perfis-culturais-2.jpg'
-
-import BreadCrumb from '@/components/organism/breadcrumb'
-
-import colors from '@/global/colors'
-import constants from '@/global/constants'
-import { useResources } from '@/hooks/utils/use-resources'
-
 import ReactInfiniteScroll from 'react-infinite-scroll-component'
-import { IGetterCulturalProfile } from '@/types/getters'
-import { For } from '@/utils/tsx-controls'
-
 import {
   Col,
-  Container,
-  Row,
 } from 'reactstrap'
 
-import CardArtists from '@/components/molecule/card-artists'
+import image from '@/public/images/banner-perfis-culturais-2.jpg'
+import { IGetterCulturalProfile } from '@/types/getters'
+
 import Loading from '@/components/atom/loading'
+import CardArtists from '@/components/molecule/card-artists'
 import InputTopic from '@/components/molecule/input-topic'
+import BreadCrumb from '@/components/organism/breadcrumb'
+
+import { useResources } from '@/hooks/utils/use-resources'
+
+
+import { For } from '@/utils/tsx-controls'
+
+
 
 type Props = {
   profiles: IGetterCulturalProfile[]

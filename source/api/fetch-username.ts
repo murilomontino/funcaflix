@@ -1,7 +1,9 @@
-import promiseErrorHandler from "@/helpers/error-handler";
-import api from "@/services";
-import { ICulturalProfile } from "@/types/setters";
 import { useQuery } from 'react-query';
+
+import promiseErrorHandler from "@/helpers/error-handler";
+import { ICulturalProfile } from "@/types/setters";
+
+import api from "@/services";
 
 const DAY = 60 * 60 * 24
 

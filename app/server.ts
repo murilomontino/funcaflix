@@ -20,6 +20,9 @@ import ServerIO from './socket-io'
  * object.
  */
 const httpServer = (express: Express): ServerHTTP => {
+  console.log(
+    `Server running in HTTP --- ${process.env.NODE_ENV} --- on port ${process.env.EXPRESS_PORT}`
+  )
   return CreateServerHTTP(express)
 }
 
@@ -34,6 +37,9 @@ const httpsServer = (express: Express): ServerHTTPS => {
     key: fs.readFileSync(path + 'localhost.key'),
     cert: fs.readFileSync(path + 'localhost.crt'),
   }
+  console.log(
+    `Server running in HTTPS --- ${process.env.NODE_ENV} --- on port ${process.env.EXPRESS_PORT}`
+  )
   return CreateServerHTTPS(options, express)
 }
 
