@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 
-import { ControllerGeneric } from '../../backend/core/adapters/controller/helpers'
-import { HttpRequest } from '../../backend/core/adapters/controller/ports/http'
+import { ControllerGeneric } from '../../core/adapters/controller/helpers'
+import { HttpRequest } from '../../core/adapters/controller/ports/http'
 
 // Adaptador de rotas do Express para o Controller Generic utilizado pela arquitetura do projeto (Clean Architecture)
 export const adaptRoute = (controller: ControllerGeneric) => {

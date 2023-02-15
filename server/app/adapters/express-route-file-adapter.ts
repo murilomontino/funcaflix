@@ -2,8 +2,8 @@
 
 import { Request, Response } from 'express'
 
-import { ControllerFileGeneric } from '../../backend/core/adapters/controller/helpers'
-import { HttpRequest } from '../../backend/core/adapters/controller/ports/http'
+import { ControllerFileGeneric } from '../../core/adapters/controller/helpers'
+import { HttpRequest } from '../../core/adapters/controller/ports/http'
 
 // Este adaptador é utilizado para stream de arquivos (files)
 export const adaptFileRoute = (controller: ControllerFileGeneric) => {

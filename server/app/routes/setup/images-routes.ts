@@ -1,10 +1,10 @@
-import { Router } from 'express'
-import { existsSync } from 'fs'
-import path from 'path'
+import { Router } from 'express';
+import { existsSync } from 'fs';
+import path from 'path';
 import QRLogo from 'qrcode';
 
-import { adaptFileRoute } from '../../adapters'
-import { makeStreamOutImageComposer, makeImageOutGenericComposer } from '../../composers/images-composers'
+import { adaptFileRoute } from '@/adapters';
+import { makeImageOutGenericComposer, makeStreamOutImageComposer } from '@/composers/images-composers';
 
 
 const Images = Router()

@@ -3,12 +3,12 @@ import { ControllerFileGeneric } from '@/adapters/controller/helpers'
 
 import {
   CreateReadStreamUseCase,
-  GetImageGenericUseCase,
-} from '../../../backend/core/domain/usecases'
+  LoadImageStreamUseCase,
+} from '../../../core/domain/usecases'
 
-export const makeImageOutGenericComposer = (): ControllerFileGeneric => {
+export const makeStreamOutImageComposer = (): ControllerFileGeneric => {
   const StreamUseCase = new CreateReadStreamUseCase()
-  const UseCase = new GetImageGenericUseCase(StreamUseCase)
+  const UseCase = new LoadImageStreamUseCase(StreamUseCase)
   const Controller = new ControllerStreamOutFile(UseCase)
   return Controller
 }

@@ -4,7 +4,7 @@
 import { config } from 'dotenv'
 import { database } from 'mapacultural-database'
 
-import Server from './app/server'
+import Server from './server/app'
 
 
 config()

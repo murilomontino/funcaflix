@@ -3,7 +3,7 @@ import { ControllerGeneric } from '@/adapters/controller/helpers'
 
 import {
     QRCodeImageUseCase,
-} from '../../../backend/core/domain/usecases/'
+} from '../../../core/domain/usecases'
 
 export const makeStreamOutQrCodeComposer = (): ControllerGeneric => {
     return new Controller(

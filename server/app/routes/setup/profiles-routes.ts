@@ -1,5 +1,4 @@
-import { CulturalProfileRepositorySequelize } from '@/domain/repositories'
-import { adaptRoute } from 'app/adapters'
+import { adaptRoute } from '@/adapters'
 import {
   makeGetAudioVisualByIDProfileComposer,
   makeGetEventsByIDProfileComposer,
@@ -10,7 +9,8 @@ import {
   makeGetProfileBySegmentComposer,
   makeGetProfileComposer,
   makeGetWorkshopsByIDProfileComposer
-} from 'app/composers/profiles-composers'
+} from '@/composers/profiles-composers'
+import { CulturalProfileRepositorySequelize } from '@/domain/repositories'
 import { Router } from 'express'
 
 
