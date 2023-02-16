@@ -3,23 +3,15 @@ import { convertInArray, existItemsInArray, isValid, verifiesCategories } from '
 import promiseErrorHandler from '@/helpers/error-handler'
 import { PromiseEither, left, right } from '@/shared/either'
 import { CATEGORIES } from '@/types/constants'
-import { IGetterProduct } from '@/types/getters'
 import { db } from 'mapacultural-database'
 
+import { GetterProduct } from '@/domain/entities'
+import { IGetterProduct } from '@/types/getters'
 import { IProductsRepository, categories } from './products-repository.interface'
 
 function generateProduct(product: any): IGetterProduct {
-    const { id, title, about, thumbnail, category, link, createdAt, idUser } = product.get({ plain: true })
-    return {
-        id,
-        title,
-        about,
-        thumbnail,
-        category,
-        link,
-        createdAt: createdAt.toISOString(),
-        idUser,
-    } as IGetterProduct
+    const productModel = product.get({ plain: true })
+    return GetterProduct.build(productModel).params()
 }
 
 async function genericDBModelFindAll(
