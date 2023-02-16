@@ -1,11 +1,11 @@
 import React from 'react'
 
-type MemoItemsProps = {
-    items: any[]
-    mapFunction: (item: any) => any
+type MemoItemsProps<T, G> = {
+    items: T[]
+    mapFunction: (item: T) => G
 }
 
-const useMapMemoItems = ({ items, mapFunction }: MemoItemsProps) => {
+function useMapMemoItems<T, G>({ items, mapFunction }: MemoItemsProps<T, G>) {
     return React.useMemo(() => items.map(mapFunction), [items])
 }
 

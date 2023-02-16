@@ -1,16 +1,8 @@
 import { GetterProjects } from "@/domain/entities";
 import { IGetterProduct } from "@/types/getters";
 
-type OmitElements =
-    | 'cpf_cnpj'
-    | 'idUser'
-    | 'idUserRegistered'
-    | 'subCategory'
-    | 'category'
-    | 'financialResource';
-
 export default function mapOpportunityForProduct(opportunity: GetterProjects):
-    Omit<IGetterProduct, OmitElements> {
+    IGetterProduct {
     return {
         id: opportunity.id as unknown as number,
         title: opportunity.nameProject,
@@ -19,5 +11,11 @@ export default function mapOpportunityForProduct(opportunity: GetterProjects):
         active: opportunity.status === 1,
         createdAt: opportunity.createdAt,
         link: opportunity.urlProject,
+        cpf_cnpj: null,
+        idUser: null,
+        idUserRegistered: null,
+        subCategory: null,
+        category: null,
+        financialResource: null,
     };
 }

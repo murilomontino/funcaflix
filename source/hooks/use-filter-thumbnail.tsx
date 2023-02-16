@@ -1,12 +1,15 @@
 import React from "react"
 
-type FilterThumbnailProps = {
-    items: any[]
-    condition?: (item: any) => boolean
+type GenericObject<T> = T & {
+    thumbnail: string
 }
 
-const useFilterThumbnail = ({ items, condition = () => true }: FilterThumbnailProps) => {
+type FilterThumbnailProps<T> = {
+    items: GenericObject<T>[]
+    condition?: (item: T) => boolean
+}
 
+function useFilterThumbnail<T>({ items, condition = () => true }: FilterThumbnailProps<T>) {
     const itemsMemo = React.useMemo(
         () => items.filter((item) => condition(item) && item?.thumbnail !== 'Não informado'),
         [items]
