@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import { Container, Col, Row } from 'react-bootstrap'
+import React, { useState } from 'react'
+import { Col, Container, Row } from 'react-bootstrap'
 import Skeleton from 'react-loading-skeleton'
 
 import theme from '@/theme'
-import SwipperCore, { EffectFade, Navigation, Thumbs, Pagination } from 'swiper'
+import SwipperCore, { EffectFade, Navigation, Pagination, Thumbs } from 'swiper'
 import { Swiper as Swipper, SwiperSlide as SwipperSlide } from 'swiper/react'
 
 import CardSwipper from '@/components/molecule/card-swipper'
 import TitleCarousel from '@/components/molecule/title-carousel'
 
+import { GetterProduct } from '@/domain/entities'
 import { Choose, For, When } from '@/utils/tsx-controls'
 
 type Props = {
@@ -24,13 +25,7 @@ type Props = {
   link?: string
   endpoint?: string
   allLink?: string
-  items: {
-    [key: string]: any
-    title: string
-    id: string
-    thumbnail: string
-    category: number
-  }[]
+  items: GetterProduct[]
 }
 
 const CarouselSwipper = ({
@@ -50,7 +45,7 @@ const CarouselSwipper = ({
 }: Props) => {
   const [isLoading, setIsLoading] = useState(true)
 
-  useEffect(() => {
+  React.useEffect(() => {
     SwipperCore.use([EffectFade, Navigation, Thumbs, Pagination])
 
     setIsLoading(false)

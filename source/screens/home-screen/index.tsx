@@ -1,7 +1,6 @@
-import React from 'react'
-
-import { GetterProjects } from '@/domain/entities'
+import { GetterProduct, GetterProjects } from '@/domain/entities'
 import { IGetterCulturalProfile } from '@/types/getters'
+import React from 'react'
 
 import Advertisement from '@/components/molecule/advertisement'
 import CarouselSwipperProfiles from '@/components/molecule/carousel-swipper-profiles'
@@ -11,23 +10,17 @@ import CardCarousel from './components/organisms/card-carousel'
 
 
 
+import useFilterThumbnail from '@/hooks/use-filter-thumbnail'
+import useMapMemoItems from '@/hooks/use-map-memo-items'
+import mapOpportunityForProduct from '@/utils/map-oportunity-for-product'
 import { If } from '@/utils/tsx-controls'
 
 
-type Product = {
-  [key: string]: any
-  category: number
-  title: string
-  id: string
-  thumbnail: string
-  description: string
-}
-
 type Props = {
-  books: Product[]
-  tvProgramsPlaylist: Product[]
-  audioVisualPlaylist: Product[]
-  newestProducts: Product[]
+  books: GetterProduct[]
+  tvProgramsPlaylist: GetterProduct[]
+  audioVisualPlaylist: GetterProduct[]
+  newestProducts: GetterProduct[]
   opportunities: GetterProjects[]
   profiles: IGetterCulturalProfile[]
 }
@@ -36,38 +29,14 @@ type Props = {
 
 function HomeScreen({ books, tvProgramsPlaylist, newestProducts, opportunities, profiles, audioVisualPlaylist }: Props) {
 
-  const opportunitiesCarousel: Product[] = React.useMemo(() => {
-    return opportunities.map((opportunity) => ({
-      id: opportunity.id as unknown as string,
-      title: opportunity.nameProject,
-      description: opportunity.aboutProject,
-      thumbnail: opportunity.thumbnail || 'logo',
-      category: 8,
-    }))
-  }, [opportunities])
-
-  const booksMemo = React.useMemo(
-    () => books.filter((item) => item?.category == 2 && item?.thumbnail !== 'Não informado'),
-    [books]
-  )
-
-  const playlistTvPrograms = React.useMemo(
-    () => tvProgramsPlaylist.filter((item) => item?.thumbnail !== 'Não informado'),
-    [tvProgramsPlaylist]
-  )
-
-  const newestProductsMemo = React.useMemo(
-    () => newestProducts.filter((item) => item?.thumbnail !== 'Não informado'),
-    [newestProducts]
-  )
-
-  const playlistAudioVisual = React.useMemo(
-    () => audioVisualPlaylist.filter((item) => item?.thumbnail !== 'Não informado'),
-    [audioVisualPlaylist]
-  )
+  const opportunitiesCarousel = useMapMemoItems({ items: opportunities, mapFunction: mapOpportunityForProduct })
+  const booksMemo = useFilterThumbnail({ items: books, condition: (item) => item?.category == 2 })
+  const playlistTvPrograms = useFilterThumbnail({ items: tvProgramsPlaylist })
+  const newestProductsMemo = useFilterThumbnail({ items: newestProducts })
+  const playlistAudioVisual = useFilterThumbnail({ items: audioVisualPlaylist })
 
   return (
-    <>
+    <React.Fragment>
       <If condition={newestProductsMemo?.length > 0}>
         <CardCarousel items={newestProductsMemo} />
       </If>
@@ -127,7 +96,7 @@ function HomeScreen({ books, tvProgramsPlaylist, newestProducts, opportunities, 
           />
         </If>
       </div>
-    </>
+    </React.Fragment>
   )
 }
 
