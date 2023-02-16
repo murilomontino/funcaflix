@@ -20,7 +20,7 @@ export default defineConfig({
     alias: {
       '@/database': path.resolve(__dirname, 'backend', 'database'),
       '@/types': path.resolve(__dirname, 'types'),
-      '@': path.resolve(__dirname, 'backend', 'core'),
+      '@': path.resolve(__dirname, 'server', 'core'),
     },
   },
 })
