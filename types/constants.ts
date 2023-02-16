@@ -6,8 +6,15 @@ export enum CATEGORIES {
     EXPOSITION = "5",
     WORKSHOP = "152",
     PARTICIPATION = "163",
+    OPPORTUNITY = 'NaN',
 }
 
 export enum FINANCIAL_RESOURCES {
     "lei-aldir-blanc" = 61,
+    "funcart" = 62,
+    "próprior" = 63,
+    "federal" = 64,
+    "estadual" = 65,
+    "municipal" = 66,
+    "outros" = 67,
 }
