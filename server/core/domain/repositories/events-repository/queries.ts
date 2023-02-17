@@ -1,35 +1,40 @@
 const QUERY_DEFAULT = `
 SELECT 
-    u.id, 
-    u.nome as name, 
-    u.tipo as type, 
-    s.segmento as segment, 
-    s.atuacao as acting,
-    s.informacoes as about, 
-    s.web_site as website, 
-    s.you_tube as youtube, 
-    s.twitter, 
-    s.facebook, 
-    s.instagram,
-    d.arquivo as thumbnail,
-    b.arquivo as banner,
-    s.hashtags as hashtags,
-    e.localidade as city,
-    e.uf,
-    c.email2 as email,
-    c.telefone_02 as phone
+    e.id,
+    e.id_produto as idProduct,
+    e.tipo_evento as typeEvent,
+    e.assunto as subject,
+    e.nome_local as local,
+    e.cep,
+    e.ed_rua as address,
+    e.numero as number,
+    e.complemento as complement,
+    e.bairro as neighborhood,
+    e.cidade as city,
+    e.estado as uf,
+  	e.data_inicio as dateStart,
+    e.data_fim as dateEnd,
+    e.hora_inicio as hourStart,
+    e.hora_fim as hourEnd,
+    e.data_cadastro as createdAt,
+    p.titulo as title,
+    p.sobre as about,
+    p.imagem_divulgacao as thumbnail,
+    p.categoria as category,
+    p.subcategoria as subCategory,
+    p.link,
+    p.cpf_cnpj,
+    p.id_usuario as idUser,
+    p.id_usuario_cadastrou as idUserRegistered,
+    p.ativo as active,
+    p.data_cadastro as createdAt,
+    p.data_atualizacao as updatedAt,
+    p.existe_sub_prod as existSubProd,
+    p.id_sub_produto as idSubProd
   FROM 
-    usuario as u 
+    evento as e
     JOIN 
-      sobre as s ON(u.id=s.id_usuario)
-    JOIN
-   	  documentacao as d ON(u.id=d.id_usuario AND d.tipo=10)
-    JOIN
-      documentacao as b ON(u.id=b.id_usuario AND b.tipo=11)
-    JOIN 
-      endereco as e ON(u.id=e.id_usuario)
-    JOIN 
-      contato as c ON(u.id=c.id_usuario)
+      produtos as p ON(e.id_produto=p.id)
 `
 export const QUERY_EVENTS = `
   ${QUERY_DEFAULT}
