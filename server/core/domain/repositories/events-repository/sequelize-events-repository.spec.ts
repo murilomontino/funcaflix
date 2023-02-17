@@ -1,18 +1,9 @@
+import { DatabaseMock } from '@/__mocks__'
 import { MissingParamError } from '@/domain/usecases/errors'
 import { IGetterEvent } from '@/types/getters'
 import { database } from 'mapacultural-database'
 import { afterEach, describe, expect, expectTypeOf, it, vi } from 'vitest'
 import { SequelizeEventsRepository, generateEvent } from './sequelize-events-repository'
-
-class DatabaseMock {
-
-    transaction = async (callback: any) => {
-        return await callback()
-    }
-
-    query = vi.fn().mockResolvedValue([[], null])
-}
-
 
 const makeSut = async (db = database) => {
     const sut = new SequelizeEventsRepository(db)
@@ -23,7 +14,7 @@ const makeSut = async (db = database) => {
 }
 
 
-describe('Test Events Repository (Integrations)', () => {
+describe('Test Events Repository', () => {
 
     afterEach(() => {
         vi.clearAllMocks()
@@ -62,7 +53,7 @@ describe('Test Events Repository (Integrations)', () => {
     })
 
     it('should be able find all events (Mock Database) (Unitary)', async () => {
-        const database = new DatabaseMock() as any
+        const database = new DatabaseMock({}) as any
         const { sut } = await makeSut(database)
         const events = await sut.findAll()
 
@@ -75,7 +66,7 @@ describe('Test Events Repository (Integrations)', () => {
     })
 
     it('should be throw err find all events (Mock Database) (Unitary)', async () => {
-        const database = new DatabaseMock() as any
+        const database = new DatabaseMock({}) as any
         database.query = vi.fn().mockRejectedValue(new Error('Error Query Database'))
 
         const { sut } = await makeSut(database)
@@ -90,7 +81,7 @@ describe('Test Events Repository (Integrations)', () => {
     })
 
     it('should be able find all events by user id (Mock Database) (Unitary)', async () => {
-        const database = new DatabaseMock() as any
+        const database = new DatabaseMock({}) as any
         const { sut } = await makeSut(database)
         const events = await sut.findAllEventsByUserID(1)
 
@@ -103,7 +94,7 @@ describe('Test Events Repository (Integrations)', () => {
     })
 
     it('should be throw err find all events by user id (Mock Database) (Unitary)', async () => {
-        const database = new DatabaseMock() as any
+        const database = new DatabaseMock({}) as any
         database.query = vi.fn().mockRejectedValue(new Error('Error Query Database'))
 
         const { sut } = await makeSut(database)
@@ -118,7 +109,7 @@ describe('Test Events Repository (Integrations)', () => {
     })
 
     it('should be able find event by id (Mock Database) (Unitary)', async () => {
-        const database = new DatabaseMock() as any
+        const database = new DatabaseMock({}) as any
         const { sut } = await makeSut(database)
         const event = await sut.findEventByID(1)
 
@@ -130,8 +121,9 @@ describe('Test Events Repository (Integrations)', () => {
     })
 
     it('should be throw err find event by id (Mock Database) (Unitary)', async () => {
-        const database = new DatabaseMock() as any
-        database.query = vi.fn().mockRejectedValue(new Error('Error Query Database'))
+        const database = new DatabaseMock(
+            { query: vi.fn().mockRejectedValue(new Error('Error Query Database')) }
+        ) as any
 
         const { sut } = await makeSut(database)
         const event = await sut.findEventByID(1)

@@ -51,18 +51,18 @@ export const QUERY_EVENTS_BY_USER_ID = (id: number) => `
   WHERE p.id_usuario=${id};
 `
 
-export const QUERY_EVENTS_BY_LOCAL = (city: string) => `
-  ${QUERY_DEFAULT}
-  WHERE 
-    e.nome_local='${city}' AND p.active=1
-  ORDER BY RAND()
-  LIMIT 20;
-`
+// export const QUERY_EVENTS_BY_LOCAL = (city: string) => `
+//   ${QUERY_DEFAULT}
+//   WHERE 
+//     e.nome_local='${city}' AND p.active=1
+//   ORDER BY RAND()
+//   LIMIT 20;
+// `
 
-export const QUERY_EVENTS_SEARCH = (search: string) => `
-  ${QUERY_DEFAULT}
-  WHERE
-    e.nome LIKE '%${search}%' OR
-    e.assunto LIKE '%${search}%' OR
-    e.nome_local LIKE '%${search}%';
-`
+// export const QUERY_EVENTS_SEARCH = (search: string) => `
+//   ${QUERY_DEFAULT}
+//   WHERE
+//     e.nome LIKE '%${search}%' OR
+//     e.assunto LIKE '%${search}%' OR
+//     e.nome_local LIKE '%${search}%';
+// `
