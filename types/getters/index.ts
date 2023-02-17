@@ -1,13 +1,14 @@
 import {
-  IProduct,
   IBook,
-  IDatasheet,
-  IDocumentsProducts,
-  IPlaylist,
-  ITVPrograms,
-  IProjects,
-  IDocProjects,
   ICulturalProfile,
+  IDatasheet,
+  IDocProjects,
+  IDocumentsProducts,
+  IEvent,
+  IPlaylist,
+  IProduct,
+  IProjects,
+  ITVPrograms,
   IUser
 } from '../setters'
 export interface IGetterProduct extends IProduct {
@@ -49,4 +50,10 @@ export interface IGetterProjects extends IProjects {
 
 export type IGetterCulturalProfile = ICulturalProfile
 
-export type IGetterUser = IUser 
+export type IGetterUser = IUser
+
+export interface IGetterEvent extends IEvent, IProduct {
+  id: number
+  thumbnail: string
+  createdAt: string
+}

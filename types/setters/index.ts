@@ -174,3 +174,23 @@ export interface IUser {
   dateLogout: string;
   idAgency: number;
 }
+
+export interface IEvent {
+  id: number;
+  idProduct: number;
+  typeEvent: number;
+  subject: number;
+  local: string;
+  cep: string;
+  address: string;
+  number: string;
+  complement: string;
+  neighborhood: string;
+  city: string;
+  uf: string;
+  dateStart: string;
+  dateEnd: string;
+  hourStart: string;
+  hourEnd: string;
+  createdAt: string;
+}
