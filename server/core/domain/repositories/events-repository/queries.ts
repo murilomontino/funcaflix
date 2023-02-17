@@ -27,7 +27,6 @@ SELECT
     p.id_usuario as idUser,
     p.id_usuario_cadastrou as idUserRegistered,
     p.ativo as active,
-    p.data_cadastro as createdAt,
     p.data_atualizacao as updatedAt,
     p.existe_sub_prod as existSubProd,
     p.id_sub_produto as idSubProd
@@ -44,13 +43,18 @@ export const QUERY_EVENTS = `
 
 export const QUERY_EVENTS_BY_ID = (id: number) => `
   ${QUERY_DEFAULT}
-  WHERE u.id=${id};
+  WHERE e.id=${id};
 `
 
-export const QUERY_EVENTS_BY_CITY = (city: string) => `
+export const QUERY_EVENTS_BY_USER_ID = (id: number) => `
+  ${QUERY_DEFAULT}
+  WHERE p.id_usuario=${id};
+`
+
+export const QUERY_EVENTS_BY_LOCAL = (city: string) => `
   ${QUERY_DEFAULT}
   WHERE 
-    e.localidade='${city}' AND u.ativo=1
+    e.nome_local='${city}' AND p.active=1
   ORDER BY RAND()
   LIMIT 20;
 `
@@ -58,8 +62,7 @@ export const QUERY_EVENTS_BY_CITY = (city: string) => `
 export const QUERY_EVENTS_SEARCH = (search: string) => `
   ${QUERY_DEFAULT}
   WHERE
-    u.nome LIKE '%${search}%' OR
-    s.segmento LIKE '%${search}%' OR
-    s.atuacao LIKE '%${search}%' OR
-    e.localidade LIKE '%${search}%';
+    e.nome LIKE '%${search}%' OR
+    e.assunto LIKE '%${search}%' OR
+    e.nome_local LIKE '%${search}%';
 `
