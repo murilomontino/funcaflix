@@ -5,18 +5,13 @@ import { useDimensions } from 'react-native-web-hooks'
 
 import theme from '@/theme'
 
+import { IGetterProduct } from '@/types/getters'
 import CardContent from '../../molecules/card-content'
 
 const OFFSET = 0
 
 type Props = {
-  items: {
-    [key: string]: any
-    title: string
-    id: string
-    thumbnail: string
-    description: string
-  }[]
+  items: IGetterProduct[]
 }
 
 export default function CardCarousel({ items }: Props) {

@@ -12,7 +12,7 @@ import CardCarousel from './components/organisms/card-carousel'
 
 import useFilterThumbnail from '@/hooks/use-filter-thumbnail'
 import useMapMemoItems from '@/hooks/use-map-memo-items'
-import mapOpportunityForProduct from '@/utils/map-oportunity-for-product'
+import mapOpportunityForProduct from '@/utils/map-opportunity-for-product'
 import { If } from '@/utils/tsx-controls'
 
 

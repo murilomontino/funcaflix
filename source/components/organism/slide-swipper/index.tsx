@@ -9,7 +9,7 @@ import { Swiper as Swipper, SwiperSlide as SwipperSlide } from 'swiper/react'
 import CardSwipper from '@/components/molecule/card-swipper'
 import TitleCarousel from '@/components/molecule/title-carousel'
 
-import { GetterProduct } from '@/domain/entities'
+import { IGetterProduct } from '@/types/getters'
 import { Choose, For, When } from '@/utils/tsx-controls'
 
 type Props = {
@@ -25,7 +25,7 @@ type Props = {
   link?: string
   endpoint?: string
   allLink?: string
-  items: GetterProduct[]
+  items: IGetterProduct[]
 }
 
 const CarouselSwipper = ({

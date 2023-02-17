@@ -1,6 +1,5 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 
-import { GetterProjects } from '@/domain/entities'
 import { IGetterProduct } from '@/types/getters'
 
 import SlideSwipper from '@/components/organism/slide-swipper'
@@ -16,7 +15,7 @@ type Product = {
 
 type TabPaneHomeProps = {
   books: IGetterProduct[]
-  opportunities: GetterProjects[]
+  opportunities: IGetterProduct[]
   events: IGetterProduct[]
   participation?: IGetterProduct[]
   workshops: IGetterProduct[]
@@ -25,11 +24,6 @@ type TabPaneHomeProps = {
 
 const TabPaneHome = ({ books, events, opportunities, tvProgramsPlaylist, workshops, participation }: TabPaneHomeProps) => {
 
-  const booksMemo = useMemo(
-    () => books.filter((item) => item?.category == 2 && item?.thumbnail !== 'Não informado'),
-    [books]
-  )
-
   return (
     <React.Fragment>
       <div>
@@ -37,7 +31,7 @@ const TabPaneHome = ({ books, events, opportunities, tvProgramsPlaylist, worksho
         <SlideSwipper
           title="Literatura"
           id="iq-literatura"
-          items={booksMemo as unknown as Product[]}
+          items={books}
           height="280px"
           link="literatura"
           itemsPerView={6.5}
@@ -48,7 +42,7 @@ const TabPaneHome = ({ books, events, opportunities, tvProgramsPlaylist, worksho
           title="Eventos"
           id="iq-eventos"
           disabled
-          items={events as unknown as Product[]}
+          items={events}
           height="200px"
           link="eventos"
           itemsPerView={6.5}
@@ -70,7 +64,7 @@ const TabPaneHome = ({ books, events, opportunities, tvProgramsPlaylist, worksho
           title="Oficinas"
           id="iq-workshops"
           disabled
-          items={workshops as unknown as Product[]}
+          items={workshops}
           height="200px"
           link="workshops"
           itemsPerView={6.5}

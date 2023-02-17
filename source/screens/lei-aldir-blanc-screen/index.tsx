@@ -14,6 +14,9 @@ import NavigationProfile from '@/components/molecule/navigation-profile'
 import TabPaneEvents from '@/components/tab-contents/tab-pane-events'
 import TabPaneHome from '@/components/tab-contents/tab-pane-home'
 
+import useFilterThumbnail from '@/hooks/use-filter-thumbnail'
+import useMapMemoItems from '@/hooks/use-map-memo-items'
+import mapOpportunityForProduct from '@/utils/map-opportunity-for-product'
 import HeaderLeiAldirBlanc from './header-lei-aldir-blanc'
 
 
@@ -27,6 +30,13 @@ type Props = {
 }
 
 function LeiAldirBlankPage({ books, opportunities, events, tvProgramsPlaylist, workshops }: Props) {
+
+  const booksMemo = useFilterThumbnail({ items: books, condition: (item) => item?.category == 2 })
+  const playlistTvPrograms = useFilterThumbnail({ items: tvProgramsPlaylist })
+  const eventsMemo = useFilterThumbnail({ items: events })
+  const workshopsMemo = useFilterThumbnail({ items: workshops })
+  const opportunitiesMemo = useMapMemoItems({ items: opportunities, mapFunction: mapOpportunityForProduct })
+
   const [activeTab, setActiveTab] = useState('1');
 
   const toggleTab = (tab) => {
@@ -59,11 +69,11 @@ function LeiAldirBlankPage({ books, opportunities, events, tvProgramsPlaylist, w
                 <TabContent activeTab={activeTab} className="pt-4 text-muted">
                   <TabPane tabId="1">
                     <TabPaneHome
-                      books={books}
-                      opportunities={opportunities}
-                      events={events}
-                      tvProgramsPlaylist={tvProgramsPlaylist}
-                      workshops={workshops}
+                      books={booksMemo}
+                      opportunities={opportunitiesMemo}
+                      events={eventsMemo}
+                      tvProgramsPlaylist={playlistTvPrograms}
+                      workshops={workshopsMemo}
                     />
                   </TabPane>
                   <TabPane tabId="2">
