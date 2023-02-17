@@ -1,40 +1,31 @@
-import { describe, expect, it, vi } from 'vitest'
+import { database } from 'mapacultural-database'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import { SequelizeEventsRepository } from './sequelize-events-repository'
 
+class DatabaseMock {
 
-const makeSut = async () => {
-    const sut = new SequelizeEventsRepository()
+    transaction = async (callback: any) => {
+        return await callback()
+    }
+
+    query = vi.fn().mockResolvedValue([[], null])
+}
+
+
+const makeSut = async (db = database) => {
+    const sut = new SequelizeEventsRepository(db)
 
     return {
         sut
     }
 }
 
-const makeMock = async () => {
-    vi.mock('mapacultural-database', () => ({
-        database: {
-            transaction: async (
-                callback: (transaction: any) => Promise<any>
-            ) => {
-                return callback(null)
-            },
-            query: async (query, options) => {
-                return [[], null]
-            }
-        }
-    }))
 
-    const sut = new SequelizeEventsRepository()
+describe('Test Events Repository (Integrations)', () => {
 
-    const unmock = () => vi.unmock('mapacultural-database')
-
-    return {
-        sut,
-        unmock
-    }
-}
-
-describe('Test Events Repository', () => {
+    afterEach(() => {
+        vi.clearAllMocks()
+    })
 
     it('should be defined (Unitary)', async () => {
         const { sut } = await makeSut()
@@ -65,16 +56,84 @@ describe('Test Events Repository', () => {
     })
 
     it('should be able find all events (Mock Database) (Unitary)', async () => {
-
-        const { sut, unmock } = await makeMock()
+        const database = new DatabaseMock() as any
+        const { sut } = await makeSut(database)
         const events = await sut.findAll()
+
+        if (events.isRight()) {
+            throw events.value
+        }
+        expect(events.isLeft()).toBeTruthy()
+    })
+
+    it('should be throw err find all events (Mock Database) (Unitary)', async () => {
+        const database = new DatabaseMock() as any
+        database.query = vi.fn().mockRejectedValue(new Error('Error Query Database'))
+
+        const { sut } = await makeSut(database)
+        const events = await sut.findAll()
+
+        if (events.isLeft()) {
+            throw events.value
+        }
+
+        expect(events.isRight()).toBeTruthy()
+
+    })
+
+    it('should be able find all events by user id (Mock Database) (Unitary)', async () => {
+        const database = new DatabaseMock() as any
+        const { sut } = await makeSut(database)
+        const events = await sut.findAllEventsByUserID(1)
 
         if (events.isRight()) {
             throw events.value
         }
 
         expect(events.isLeft()).toBeTruthy()
-
-        unmock()
     })
+
+    it('should be throw err find all events by user id (Mock Database) (Unitary)', async () => {
+        const database = new DatabaseMock() as any
+        database.query = vi.fn().mockRejectedValue(new Error('Error Query Database'))
+
+        const { sut } = await makeSut(database)
+        const events = await sut.findAllEventsByUserID(1)
+
+        if (events.isLeft()) {
+            throw events.value
+        }
+
+        expect(events.isRight()).toBeTruthy()
+
+    })
+
+    it('should be able find event by id (Mock Database) (Unitary)', async () => {
+        const database = new DatabaseMock() as any
+        const { sut } = await makeSut(database)
+        const event = await sut.findEventByID(1)
+
+        if (event.isRight()) {
+            throw event.value
+        }
+
+        expect(event.isLeft()).toBeTruthy()
+    })
+
+    it('should be throw err find event by id (Mock Database) (Unitary)', async () => {
+        const database = new DatabaseMock() as any
+        database.query = vi.fn().mockRejectedValue(new Error('Error Query Database'))
+
+        const { sut } = await makeSut(database)
+        const event = await sut.findEventByID(1)
+
+        if (event.isLeft()) {
+            throw event.value
+        }
+
+        expect(event.isRight()).toBeTruthy()
+
+    })
+
+
 })
