@@ -1,6 +1,8 @@
+import { MissingParamError } from '@/domain/usecases/errors'
+import { IGetterEvent } from '@/types/getters'
 import { database } from 'mapacultural-database'
-import { afterEach, describe, expect, it, vi } from 'vitest'
-import { SequelizeEventsRepository } from './sequelize-events-repository'
+import { afterEach, describe, expect, expectTypeOf, it, vi } from 'vitest'
+import { SequelizeEventsRepository, generateEvent } from './sequelize-events-repository'
 
 class DatabaseMock {
 
@@ -42,6 +44,8 @@ describe('Test Events Repository (Integrations)', () => {
         }
 
         expect(events.isLeft()).toBeTruthy()
+        expectTypeOf<IGetterEvent[]>(events.value)
+
     })
 
     it('should be able to find all events by user id (Integration)', async () => {
@@ -53,6 +57,8 @@ describe('Test Events Repository (Integrations)', () => {
         }
 
         expect(events.isLeft()).toBeTruthy()
+        expectTypeOf<IGetterEvent[]>(events.value)
+
     })
 
     it('should be able find all events (Mock Database) (Unitary)', async () => {
@@ -64,6 +70,8 @@ describe('Test Events Repository (Integrations)', () => {
             throw events.value
         }
         expect(events.isLeft()).toBeTruthy()
+        expectTypeOf<IGetterEvent[]>(events.value)
+
     })
 
     it('should be throw err find all events (Mock Database) (Unitary)', async () => {
@@ -91,6 +99,7 @@ describe('Test Events Repository (Integrations)', () => {
         }
 
         expect(events.isLeft()).toBeTruthy()
+        expectTypeOf<IGetterEvent[]>(events.value)
     })
 
     it('should be throw err find all events by user id (Mock Database) (Unitary)', async () => {
@@ -135,5 +144,27 @@ describe('Test Events Repository (Integrations)', () => {
 
     })
 
+    it('should be IGettersEventDTO (Unitary)', async () => {
+        const eventDTO = await generateEvent({} as any)
+        expect(eventDTO).toBeDefined()
+        expectTypeOf(eventDTO).toEqualTypeOf<IGetterEvent>()
+    })
+
+    it('should be IGettersEventDTO by get (Unitary)', async () => {
+        const event = {
+            get: vi.fn().mockReturnValue({
+                id: 1,
+                name: 'name',
+            })
+        }
+        const eventDTO = await generateEvent(event as any)
+        expectTypeOf(eventDTO).toEqualTypeOf<IGetterEvent>()
+        expect(eventDTO).toBeDefined()
+    })
+
+    it('should be throw error fn generate event (Unitary)', async () => {
+        expect(generateEvent(null as any)).rejects.toThrowError(MissingParamError)
+        expect(generateEvent(undefined as any)).rejects.toThrowError(MissingParamError)
+    })
 
 })

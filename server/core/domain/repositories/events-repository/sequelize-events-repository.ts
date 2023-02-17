@@ -1,4 +1,5 @@
 import { GetterEvent } from '@/domain/entities/getters/getter-event';
+import { MissingParamError } from '@/domain/usecases/errors';
 import promiseErrorHandler from '@/helpers/error-handler';
 import { left, PromiseEither, right } from '@/shared/either';
 import { IGetterEvent } from '@/types/getters';
@@ -7,10 +8,10 @@ import { ErrorQueryDatabase } from '../errors/error-query-database';
 import { IEventsRepository } from './events-repository.interface';
 import { QUERY_EVENTS, QUERY_EVENTS_BY_ID, QUERY_EVENTS_BY_USER_ID } from './queries';
 
-function generateEvent(event: any): IGetterEvent {
+export async function generateEvent(event: any): Promise<IGetterEvent> {
 
     if (!event) {
-        throw new Error('Event not found')
+        throw new MissingParamError({ parameter: 'event' })
     }
 
     if (event?.get) {
@@ -39,7 +40,7 @@ export class SequelizeEventsRepository implements IEventsRepository {
 
             const [model] = query;
 
-            const event = generateEvent(model);
+            const event = await generateEvent(model);
 
             return left(event);
         });
@@ -57,7 +58,7 @@ export class SequelizeEventsRepository implements IEventsRepository {
 
             const [model] = query;
 
-            const events = model.map(generateEvent);
+            const events = await Promise.all([...model.map(generateEvent)]);
 
             return left(events);
         });
@@ -75,7 +76,7 @@ export class SequelizeEventsRepository implements IEventsRepository {
 
             const [model] = query;
 
-            const events = model.map(generateEvent);
+            const events = await Promise.all([...model.map(generateEvent)]);
 
             return left(events);
         });
