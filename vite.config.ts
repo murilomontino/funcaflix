@@ -10,6 +10,7 @@ export default defineConfig({
     coverage: {
       provider: 'istanbul' // or 'c8'
     },
+    reporters: ['html', 'default'],
     testTimeout: 5000000,
     deps: {
       inline: true,
@@ -20,6 +21,7 @@ export default defineConfig({
     alias: {
       '@/database': path.resolve(__dirname, 'backend', 'database'),
       '@/types': path.resolve(__dirname, 'types'),
+      "@/__mocks__": path.resolve(__dirname, '__mocks__'),
       '@': path.resolve(__dirname, 'server', 'core'),
     },
   },

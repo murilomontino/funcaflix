@@ -50,3 +50,4 @@ backup
 .docker/mariadb-data
 .docker/backup-database
 coverage
+html

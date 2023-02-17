@@ -35,6 +35,9 @@
       "@/types/*": [
         "./types/*"
       ],
+      "@/__mocks__": [
+        "./__mocks__/index.ts"
+      ],
     },
     "isolatedModules": true,
     "incremental": true
