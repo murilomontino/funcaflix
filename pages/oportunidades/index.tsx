@@ -1,8 +1,8 @@
 // @generated: @expo/next-adapter@2.1.52
-
 import { FindAllOpportunities } from '@/domain/usecases'
 import { build } from 'mapacultural-database'
 import { GetStaticProps } from 'next/types'
+import React from 'react'
 
 import OpportunitiesScreen from '@/screens/opportunities-screen'
 
@@ -13,7 +13,7 @@ type Props = {
 }
 
 export default function Opportunities({ opportunities = [] }: Props) {
-  return <OpportunitiesScreen opportunities={opportunities} />
+  return <React.Fragment> <OpportunitiesScreen opportunities={opportunities} /> </React.Fragment>
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {

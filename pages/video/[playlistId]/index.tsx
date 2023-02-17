@@ -1,11 +1,11 @@
-import { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import Skeleton from 'react-loading-skeleton'
 
 import { FindAllProductsByCategory, FindAllTvProgramsUseCase } from '@/domain/usecases'
 import theme from '@/theme'
 import { build, db } from 'mapacultural-database'
 import { useRouter } from 'next/router'
-import { GetStaticProps } from 'next/types'
+import type { GetStaticProps } from 'next/types'
 
 import DetailsScreen from '@/screens/details-movies-screen'
 
@@ -69,19 +69,21 @@ const VideoPageDetails = ({ staticVideos, staticPlaylist }) => {
   }
 
   return (
-    <Choose>
-      <When condition={isLoading}>
-        <Skeleton width="100%" height={'90vh'} baseColor={theme.COLORS.BOX_SKELETON} />
-      </When>
-      <When condition={!isLoading}>
-        <DetailsScreen
-          videoId={id}
-          playlist={staticPlaylist}
-          videos={staticVideos || []}
-          item={video}
-        />
-      </When>
-    </Choose>
+    <React.Fragment>
+      <Choose>
+        <When condition={isLoading}>
+          <Skeleton width="100%" height={'90vh'} baseColor={theme.COLORS.BOX_SKELETON} />
+        </When>
+        <When condition={!isLoading}>
+          <DetailsScreen
+            videoId={id}
+            playlist={staticPlaylist}
+            videos={staticVideos || []}
+            item={video}
+          />
+        </When>
+      </Choose>
+    </React.Fragment>
   )
 }
 
