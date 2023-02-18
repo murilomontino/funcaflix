@@ -90,73 +90,109 @@ describe('Unit Test Cultural Products Repository', () => {
     expect(products.isLeft()).toBeTruthy()
   })
 
-  it('should throw error if not pass categories (Unitary)', async () => {
+  it('should throw error if categories is null (Unitary)', async () => {
     const { sut } = await makeSut()
-
     const errIfNull = await sut.findAllProductsByCategory(null)
-    const errIfUndefined = await sut.findAllProductsByCategory(undefined)
-    const errIfEmpty = await sut.findAllProductsByCategory([])
-    const errIfInvalid = await sut.findAllProductsByCategory(['invalid'] as unknown as CATEGORIES[])
-
     expect(errIfNull.isRight()).toBeTruthy()
     expect(errIfNull.value).toBeInstanceOf(MissingParamError)
-    expect(errIfUndefined.isRight()).toBeTruthy()
-    expect(errIfUndefined.value).toBeInstanceOf(MissingParamError)
-    expect(errIfEmpty.isRight()).toBeTruthy()
-    expect(errIfEmpty.value).toBeInstanceOf(MissingParamError)
-    expect(errIfInvalid.isRight()).toBeTruthy()
-    expect(errIfInvalid.value).toBeInstanceOf(InvalidParamError)
-
   })
 
-  it('should throw error if not pass user id (Unitary)', async () => {
+  it('should throw error if categories is undefined (Unitary)', async () => {
     const { sut } = await makeSut()
+    const err = await sut.findAllProductsByCategory(undefined)
+    expect(err.isRight()).toBeTruthy()
+    expect(err.value).toBeInstanceOf(MissingParamError)
+  })
 
+  it('should throw error if categories is empty (Unitary)', async () => {
+    const { sut } = await makeSut()
+    const err = await sut.findAllProductsByCategory([])
+    expect(err.isRight()).toBeTruthy()
+    expect(err.value).toBeInstanceOf(MissingParamError)
+  })
+
+  it('should throw error if categories is invalid (Unitary)', async () => {
+    const { sut } = await makeSut()
+    const err = await sut.findAllProductsByCategory(['invalid'] as unknown as CATEGORIES[])
+    expect(err.isRight()).toBeTruthy()
+    expect(err.value).toBeInstanceOf(InvalidParamError)
+  })
+
+  it('should throw error if user id is null (Unitary)', async () => {
+    const { sut } = await makeSut()
     const errIfNull = await sut.findAllProductsByUser(null)
-    const errIfUndefined = await sut.findAllProductsByUser(undefined)
-
     expect(errIfNull.isRight()).toBeTruthy()
     expect(errIfNull.value).toBeInstanceOf(MissingParamError)
-    expect(errIfUndefined.isRight()).toBeTruthy()
-    expect(errIfUndefined.value).toBeInstanceOf(MissingParamError)
-
   })
 
-  it('should throw error if not pass user id and categories (Unitary)', async () => {
+  it('should throw error if user id is undefined (Unitary)', async () => {
     const { sut } = await makeSut()
-
-    const errIfNull = await sut.findAllProductsByUserAndCategory(null, [CATEGORIES.AUDIOVISUAL])
-    const errIfUndefined = await sut.findAllProductsByUserAndCategory(undefined, [CATEGORIES.AUDIOVISUAL])
-    const errIfEmpty = await sut.findAllProductsByUserAndCategory(1, [])
-    const errIfInvalid = await sut.findAllProductsByUserAndCategory(1, ['invalid'] as unknown as CATEGORIES[])
-
-    expect(errIfNull.isRight()).toBeTruthy()
-    expect(errIfNull.value).toBeInstanceOf(MissingParamError)
-    expect(errIfUndefined.isRight()).toBeTruthy()
-    expect(errIfUndefined.value).toBeInstanceOf(MissingParamError)
-    expect(errIfEmpty.isRight()).toBeTruthy()
-    expect(errIfEmpty.value).toBeInstanceOf(InvalidParamError)
-    expect(errIfInvalid.isRight()).toBeTruthy()
-    expect(errIfInvalid.value).toBeInstanceOf(InvalidParamError)
-
+    const err = await sut.findAllProductsByUser(undefined)
+    expect(err.isRight()).toBeTruthy()
+    expect(err.value).toBeInstanceOf(MissingParamError)
   })
 
-  it('should throw error if not pass categories and user id (Unitary)', async () => {
+  it('should throw error if user id is empty (Unitary)', async () => {
     const { sut } = await makeSut()
-
-    const errIfNull = await sut.findAllProductsByUserAndCategory(null, [CATEGORIES.AUDIOVISUAL])
-    const errIfUndefined = await sut.findAllProductsByUserAndCategory(undefined, [CATEGORIES.AUDIOVISUAL])
-    const errIfEmpty = await sut.findAllProductsByUserAndCategory(1, [])
-    const errIfInvalid = await sut.findAllProductsByUserAndCategory(1, ['invalid'] as unknown as CATEGORIES[])
-
-    expect(errIfNull.isRight()).toBeTruthy()
-    expect(errIfNull.value).toBeInstanceOf(MissingParamError)
-    expect(errIfUndefined.isRight()).toBeTruthy()
-    expect(errIfUndefined.value).toBeInstanceOf(MissingParamError)
-    expect(errIfEmpty.isRight()).toBeTruthy()
-    expect(errIfEmpty.value).toBeInstanceOf(InvalidParamError)
-    expect(errIfInvalid.isRight()).toBeTruthy()
-    expect(errIfInvalid.value).toBeInstanceOf(InvalidParamError)
-
+    const err = await sut.findAllProductsByUser(0)
+    expect(err.isRight()).toBeTruthy()
+    expect(err.value).toBeInstanceOf(MissingParamError)
   })
+
+  it('should throw error if user id is null but only valid categories (Unitary)', async () => {
+    const { sut } = await makeSut()
+    const err = await sut.findAllProductsByUserAndCategory(null, [CATEGORIES.AUDIOVISUAL])
+    expect(err.isRight()).toBeTruthy()
+    expect(err.value).toBeInstanceOf(MissingParamError)
+  })
+
+  it('should throw error if user id is undefined but only valid categories (Unitary)', async () => {
+    const { sut } = await makeSut()
+    const err = await sut.findAllProductsByUserAndCategory(undefined, [CATEGORIES.AUDIOVISUAL])
+    expect(err.isRight()).toBeTruthy()
+    expect(err.value).toBeInstanceOf(MissingParamError)
+  })
+
+  it('should throw error if user id is empty but only valid categories (Unitary)', async () => {
+    const { sut } = await makeSut()
+    const err = await sut.findAllProductsByUserAndCategory(0, [CATEGORIES.AUDIOVISUAL])
+    expect(err.isRight()).toBeTruthy()
+    expect(err.value).toBeInstanceOf(MissingParamError)
+  })
+
+  it('should throw error if user id is invalid but only valid categories (Unitary)', async () => {
+    const { sut } = await makeSut()
+    const err = await sut.findAllProductsByUserAndCategory(-1, [CATEGORIES.AUDIOVISUAL])
+    expect(err.isRight()).toBeTruthy()
+    expect(err.value).toBeInstanceOf(MissingParamError)
+  })
+
+  it('should throw error if user id is valid but categories is null (Unitary)', async () => {
+    const { sut } = await makeSut()
+    const err = await sut.findAllProductsByUserAndCategory(1, null)
+    expect(err.isRight()).toBeTruthy()
+    expect(err.value).toBeInstanceOf(MissingParamError)
+  })
+
+  it('should throw error if user id is valid but categories is undefined (Unitary)', async () => {
+    const { sut } = await makeSut()
+    const err = await sut.findAllProductsByUserAndCategory(1, undefined)
+    expect(err.isRight()).toBeTruthy()
+    expect(err.value).toBeInstanceOf(MissingParamError)
+  })
+
+  it('should throw error if user id is valid but categories is empty (Unitary)', async () => {
+    const { sut } = await makeSut()
+    const err = await sut.findAllProductsByUserAndCategory(1, [])
+    expect(err.isRight()).toBeTruthy()
+    expect(err.value).toBeInstanceOf(InvalidParamError)
+  })
+
+  it('should throw error if user id is valid but categories is invalid (Unitary)', async () => {
+    const { sut } = await makeSut()
+    const err = await sut.findAllProductsByUserAndCategory(1, ['invalid'] as unknown as CATEGORIES[])
+    expect(err.isRight()).toBeTruthy()
+    expect(err.value).toBeInstanceOf(InvalidParamError)
+  })
+
 })

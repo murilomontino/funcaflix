@@ -8,7 +8,6 @@ import {
   TabPane
 } from 'reactstrap'
 
-import TabPaneItemsProfile from './tab-pane/tab-pane-items-profiles'
 
 import image from '@/public/images/banner-perfis-culturais-2.jpg'
 
@@ -16,6 +15,7 @@ import Loading from '@/components/atom/loading'
 import NavigationProfile from '@/components/molecule/navigation-profile'
 import BreadCrumb from '@/components/organism/breadcrumb'
 
+import TabPaneItemsProfile from './tab-pane/tab-pane-items-profiles'
 import TabPaneSearchProfiles from './tab-pane/tab-pane-search'
 
 import constants from '@/global/constants'

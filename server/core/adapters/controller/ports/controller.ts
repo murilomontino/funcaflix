@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { HttpRequest } from '@/adapters/controller/ports/http'
 import { badRequest, ok, serverError } from '@/adapters/helpers/http-helper'
+import { FileNotWriteInSystem } from '@/domain/usecases/errors/file-not-write-in-system'
 import { UseCase } from '@/domain/usecases/ports/use-case'
-
 import promiseErrorHandler from '@/helpers/error-handler'
+
 import { ControllerGeneric } from '../helpers/controller-generic'
 
 export class Controller implements ControllerGeneric {
@@ -22,12 +23,11 @@ export class Controller implements ControllerGeneric {
 		}
 
 		if (resOrErr.isRight()) {
-			switch (resOrErr.value.name) {
-				case 'FileNotWriteInSystem':
-					return serverError(resOrErr.value.message)
-				default:
-					return badRequest(resOrErr.value)
+			if (resOrErr.extract() instanceof FileNotWriteInSystem) {
+				return serverError(resOrErr.extract().message)
 			}
+
+			return badRequest(resOrErr.extract())
 		}
 
 		return ok(resOrErr.value)

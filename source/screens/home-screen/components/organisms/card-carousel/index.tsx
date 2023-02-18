@@ -4,8 +4,8 @@ import { Animated, Platform, ScrollView } from 'react-native'
 import { useDimensions } from 'react-native-web-hooks'
 
 import theme from '@/theme'
-
 import { IGetterProduct } from '@/types/getters'
+
 import CardContent from '../../molecules/card-content'
 
 const OFFSET = 0

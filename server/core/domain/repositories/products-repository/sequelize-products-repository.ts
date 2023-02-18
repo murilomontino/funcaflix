@@ -1,12 +1,13 @@
+import { GetterProduct } from '@/domain/entities'
 import { InvalidParamError, MissingParamError } from '@/domain/usecases/errors'
-import { convertInArray, existItemsInArray, isValid, verifiesCategories } from '@/helpers'
+import { convertInArray, existItemsInArray, isValid, isValidID, verifiesCategories } from '@/helpers'
 import promiseErrorHandler from '@/helpers/error-handler'
 import { PromiseEither, left, right } from '@/shared/either'
 import { CATEGORIES } from '@/types/constants'
+import { IGetterProduct } from '@/types/getters'
 import { db } from 'mapacultural-database'
 
-import { GetterProduct } from '@/domain/entities'
-import { IGetterProduct } from '@/types/getters'
+
 import { IProductsRepository, categories } from './products-repository.interface'
 
 function generateProduct(product: any): IGetterProduct {
@@ -81,7 +82,8 @@ export class SequelizeProductsRepository implements IProductsRepository {
     }
 
     async findAllProductsByUser(idUser: number): PromiseEither<IGetterProduct[], Error> {
-        if (!idUser) {
+
+        if (isValidID(idUser)) {
             return right(new MissingParamError({ parameter: 'idUser' }))
         }
 
@@ -100,7 +102,7 @@ export class SequelizeProductsRepository implements IProductsRepository {
 
     async findAllProductsByUserAndCategory(idUser: number, categories: categories): PromiseEither<IGetterProduct[], Error> {
 
-        if (!isValid(idUser)) return right(new MissingParamError({ parameter: 'idUser' }))
+        if (!isValidID(idUser)) return right(new MissingParamError({ parameter: 'idUser' }))
 
         if (!isValid(categories)) {
             return right(new MissingParamError({ parameter: 'categoria' }))

@@ -37,7 +37,7 @@ export class Right<L, A> {
   }
 
   extract(): A {
-    throw new Error('Cannot extract the value of a Right(a)' + this.value)
+    throw this.value
   }
 }
 

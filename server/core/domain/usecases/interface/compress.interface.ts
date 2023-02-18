@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-namespace */
 import { PromiseEither } from '@/shared/either'
 import { Readable } from 'stream'
 

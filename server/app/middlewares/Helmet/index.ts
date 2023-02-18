@@ -1,7 +1,7 @@
 import type { Express } from 'express'
 import helmet from 'helmet'
 
-export default (Application: Express) => {
+const HelmetMiddleware = (Application: Express) => {
   Application.use(helmet.dnsPrefetchControl())
   Application.use(helmet.expectCt())
   Application.use(helmet.frameguard())
@@ -18,3 +18,5 @@ export default (Application: Express) => {
     next()
   })
 }
+
+export default HelmetMiddleware

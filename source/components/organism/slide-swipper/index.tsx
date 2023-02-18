@@ -3,13 +3,13 @@ import { Col, Container, Row } from 'react-bootstrap'
 import Skeleton from 'react-loading-skeleton'
 
 import theme from '@/theme'
+import { IGetterProduct } from '@/types/getters'
 import SwipperCore, { EffectFade, Navigation, Pagination, Thumbs } from 'swiper'
 import { Swiper as Swipper, SwiperSlide as SwipperSlide } from 'swiper/react'
 
 import CardSwipper from '@/components/molecule/card-swipper'
 import TitleCarousel from '@/components/molecule/title-carousel'
 
-import { IGetterProduct } from '@/types/getters'
 import { Choose, For, When } from '@/utils/tsx-controls'
 
 type Props = {
