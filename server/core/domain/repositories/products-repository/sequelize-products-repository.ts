@@ -106,7 +106,7 @@ export class SequelizeProductsRepository implements IProductsRepository {
 	async findAllProductsByUser(
 		idUser: number
 	): PromiseEither<IGetterProduct[], Error> {
-		if (isValidID(idUser)) {
+		if (!isValidID(idUser)) {
 			return right(new MissingParamError({ parameter: 'idUser' }))
 		}
 

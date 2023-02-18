@@ -17,6 +17,7 @@ describe('Unit Test Cultural Products Repository', () => {
 	beforeAll(async () => {
 		await build()
 	})
+
 	it('should be defined', async () => {
 		const { sut } = await makeSut()
 		expect(sut).toBeDefined()
