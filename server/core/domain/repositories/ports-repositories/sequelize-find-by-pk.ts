@@ -9,16 +9,16 @@ import { Options } from '../interfaces/options'
 type ID = { id: number }
 
 export class SequelizeFindByPK<T> implements FindRepository<T> {
-  constructor(private readonly Model: ModelStatic<Model<T>>) {}
+	constructor(private readonly Model: ModelStatic<Model<T>>) {}
 
-  async run(params: ID, options?: Options): Promise<Either<T, Error>> {
-    assert(params.id, 'ID é obrigatório')
-    const object = await this.Model.findByPk(params.id, options)
+	async run(params: ID, options?: Options): Promise<Either<T, Error>> {
+		assert(params.id, 'ID é obrigatório')
+		const object = await this.Model.findByPk(params.id, options)
 
-    if (!object) {
-      return right(new Error('Não foi possível encontrar o objeto'))
-    }
+		if (!object) {
+			return right(new Error('Não foi possível encontrar o objeto'))
+		}
 
-    return left(object as unknown as T)
-  }
+		return left(object as unknown as T)
+	}
 }

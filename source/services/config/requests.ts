@@ -1,33 +1,33 @@
 const OAuth = {
-  generateOAuthToken: 'generate-oauth-token',
-  verifyOAuthToken: 'verify-oauth-token',
-  refreshOAuthToken: 'refresh-oauth-token',
+	generateOAuthToken: 'generate-oauth-token',
+	verifyOAuthToken: 'verify-oauth-token',
+	refreshOAuthToken: 'refresh-oauth-token',
 }
 
 const Product = {
-  fetchByCategory: (category) => 'products/' + category,
+	fetchByCategory: (category) => 'products/' + category,
 }
 
 const Book = {
-  fetchByID: (id) => 'books/v2/' + id,
+	fetchByID: (id) => 'books/v2/' + id,
 }
 
 const TVPrograms = {
-  fetchPlaylistByID: (id) => 'tv-programs/playlist/' + id,
-  fetchPlaylist: 'tv-programs/playlist',
-  fetchNewestVideos: 'tv-programs',
-  fetchPlaylistItems: 'tv-programs/items',
+	fetchPlaylistByID: (id) => 'tv-programs/playlist/' + id,
+	fetchPlaylist: 'tv-programs/playlist',
+	fetchNewestVideos: 'tv-programs',
+	fetchPlaylistItems: 'tv-programs/items',
 }
 
 const Profiles = {
-  fetchCities: 'profiles/cities',
-  fetchSegments: 'profiles/segments',
+	fetchCities: 'profiles/cities',
+	fetchSegments: 'profiles/segments',
 }
 
 export default {
-  OAuth,
-  TVPrograms,
-  Product,
-  Book,
-  Profiles,
+	OAuth,
+	TVPrograms,
+	Product,
+	Book,
+	Profiles,
 }

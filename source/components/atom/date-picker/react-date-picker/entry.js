@@ -1,7 +1,7 @@
 'use strict'
 
 Object.defineProperty(exports, '__esModule', {
-  value: true,
+	value: true,
 })
 exports['default'] = void 0
 
@@ -10,7 +10,7 @@ require('react-calendar/dist/Calendar.css')
 var _DatePicker = _interopRequireDefault(require('./DatePicker'))
 
 function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj }
+	return obj && obj.__esModule ? obj : { default: obj }
 }
 
 // File is created during build phase and placed in dist directory

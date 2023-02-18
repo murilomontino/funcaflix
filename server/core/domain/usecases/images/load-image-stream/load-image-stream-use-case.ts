@@ -7,32 +7,35 @@ import { UseCase } from '../../ports/use-case'
 import { CreateReadStream } from '../../utils/create-read-stream/create-read-stream'
 
 export class LoadImageStreamUseCase implements UseCase<Params, Stream> {
-  constructor(
+	constructor(
 		private readonly StreamUseCase: CreateReadStream // eslint-disable-line
-  ) {}
-  async execute({ path, encoding = null }: Params): PromiseEither<Stream, Error> {
-    assert(path, 'path is required')
+	) {}
+	async execute({
+		path,
+		encoding = null,
+	}: Params): PromiseEither<Stream, Error> {
+		assert(path, 'path is required')
 
-    if (!existsSync(path)) {
-      return right(new NotFoundProductError('Image not found'))
-    }
+		if (!existsSync(path)) {
+			return right(new NotFoundProductError('Image not found'))
+		}
 
-    const stream = await this.StreamUseCase.run({ path, encoding })
+		const stream = await this.StreamUseCase.run({ path, encoding })
 
-    if (stream.isRight()) {
-      return right(stream.value)
-    }
-    // Retorna a stream para o pipe(res)
-    return left(stream.value)
-  }
+		if (stream.isRight()) {
+			return right(stream.value)
+		}
+		// Retorna a stream para o pipe(res)
+		return left(stream.value)
+	}
 }
 
 export type Stream = {
-  size: number
-  stream: ReadStream
+	size: number
+	stream: ReadStream
 }
 
 type Params = {
-  path: PathLike
-  encoding?: BufferEncoding
+	path: PathLike
+	encoding?: BufferEncoding
 }

@@ -1,4 +1,3 @@
-
 import React, { useEffect, useDeferredValue } from 'react'
 import ReactInfiniteScroll from 'react-infinite-scroll-component'
 import { Col } from 'reactstrap'
@@ -14,129 +13,123 @@ import api from '@/services'
 
 import { Choose, For, When } from '@/utils/tsx-controls'
 
-
-
 type CitiesProps = {
-    active: boolean
+	active: boolean
 }
 
 const TabPaneSearchProfiles = ({ active }: CitiesProps) => {
+	if (!active) return null
 
-    if (!active) return null
+	const [dataSearch, setDataSearch] = React.useState<ICulturalProfile[]>([])
+	const [data, setData] = React.useState<IGetterCulturalProfile[]>(
+		dataSearch.slice(0, 10)
+	)
+	const [loading, setLoading] = React.useState(false)
+	const deferredData = useDeferredValue(data)
+	const [search, setSearch] = React.useState('')
 
-    const [dataSearch, setDataSearch] = React.useState<ICulturalProfile[]>([])
-    const [data, setData] = React.useState<IGetterCulturalProfile[]>(dataSearch.slice(0, 10))
-    const [loading, setLoading] = React.useState(false)
-    const deferredData = useDeferredValue(data)
-    const [search, setSearch] = React.useState('')
+	const handleFetchSearch = async () => {
+		const data = await fetchSearch()
+		setDataSearch(data)
+		setData(data.slice(0, 10))
+	}
 
-    const handleFetchSearch = async () => {
-        const data = await fetchSearch()
-        setDataSearch(data)
-        setData(data.slice(0, 10))
-    }
+	useEffect(() => {
+		const controller = new AbortController()
 
-    useEffect(() => {
-        const controller = new AbortController();
+		if (search === '') {
+			setDataSearch([])
+			setData([])
+			return
+		}
 
-        if (search === '') {
-            setDataSearch([])
-            setData([])
-            return
-        }
+		fetchSearch(controller.signal).then((data) => {
+			setDataSearch(data)
+			setData(data.slice(0, 10))
+		})
 
-        fetchSearch(controller.signal).then(data => {
-            setDataSearch(data)
-            setData(data.slice(0, 10))
-        })
+		return () => {
+			controller.abort()
+		}
+	}, [search])
 
-        return () => {
-            controller.abort()
-        }
+	const fetchMoreData = () => {
+		setTimeout(() => {
+			setData((state) => [
+				...state,
+				...data.slice(state.length, state.length + 10),
+			])
+		}, 200)
+	}
 
-    }, [search])
+	const hasMore = data.length < [].length
 
-    const fetchMoreData = () => {
-        setTimeout(() => {
-            setData(state => [...state, ...data.slice(state.length, state.length + 10)])
-        }, 200)
-    }
+	const fetchSearch = async (signal?: AbortSignal) => {
+		setLoading(true)
+		const [err, response] = await promiseErrorHandler(
+			api.get(`profiles/search/${search}`, {
+				signal,
+			})
+		)
 
-    const hasMore = data.length < [].length
+		setLoading(false)
+		if (err) return []
 
-    const fetchSearch = async (
-        signal?: AbortSignal
-    ) => {
-        setLoading(true)
-        const [err, response] = await promiseErrorHandler(
-            api.get(`profiles/search/${search}`, {
-                signal
-            }))
+		return response.data?.data as ICulturalProfile[]
+	}
 
-        setLoading(false)
-        if (err) return []
+	const onChangeSearch = (text: string) => {
+		setSearch(text)
+	}
 
-        return response.data?.data as ICulturalProfile[]
-    }
+	return (
+		<React.Fragment>
+			<div className="d-flex w-100 justify-content-center align-content-center">
+				<InputTopic
+					onChangeText={onChangeSearch}
+					value={search}
+					nameIcon="search"
+					placeholder="Buscar Artista"
+					onClickIcon={handleFetchSearch}
+				/>
+			</div>
 
-    const onChangeSearch = (text: string) => {
-        setSearch(text)
-    }
-
-    return (
-        <React.Fragment>
-
-            <div className="d-flex w-100 justify-content-center align-content-center">
-                <InputTopic
-                    onChangeText={onChangeSearch}
-                    value={search}
-                    nameIcon="search"
-                    placeholder='Buscar Artista'
-                    onClickIcon={handleFetchSearch}
-                />
-            </div>
-
-            <ReactInfiniteScroll
-                dataLength={data.length}
-                next={fetchMoreData}
-                hasMore={hasMore}
-                loader={<h4>Carregando...</h4>}
-                endMessage={
-                    <p style={{ textAlign: 'center' }}>
-                        <b>Isso é tudo pessoal!</b>
-                    </p>
-                }
-            >
-
-                <Choose>
-                    <When condition={loading}>
-                        <div className="d-flex justify-content-center align-items-center">
-                            <div className="spinner-border" role="status">
-                                <span className="sr-only">Loading...</span>
-                            </div>
-                        </div>
-                    </When>
-                    <When condition={true}>
-                        <div className="d-flex align-items-center overflow-hidden flex-wrap">
-                            <For items={deferredData} >
-                                {(item) => {
-                                    return (
-                                        <Col key={item.id} xs="12" sm="6" md="4" lg="3" xl="3">
-                                            <CardArtists key={item.id} item={item} />
-                                        </Col>
-                                    )
-                                }}
-                            </For>
-                        </div>
-                    </When>
-                </Choose>
-
-
-            </ReactInfiniteScroll>
-
-
-        </React.Fragment>
-    )
+			<ReactInfiniteScroll
+				dataLength={data.length}
+				next={fetchMoreData}
+				hasMore={hasMore}
+				loader={<h4>Carregando...</h4>}
+				endMessage={
+					<p style={{ textAlign: 'center' }}>
+						<b>Isso é tudo pessoal!</b>
+					</p>
+				}
+			>
+				<Choose>
+					<When condition={loading}>
+						<div className="d-flex justify-content-center align-items-center">
+							<div className="spinner-border" role="status">
+								<span className="sr-only">Loading...</span>
+							</div>
+						</div>
+					</When>
+					<When condition={true}>
+						<div className="d-flex align-items-center overflow-hidden flex-wrap">
+							<For items={deferredData}>
+								{(item) => {
+									return (
+										<Col key={item.id} xs="12" sm="6" md="4" lg="3" xl="3">
+											<CardArtists key={item.id} item={item} />
+										</Col>
+									)
+								}}
+							</For>
+						</div>
+					</When>
+				</Choose>
+			</ReactInfiniteScroll>
+		</React.Fragment>
+	)
 }
 
 export default TabPaneSearchProfiles

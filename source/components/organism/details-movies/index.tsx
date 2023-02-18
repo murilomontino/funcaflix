@@ -2,16 +2,20 @@ import React from 'react'
 import { Row, Col } from 'react-bootstrap'
 
 const DetailsMovies = ({ item, playlist }) => {
-  const description =
-    item.description && item.description !== 'Não Informado' ? item.description : playlist.about
+	const description =
+		item.description && item.description !== 'Não Informado'
+			? item.description
+			: playlist.about
 
-  return (
-    <section className="movie-detail container-fluid px-5">
-      <Row>
-        <Col lg="12">
-          <div className="trending-info g-border">
-            <h1 className="trending-text text-uppercase mt-0">{item.title || playlist.title}</h1>
-            {/* 
+	return (
+		<section className="movie-detail container-fluid px-5">
+			<Row>
+				<Col lg="12">
+					<div className="trending-info g-border">
+						<h1 className="trending-text text-uppercase mt-0">
+							{item.title || playlist.title}
+						</h1>
+						{/* 
             <ul className="p-0 list-inline d-flex align-items-center movie-content">
               <li className="text-white">Action</li>
               <li className="text-white">Drama</li>
@@ -26,15 +30,15 @@ const DetailsMovies = ({ item, playlist }) => {
               <span className="text-gold ml-3">#2 in Series Today</span>
             </div> 
             */}
-            <p
-              className="trending-dec w-100 mb-0 text-justify"
-              style={{
-                textIndent: '2em',
-              }}
-            >
-              {description}
-            </p>
-            {/* <ul className="list-inline p-0 mt-4 share-icons music-play-lists">
+						<p
+							className="trending-dec w-100 mb-0 text-justify"
+							style={{
+								textIndent: '2em',
+							}}
+						>
+							{description}
+						</p>
+						{/* <ul className="list-inline p-0 mt-4 share-icons music-play-lists">
               <li>
                 <span>
                   <i className="ri-add-line"></i>
@@ -64,11 +68,11 @@ const DetailsMovies = ({ item, playlist }) => {
                 </div>
               </li>
             </ul> */}
-          </div>
-        </Col>
-      </Row>
-    </section>
-  )
+					</div>
+				</Col>
+			</Row>
+		</section>
+	)
 }
 
 export default DetailsMovies

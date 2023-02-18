@@ -1,7 +1,6 @@
 import { PromiseEither } from '@/shared/either'
 import { Readable } from 'stream'
 
-
 import { UseCase } from '../ports/use-case'
 
 export interface CompressFile extends UseCase<Readable, CompressParams> {

@@ -5,14 +5,14 @@ import AboutFooter from '@/components/molecule/about-footer'
 import { ContainerFooter, ContainerAbout } from './styles'
 
 const Footer = () => {
-  return (
-    <ContainerFooter>
-      <ContainerAbout>
-        <AboutFooter />
-      </ContainerAbout>
-      {/* <ContainerSocial /> */}
-    </ContainerFooter>
-  )
+	return (
+		<ContainerFooter>
+			<ContainerAbout>
+				<AboutFooter />
+			</ContainerAbout>
+			{/* <ContainerSocial /> */}
+		</ContainerFooter>
+	)
 }
 
 export default Footer

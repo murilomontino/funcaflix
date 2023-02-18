@@ -9,33 +9,30 @@ import { UseCase } from '../ports/use-case'
 import { QUERY_GETTER_ID_BOOK } from './queries'
 
 type FindOneBookByIdProductProps = {
-  id: string
+	id: string
 }
 
-export class FindOneBookByIdProductUseCase implements UseCase<FindOneBookByIdProductProps, IGetterBooks> {
+export class FindOneBookByIdProductUseCase
+	implements UseCase<FindOneBookByIdProductProps, IGetterBooks>
+{
+	async execute(
+		_,
+		params: FindOneBookByIdProductProps
+	): PromiseEither<IGetterBooks, Error> {
+		assert(params.id, 'id is required')
 
-  async execute(_, params: FindOneBookByIdProductProps): PromiseEither<IGetterBooks, Error> {
-    assert(params.id, 'id is required')
+		const id = parseInt(params.id)
 
-    const id = parseInt(params.id)
+		return database.transaction(async (transaction) => {
+			const [error, bookAndOptions] = await promiseErrorHandler(
+				database.query(QUERY_GETTER_ID_BOOK(id), { transaction })
+			)
 
-    return database.transaction(async (transaction) => {
+			if (error) return right(error)
 
+			const book = bookAndOptions[0][0] as IGetterBooks
 
-      const [error, bookAndOptions] = await promiseErrorHandler(
-        database.query(QUERY_GETTER_ID_BOOK(id), { transaction })
-      )
-
-      if (error) return right(error)
-
-      const book = bookAndOptions[0][0] as IGetterBooks
-
-
-      return left(
-        GetterBook
-          .build(book)
-          .params()
-      )
-    })
-  }
+			return left(GetterBook.build(book).params())
+		})
+	}
 }

@@ -9,34 +9,34 @@ import { InsertRepository } from '../interfaces/insert-repository'
 import { Options } from '../interfaces/options'
 
 export class SequelizeInsert<ModelEntity, Setter, Getter extends Setter>
-  implements InsertRepository<ModelEntity, Setter, Getter>
+	implements InsertRepository<ModelEntity, Setter, Getter>
 {
-  constructor(
-    private readonly Model: ModelCtor<Model<ModelEntity>>,
-    private readonly EntityGetter: GetterEntity<Getter>
-  ) {}
+	constructor(
+		private readonly Model: ModelCtor<Model<ModelEntity>>,
+		private readonly EntityGetter: GetterEntity<Getter>
+	) {}
 
-  async run(
-    params: Partial<Setter>,
-    options?: Options
-  ): PromiseEither<GetterEntity<Getter>, Error> {
-    try {
-      return await database.transaction(async (transaction) => {
-        const buildEntity = this.Model.build(params as any)
+	async run(
+		params: Partial<Setter>,
+		options?: Options
+	): PromiseEither<GetterEntity<Getter>, Error> {
+		try {
+			return await database.transaction(async (transaction) => {
+				const buildEntity = this.Model.build(params as any)
 
-        const entity = await buildEntity.save({
-          transaction: options?.transaction || transaction,
-        })
+				const entity = await buildEntity.save({
+					transaction: options?.transaction || transaction,
+				})
 
-        const getter = this.EntityGetter.build({
-          ...(entity.get({ plain: true }) as unknown as Getter),
-          id: entity.id,
-        })
+				const getter = this.EntityGetter.build({
+					...(entity.get({ plain: true }) as unknown as Getter),
+					id: entity.id,
+				})
 
-        return left(getter)
-      })
-    } catch (error) {
-      return right(error)
-    }
-  }
+				return left(getter)
+			})
+		} catch (error) {
+			return right(error)
+		}
+	}
 }

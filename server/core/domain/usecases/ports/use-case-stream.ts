@@ -1,7 +1,6 @@
 import { PromiseEither } from '@/shared/either'
 import { Readable } from 'stream'
 
-
 export type FileParams = {
 	pathAbsolute: string
 	name: string

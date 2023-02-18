@@ -9,274 +9,293 @@ import { database } from 'mapacultural-database'
 import localidades from '../../constants/localidades.json'
 import segmentos from '../../constants/segmentos.json'
 import {
-  CulturalProfileByCity,
-  CulturalProfileBySegment,
-  CulturalProfileRepository,
-  CityOrSegmentNameResponse
+	CulturalProfileByCity,
+	CulturalProfileBySegment,
+	CulturalProfileRepository,
+	CityOrSegmentNameResponse,
 } from './cultural-profile.interface'
 import {
-  QUERY_CULTURAL_PROFILE,
-  QUERY_CULTURAL_PROFILE_BY_CITY,
-  QUERY_CULTURAL_PROFILE_BY_ID,
-  QUERY_CULTURAL_PROFILE_BY_SEGMENT,
-  QUERY_GROUP_BY_CITY,
-  QUERY_GROUP_BY_SEGMENT,
-  QUERY_CULTURAL_PROFILE_RAND,
-  QUERY_CULTURAL_PROFILE_SEARCH
+	QUERY_CULTURAL_PROFILE,
+	QUERY_CULTURAL_PROFILE_BY_CITY,
+	QUERY_CULTURAL_PROFILE_BY_ID,
+	QUERY_CULTURAL_PROFILE_BY_SEGMENT,
+	QUERY_GROUP_BY_CITY,
+	QUERY_GROUP_BY_SEGMENT,
+	QUERY_CULTURAL_PROFILE_RAND,
+	QUERY_CULTURAL_PROFILE_SEARCH,
 } from './queries'
 
 const HOUR = 3600
 const DAY = HOUR * 24
 
-export class CulturalProfileRepositorySequelize implements CulturalProfileRepository {
-  async findAllByCity(): PromiseEither<CulturalProfileByCity[], Error> {
-    return database.transaction(async (transaction) => {
-      const [culturalProfiles] = await database.query(QUERY_CULTURAL_PROFILE, { transaction })
+export class CulturalProfileRepositorySequelize
+	implements CulturalProfileRepository
+{
+	async findAllByCity(): PromiseEither<CulturalProfileByCity[], Error> {
+		return database.transaction(async (transaction) => {
+			const [culturalProfiles] = await database.query(QUERY_CULTURAL_PROFILE, {
+				transaction,
+			})
+
+			const cities = Array.from(
+				new Set(
+					culturalProfiles.map((item: IGetterCulturalProfile) => item.segment)
+				)
+			)
+
+			const items: CulturalProfileByCity[] = await Promise.all(
+				cities.map(async (city) => {
+					const items = culturalProfiles.filter(
+						(item: IGetterCulturalProfile) => item.city === city
+					) as IGetterCulturalProfile[]
+					return { city, items }
+				})
+			)
+
+			return left(items)
+		})
+	}
+
+	async findAllBySegment(): PromiseEither<CulturalProfileBySegment[], Error> {
+		return database.transaction(async (transaction) => {
+			const [culturalProfiles] = await database.query(QUERY_CULTURAL_PROFILE, {
+				transaction,
+			})
+
+			const segments = Array.from(
+				new Set(
+					culturalProfiles.map((item: IGetterCulturalProfile) => item.segment)
+				)
+			)
+
+			const items = await Promise.all(
+				segments.map((segment) => {
+					const items = culturalProfiles.filter(
+						(artist: IGetterCulturalProfile) => artist.segment === segment
+					) as IGetterCulturalProfile[]
+					return { segment, items }
+				})
+			)
+
+			return left(items)
+		})
+	}
+
+	async findById(id: number): PromiseEither<IGetterCulturalProfile, Error> {
+		return database.transaction(async (transaction) => {
+			const [error, profiles] = await promiseErrorHandler(
+				database.query(QUERY_CULTURAL_PROFILE_BY_ID(id), { transaction })
+			)
+
+			if (error) return right(error)
+
+			const [profile] = profiles
+
+			if (!profile[0]) return right(new Error('Profile not found'))
 
-      const cities = Array.from(
-        new Set(culturalProfiles.map((item: IGetterCulturalProfile) => item.segment))
-      )
+			return left(profile[0] as IGetterCulturalProfile)
+		})
+	}
 
-      const items: CulturalProfileByCity[] = await Promise.all(
-        cities.map(async (city) => {
-          const items = culturalProfiles.filter(
-            (item: IGetterCulturalProfile) => item.city === city
-          ) as IGetterCulturalProfile[]
-          return { city, items }
-        })
-      )
+	async findAllByWhereSegment(
+		segment: string
+	): PromiseEither<IGetterCulturalProfile[], Error> {
+		const KEY = `::profiles::${segment}`
 
-      return left(items)
-    })
-  }
+		const cacheOrErr = await GetterCache.execute(KEY)
 
-  async findAllBySegment(): PromiseEither<CulturalProfileBySegment[], Error> {
-    return database.transaction(async (transaction) => {
-      const [culturalProfiles] = await database.query(QUERY_CULTURAL_PROFILE, { transaction })
+		if (cacheOrErr.isLeft()) {
+			return left(JSON.parse(cacheOrErr.value))
+		}
 
-      const segments = Array.from(
-        new Set(culturalProfiles.map((item: IGetterCulturalProfile) => item.segment))
-      )
+		const term = segmentos[segment]
+
+		return database.transaction(async (transaction) => {
+			const [error, queryResult] = await promiseErrorHandler(
+				database.query(QUERY_CULTURAL_PROFILE_BY_SEGMENT(term), { transaction })
+			)
 
-      const items = await Promise.all(
-        segments
-          .map((segment) => {
-            const items = culturalProfiles.filter(
-              (artist: IGetterCulturalProfile) => artist.segment === segment
-            ) as IGetterCulturalProfile[]
-            return { segment, items }
-          })
-      )
+			if (error) return right(error)
 
-      return left(items)
-    })
-  }
+			const profiles = queryResult[0].map(
+				(item: any) => item as IGetterCulturalProfile
+			)
 
-  async findById(id: number): PromiseEither<IGetterCulturalProfile, Error> {
-    return database.transaction(async (transaction) => {
+			await SetterCache.execute(KEY, JSON.stringify(profiles), HOUR)
 
-      const [error, profiles] = await promiseErrorHandler(
-        database.query(QUERY_CULTURAL_PROFILE_BY_ID(id), { transaction })
-      )
+			return left(profiles)
+		})
+	}
 
-      if (error) return right(error)
+	async findAllByWhereCity(
+		city: string
+	): PromiseEither<IGetterCulturalProfile[], Error> {
+		const KEY = `::profiles::${city}`
 
-      const [profile] = profiles
+		const cacheOrErr = await GetterCache.execute(KEY)
 
-      if (!profile[0]) return right(new Error('Profile not found'))
+		if (cacheOrErr.isLeft()) {
+			return left(JSON.parse(cacheOrErr.value))
+		}
 
-      return left(profile[0] as IGetterCulturalProfile)
-    })
-  }
+		const term = localidades[city]
 
-  async findAllByWhereSegment(segment: string): PromiseEither<IGetterCulturalProfile[], Error> {
+		return database.transaction(async (transaction) => {
+			const [error, queryResult] = await promiseErrorHandler(
+				database.query(QUERY_CULTURAL_PROFILE_BY_CITY(term), { transaction })
+			)
 
-    const KEY = `::profiles::${segment}`
+			if (error) return right(error)
 
-    const cacheOrErr = await GetterCache.execute(KEY)
+			const profiles = queryResult[0].map(
+				(item: any) => item as IGetterCulturalProfile
+			)
 
-    if (cacheOrErr.isLeft()) {
-      return left(JSON.parse(cacheOrErr.value))
-    }
+			await SetterCache.execute(KEY, JSON.stringify(profiles), HOUR)
 
-    const term = segmentos[segment]
+			return left(profiles)
+		})
+	}
 
-    return database.transaction(async (transaction) => {
+	async findGroupByCity(): PromiseEither<string[], Error> {
+		const cacheOrErr = await GetterCache.execute('::cities')
 
-      const [error, queryResult] = await promiseErrorHandler(
-        database.query(QUERY_CULTURAL_PROFILE_BY_SEGMENT(term), { transaction })
-      )
+		if (cacheOrErr.isLeft()) {
+			return left(JSON.parse(cacheOrErr.value))
+		}
 
-      if (error) return right(error)
+		return database.transaction(async (transaction) => {
+			const [error, cities] = await promiseErrorHandler(
+				database.query(QUERY_GROUP_BY_CITY, { transaction })
+			)
 
-      const profiles = queryResult[0].map((item: any) => item as IGetterCulturalProfile)
+			if (error) return right(error)
+			const citiesString = cities[0].map((item: any) => item.city)
 
-      await SetterCache.execute(KEY, JSON.stringify(profiles), HOUR)
+			await SetterCache.execute('::cities', JSON.stringify(citiesString))
 
-      return left(profiles)
-    })
-  }
+			return left(citiesString)
+		})
+	}
 
-  async findAllByWhereCity(city: string): PromiseEither<IGetterCulturalProfile[], Error> {
+	async findGroupBySegment(): PromiseEither<string[], Error> {
+		const cacheOrErr = await GetterCache.execute('::segments')
 
-    const KEY = `::profiles::${city}`
+		if (cacheOrErr.isLeft()) {
+			return left(JSON.parse(cacheOrErr.value))
+		}
 
-    const cacheOrErr = await GetterCache.execute(KEY)
+		return database.transaction(async (transaction) => {
+			const [error, segments] = await promiseErrorHandler(
+				database.query(QUERY_GROUP_BY_SEGMENT, { transaction })
+			)
 
-    if (cacheOrErr.isLeft()) {
-      return left(JSON.parse(cacheOrErr.value))
-    }
+			if (error) return right(error)
 
-    const term = localidades[city]
+			const segmentsString = segments[0].map((item: any) => item.segment)
 
-    return database.transaction(async (transaction) => {
+			await SetterCache.execute('::segments', JSON.stringify(segmentsString))
 
-      const [error, queryResult] = await promiseErrorHandler(
-        database.query(QUERY_CULTURAL_PROFILE_BY_CITY(term), { transaction })
-      )
+			return left(segmentsString)
+		})
+	}
 
-      if (error) return right(error)
+	private async generateCache(): PromiseEither<string, Error> {
+		return database.transaction(async (transaction) => {
+			const [citiesAndOptions, segmentAndOptions] = await Promise.all([
+				database.query(QUERY_GROUP_BY_CITY, { transaction }),
+				database.query(QUERY_GROUP_BY_SEGMENT, { transaction }),
+			])
 
-      const profiles = queryResult[0].map((item: any) => item as IGetterCulturalProfile)
+			const segments = segmentAndOptions[0].map(
+				(item: any) => item.segment as string
+			)
 
-      await SetterCache.execute(KEY, JSON.stringify(profiles), HOUR)
+			const cities = citiesAndOptions[0].map((item: any) => item.city as string)
 
-      return left(profiles)
-    })
-  }
+			await SetterCache.execute('::cities', JSON.stringify(cities))
+			await SetterCache.execute('::segments', JSON.stringify(segments))
 
-  async findGroupByCity(): PromiseEither<string[], Error> {
+			return left('Cache generated')
+		})
+	}
 
-    const cacheOrErr = await GetterCache.execute('::cities')
+	async findCityOrSegmentName(
+		name: string
+	): PromiseEither<CityOrSegmentNameResponse, Error> {
+		const [segmentFound, cityFound] = [segmentos[name], localidades[name]]
 
-    if (cacheOrErr.isLeft()) {
-      return left(JSON.parse(cacheOrErr.value))
-    }
+		if (segmentFound)
+			return left({
+				name: segmentFound,
+				type: 'segment',
+			})
+		if (cityFound)
+			return left({
+				name: cityFound,
+				type: 'city',
+			})
 
-    return database.transaction(async (transaction) => {
+		return right(new Error('Not found'))
+	}
 
-      const [error, cities] = await promiseErrorHandler(
-        database.query(QUERY_GROUP_BY_CITY, { transaction })
-      )
+	async findRandom(length = 20): PromiseEither<ICulturalProfile[], Error> {
+		const cacheOrErr = await GetterCache.execute(
+			'::random-profile-culture-home'
+		)
 
-      if (error) return right(error)
-      const citiesString = cities[0].map((item: any) => item.city)
+		if (cacheOrErr.isLeft()) {
+			return left(JSON.parse(cacheOrErr.value))
+		}
 
-      await SetterCache.execute('::cities', JSON.stringify(citiesString))
+		return database.transaction(async (transaction) => {
+			const [error, profiles] = await promiseErrorHandler(
+				database.query(QUERY_CULTURAL_PROFILE_RAND(length), { transaction })
+			)
 
-      return left(citiesString)
-    })
-  }
+			if (error) return right(error)
 
-  async findGroupBySegment(): PromiseEither<string[], Error> {
-    const cacheOrErr = await GetterCache.execute('::segments')
+			const profilesArray = profiles[0].map(
+				(item: any) => item as ICulturalProfile
+			)
 
-    if (cacheOrErr.isLeft()) {
-      return left(JSON.parse(cacheOrErr.value))
-    }
+			await SetterCache.execute(
+				'::random-profile-culture-home',
+				JSON.stringify(profilesArray),
+				DAY
+			)
 
-    return database.transaction(async (transaction) => {
+			return left(profilesArray)
+		})
+	}
 
-      const [error, segments] = await promiseErrorHandler(
-        database.query(QUERY_GROUP_BY_SEGMENT, { transaction })
-      )
+	async findSearch(search: string): PromiseEither<ICulturalProfile[], Error> {
+		const cacheOrErr = await GetterCache.execute(
+			`::search-profile-culture-home::${search}`
+		)
 
-      if (error) return right(error)
+		if (cacheOrErr.isLeft()) {
+			return left(JSON.parse(cacheOrErr.value))
+		}
 
-      const segmentsString = segments[0].map((item: any) => item.segment)
+		return database.transaction(async (transaction) => {
+			const [error, profiles] = await promiseErrorHandler(
+				database.query(QUERY_CULTURAL_PROFILE_SEARCH(search), { transaction })
+			)
 
-      await SetterCache.execute('::segments', JSON.stringify(segmentsString))
+			if (error) return right(error)
 
-      return left(segmentsString)
-    })
-  }
+			const profilesArray = profiles[0].map(
+				(item: any) => item as ICulturalProfile
+			)
 
-  private async generateCache(): PromiseEither<string, Error> {
-    return database.transaction(async (transaction) => {
+			await SetterCache.execute(
+				`::search-profile-culture-home::${search}`,
+				JSON.stringify(profilesArray),
+				DAY
+			)
 
-      const [citiesAndOptions, segmentAndOptions] = await Promise.all([
-        database.query(QUERY_GROUP_BY_CITY, { transaction }),
-        database.query(QUERY_GROUP_BY_SEGMENT, { transaction })
-      ])
-
-      const segments = segmentAndOptions[0].map((item: any) => item.segment as string)
-
-      const cities = citiesAndOptions[0].map((item: any) => item.city as string)
-
-      await SetterCache.execute('::cities', JSON.stringify(cities))
-      await SetterCache.execute('::segments', JSON.stringify(segments))
-
-      return left('Cache generated')
-    })
-  }
-
-  async findCityOrSegmentName(name: string): PromiseEither<CityOrSegmentNameResponse, Error> {
-
-    const [segmentFound, cityFound] = [
-      segmentos[name],
-      localidades[name]
-    ]
-
-    if (segmentFound) return left({
-      name: segmentFound,
-      type: 'segment'
-    })
-    if (cityFound) return left({
-      name: cityFound,
-      type: 'city'
-    })
-
-    return right(new Error('Not found'))
-
-  }
-
-  async findRandom(length = 20): PromiseEither<ICulturalProfile[], Error> {
-
-    const cacheOrErr = await GetterCache.execute('::random-profile-culture-home')
-
-    if (cacheOrErr.isLeft()) {
-      return left(JSON.parse(cacheOrErr.value))
-    }
-
-    return database.transaction(async (transaction) => {
-
-      const [error, profiles] = await promiseErrorHandler(
-        database.query(QUERY_CULTURAL_PROFILE_RAND(length), { transaction })
-      )
-
-      if (error) return right(error)
-
-      const profilesArray = profiles[0].map((item: any) => item as ICulturalProfile)
-
-      await SetterCache.execute('::random-profile-culture-home', JSON.stringify(profilesArray), DAY)
-
-      return left(profilesArray)
-    })
-  }
-
-  async findSearch(search: string): PromiseEither<ICulturalProfile[], Error> {
-
-    const cacheOrErr = await GetterCache.execute(`::search-profile-culture-home::${search}`)
-
-    if (cacheOrErr.isLeft()) {
-      return left(JSON.parse(cacheOrErr.value))
-    }
-
-    return database.transaction(async (transaction) => {
-
-      const [error, profiles] = await promiseErrorHandler(
-        database
-          .query(QUERY_CULTURAL_PROFILE_SEARCH(search), { transaction })
-      )
-
-      if (error) return right(error)
-
-      const profilesArray = profiles[0].map((item: any) => item as ICulturalProfile)
-
-      await SetterCache.execute(`::search-profile-culture-home::${search}`, JSON.stringify(profilesArray), DAY)
-
-      return left(profilesArray)
-    })
-  }
+			return left(profilesArray)
+		})
+	}
 }
-

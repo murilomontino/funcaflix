@@ -4,5 +4,5 @@ import React from 'react'
 import PrivacyPolicyScreen from '@/screens/privacy-policy-screen'
 
 export default function CityPage() {
-  return <PrivacyPolicyScreen />
+	return <PrivacyPolicyScreen />
 }

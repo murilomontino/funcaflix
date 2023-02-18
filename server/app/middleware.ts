@@ -9,30 +9,34 @@ import SetupMiddlewares from './middlewares/Setup'
 the middlewares for the
 express app */
 class Middleware {
-  constructor(private readonly express: Express) { }
+	constructor(private readonly express: Express) {}
 
-  /**
-   * It sets up the middlewares for the express application.
-   */
-  async init(): Promise<void> {
-    SetupMiddlewares(this.express)
+	/**
+	 * It sets up the middlewares for the express application.
+	 */
+	async init(): Promise<void> {
+		SetupMiddlewares(this.express)
 
-    this.express.use(bodyParser.json())
-    this.express.use(bodyParser.urlencoded({ extended: false }))
+		this.express.use(bodyParser.json())
+		this.express.use(bodyParser.urlencoded({ extended: false }))
 
-    this.express.use(favicon(path.join(process.cwd(), 'public', 'favicon.ico')))
-    this.express.use(favicon(path.join(process.cwd(), 'public', 'favicon-32x32.png')))
-    this.express.use(favicon(path.join(process.cwd(), 'public', 'favicon-16x16.png')))
-    this.initErrors()
-  }
+		this.express.use(favicon(path.join(process.cwd(), 'public', 'favicon.ico')))
+		this.express.use(
+			favicon(path.join(process.cwd(), 'public', 'favicon-32x32.png'))
+		)
+		this.express.use(
+			favicon(path.join(process.cwd(), 'public', 'favicon-16x16.png'))
+		)
+		this.initErrors()
+	}
 
-  initErrors() {
-    this.express.use(async (err, req, res, next) => {
-      /* This will be the first error handler to be called */
-      console.error('Unexpected error')
-      return next(err)
-    })
-  }
+	initErrors() {
+		this.express.use(async (err, req, res, next) => {
+			/* This will be the first error handler to be called */
+			console.error('Unexpected error')
+			return next(err)
+		})
+	}
 }
 
 export default Middleware

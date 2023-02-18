@@ -7,12 +7,12 @@ import { HttpRequest } from '../../core/adapters/controller/ports/http'
 
 // Este adaptador é utilizado para stream de arquivos (files)
 export const adaptFileRoute = (controller: ControllerFileGeneric) => {
-  return async (req: Request, res: Response) => {
-    const httpRequest: HttpRequest = {
-      body: req.body,
-      params: { ...req.params, ...req.query },
-    }
+	return async (req: Request, res: Response) => {
+		const httpRequest: HttpRequest = {
+			body: req.body,
+			params: { ...req.params, ...req.query },
+		}
 
-    await controller.handle(httpRequest, res)
-  }
+		await controller.handle(httpRequest, res)
+	}
 }

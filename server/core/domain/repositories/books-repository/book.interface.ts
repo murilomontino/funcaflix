@@ -1,7 +1,7 @@
-import { GetterBook } from "@/domain/entities";
-import { PromiseEither } from "@/shared/either";
+import { GetterBook } from '@/domain/entities'
+import { PromiseEither } from '@/shared/either'
 
 export interface BookRepository {
-    findAll(): PromiseEither<GetterBook[], Error>;
-    findById(id: string): PromiseEither<GetterBook, Error>;
+	findAll(): PromiseEither<GetterBook[], Error>
+	findById(id: string): PromiseEither<GetterBook, Error>
 }

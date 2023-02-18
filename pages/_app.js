@@ -22,17 +22,17 @@ import TemplateFrontEnd from '@/components/templates/frontend'
 const queryClient = new QueryClient()
 // This default export is required in a new `pages/_app.js` file.
 export default function MyApp({ Component, pageProps }) {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <RootContext>
-        <TemplateFrontEnd>
-          <Component {...pageProps} />
-        </TemplateFrontEnd>
-      </RootContext>
-    </QueryClientProvider>
-  )
+	return (
+		<QueryClientProvider client={queryClient}>
+			<RootContext>
+				<TemplateFrontEnd>
+					<Component {...pageProps} />
+				</TemplateFrontEnd>
+			</RootContext>
+		</QueryClientProvider>
+	)
 }
 
 export const getServerSideProps = async () => {
-  await build()
+	await build()
 }

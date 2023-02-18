@@ -5,21 +5,26 @@ import { IGetterCulturalProfile } from '@/types/getters'
 import { UseCase } from '../ports/use-case'
 
 type Props = {
-  id: number
+	id: number
 }
 
 export class FindByIdProfileUseCase
-  implements UseCase<unknown, IGetterCulturalProfile>
+	implements UseCase<unknown, IGetterCulturalProfile>
 {
-  constructor(private readonly culturalProfileRepository: CulturalProfileRepository) { }
+	constructor(
+		private readonly culturalProfileRepository: CulturalProfileRepository
+	) {}
 
-  async execute(_, { id }: Props): PromiseEither<IGetterCulturalProfile, Error> {
-    if (!id) return right(new Error('id is required'))
+	async execute(
+		_,
+		{ id }: Props
+	): PromiseEither<IGetterCulturalProfile, Error> {
+		if (!id) return right(new Error('id is required'))
 
-    const profileOrErr = await this.culturalProfileRepository.findById(id)
+		const profileOrErr = await this.culturalProfileRepository.findById(id)
 
-    if (profileOrErr.isRight()) return right(new Error('Not Found Profile'))
+		if (profileOrErr.isRight()) return right(new Error('Not Found Profile'))
 
-    return left(profileOrErr.value)
-  }
+		return left(profileOrErr.value)
+	}
 }

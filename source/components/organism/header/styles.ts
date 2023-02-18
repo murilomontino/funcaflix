@@ -4,15 +4,15 @@ import styledWeb from 'styled-components'
 import styled from 'styled-components/native'
 
 export const Container = styled(MotiView)`
-  flex: 1;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
-  align-items: center;
+	flex: 1;
+	flex-direction: row;
+	justify-content: space-between;
+	width: 100%;
+	align-items: center;
 `
 
 type Props = {
-  mobile: boolean
+	mobile: boolean
 }
 
 export const BarHeader = styledWeb.div<Props>`
@@ -29,8 +29,8 @@ export const BarHeader = styledWeb.div<Props>`
   transition: 0.5s ease-in;
 
   ${({ mobile }) =>
-    mobile &&
-    `
+		mobile &&
+		`
     background-color: ${theme.COLORS.BAR_HEADER};
   `}
 

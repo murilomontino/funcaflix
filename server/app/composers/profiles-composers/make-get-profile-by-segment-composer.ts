@@ -4,10 +4,7 @@ import { CulturalProfileRepositorySequelize } from '@/domain/repositories'
 import { FindAllBySegmentProfileUseCase } from '@/domain/usecases'
 
 export const makeGetProfileBySegmentComposer = (): ControllerGeneric => {
-  return new Controller(
-    new FindAllBySegmentProfileUseCase(
-      new CulturalProfileRepositorySequelize()
-      )
-    )
+	return new Controller(
+		new FindAllBySegmentProfileUseCase(new CulturalProfileRepositorySequelize())
+	)
 }
- 

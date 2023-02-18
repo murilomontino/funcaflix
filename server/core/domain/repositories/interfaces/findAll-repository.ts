@@ -3,7 +3,6 @@
 import { Either } from '@/shared/either'
 import { Transaction } from 'sequelize/types'
 
-
 /*
 	Interface Partial<Record<keyof Omit<T, 'id' | 'produtoId'>, boolean>>
 

@@ -3,11 +3,11 @@ import React from 'react'
 
 import { CulturalProfileRepositorySequelize } from '@/domain/repositories'
 import {
-  FindAllNewestAudioVisual,
-  FindAllOpportunities,
-  FindAllPlaylistUseCase,
-  FindAllProductsByCategory,
-  FindByRandomProfileUseCase,
+	FindAllNewestAudioVisual,
+	FindAllOpportunities,
+	FindAllPlaylistUseCase,
+	FindAllProductsByCategory,
+	FindByRandomProfileUseCase,
 } from '@/domain/usecases'
 import { CATEGORIES } from '@/types/constants'
 import { build } from 'mapacultural-database'
@@ -19,78 +19,94 @@ import HomeScreen from '@/screens/home-screen'
 const EM_BREVE = false
 
 export default function App({
-  staticBooks,
-  staticTvProgramsPlaylist,
-  staticNewestProducts,
-  staticOpportunities,
-  staticProfiles,
-  staticAudioVisualPlaylist,
+	staticBooks,
+	staticTvProgramsPlaylist,
+	staticNewestProducts,
+	staticOpportunities,
+	staticProfiles,
+	staticAudioVisualPlaylist,
 }) {
+	if (EM_BREVE)
+		return (
+			<React.Fragment>
+				<ComingSoon />
+			</React.Fragment>
+		)
 
-  if (EM_BREVE) return (<React.Fragment><ComingSoon /></React.Fragment>)
-
-  return (
-    <HomeScreen
-      books={staticBooks}
-      newestProducts={staticNewestProducts}
-      tvProgramsPlaylist={staticTvProgramsPlaylist}
-      opportunities={staticOpportunities}
-      profiles={staticProfiles}
-      audioVisualPlaylist={staticAudioVisualPlaylist}
-    />
-  )
+	return (
+		<HomeScreen
+			books={staticBooks}
+			newestProducts={staticNewestProducts}
+			tvProgramsPlaylist={staticTvProgramsPlaylist}
+			opportunities={staticOpportunities}
+			profiles={staticProfiles}
+			audioVisualPlaylist={staticAudioVisualPlaylist}
+		/>
+	)
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  await build()
+	await build()
 
-  const promiseBooksOrErr = new FindAllProductsByCategory().execute({}, { category: CATEGORIES.LITERATURE, })
-  const promisePlaylistOrErr = new FindAllPlaylistUseCase().execute({})
-  const promiseAudioVisualOrErr = new FindAllPlaylistUseCase().execute({
-    category: [CATEGORIES.AUDIOVISUAL],
-  })
-  const promiseNewestProductsOrErr = new FindAllNewestAudioVisual().execute({}, {
-    category: [
-      CATEGORIES.AUDIOVISUAL,
-    ], limit: 5,
-  })
-  const promiseOpportunitiesOrErr = new FindAllOpportunities().execute({ status: [1] })
-  const promiseProfilesOrErr = new FindByRandomProfileUseCase(
-    new CulturalProfileRepositorySequelize()
-  ).execute({ length: 20 })
+	const promiseBooksOrErr = new FindAllProductsByCategory().execute(
+		{},
+		{ category: CATEGORIES.LITERATURE }
+	)
+	const promisePlaylistOrErr = new FindAllPlaylistUseCase().execute({})
+	const promiseAudioVisualOrErr = new FindAllPlaylistUseCase().execute({
+		category: [CATEGORIES.AUDIOVISUAL],
+	})
+	const promiseNewestProductsOrErr = new FindAllNewestAudioVisual().execute(
+		{},
+		{
+			category: [CATEGORIES.AUDIOVISUAL],
+			limit: 5,
+		}
+	)
+	const promiseOpportunitiesOrErr = new FindAllOpportunities().execute({
+		status: [1],
+	})
+	const promiseProfilesOrErr = new FindByRandomProfileUseCase(
+		new CulturalProfileRepositorySequelize()
+	).execute({
+		length: 20,
+	})
 
-  const [
-    booksOrErr,
-    playlistOrErr,
-    newestProductsOrErr,
-    opportunitiesOrErr,
-    profilesOrErr,
-    audioVisualPlaylistOrErr,
-  ] = await Promise.all([
-    promiseBooksOrErr,
-    promisePlaylistOrErr,
-    promiseNewestProductsOrErr,
-    promiseOpportunitiesOrErr,
-    promiseProfilesOrErr,
-    promiseAudioVisualOrErr,
-  ])
+	const [
+		booksOrErr,
+		playlistOrErr,
+		newestProductsOrErr,
+		opportunitiesOrErr,
+		profilesOrErr,
+		audioVisualPlaylistOrErr,
+	] = await Promise.all([
+		promiseBooksOrErr,
+		promisePlaylistOrErr,
+		promiseNewestProductsOrErr,
+		promiseOpportunitiesOrErr,
+		promiseProfilesOrErr,
+		promiseAudioVisualOrErr,
+	])
 
-  const books = booksOrErr.isLeft() && booksOrErr.extract()
-  const playlist = playlistOrErr.isLeft() && playlistOrErr.extract()
-  const newestProducts = newestProductsOrErr.isLeft() && newestProductsOrErr.extract()
-  const opportunities = opportunitiesOrErr.isLeft() && opportunitiesOrErr.extract()
-  const profiles = profilesOrErr.isLeft() && profilesOrErr.extract()
-  const audioVisualPlaylist = audioVisualPlaylistOrErr.isLeft() && audioVisualPlaylistOrErr.extract()
+	const books = booksOrErr.isLeft() && booksOrErr.extract()
+	const playlist = playlistOrErr.isLeft() && playlistOrErr.extract()
+	const newestProducts =
+		newestProductsOrErr.isLeft() && newestProductsOrErr.extract()
+	const opportunities =
+		opportunitiesOrErr.isLeft() && opportunitiesOrErr.extract()
+	const profiles = profilesOrErr.isLeft() && profilesOrErr.extract()
+	const audioVisualPlaylist =
+		audioVisualPlaylistOrErr.isLeft() && audioVisualPlaylistOrErr.extract()
 
-  return {
-    props: {
-      staticBooks: books || [],
-      staticTvProgramsPlaylist: playlist || [],
-      staticNewestProducts: newestProducts || [],
-      staticOpportunities: opportunities || [],
-      staticProfiles: profiles || [],
-      staticAudioVisualPlaylist: audioVisualPlaylist || [],
-    },
-    revalidate: 60 * 60 * 24,
-  }
+	return {
+		props: {
+			staticBooks: books || [],
+			staticTvProgramsPlaylist: playlist || [],
+			staticNewestProducts: newestProducts || [],
+			staticOpportunities: opportunities || [],
+			staticProfiles: profiles || [],
+			staticAudioVisualPlaylist: audioVisualPlaylist || [],
+		},
+		revalidate: 60 * 60 * 24,
+	}
 }

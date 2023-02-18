@@ -1,13 +1,15 @@
-"use strict";
+'use strict'
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports["default"] = void 0;
+Object.defineProperty(exports, '__esModule', {
+	value: true,
+})
+exports['default'] = void 0
 
-var _DatePicker = _interopRequireDefault(require("./DatePicker"));
+var _DatePicker = _interopRequireDefault(require('./DatePicker'))
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function _interopRequireDefault(obj) {
+	return obj && obj.__esModule ? obj : { default: obj }
+}
 
-var _default = _DatePicker["default"];
-exports["default"] = _default;
+var _default = _DatePicker['default']
+exports['default'] = _default

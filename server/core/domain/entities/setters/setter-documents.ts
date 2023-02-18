@@ -1,4 +1,3 @@
-
 import { Either, left, PromiseEither, right } from '@/shared/either'
 import { IDocumentsProducts } from '@/types/setters'
 import { object, string, number } from 'yup'

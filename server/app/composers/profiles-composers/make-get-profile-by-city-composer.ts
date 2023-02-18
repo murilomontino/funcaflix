@@ -4,10 +4,7 @@ import { CulturalProfileRepositorySequelize } from '@/domain/repositories'
 import { FindAllByCityProfileUseCase } from '@/domain/usecases'
 
 export const makeGetProfileByCityComposer = (): ControllerGeneric => {
-  return new Controller(
-    new FindAllByCityProfileUseCase(
-      new CulturalProfileRepositorySequelize()
-      )
-    )
+	return new Controller(
+		new FindAllByCityProfileUseCase(new CulturalProfileRepositorySequelize())
+	)
 }
- 
