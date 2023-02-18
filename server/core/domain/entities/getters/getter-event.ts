@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
+import { isValid } from '@/helpers'
 import { IGetterEvent } from '@/types/getters'
 import { IEvent, IProduct } from '@/types/setters'
 
-import { isValid } from '@/helpers'
 import { GetterEntity } from './getter-entity'
 
 export class GetterEvent extends GetterEntity<IGetterEvent> implements IEvent, IProduct {

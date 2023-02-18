@@ -1,8 +1,10 @@
+import { afterEach, describe, expect, expectTypeOf, it, vi } from 'vitest'
+
 import { DatabaseMock } from '@/__mocks__'
 import { MissingParamError } from '@/domain/usecases/errors'
 import { IGetterEvent } from '@/types/getters'
 import { database } from 'mapacultural-database'
-import { afterEach, describe, expect, expectTypeOf, it, vi } from 'vitest'
+
 import { SequelizeEventsRepository, generateEvent } from './sequelize-events-repository'
 
 const makeSut = async (db = database) => {

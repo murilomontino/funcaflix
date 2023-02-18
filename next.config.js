@@ -29,6 +29,7 @@ const nextConfig = ((phase) => {
   return {
     eslint: {
       ignoreDuringBuilds: true,
+      dirs: ['source', 'server', 'pages']
     },
     typescript: {
       ignoreBuildErrors: true,

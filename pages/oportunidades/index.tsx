@@ -1,8 +1,9 @@
 // @generated: @expo/next-adapter@2.1.52
+import React from 'react'
+
 import { FindAllOpportunities } from '@/domain/usecases'
 import { build } from 'mapacultural-database'
 import { GetStaticProps } from 'next/types'
-import React from 'react'
 
 import OpportunitiesScreen from '@/screens/opportunities-screen'
 

@@ -1,9 +1,13 @@
 import { PromiseEither } from '@/shared/either'
+import { CATEGORIES } from '@/types/constants'
 import { IGetterProduct } from '@/types/getters'
 
 import { IProductsRepository, categories } from './products-repository.interface'
 
 export class InMemoryProductsRepository implements IProductsRepository {
+    findAllByFinancialResourceAndCategory(financialResource: number, category: CATEGORIES): PromiseEither<IGetterProduct[], Error> {
+        throw new Error('Method not implemented.')
+    }
     findAll(): PromiseEither<IGetterProduct[], Error> {
         throw new Error('Method not implemented.')
     }

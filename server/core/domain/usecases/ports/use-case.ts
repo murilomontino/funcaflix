@@ -1,5 +1,4 @@
 import { PromiseEither } from '@/shared/either'
-
 export interface UseCase<T, U> {
-	execute: (_body: T, _params?: any) => PromiseEither<U, Error>
+	execute: (body?: T, params?: unknown) => PromiseEither<U, Error>
 }

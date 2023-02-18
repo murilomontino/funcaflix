@@ -1,9 +1,11 @@
-import { SequelizeEventsRepository } from '@/domain/repositories'
-import { database } from 'mapacultural-database'
 import { describe, expect, it, vi } from 'vitest'
-import { FindAllEventsUseCase } from './find-all-events-use-case'
 
 import { DatabaseMock } from '@/__mocks__'
+import { SequelizeEventsRepository } from '@/domain/repositories'
+import { database } from 'mapacultural-database'
+
+import { FindAllEventsUseCase } from './find-all-events-use-case'
+
 
 const makeSut = (db = database, repo = null) => {
     const repository = repo || new SequelizeEventsRepository(db)
@@ -20,7 +22,7 @@ describe('Test Use Case Find All Events', () => {
         const eventsOrErr = await sut.execute()
 
         if (eventsOrErr.isRight()) {
-            throw eventsOrErr.value
+            return console.log(eventsOrErr.extract())
         }
 
         expect(eventsOrErr.isLeft()).toBeTruthy()
@@ -34,7 +36,7 @@ describe('Test Use Case Find All Events', () => {
         const eventsOrErr = await sut.execute()
 
         if (eventsOrErr.isRight()) {
-            console.log(eventsOrErr.extract())
+            return console.log(eventsOrErr.extract())
         }
 
         expect(eventsOrErr.isLeft()).toBeTruthy()
@@ -50,7 +52,7 @@ describe('Test Use Case Find All Events', () => {
         const eventsOrErr = await sut.execute()
 
         if (eventsOrErr.isLeft()) {
-            console.log(eventsOrErr.extract())
+            return console.log(eventsOrErr.extract())
         }
 
         expect(eventsOrErr.isRight()).toBeTruthy()

@@ -4,6 +4,7 @@ import promiseErrorHandler from '@/helpers/error-handler';
 import { left, PromiseEither, right } from '@/shared/either';
 import { IGetterEvent } from '@/types/getters';
 import type { Sequelize } from 'sequelize';
+
 import { ErrorQueryDatabase } from '../errors/error-query-database';
 import { IEventsRepository } from './events-repository.interface';
 import { QUERY_EVENTS, QUERY_EVENTS_BY_ID, QUERY_EVENTS_BY_USER_ID } from './queries';
