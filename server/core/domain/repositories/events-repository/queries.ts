@@ -53,7 +53,7 @@ export const QUERY_EVENTS_BY_USER_ID = (id: number) => `
 
 // export const QUERY_EVENTS_BY_LOCAL = (city: string) => `
 //   ${QUERY_DEFAULT}
-//   WHERE 
+//   WHERE
 //     e.nome_local='${city}' AND p.active=1
 //   ORDER BY RAND()
 //   LIMIT 20;

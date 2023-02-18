@@ -6,8 +6,8 @@ import ApiImages from './images-routes'
 import ApiProfiles from './profiles-routes'
 
 export default (Application: Express) => {
-  Application.use('/api', ApiBooks)
-  Application.use('/api', ApiImages)
-  Application.use('/api', ApiProfiles)
-  Application.use('/api', ApiEvents)
+	Application.use('/api', ApiBooks)
+	Application.use('/api', ApiImages)
+	Application.use('/api', ApiProfiles)
+	Application.use('/api', ApiEvents)
 }
