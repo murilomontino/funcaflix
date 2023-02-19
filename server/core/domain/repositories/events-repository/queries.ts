@@ -1,3 +1,5 @@
+import { FINANCIAL_RESOURCES } from '@/types/constants'
+
 const QUERY_DEFAULT = `
 SELECT 
     e.id,
@@ -12,7 +14,7 @@ SELECT
     e.bairro as neighborhood,
     e.cidade as city,
     e.estado as uf,
-  	e.data_inicio as dateStart,
+	e.data_inicio as dateStart,
     e.data_fim as dateEnd,
     e.hora_inicio as hourStart,
     e.hora_fim as hourEnd,
@@ -20,6 +22,7 @@ SELECT
     p.titulo as title,
     p.sobre as about,
     p.imagem_divulgacao as thumbnail,
+    p.recurso as financialResource,
     p.categoria as category,
     p.subcategoria as subCategory,
     p.link,
@@ -30,25 +33,35 @@ SELECT
     p.data_atualizacao as updatedAt,
     p.existe_sub_prod as existSubProd,
     p.id_sub_produto as idSubProd
-  FROM 
-    evento as e
-    JOIN 
-      produtos as p ON(e.id_produto=p.id)
+	FROM 
+    	evento as e
+    	JOIN 
+    		produtos as p ON(e.id_produto=p.id)
 `
 export const QUERY_EVENTS = `
-  ${QUERY_DEFAULT}
-  ORDER BY RAND()
-  LIMIT 500;
+	${QUERY_DEFAULT}
+	ORDER BY RAND()
+	LIMIT 500;
 `
 
 export const QUERY_EVENTS_BY_ID = (id: number) => `
-  ${QUERY_DEFAULT}
-  WHERE e.id=${id};
+	${QUERY_DEFAULT}
+	WHERE e.id=${id};
 `
 
 export const QUERY_EVENTS_BY_USER_ID = (id: number) => `
-  ${QUERY_DEFAULT}
-  WHERE p.id_usuario=${id};
+	${QUERY_DEFAULT}
+	WHERE p.id_usuario=${id};
+`
+
+export const QUERY_EVENTS_BY_FINANCIAL_RESOURCE = (
+	resource: FINANCIAL_RESOURCES
+) => `
+	${QUERY_DEFAULT}
+	WHERE
+	p.recurso='${resource}' AND p.ativo=1
+	ORDER BY RAND()
+	LIMIT 500;
 `
 
 // export const QUERY_EVENTS_BY_LOCAL = (city: string) => `

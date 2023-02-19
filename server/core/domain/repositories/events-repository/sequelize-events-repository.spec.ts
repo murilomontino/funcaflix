@@ -137,6 +137,34 @@ describe('Test Events Repository', () => {
 		expect(event.isRight()).toBeTruthy()
 	})
 
+	it('should be able find all events by financial resource (Unitary)', async () => {
+		const database = new DatabaseMock({}) as any
+		const { sut } = await makeSut(database)
+		const events = await sut.findAllEventsByFinancialResource(1)
+
+		if (events.isRight()) {
+			return console.error(events.extract())
+		}
+
+		expect(events.isLeft()).toBeTruthy()
+		expectTypeOf<IGetterEvent[]>(events.extract())
+	})
+
+	it('should be throw err find all events by financial resource (Unitary)', async () => {
+		const database = new DatabaseMock({
+			query: vi.fn().mockRejectedValue(new Error('Error Query Database')),
+		}) as any
+
+		const { sut } = await makeSut(database)
+		const events = await sut.findAllEventsByFinancialResource(1)
+
+		if (events.isLeft()) {
+			return console.error(events.extract())
+		}
+
+		expect(events.isRight()).toBeTruthy()
+	})
+
 	it('should be IGettersEventDTO (Unitary)', async () => {
 		const eventDTO = await generateEvent({} as any)
 		expect(eventDTO).toBeDefined()
