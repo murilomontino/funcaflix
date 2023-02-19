@@ -72,6 +72,8 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.4.4",
+    "@commitlint/config-conventional": "^17.4.4",
     "@expo/next-adapter": "^4.0.0",
     "@faker-js/faker": "^7.5.0",
     "@testing-library/react": "^14.0.0",
@@ -96,6 +98,7 @@
     "eslint-plugin-import-helpers": "^1.2.1",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-unused-imports": "^2.0.0",
+    "husky": "^8.0.3",
     "next-compose-plugins": "^2.2.1",
     "next-transpile-modules": "^9.0.0",
     "nodemon": "^2.0.20",
@@ -108,6 +111,7 @@
     "vitest": "^0.27.3"
   },
   "scripts": {
+    "prepare": "husky install",
     "test": "cross-env NODE_ENV=test vitest --ui --watch --t Unitary",
     "test:all": "cross-env NODE_ENV=test vitest --ui --watch",
     "test:integration": "cross-env NODE_ENV=test vitest --ui --watch --t Integration",
