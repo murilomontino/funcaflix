@@ -29,21 +29,23 @@
 			"error",
 			"unix"
 		],
+		"indent": "off",
+		"endOfLine": "off",
+		"arrow-body-style": "off",
+		"prefer-arrow-callback": "off",
+		"bracket-spacing": "off",
 		"prettier/prettier": [
 			"error",
 			{
+				"endOfLine": "auto",
 				"singleQuote": true,
 				"printWidth": 80,
-				"bracket-spacing": true,
+				"bracket-spacing": false,
 				"arrow-parens": "always",
 				"tabWidth": 2,
 				"useTabs": true,
 				"semi": false,
-				"trailingComma": "es5",
-				"space-before-function-parens": [
-					"error",
-					"always"
-				]
+				"trailingComma": "es5"
 			}
 		],
 		"react/no-unescaped-entities": "off",
