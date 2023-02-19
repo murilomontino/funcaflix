@@ -8,15 +8,15 @@ import { MissingParamError } from '../errors'
 import { UseCase } from '../ports/use-case'
 
 type Params = {
-	id: number | string
+	id: number
 }
 
-export class FindAllEventsByIDUseCase implements UseCase<never, IGetterEvent> {
+export class FindEventByIDUseCase implements UseCase<never, IGetterEvent> {
 	constructor(private readonly repository: IEventsRepository) { }
 
 	@Transform(Number, ['id'])
 	async execute(_, { id }: Params): PromiseEither<IGetterEvent, Error> {
-		if (!isValidID(id) || typeof id === 'string') {
+		if (!isValidID(id)) {
 			return right(new MissingParamError({ parameter: 'id' }))
 		}
 

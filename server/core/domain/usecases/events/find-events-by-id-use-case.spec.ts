@@ -5,11 +5,11 @@ import { SequelizeEventsRepository } from '@/domain/repositories'
 import { IGetterEvent } from '@/types/getters'
 import { database } from 'mapacultural-database'
 
-import { FindAllEventsByIDUseCase } from './find-all-events-by-id-use-case'
+import { FindEventByIDUseCase } from './find-events-by-id-use-case'
 
 const makeSut = (db = database, repo = null) => {
 	const repository = repo || new SequelizeEventsRepository(db)
-	const sut = new FindAllEventsByIDUseCase(repository)
+	const sut = new FindEventByIDUseCase(repository)
 
 	return {
 		sut,
@@ -19,7 +19,7 @@ const makeSut = (db = database, repo = null) => {
 describe('Test Use Case Find All Events By Id', () => {
 	it('should return events by id user (Integration)', async () => {
 		const { sut } = makeSut()
-		const eventsOrErr = await sut.execute(undefined, { id: '1' })
+		const eventsOrErr = await sut.execute(undefined, { id: '1' as any })
 
 		if (eventsOrErr.isRight()) {
 			return console.log(eventsOrErr.extract())
@@ -32,7 +32,7 @@ describe('Test Use Case Find All Events By Id', () => {
 	it('should return events by id user (Unitary)', async () => {
 		const db = new DatabaseMock({}) as any
 		const { sut } = makeSut(db)
-		const eventsOrErr = await sut.execute(undefined, { id: '1' })
+		const eventsOrErr = await sut.execute(undefined, { id: '1' as any })
 
 		if (eventsOrErr.isRight()) {
 			return console.log(eventsOrErr.extract())
@@ -48,7 +48,7 @@ describe('Test Use Case Find All Events By Id', () => {
 		}) as any
 
 		const { sut } = makeSut(db)
-		const eventsOrErr = await sut.execute(undefined, { id: '1' })
+		const eventsOrErr = await sut.execute(undefined, { id: '1' as any })
 
 		if (eventsOrErr.isLeft()) {
 			return console.log(eventsOrErr.extract())
@@ -59,7 +59,7 @@ describe('Test Use Case Find All Events By Id', () => {
 
 	it('should throw err case id is invalid (Unitary)', async () => {
 		const { sut } = makeSut()
-		const err = await sut.execute(undefined, { id: 'invalid' })
+		const err = await sut.execute(undefined, { id: 'invalid' as any })
 		expect(err.isRight()).toBeTruthy()
 	})
 	it('should throw err case id is null (Unitary)', async () => {
@@ -70,7 +70,7 @@ describe('Test Use Case Find All Events By Id', () => {
 	})
 	it('should throw err case id is empty (Unitary)', async () => {
 		const { sut } = makeSut()
-		const err = await sut.execute(undefined, { id: '' })
+		const err = await sut.execute(undefined, { id: '' as any })
 
 		expect(err.isRight()).toBeTruthy()
 	})
