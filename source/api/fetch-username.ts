@@ -1,27 +1,23 @@
 import { useQuery } from 'react-query'
 
 import promiseErrorHandler from '@/helpers/error-handler'
+import { IGetterEvent } from '@/types/getters'
 import { ICulturalProfile } from '@/types/setters'
 
 import api from '@/services'
 
 const DAY = 60 * 60 * 24
 
-const fetchUsernameProfile = (id: string) => {
-	if (!id)
-		return {
-			data: null,
-			isLoading: false,
-			error: true,
-		}
-
+const useFetchUsernameProfile = (id: string) => {
 	return useQuery(
-		`profile-${id}`,
+		`profile-${(id || 'vazio').toLowerCase()}`,
 		async () => {
+			if (!id) return
+
 			const [[errProfile, responseProfile], [errEvents, responseEvents]] =
 				await Promise.all([
 					promiseErrorHandler(api.get<ICulturalProfile>(`/profiles/${id}`)),
-					promiseErrorHandler(api.get(`/profiles/${id}/events`)),
+					promiseErrorHandler(api.get<IGetterEvent[]>(`/events/user/${id}`)),
 				])
 
 			if (errProfile) {
@@ -30,19 +26,24 @@ const fetchUsernameProfile = (id: string) => {
 				})
 			}
 
-			const { data, status } = responseProfile
+			const { data: profile, status } = responseProfile
 
 			if (status !== 200) {
 				throw new Error(
 					`A Requisição apresentou problemas. Status code: ${status}`,
 					{
-						cause: data,
+						cause: profile,
 					}
 				)
 			}
 
+			const events = !errEvents ? responseEvents.data : []
+
+			console.log(events)
+
 			return {
-				profile: data as ICulturalProfile,
+				profile,
+				events,
 			}
 		},
 		{
@@ -51,4 +52,4 @@ const fetchUsernameProfile = (id: string) => {
 	)
 }
 
-export default fetchUsernameProfile
+export default useFetchUsernameProfile

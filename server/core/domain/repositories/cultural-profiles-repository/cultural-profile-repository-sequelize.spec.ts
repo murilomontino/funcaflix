@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, beforeAll } from 'vitest'
+import { beforeAll, beforeEach, describe, expect, it } from 'vitest'
 
 import { database } from 'mapacultural-database'
 
@@ -12,7 +12,7 @@ describe('Unit Test Cultural Profile Repository', () => {
 	})
 
 	beforeEach(() => {
-		instance = new CulturalProfileRepositorySequelize()
+		instance = new CulturalProfileRepositorySequelize(database)
 	})
 
 	it('should instance of CulturalProfileRepositor', () => {
@@ -36,14 +36,26 @@ describe('Unit Test Cultural Profile Repository', () => {
 	})
 	it('should return find by id profile (Integration)', async () => {
 		const result = await instance.findById(1)
-		if (result.isLeft()) {
-			expect(result.value.id).toBeDefined()
+		if (result.isRight()) {
+			return console.log(result.extract())
 		}
+
+		expect(result.value.id).toBeDefined()
 	})
 	it('should return find by id 400 profile (Integration)', async () => {
 		const result = await instance.findById(400)
-		if (result.isLeft()) {
-			expect(result.value.id).toBeDefined()
+		if (result.isRight()) {
+			return console.log(result.extract())
 		}
+
+		expect(result.value.id).toBeDefined()
+	})
+	it('should return find by id 1129 profile (Integration)', async () => {
+		const result = await instance.findById(1129)
+		if (result.isRight()) {
+			return console.log(result.extract())
+		}
+
+		expect(result.value.id).toBeDefined()
 	})
 })

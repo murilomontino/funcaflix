@@ -3,7 +3,7 @@ import React from 'react'
 import { CulturalProfileRepositorySequelize } from '@/domain/repositories'
 import { removeCharacterSpecialAndJoin } from '@/helpers/strings-normalize'
 import { IGetterCulturalProfile } from '@/types/getters'
-import { build } from 'mapacultural-database'
+import { build, database } from 'mapacultural-database'
 import type { GetStaticProps } from 'next'
 
 import CulturalProfilesNameScreen from '@/screens/cultural-profiles-names-screen'
@@ -14,7 +14,11 @@ type Props = {
 }
 
 const FilteredProfileCulture = ({ profiles, title }: Props) => {
-	return <CulturalProfilesNameScreen profiles={profiles} name={title} />
+	return (
+		<React.Fragment>
+			<CulturalProfilesNameScreen profiles={profiles} name={title} />
+		</React.Fragment>
+	)
 }
 
 export default FilteredProfileCulture
@@ -22,7 +26,7 @@ export default FilteredProfileCulture
 export const getStaticPaths = async () => {
 	await build()
 
-	const Repository = new CulturalProfileRepositorySequelize()
+	const Repository = new CulturalProfileRepositorySequelize(database)
 
 	const citiesOrErr = await Repository.findGroupByCity()
 	const segmentsOrErr = await Repository.findGroupBySegment()
@@ -44,7 +48,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
 	await build()
-	const Repository = new CulturalProfileRepositorySequelize()
+	const Repository = new CulturalProfileRepositorySequelize(database)
 
 	const { name } = params
 
@@ -61,12 +65,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 		}
 	}
 
-	const repository = new CulturalProfileRepositorySequelize()
-
 	const profiles =
 		cityOrSegmentTitleTypeOrErr.value.type === 'city'
-			? await repository.findAllByWhereCity(name as string)
-			: await repository.findAllByWhereSegment(name as string)
+			? await Repository.findAllByWhereCity(name as string)
+			: await Repository.findAllByWhereSegment(name as string)
 
 	if (profiles.isRight()) {
 		return {

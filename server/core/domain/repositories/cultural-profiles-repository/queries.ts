@@ -19,16 +19,16 @@ SELECT
     c.email2 as email,
     c.telefone_02 as phone
   FROM 
-    usuario as u 
-    JOIN 
+    usuario as u
+    LEFT JOIN 
       sobre as s ON(u.id=s.id_usuario)
-    JOIN
+    LEFT JOIN
    	  documentacao as d ON(u.id=d.id_usuario AND d.tipo=10)
-    JOIN
+    LEFT JOIN
       documentacao as b ON(u.id=b.id_usuario AND b.tipo=11)
-    JOIN 
+    LEFT JOIN 
       endereco as e ON(u.id=e.id_usuario)
-    JOIN 
+    LEFT JOIN 
       contato as c ON(u.id=c.id_usuario)
 `
 export const QUERY_CULTURAL_PROFILE = `

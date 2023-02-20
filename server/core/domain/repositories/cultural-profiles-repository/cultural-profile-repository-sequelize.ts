@@ -1,41 +1,63 @@
+import { GetterCulturalProfiles } from '@/domain/entities'
+import { MissingParamError } from '@/domain/usecases/errors'
 import GetterCache from '@/helpers/cache/getter-cache/getter-cache-use-case'
 import SetterCache from '@/helpers/cache/setter-cache/setter-cache-use-case'
 import promiseErrorHandler from '@/helpers/error-handler'
 import { left, PromiseEither, right } from '@/shared/either'
 import { IGetterCulturalProfile } from '@/types/getters'
 import { ICulturalProfile } from '@/types/setters'
-import { database } from 'mapacultural-database'
+import { Sequelize } from 'sequelize'
 
 import localidades from '../../constants/localidades.json'
 import segmentos from '../../constants/segmentos.json'
+import { NotFoundProfile } from '../errors/not-found-profile'
 import {
+	CityOrSegmentNameResponse,
 	CulturalProfileByCity,
 	CulturalProfileBySegment,
 	CulturalProfileRepository,
-	CityOrSegmentNameResponse,
 } from './cultural-profile.interface'
 import {
 	QUERY_CULTURAL_PROFILE,
 	QUERY_CULTURAL_PROFILE_BY_CITY,
 	QUERY_CULTURAL_PROFILE_BY_ID,
 	QUERY_CULTURAL_PROFILE_BY_SEGMENT,
-	QUERY_GROUP_BY_CITY,
-	QUERY_GROUP_BY_SEGMENT,
 	QUERY_CULTURAL_PROFILE_RAND,
 	QUERY_CULTURAL_PROFILE_SEARCH,
+	QUERY_GROUP_BY_CITY,
+	QUERY_GROUP_BY_SEGMENT,
 } from './queries'
 
 const HOUR = 3600
 const DAY = HOUR * 24
 
+export async function generateCulturalProfile(
+	profile: any
+): Promise<IGetterCulturalProfile> {
+	if (!profile) {
+		throw new MissingParamError({ parameter: 'profile' })
+	}
+
+	if (profile?.get) {
+		const profilePlain = profile.get({ plain: true })
+		return GetterCulturalProfiles.build(profilePlain).params()
+	}
+
+	return GetterCulturalProfiles.build(profile).params()
+}
+
 export class CulturalProfileRepositorySequelize
-	implements CulturalProfileRepository
-{
+	implements CulturalProfileRepository {
+	constructor(private readonly database: Sequelize) { }
+
 	async findAllByCity(): PromiseEither<CulturalProfileByCity[], Error> {
-		return database.transaction(async (transaction) => {
-			const [culturalProfiles] = await database.query(QUERY_CULTURAL_PROFILE, {
-				transaction,
-			})
+		return this.database.transaction(async (transaction) => {
+			const [culturalProfiles] = await this.database.query(
+				QUERY_CULTURAL_PROFILE,
+				{
+					transaction,
+				}
+			)
 
 			const cities = Array.from(
 				new Set(
@@ -43,24 +65,32 @@ export class CulturalProfileRepositorySequelize
 				)
 			)
 
-			const items: CulturalProfileByCity[] = await Promise.all(
-				cities.map(async (city) => {
-					const items = culturalProfiles.filter(
-						(item: IGetterCulturalProfile) => item.city === city
-					) as IGetterCulturalProfile[]
+			const items: CulturalProfileByCity[] = await Promise.all([
+				...cities.map(async (city) => {
+					const filtered = culturalProfiles.filter(
+						(artist: IGetterCulturalProfile) => artist.city === city
+					)
+
+					const items = await Promise.all([
+						...filtered.map(generateCulturalProfile),
+					])
+
 					return { city, items }
-				})
-			)
+				}),
+			])
 
 			return left(items)
 		})
 	}
 
 	async findAllBySegment(): PromiseEither<CulturalProfileBySegment[], Error> {
-		return database.transaction(async (transaction) => {
-			const [culturalProfiles] = await database.query(QUERY_CULTURAL_PROFILE, {
-				transaction,
-			})
+		return this.database.transaction(async (transaction) => {
+			const [culturalProfiles] = await this.database.query(
+				QUERY_CULTURAL_PROFILE,
+				{
+					transaction,
+				}
+			)
 
 			const segments = Array.from(
 				new Set(
@@ -68,32 +98,39 @@ export class CulturalProfileRepositorySequelize
 				)
 			)
 
-			const items = await Promise.all(
-				segments.map((segment) => {
-					const items = culturalProfiles.filter(
+			const items = await Promise.all([
+				...segments.map(async (segment) => {
+					const filtered = culturalProfiles.filter(
 						(artist: IGetterCulturalProfile) => artist.segment === segment
-					) as IGetterCulturalProfile[]
+					)
+
+					const items = await Promise.all([
+						...filtered.map(generateCulturalProfile),
+					])
+
 					return { segment, items }
-				})
-			)
+				}),
+			])
 
 			return left(items)
 		})
 	}
 
 	async findById(id: number): PromiseEither<IGetterCulturalProfile, Error> {
-		return database.transaction(async (transaction) => {
-			const [error, profiles] = await promiseErrorHandler(
-				database.query(QUERY_CULTURAL_PROFILE_BY_ID(id), { transaction })
+		return this.database.transaction(async (transaction) => {
+			const [error, [query]] = await promiseErrorHandler(
+				this.database.query(QUERY_CULTURAL_PROFILE_BY_ID(id), { transaction })
 			)
 
 			if (error) return right(error)
 
-			const [profile] = profiles
+			const [profile] = query
 
-			if (!profile[0]) return right(new Error('Profile not found'))
+			if (!profile) return right(new NotFoundProfile(undefined, id))
 
-			return left(profile[0] as IGetterCulturalProfile)
+			const iProfile = await generateCulturalProfile(profile)
+
+			return left(iProfile)
 		})
 	}
 
@@ -110,16 +147,18 @@ export class CulturalProfileRepositorySequelize
 
 		const term = segmentos[segment]
 
-		return database.transaction(async (transaction) => {
+		return this.database.transaction(async (transaction) => {
 			const [error, queryResult] = await promiseErrorHandler(
-				database.query(QUERY_CULTURAL_PROFILE_BY_SEGMENT(term), { transaction })
+				this.database.query(QUERY_CULTURAL_PROFILE_BY_SEGMENT(term), {
+					transaction,
+				})
 			)
 
 			if (error) return right(error)
 
-			const profiles = queryResult[0].map(
-				(item: any) => item as IGetterCulturalProfile
-			)
+			const profiles = await Promise.all([
+				...queryResult[0].map(generateCulturalProfile),
+			])
 
 			await SetterCache.execute(KEY, JSON.stringify(profiles), HOUR)
 
@@ -140,16 +179,18 @@ export class CulturalProfileRepositorySequelize
 
 		const term = localidades[city]
 
-		return database.transaction(async (transaction) => {
+		return this.database.transaction(async (transaction) => {
 			const [error, queryResult] = await promiseErrorHandler(
-				database.query(QUERY_CULTURAL_PROFILE_BY_CITY(term), { transaction })
+				this.database.query(QUERY_CULTURAL_PROFILE_BY_CITY(term), {
+					transaction,
+				})
 			)
 
 			if (error) return right(error)
 
-			const profiles = queryResult[0].map(
-				(item: any) => item as IGetterCulturalProfile
-			)
+			const profiles = await Promise.all([
+				...queryResult[0].map(generateCulturalProfile),
+			])
 
 			await SetterCache.execute(KEY, JSON.stringify(profiles), HOUR)
 
@@ -164,9 +205,9 @@ export class CulturalProfileRepositorySequelize
 			return left(JSON.parse(cacheOrErr.value))
 		}
 
-		return database.transaction(async (transaction) => {
+		return this.database.transaction(async (transaction) => {
 			const [error, cities] = await promiseErrorHandler(
-				database.query(QUERY_GROUP_BY_CITY, { transaction })
+				this.database.query(QUERY_GROUP_BY_CITY, { transaction })
 			)
 
 			if (error) return right(error)
@@ -185,9 +226,9 @@ export class CulturalProfileRepositorySequelize
 			return left(JSON.parse(cacheOrErr.value))
 		}
 
-		return database.transaction(async (transaction) => {
+		return this.database.transaction(async (transaction) => {
 			const [error, segments] = await promiseErrorHandler(
-				database.query(QUERY_GROUP_BY_SEGMENT, { transaction })
+				this.database.query(QUERY_GROUP_BY_SEGMENT, { transaction })
 			)
 
 			if (error) return right(error)
@@ -197,26 +238,6 @@ export class CulturalProfileRepositorySequelize
 			await SetterCache.execute('::segments', JSON.stringify(segmentsString))
 
 			return left(segmentsString)
-		})
-	}
-
-	private async generateCache(): PromiseEither<string, Error> {
-		return database.transaction(async (transaction) => {
-			const [citiesAndOptions, segmentAndOptions] = await Promise.all([
-				database.query(QUERY_GROUP_BY_CITY, { transaction }),
-				database.query(QUERY_GROUP_BY_SEGMENT, { transaction }),
-			])
-
-			const segments = segmentAndOptions[0].map(
-				(item: any) => item.segment as string
-			)
-
-			const cities = citiesAndOptions[0].map((item: any) => item.city as string)
-
-			await SetterCache.execute('::cities', JSON.stringify(cities))
-			await SetterCache.execute('::segments', JSON.stringify(segments))
-
-			return left('Cache generated')
 		})
 	}
 
@@ -248,24 +269,26 @@ export class CulturalProfileRepositorySequelize
 			return left(JSON.parse(cacheOrErr.value))
 		}
 
-		return database.transaction(async (transaction) => {
-			const [error, profiles] = await promiseErrorHandler(
-				database.query(QUERY_CULTURAL_PROFILE_RAND(length), { transaction })
+		return this.database.transaction(async (transaction) => {
+			const [error, [queryResult]] = await promiseErrorHandler(
+				this.database.query(QUERY_CULTURAL_PROFILE_RAND(length), {
+					transaction,
+				})
 			)
 
 			if (error) return right(error)
 
-			const profilesArray = profiles[0].map(
-				(item: any) => item as ICulturalProfile
-			)
+			const profiles = await Promise.all([
+				...queryResult.map(generateCulturalProfile),
+			])
 
 			await SetterCache.execute(
 				'::random-profile-culture-home',
-				JSON.stringify(profilesArray),
+				JSON.stringify(profiles),
 				DAY
 			)
 
-			return left(profilesArray)
+			return left(profiles)
 		})
 	}
 
@@ -278,16 +301,18 @@ export class CulturalProfileRepositorySequelize
 			return left(JSON.parse(cacheOrErr.value))
 		}
 
-		return database.transaction(async (transaction) => {
-			const [error, profiles] = await promiseErrorHandler(
-				database.query(QUERY_CULTURAL_PROFILE_SEARCH(search), { transaction })
+		return this.database.transaction(async (transaction) => {
+			const [error, [profiles]] = await promiseErrorHandler(
+				this.database.query(QUERY_CULTURAL_PROFILE_SEARCH(search), {
+					transaction,
+				})
 			)
 
 			if (error) return right(error)
 
-			const profilesArray = profiles[0].map(
-				(item: any) => item as ICulturalProfile
-			)
+			const profilesArray = await Promise.all([
+				...profiles.map(generateCulturalProfile),
+			])
 
 			await SetterCache.execute(
 				`::search-profile-culture-home::${search}`,
