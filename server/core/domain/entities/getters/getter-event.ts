@@ -7,8 +7,7 @@ import { GetterEntity } from './getter-entity'
 
 export class GetterEvent
 	extends GetterEntity<IGetterEvent>
-	implements IEvent, IProduct
-{
+	implements IEvent, IProduct {
 	public id: number
 	public title: string
 	public about: string
@@ -183,7 +182,7 @@ export class GetterEvent
 
 	public defineUpdatedAt(updatedAt: string | Date = null) {
 		if (!isValid(updatedAt)) {
-			this.createdAt = null
+			this.updatedAt = null
 			return this
 		}
 
@@ -192,7 +191,7 @@ export class GetterEvent
 			return this
 		}
 
-		this.updatedAt = updatedAt
+		this.updatedAt = updatedAt.toISOString()
 		return this
 	}
 
