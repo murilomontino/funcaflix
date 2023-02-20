@@ -6,7 +6,7 @@ type MemoItemsProps<T, G> = {
 }
 
 function useMapMemoItems<T, G>({ items, mapFunction }: MemoItemsProps<T, G>) {
-	return React.useMemo(() => items.map(mapFunction), [items])
+	return React.useMemo(() => items?.map?.(mapFunction), [items, mapFunction])
 }
 
 export default useMapMemoItems

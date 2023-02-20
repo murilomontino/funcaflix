@@ -18,7 +18,7 @@ function useFilterThumbnail<T>({
 			items.filter(
 				(item) => condition(item) && item?.thumbnail !== 'Não informado'
 			),
-		[items]
+		[condition, items]
 	)
 
 	return itemsMemo
