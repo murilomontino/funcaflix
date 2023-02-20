@@ -1,6 +1,6 @@
 import type { NextFunction, Request, Response } from 'express'
 
-export default {
+const ApiKeyMiddleware = {
 	async validateOrigin(req: Request, res: Response, _next: NextFunction) {
 		return res.sendStatus(200).end()
 	},
@@ -19,3 +19,5 @@ export default {
 		return res.redirect('/')
 	},
 }
+
+export default ApiKeyMiddleware
