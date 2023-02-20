@@ -1,7 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { isValid } from '@/helpers'
+import createDateEvent from '@/helpers/create-date-event'
+import { STATUS_DATE } from '@/types/constants'
 import { IGetterEvent } from '@/types/getters'
 import { IEvent, IProduct } from '@/types/setters'
+import { isAfter, isBefore } from 'date-fns'
 
 import { GetterEntity } from './getter-entity'
 
@@ -13,6 +16,7 @@ export class GetterEvent
 	public about: string
 	public category: number
 	public financialResource: number
+	public statusDate: STATUS_DATE
 	public subCategory: number
 	public link: string
 	public cpf_cnpj: string
@@ -79,8 +83,9 @@ export class GetterEvent
 			number,
 		} = params
 
-		return new GetterEvent()
+		const event = new GetterEvent()
 			.defineId(id)
+			.defineStatusDate(dateStart, hourStart, dateEnd, hourEnd)
 			.defineAddress(address)
 			.defineCep(cep)
 			.defineCity(city)
@@ -111,6 +116,8 @@ export class GetterEvent
 			.defineLocal(local)
 			.defineUpdatedAt(updatedAt)
 			.defineNumber(number)
+
+		return event
 	}
 
 	public defineId(id: number) {
@@ -293,6 +300,41 @@ export class GetterEvent
 
 		this.createdAt = createdAt.toISOString()
 
+		return this
+	}
+
+	public defineStatusDate(
+		dateStart: string,
+		hourStart: string,
+		dateEnd: string,
+		hourEnd: string
+	) {
+		if (!dateStart || !hourStart || !dateEnd || !hourEnd) {
+			this.statusDate = STATUS_DATE['not-informed']
+			return this
+		}
+
+		const dateStartFormatted = createDateEvent(dateStart, hourStart)
+		const dateEndFormatted = createDateEvent(dateEnd, hourEnd)
+
+		const now = new Date()
+		const isEventStarted = isAfter(now, dateStartFormatted) // true
+		const isEventEnded = isBefore(now, dateEndFormatted) // false
+
+		const isEventActive = isEventStarted && isEventEnded
+
+		if (!isEventStarted) {
+			this.statusDate = STATUS_DATE['not-started']
+			return this
+		} else if (!isEventEnded) {
+			this.statusDate = STATUS_DATE['done']
+			return this
+		} else if (isEventActive) {
+			this.statusDate = STATUS_DATE['in-progress']
+			return this
+		}
+
+		this.statusDate = STATUS_DATE['not-informed']
 		return this
 	}
 
