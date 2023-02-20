@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Col, Container, Row, TabContent, TabPane } from 'reactstrap'
 
 import { GetterProjects } from '@/domain/entities'
-import { IGetterProduct } from '@/types/getters'
+import { IGetterEvent, IGetterProduct } from '@/types/getters'
 
 import NavigationProfile from '@/components/molecule/navigation-profile'
 import TabPaneEvents from '@/components/tab-contents/tab-pane-events'
@@ -18,7 +18,7 @@ import mapOpportunityForProduct from '@/utils/map-opportunity-for-product'
 type Props = {
 	books: IGetterProduct[]
 	opportunities: GetterProjects[]
-	events: IGetterProduct[]
+	events: IGetterEvent[]
 	participation?: IGetterProduct[]
 	workshops: IGetterProduct[]
 	tvProgramsPlaylist: IGetterProduct[]

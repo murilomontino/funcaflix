@@ -1,13 +1,11 @@
 import React from 'react'
 
+import { makeUseCaseFindAllEventsByFinancialResources } from '@/composers/events-composers/make-get-all-events-by-financial-resources-composer'
 import { GetterProjects } from '@/domain/entities'
 import { SequelizeProductsRepository } from '@/domain/repositories/products-repository'
-import {
-	FindAllOpportunities,
-	FindAllProductsByFinancialResource,
-} from '@/domain/usecases'
+import { FindAllProductsByFinancialResource } from '@/domain/usecases'
 import { CATEGORIES, FINANCIAL_RESOURCES } from '@/types/constants'
-import { IGetterProduct } from '@/types/getters'
+import { IGetterEvent, IGetterProduct } from '@/types/getters'
 import { build } from 'mapacultural-database'
 import type { GetStaticProps } from 'next'
 
@@ -18,7 +16,7 @@ type StaticProps = {
 	audiovisual: IGetterProduct[]
 	opportunities: GetterProjects[]
 	workshops: IGetterProduct[]
-	events: IGetterProduct[]
+	events: IGetterEvent[]
 }
 
 const LeiAldirBlank = ({
@@ -45,28 +43,30 @@ const LeiAldirBlank = ({
 export const getStaticProps: GetStaticProps = async (context) => {
 	await build()
 
+	const EventsUseCase = makeUseCaseFindAllEventsByFinancialResources()
+
 	const repository = new SequelizeProductsRepository()
 
-	const booksPromise = new FindAllProductsByFinancialResource(repository)
+	const promiseBooks = new FindAllProductsByFinancialResource(repository)
 		.defineCategory(CATEGORIES.LITERATURE)
 		.execute(null, {
 			financialResource: FINANCIAL_RESOURCES['lei-aldir-blanc'],
 		})
 
-	const audioVisualPromise = new FindAllProductsByFinancialResource(repository)
+	const promiseAudioVisual = new FindAllProductsByFinancialResource(repository)
 		.defineCategory(CATEGORIES.AUDIOVISUAL)
 		.execute(null, {
 			financialResource: FINANCIAL_RESOURCES['lei-aldir-blanc'],
 		})
 
-	const promiseOpportunities = new FindAllOpportunities().execute({
-		status: [1, 2],
-		params: {
-			where: {
-				idUser: 12110,
-			},
-		},
-	})
+	// const promiseOpportunities = new FindAllOpportunities().execute({
+	// 	status: [1, 2],
+	// 	params: {
+	// 		where: {
+	// 			idUser: 12110,
+	// 		},
+	// 	},
+	// })
 
 	const promiseWorkshopsOrErr = new FindAllProductsByFinancialResource(
 		repository
@@ -76,41 +76,39 @@ export const getStaticProps: GetStaticProps = async (context) => {
 			financialResource: FINANCIAL_RESOURCES['lei-aldir-blanc'],
 		})
 
-	const promiseEventsOrErr = new FindAllProductsByFinancialResource(repository)
-		.defineCategory(CATEGORIES.EVENT)
-		.execute(null, {
-			financialResource: FINANCIAL_RESOURCES['lei-aldir-blanc'],
-		})
+	const promiseEventsOrErr = EventsUseCase.execute(null, {
+		financialResources: FINANCIAL_RESOURCES['lei-aldir-blanc'],
+	})
 
 	const [
 		booksOrErr,
 		playlistOrErr,
-		opportunitiesOrErr,
 		workshopsOrErr,
 		eventsOrErr,
+		// opportunitiesOrErr,
 		// participationOrErr
 	] = await Promise.all([
-		booksPromise,
-		audioVisualPromise,
-		promiseOpportunities,
+		promiseBooks,
+		promiseAudioVisual,
 		promiseWorkshopsOrErr,
 		promiseEventsOrErr,
+		// promiseOpportunities,
 		// promiseParticipationOrErr
 	])
 
 	const books = booksOrErr.isLeft() && booksOrErr.extract()
 	const playlist = playlistOrErr.isLeft() && playlistOrErr.extract()
-	const opportunities =
-		opportunitiesOrErr.isLeft() && opportunitiesOrErr.extract()
 	const workshops = workshopsOrErr.isLeft() && workshopsOrErr.extract()
 	const events = eventsOrErr.isLeft() && eventsOrErr.extract()
+
+	// const opportunities = opportunitiesOrErr.isLeft() && opportunitiesOrErr.extract()
 	// const participation = participationOrErr.isLeft() && participationOrErr.extract()
 
 	return {
 		props: {
 			books: books || [],
 			audiovisual: playlist || [],
-			opportunities: opportunities || [],
+			opportunities: [],
 			workshops: workshops || [],
 			events: events || [],
 			// staticParticipation: participation || [],
