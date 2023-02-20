@@ -1,5 +1,10 @@
 import { adaptRoute } from '@/adapters'
-import { makeGetAllEventsComposers } from '@/composers/events-composers'
+import {
+	makeGetAllEventsByFinancialResourceComposers,
+	makeGetAllEventsByUserIDComposers,
+	makeGetAllEventsComposers,
+	makeGetEventsByIDComposers,
+} from '@/composers/events-composers'
 import { Router } from 'express'
 
 const Events = Router()
@@ -9,10 +14,19 @@ export const PathEvents = {
 	GET_EVENT_BY_ID: '/events/:id',
 	GET_EVENTS: '/events',
 	GET_EVENTS_BY_USER: '/events/:idUser/:id',
+	GET_EVENTS_BY_FINANCIAL_RESOURCES: '/events/resources/:financialResources',
 }
 
 Events.get(PathEvents.GET_EVENTS, adaptRoute(makeGetAllEventsComposers()))
-// Events.get(PathEvents.GET_EVENT_BY_ID, adaptRoute(() => { }))
-// Events.get(PathEvents.GET_EVENTS_BY_USER, adaptRoute(() => { }))
+Events.get(PathEvents.GET_EVENT_BY_ID, adaptRoute(makeGetEventsByIDComposers()))
+Events.get(
+	PathEvents.GET_EVENTS_BY_USER,
+	adaptRoute(makeGetAllEventsByUserIDComposers())
+)
+
+Events.get(
+	PathEvents.GET_EVENTS_BY_FINANCIAL_RESOURCES,
+	adaptRoute(makeGetAllEventsByFinancialResourceComposers())
+)
 
 export default Events

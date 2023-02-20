@@ -1,11 +1,11 @@
 import { Controller } from '@/adapters/controller'
 import { ControllerGeneric } from '@/adapters/controller/helpers'
 import { SequelizeEventsRepository } from '@/domain/repositories'
-import { FindAllEventsUseCase } from '@/domain/usecases'
+import { FindAllEventsByUserIDUseCase } from '@/domain/usecases'
 import { database } from 'mapacultural-database'
 
-export const makeGetAllEventsComposers = (): ControllerGeneric => {
+export const makeGetAllEventsByUserIDComposers = (): ControllerGeneric => {
 	return new Controller(
-		new FindAllEventsUseCase(new SequelizeEventsRepository(database))
+		new FindAllEventsByUserIDUseCase(new SequelizeEventsRepository(database))
 	)
 }

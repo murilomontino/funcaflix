@@ -2,23 +2,26 @@ import { describe, expect, it, vi } from 'vitest'
 
 import { DatabaseMock } from '@/__mocks__'
 import { SequelizeEventsRepository } from '@/domain/repositories'
+import { FINANCIAL_RESOURCES } from '@/types/constants'
 import { database } from 'mapacultural-database'
 
-import { FindAllEventsByUserIDUseCase } from './find-all-events-by-idUser-use-case'
+import { FindAllEventsByFinancialResourcesUseCase } from './find-all-events-by-financial-resources-use-case'
 
 const makeSut = (db = database, repo = null) => {
 	const repository = repo || new SequelizeEventsRepository(db)
-	const sut = new FindAllEventsByUserIDUseCase(repository)
+	const sut = new FindAllEventsByFinancialResourcesUseCase(repository)
 
 	return {
 		sut,
 	}
 }
 
-describe('Test Use Case Find All Events By Id User', () => {
-	it('should return a list of events by id user (Integration)', async () => {
+describe('Test Use Case Find All Events By Financial Resources', () => {
+	it('should return a list of events by financial resource (Integration)', async () => {
 		const { sut } = makeSut()
-		const eventsOrErr = await sut.execute(undefined, { idUser: '1' as any })
+		const eventsOrErr = await sut.execute(undefined, {
+			financialResources: FINANCIAL_RESOURCES['lei-aldir-blanc'],
+		})
 
 		if (eventsOrErr.isRight()) {
 			return console.log(eventsOrErr.extract())
@@ -29,10 +32,12 @@ describe('Test Use Case Find All Events By Id User', () => {
 		expect(eventsOrErr.extract().length).toBeGreaterThan(0)
 	})
 
-	it('should return a list of events by id user (Unitary)', async () => {
+	it('should return a list of events by financial resource (Unitary)', async () => {
 		const db = new DatabaseMock({}) as any
 		const { sut } = makeSut(db)
-		const eventsOrErr = await sut.execute(undefined, { idUser: '1' as any })
+		const eventsOrErr = await sut.execute(undefined, {
+			financialResources: FINANCIAL_RESOURCES['lei-aldir-blanc'],
+		})
 
 		if (eventsOrErr.isRight()) {
 			return console.log(eventsOrErr.extract())
@@ -48,7 +53,9 @@ describe('Test Use Case Find All Events By Id User', () => {
 		}) as any
 
 		const { sut } = makeSut(db)
-		const eventsOrErr = await sut.execute(undefined, { idUser: '1' as any })
+		const eventsOrErr = await sut.execute(undefined, {
+			financialResources: '1' as any,
+		})
 
 		if (eventsOrErr.isLeft()) {
 			return console.log(eventsOrErr.extract())
@@ -57,26 +64,28 @@ describe('Test Use Case Find All Events By Id User', () => {
 		expect(eventsOrErr.isRight()).toBeTruthy()
 	})
 
-	it('should throw err case idUser is invalid (Unitary)', async () => {
+	it('should throw err case financialResources is invalid (Unitary)', async () => {
 		const { sut } = makeSut()
-		const err = await sut.execute(undefined, { idUser: 'invalid' as any })
+		const err = await sut.execute(undefined, {
+			financialResources: 'invalid' as any,
+		})
 		expect(err.isRight()).toBeTruthy()
 	})
-	it('should throw err case idUser is null (Unitary)', async () => {
+	it('should throw err case financialResources is null (Unitary)', async () => {
 		const { sut } = makeSut()
-		const err = await sut.execute(undefined, { idUser: null })
+		const err = await sut.execute(undefined, { financialResources: null })
 
 		expect(err.isRight()).toBeTruthy()
 	})
-	it('should throw err case idUser is empty (Unitary)', async () => {
+	it('should throw err case financialResources is empty (Unitary)', async () => {
 		const { sut } = makeSut()
-		const err = await sut.execute(undefined, { idUser: '' as any })
+		const err = await sut.execute(undefined, { financialResources: '' as any })
 
 		expect(err.isRight()).toBeTruthy()
 	})
-	it('should throw err case idUser is undefined (Unitary)', async () => {
+	it('should throw err case financialResources is undefined (Unitary)', async () => {
 		const { sut } = makeSut()
-		const err = await sut.execute(undefined, { idUser: undefined })
+		const err = await sut.execute(undefined, { financialResources: undefined })
 		expect(err.isRight()).toBeTruthy()
 	})
 })
