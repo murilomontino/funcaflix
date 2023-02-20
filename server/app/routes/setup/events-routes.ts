@@ -13,7 +13,7 @@ const Events = Router()
 export const PathEvents = {
 	GET_EVENT_BY_ID: '/events/:id',
 	GET_EVENTS: '/events',
-	GET_EVENTS_BY_USER: '/events/:idUser/:id',
+	GET_EVENTS_BY_USER: '/events/user/:idUser',
 	GET_EVENTS_BY_FINANCIAL_RESOURCES: '/events/resources/:financialResources',
 }
 
