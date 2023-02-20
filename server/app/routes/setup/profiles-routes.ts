@@ -1,7 +1,6 @@
 import { adaptRoute } from '@/adapters'
 import {
 	makeGetAudioVisualByIDProfileComposer,
-	makeGetEventsByIDProfileComposer,
 	makeGetLiteratureByIDProfileComposer,
 	makeGetMusicsByIDProfileComposer,
 	makeGetProfileByCityComposer,
@@ -12,6 +11,7 @@ import {
 } from '@/composers/profiles-composers'
 import { CulturalProfileRepositorySequelize } from '@/domain/repositories'
 import { Router } from 'express'
+import { database } from 'mapacultural-database'
 
 const Profiles = Router()
 
@@ -22,7 +22,6 @@ export const PATHS = {
 	GET_ITEMS_BY_SEGMENT: '/profiles/segment/:segment',
 	GET_ITEMS_BY_CITY: '/profiles/city/:city',
 	SEARCH: '/profiles/search/:search',
-	EVENTS: '/profiles/:idUser/events',
 	LITERATURE: '/profiles/:idUser/literature',
 	AUDIOVISUAL: '/profiles/:idUser/audiovisual',
 	WORKSHOPS: '/profiles/:idUser/workshops',
@@ -30,7 +29,7 @@ export const PATHS = {
 }
 
 Profiles.get(PATHS.GET_SEGMENTS, async (req, res) => {
-	const repository = new CulturalProfileRepositorySequelize()
+	const repository = new CulturalProfileRepositorySequelize(database)
 	const segmentsOrErr = await repository.findGroupBySegment()
 
 	if (segmentsOrErr.isRight()) {
@@ -41,7 +40,7 @@ Profiles.get(PATHS.GET_SEGMENTS, async (req, res) => {
 })
 
 Profiles.get(PATHS.GET_CITIES, async (req, res) => {
-	const repository = new CulturalProfileRepositorySequelize()
+	const repository = new CulturalProfileRepositorySequelize(database)
 	const citiesOrErr = await repository.findGroupByCity()
 
 	if (citiesOrErr.isRight()) {
@@ -64,8 +63,6 @@ Profiles.get(
 )
 
 Profiles.get(PATHS.SEARCH, adaptRoute(makeGetProfileBySearchComposer()))
-
-Profiles.get(PATHS.EVENTS, adaptRoute(makeGetEventsByIDProfileComposer()))
 
 Profiles.get(
 	PATHS.LITERATURE,
