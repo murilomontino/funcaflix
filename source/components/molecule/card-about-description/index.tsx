@@ -1,32 +1,5 @@
 import React, { useMemo } from 'react'
 
-import styled from 'styled-components'
-
-import colors from '@/global/colors'
-
-const Text = styled.p`
-	font-size: 16px;
-	color: ${colors.grey20};
-	font-weight: 400;
-	line-height: 1.5rem;
-	margin: 0;
-	text-align: justify;
-	font-family: Helvetica, sans-serif;
-	line-height: 18px;
-	text-indent: 2em;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	max-width: 750ch;
-`
-
-const Container = styled.div`
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	padding: 0 20px;
-`
-
 type Props = {
 	about: string
 }
@@ -41,13 +14,17 @@ const AboutDescription = ({ about }: Props) => {
 				.slice(0, 1000)
 				.trim()
 				.concat(elipses),
-		[about]
+		[about, elipses]
 	)
 
 	return (
-		<Container>
-			<Text>{aboutMemo}</Text>
-		</Container>
+		<React.Fragment>
+			<div className="container d-flex justify-content-center align-items-center ph-4">
+				<p className="font-size-16 text-black text-muted p-2 m-2 text-justify overflow-hidden text-overflow-ellipsis">
+					{aboutMemo}
+				</p>
+			</div>
+		</React.Fragment>
 	)
 }
 

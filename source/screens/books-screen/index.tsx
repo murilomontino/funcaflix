@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import Spinner from 'react-bootstrap/Spinner'
 import ReactInfiniteScroll from 'react-infinite-scroll-component'
-import { ActivityIndicator, StyleSheet, View } from 'react-native'
 
 import image from '@/public/images/literatura.jpg'
 import type { IGetterBooks } from '@/types/getters'
@@ -9,8 +9,6 @@ import BreadCrumb from '@/components/organism/breadcrumb'
 
 import CardBooks from './components/organism/card-book'
 
-import colors from '@/global/colors'
-import constants from '@/global/constants'
 import { useResources } from '@/hooks/utils/use-resources'
 
 type Props = {
@@ -41,14 +39,18 @@ const ScreenBooks = ({ books }: Props) => {
 
 	if (loading || !isFontReady) {
 		return (
-			<View style={styles.container}>
-				<ActivityIndicator size="large" color={colors.white} />
-			</View>
+			<React.Fragment>
+				<div className="overflow-hidden">
+					<div className="d-flex justify-content-center">
+						<Spinner animation="border" variant="primary" />
+					</div>
+				</div>
+			</React.Fragment>
 		)
 	}
 
 	return (
-		<View style={styles.container}>
+		<div>
 			<BreadCrumb title="Literatura" image={image} />
 
 			<ReactInfiniteScroll
@@ -68,23 +70,8 @@ const ScreenBooks = ({ books }: Props) => {
 					))}
 				</div>
 			</ReactInfiniteScroll>
-		</View>
+		</div>
 	)
 }
 
 export default ScreenBooks
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		marginBottom: constants.footerHight,
-		backgroundColor: 'transparent',
-		justifyContent: 'center',
-		alignItems: 'center',
-	},
-	section: {
-		margin: 10,
-		padding: 10,
-		flexGrow: 1,
-	},
-})
