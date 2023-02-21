@@ -37,12 +37,9 @@ export default function CardCarousel({ items }: Props) {
 
 	const refScroll = React.useRef<ScrollView | undefined>()
 
-	/*  useEffect(() => {
-    if (refScroll.current) {
-      refScroll.current.scrollTo({ x: ITEM_WIDTH * data.length, y: 0, animated: false })
-    }
-  }, [width]) */
-	if (isLoading || !items) {
+	if (items.length === 0) return null
+
+	if (isLoading) {
 		return (
 			<Skeleton
 				width="100%"

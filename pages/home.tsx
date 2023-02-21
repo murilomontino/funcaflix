@@ -10,7 +10,7 @@ import {
 	FindByRandomProfileUseCase,
 } from '@/domain/usecases'
 import { CATEGORIES } from '@/types/constants'
-import { build } from 'mapacultural-database'
+import { build, database } from 'mapacultural-database'
 import { GetStaticProps } from 'next/types'
 
 import ComingSoon from '@/screens/coming-soon-screen'
@@ -19,12 +19,13 @@ import HomeScreen from '@/screens/home-screen'
 const EM_BREVE = false
 
 export default function App({
-	staticBooks,
-	staticTvProgramsPlaylist,
-	staticNewestProducts,
-	staticOpportunities,
-	staticProfiles,
-	staticAudioVisualPlaylist,
+	books,
+	tvPrograms,
+	newestProducts,
+	opportunities,
+	profiles,
+	audiovisual,
+	events,
 }) {
 	if (EM_BREVE)
 		return (
@@ -35,12 +36,13 @@ export default function App({
 
 	return (
 		<HomeScreen
-			books={staticBooks}
-			newestProducts={staticNewestProducts}
-			tvProgramsPlaylist={staticTvProgramsPlaylist}
-			opportunities={staticOpportunities}
-			profiles={staticProfiles}
-			audioVisualPlaylist={staticAudioVisualPlaylist}
+			books={books}
+			newestProducts={newestProducts}
+			tvProgramsPlaylist={tvPrograms}
+			opportunities={opportunities}
+			profiles={profiles}
+			events={events}
+			audioVisualPlaylist={audiovisual}
 		/>
 	)
 }
@@ -60,14 +62,20 @@ export const getStaticProps: GetStaticProps = async (context) => {
 		{},
 		{
 			category: [CATEGORIES.AUDIOVISUAL],
-			limit: 5,
+			limit: 10,
 		}
 	)
+
+	const promiseEventsOrErr = new FindAllProductsByCategory().execute(
+		{},
+		{ category: CATEGORIES.EVENT }
+	)
+
 	const promiseOpportunitiesOrErr = new FindAllOpportunities().execute({
 		status: [1],
 	})
 	const promiseProfilesOrErr = new FindByRandomProfileUseCase(
-		new CulturalProfileRepositorySequelize()
+		new CulturalProfileRepositorySequelize(database)
 	).execute({
 		length: 20,
 	})
@@ -79,6 +87,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 		opportunitiesOrErr,
 		profilesOrErr,
 		audioVisualPlaylistOrErr,
+		eventsOrErr,
 	] = await Promise.all([
 		promiseBooksOrErr,
 		promisePlaylistOrErr,
@@ -86,6 +95,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 		promiseOpportunitiesOrErr,
 		promiseProfilesOrErr,
 		promiseAudioVisualOrErr,
+		promiseEventsOrErr,
 	])
 
 	const books = booksOrErr.isLeft() && booksOrErr.extract()
@@ -98,14 +108,17 @@ export const getStaticProps: GetStaticProps = async (context) => {
 	const audioVisualPlaylist =
 		audioVisualPlaylistOrErr.isLeft() && audioVisualPlaylistOrErr.extract()
 
+	const events = eventsOrErr.isLeft() && eventsOrErr.extract()
+
 	return {
 		props: {
-			staticBooks: books || [],
-			staticTvProgramsPlaylist: playlist || [],
-			staticNewestProducts: newestProducts || [],
-			staticOpportunities: opportunities || [],
-			staticProfiles: profiles || [],
-			staticAudioVisualPlaylist: audioVisualPlaylist || [],
+			books: books || [],
+			tvPrograms: playlist || [],
+			newestProducts: newestProducts || [],
+			opportunities: opportunities || [],
+			profiles: profiles || [],
+			audiovisual: audioVisualPlaylist || [],
+			events: events || [],
 		},
 		revalidate: 60 * 60 * 24,
 	}

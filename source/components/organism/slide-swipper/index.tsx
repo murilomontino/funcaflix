@@ -3,7 +3,7 @@ import { Col, Container, Row } from 'react-bootstrap'
 import Skeleton from 'react-loading-skeleton'
 
 import theme from '@/theme'
-import { IGetterProduct } from '@/types/getters'
+import { IGetterProduct, IGetterTVPrograms } from '@/types/getters'
 import SwipperCore, { EffectFade, Navigation, Pagination, Thumbs } from 'swiper'
 import { Swiper as Swipper, SwiperSlide as SwipperSlide } from 'swiper/react'
 
@@ -25,7 +25,7 @@ type Props = {
 	link?: string
 	endpoint?: string
 	allLink?: string
-	items: IGetterProduct[]
+	items: IGetterProduct[] | IGetterTVPrograms[]
 }
 
 const CarouselSwipper = ({
@@ -36,7 +36,6 @@ const CarouselSwipper = ({
 	height,
 	disabled = false,
 	queryString,
-	endpoint,
 	allLink,
 	existLogo = true,
 	itemsPerView = 5.5,
@@ -50,6 +49,8 @@ const CarouselSwipper = ({
 
 		setIsLoading(false)
 	}, [])
+
+	if (items?.length === 0) return null
 
 	return (
 		<section id={id} className={'overflow-hidden mb-5 position-relative'}>
@@ -68,7 +69,11 @@ const CarouselSwipper = ({
 							</When>
 							<When condition={!!title}>
 								<div className="d-flex align-items-center justify-content-between">
-									<TitleCarousel title={title} link={'/' + (allLink || link)} />
+									<TitleCarousel
+										title={title}
+										link={'/' + (allLink || link)}
+										animation={!disabled}
+									/>
 								</div>
 							</When>
 						</Choose>
@@ -136,9 +141,8 @@ const CarouselSwipper = ({
 									>
 										{items.map((item, index) => {
 											const queryOrBar = queryString ? queryString : '/'
-											let linkDefinitive = `${link}${queryOrBar}${
-												item.videoId || item.id
-											}`
+											const id = item.videoId || item.id
+											let linkDefinitive = `${link}${queryOrBar}${id}`
 
 											if (item.category === 8) {
 												linkDefinitive = `https://mapacultural.acesso.funcap.se.gov.br/`
