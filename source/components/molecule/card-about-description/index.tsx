@@ -7,7 +7,7 @@ type Props = {
 }
 
 const P = styled.p`
-	-webkit-line-clamp: 8;
+	-webkit-line-clamp: 6;
 	-webkit-box-orient: vertical;
 	display: -webkit-box;
 	overflow: hidden;

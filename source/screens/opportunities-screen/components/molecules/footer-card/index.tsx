@@ -1,55 +1,37 @@
 import React from 'react'
-import { View, Text, Platform } from 'react-native'
-import { useDimensions } from 'react-native-web-hooks'
-
-import { GetterProjects } from '@/domain/entities'
-
-import { textStyles, viewStyles } from '../../styles'
 
 type Props = {
-	item: GetterProjects
+	company: string
+	startDate: string
+	endDate: string
 }
 
-const BookFooter = ({ item }: Props) => {
-	const web = Platform.OS === 'web'
-	const { window, screen } = useDimensions()
-	const size = web ? window : screen
-
-	/*  const redirectBookID = () => {
-    changeBook(item.pdf)
-  } */
-
+const OpportunityFooter = ({ company, endDate, startDate }: Props) => {
 	return (
-		<View
-			style={[
-				viewStyles.viewFooter,
-				{
-					flexDirection: size.width < 1127 ? 'column' : 'row',
-					justifyContent: size.width < 1127 ? 'center' : 'space-between',
-					alignItems: size.width < 1127 ? 'center' : 'flex-start',
-				},
-			]}
-		>
-			<View>
-				<Text style={textStyles.authorFooter}>{item.company}</Text>
-			</View>
-			{/* <View
-        style={{
-          flexDirection: 'row',
-        }}
-      >
-        <Tags tags={item.tags} />
-      </View>  */}
-
-			{/* <View style={[viewStyles.viewButtons]}>
-        <TouchableOpacity style={[viewStyles.viewButton]}>
-          <Link href={`/oportunidades/${item.id}`}>
-            <Text style={[textStyles.buttonText]}>Ver mais</Text>
-          </Link>
-        </TouchableOpacity>
-      </View> */}
-		</View>
+		<React.Fragment>
+			<div className="container d-flex flex flex-row justify-between items-center text-black">
+				<div>
+					<p className="font-size-12 font-bold text-align-vertical-center text-gray text-uppercase">
+						{company}
+					</p>
+					<div className="d-flex align-items-start justify-content-between flex-column">
+						<div className="d-flex flex-row w-100 justify-content-between">
+							<p className="font-bold font-size-12 text-gray">Inicio:</p>
+							<p className="font-bold font-size-12 text-gray mr-2 ml-2">
+								{startDate}
+							</p>
+						</div>
+						<div className="d-flex flex-row w-100 justify-content-between">
+							<p className="font-bold font-size-12 text-gray">Fim:</p>
+							<p className="font-bold font-size-12 text-gray mr-2 ml-2">
+								{endDate}
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</React.Fragment>
 	)
 }
 
-export default BookFooter
+export default OpportunityFooter

@@ -42,7 +42,7 @@ const CardDefault = ({ item, children, endpoint }: Props) => {
 	return (
 		<Card
 			color={color}
-			className="container-fluid card m-2 p-2 d-flex flex-row"
+			className="container-fluid card m-2 p-2 d-flex flex-row position-relative"
 		>
 			<ContainerIMG className="d-flex col flex-column justify-content-center mh-2 align-items-center">
 				<Img
