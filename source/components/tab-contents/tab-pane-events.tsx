@@ -6,7 +6,6 @@ import { IGetterEvent } from '@/types/getters'
 
 import ImageNext from '../atom/image-next'
 import DateEventStatus from '../molecule/date-event-status'
-import styles from './tab-pane-overview.module.scss'
 
 type EventProps = {
 	events: IGetterEvent[]
@@ -37,9 +36,7 @@ const TabPaneEvents = ({ events }: EventProps) => {
 	if (!sortedEvents?.length) {
 		return (
 			<Container fluid className="card">
-				<div
-					className={`d-flex w-100 row justify-content-around ${styles['row-customize']} p-2`}
-				>
+				<div className={`d-flex w-100 row justify-content-around  p-2`}>
 					<h4 className="text-center text-muted text-black text-center mt-1">
 						Não há eventos cadastrados por este Perfil
 					</h4>

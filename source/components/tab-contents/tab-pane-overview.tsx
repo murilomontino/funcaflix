@@ -1,7 +1,4 @@
-import React from 'react'
 import { Card, CardBody, Col, Row, Table } from 'reactstrap'
-
-import styles from './tab-pane-overview.module.scss'
 
 type OverviewProps = {
 	name: string
@@ -27,9 +24,7 @@ const TabPaneOverview = ({
 	acting,
 }: OverviewProps) => {
 	return (
-		<Row
-			className={`w-100 justify-content-center align-content-lg-center m-2 ${styles['row-customize']}`}
-		>
+		<Row className={`w-100 justify-content-center align-content-lg-center m-2`}>
 			<Card
 				className="w-30 m-1"
 				style={{
