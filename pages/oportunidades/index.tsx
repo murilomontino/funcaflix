@@ -16,8 +16,7 @@ type Props = {
 export default function Opportunities({ opportunities = [] }: Props) {
 	return (
 		<React.Fragment>
-			{' '}
-			<OpportunitiesScreen opportunities={opportunities} />{' '}
+			<OpportunitiesScreen opportunities={opportunities} />
 		</React.Fragment>
 	)
 }

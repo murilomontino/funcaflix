@@ -7,7 +7,6 @@ import AboutDescription from '@/components/molecule/card-about-description'
 import CardBasicInformation from '@/components/molecule/card-basic-information'
 
 import FooterCard from '../../molecules/footer-card'
-import { ContainerInformation, ContainerDate, Text } from './styles'
 
 type Props = {
 	item: GetterProjects
@@ -25,22 +24,18 @@ const CardOpportunities = ({ item }: Props) => {
 	})
 
 	return (
-		<Card endpoint="project" item={item}>
-			<CardBasicInformation title={item.nameProject}>
-				<ContainerInformation>
-					<ContainerDate>
-						<Text>Data de Inicio:</Text>
-						<Text>{dateStartFormatted}</Text>
-					</ContainerDate>
-					<ContainerDate>
-						<Text>Data de Fim:</Text>
-						<Text>{dateEndFormatted}</Text>
-					</ContainerDate>
-				</ContainerInformation>
-			</CardBasicInformation>
-			<AboutDescription about={item.aboutProject} />
-			<FooterCard item={item} />
-		</Card>
+		<React.Fragment>
+			<Card endpoint="project" item={item}>
+				<CardBasicInformation title={item.nameProject} />
+
+				<AboutDescription about={item.aboutProject} />
+				<FooterCard
+					company={item.company}
+					endDate={dateEndFormatted}
+					startDate={dateStartFormatted}
+				/>
+			</Card>
+		</React.Fragment>
 	)
 }
 

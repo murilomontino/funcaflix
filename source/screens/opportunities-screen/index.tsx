@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
+import Spinner from 'react-bootstrap/Spinner'
 import ReactInfiniteScroll from 'react-infinite-scroll-component'
-import { ActivityIndicator, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 
 import { GetterProjects } from '@/index'
 import image from '@/public/images/oportunidades.jpeg'
@@ -10,7 +11,6 @@ import BreadCrumb from '@/components/organism/breadcrumb'
 
 import CardOpportunities from './components/organism/card-opportunities'
 
-import colors from '@/global/colors'
 import constants from '@/global/constants'
 import { useResources } from '@/hooks/utils/use-resources'
 
@@ -49,13 +49,18 @@ const OpportunitiesScreen = ({ opportunities = [] }: Props) => {
 
 	if (loading || !isFontReady) {
 		return (
-			<View style={styles.container}>
-				<ActivityIndicator size="large" color={colors.white} />
-			</View>
+			<React.Fragment>
+				<div className="overflow-hidden">
+					<div className="d-flex justify-content-center">
+						<Spinner animation="border" variant="primary" />
+					</div>
+				</div>
+			</React.Fragment>
 		)
 	}
+
 	return (
-		<View style={styles.container}>
+		<div>
 			<BreadCrumb title="Oportunidades" image={image} />
 
 			<ReactInfiniteScroll
@@ -75,23 +80,8 @@ const OpportunitiesScreen = ({ opportunities = [] }: Props) => {
 					))}
 				</div>
 			</ReactInfiniteScroll>
-		</View>
+		</div>
 	)
 }
 
 export default OpportunitiesScreen
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		marginBottom: constants.footerHight,
-		backgroundColor: 'transparent',
-		justifyContent: 'center',
-		alignItems: 'center',
-	},
-	section: {
-		margin: 10,
-		padding: 10,
-		flexGrow: 1,
-	},
-})
