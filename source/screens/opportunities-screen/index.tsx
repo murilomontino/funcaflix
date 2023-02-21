@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import Spinner from 'react-bootstrap/Spinner'
 import ReactInfiniteScroll from 'react-infinite-scroll-component'
-import { StyleSheet } from 'react-native'
 
 import { GetterProjects } from '@/index'
 import image from '@/public/images/oportunidades.jpeg'
-import { View } from 'moti'
 
 import BreadCrumb from '@/components/organism/breadcrumb'
 
 import CardOpportunities from './components/organism/card-opportunities'
 
-import constants from '@/global/constants'
 import { useResources } from '@/hooks/utils/use-resources'
 
 type Props = {
