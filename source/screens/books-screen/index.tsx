@@ -60,11 +60,11 @@ const ScreenBooks = ({ books }: Props) => {
 				loader={<h4>Loading...</h4>}
 				endMessage={
 					<p style={{ textAlign: 'center' }}>
-						<b>Yay! You have seen it all</b>
+						<b>Isso é tudo, Pessoal!</b>
 					</p>
 				}
 			>
-				<div className="overflow-hidden">
+				<div className="overflow-hidden justify-content-center align-items-center">
 					{data.map((item, index) => (
 						<CardBooks item={item} key={index} />
 					))}

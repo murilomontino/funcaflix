@@ -5,7 +5,7 @@ import DefaultImg from '@/public/logo-default.png'
 
 import Img from '@/components/atom/image'
 
-import { Card } from './styles'
+import { Card, ContainerIMG } from './styles'
 
 type Props = {
 	item: GetterProjects | GetterBook
@@ -40,22 +40,27 @@ const CardDefault = ({ item, children, endpoint }: Props) => {
 	}, [dateEnd, dateStart, status])
 
 	return (
-		<Card color={color}>
-			<div className="d-flex col flex-column justify-content-between mh-2">
+		<Card
+			color={color}
+			className="container-fluid card m-2 p-2 d-flex flex-row"
+		>
+			<ContainerIMG className="d-flex col flex-column justify-content-center mh-2 align-items-center">
 				<Img
 					endpoint={endpoint}
 					image={thumbnail || DefaultImg}
 					style={{
 						objectFit: 'cover',
+						minWidth: 200,
 						width: 250,
 						height: '100%',
+						maxHeight: 300,
 					}}
 					staticImage={!thumbnail}
 				/>
-			</div>
+			</ContainerIMG>
 			<div
 				className="d-flex col flex-column justify-content-between mh-2"
-				style={{ flex: 4 }}
+				style={{ flex: 2 }}
 			>
 				{children || null}
 			</div>

@@ -13,7 +13,7 @@ const BookFooter = ({ item }: Props) => {
 			<div className="d-flex w-100 align-items-end justify-content-center ">
 				<div className="d-flex align-items-end justify-content-center ">
 					<Link href={`/literatura/${item.id}`}>
-						<h6 className="text-black text-muted p-2 m-2 cursor-pointer">
+						<h6 className="text-black text-muted p-2 cursor-pointer">
 							Ver Mais
 						</h6>
 					</Link>
