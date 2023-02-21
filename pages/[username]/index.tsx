@@ -1,7 +1,6 @@
-// @generated: @expo/next-adapter@2.1.52
 import React from 'react'
 
-import fetchUsernameProfile from '@/api/fetch-username'
+import useFetchUsernameProfile from '@/api/fetch-username'
 import { useRouter } from 'next/router'
 
 import ScreenProfile from '@/screens/profile-screen'
@@ -18,6 +17,22 @@ const ErrorComponent = () => (
 	</div>
 )
 
+const LoadingComponent = () => {
+	return (
+		<React.Fragment>
+			<div
+				style={{
+					height: '80vh',
+					width: '100vw',
+				}}
+				className="d-flex justify-content-center align-items-center"
+			>
+				<p>Carregando...</p>
+			</div>
+		</React.Fragment>
+	)
+}
+
 export default function ProfilePage() {
 	const {
 		query: { username },
@@ -25,11 +40,17 @@ export default function ProfilePage() {
 	const names = (username as string)?.split('@')
 	const id = names?.[names?.length - 1] || null
 
-	const { data, error, isLoading } = fetchUsernameProfile(id)
+	const { data, error, isLoading } = useFetchUsernameProfile(id)
 
 	if (error) return <ErrorComponent />
 
-	if (isLoading || !id || !data?.profile) return <React.Fragment />
+	if (isLoading || !data) return <LoadingComponent />
 
-	return <ScreenProfile profile={data?.profile} username={username as string} />
+	return (
+		<ScreenProfile
+			profile={data?.profile}
+			username={username as string}
+			events={data?.events}
+		/>
+	)
 }

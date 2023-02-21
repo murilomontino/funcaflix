@@ -34,6 +34,20 @@ const TabPaneEvents = ({ events }: EventProps) => {
 		[events]
 	)
 
+	if (!sortedEvents?.length) {
+		return (
+			<Container fluid className="card">
+				<div
+					className={`d-flex w-100 row justify-content-around ${styles['row-customize']} p-2`}
+				>
+					<h4 className="text-center text-muted text-black text-center mt-1">
+						Não há eventos cadastrados por este Perfil
+					</h4>
+				</div>
+			</Container>
+		)
+	}
+
 	return (
 		<React.Fragment>
 			<Container fluid>
@@ -66,6 +80,7 @@ const TabPaneEvents = ({ events }: EventProps) => {
 							<div
 								key={id}
 								className={`
+								card
 								d-flex
 								col
                                 bg-white 
@@ -102,7 +117,7 @@ const TabPaneEvents = ({ events }: EventProps) => {
 									<div className="d-flex w-50 col justify-content-center align-items-center">
 										<h6
 											data-tip={formatText(_title, _title.length)}
-											className="m-2 text-black text-center"
+											className="card-title m-2 text-black text-center"
 										>
 											{title}
 										</h6>

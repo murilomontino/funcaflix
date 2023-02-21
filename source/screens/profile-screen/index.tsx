@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import ReactTooltip from 'react-tooltip'
 import { Col, Container, Row, TabContent, TabPane } from 'reactstrap'
 
-import { IGetterCulturalProfile } from '@/types/getters'
+import { IGetterCulturalProfile, IGetterEvent } from '@/types/getters'
 import { QRCodeSVG } from 'qrcode.react'
 
 import CardProfile from '@/components/molecule/card-profile'
@@ -17,10 +17,11 @@ import useSocialMediaValid from '@/hooks/use-social-media-valid'
 
 type ProfileScreenProps = {
 	profile: IGetterCulturalProfile
+	events: IGetterEvent[]
 	username: string
 }
 
-const ProfileScreen = ({ profile, username }: ProfileScreenProps) => {
+const ProfileScreen = ({ profile, username, events }: ProfileScreenProps) => {
 	const {
 		about,
 		acting,
@@ -135,7 +136,7 @@ const ProfileScreen = ({ profile, username }: ProfileScreenProps) => {
 											/>
 										</TabPane>
 										<TabPane tabId="2">
-											<TabPaneEvents events={[]} />
+											<TabPaneEvents events={events} />
 										</TabPane>
 									</TabContent>
 								</div>
