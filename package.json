@@ -113,6 +113,7 @@
     "prettier": "^2.8.4",
     "qrcode": "^1.5.1",
     "ts-node": "^10.8.1",
+    "ts-prune": "^0.10.3",
     "tsconfig-paths": "^4.0.0",
     "tslib": "^2.4.0",
     "typescript": "~4.5.5",
@@ -130,7 +131,8 @@
     "dev:api": "cross-env NODE_ENV=development API_ONLY=true nodemon -r tsconfig-paths/register index.ts",
     "build": "cross-env NODE_ENV=production next build",
     "coverage": "vitest run --coverage",
-    "lint": "next lint . --ext .js,.jsx,.ts,.tsx,.json ."
+    "lint": "next lint . --ext .js,.jsx,.ts,.tsx,.json .",
+    "dead-code": "ts-prune --error"
   },
   "config": {
     "commitizen": {
