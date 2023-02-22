@@ -67,6 +67,12 @@ jobs:
           path: node_modules
           key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
 
+      - name: Cache Database MariaDB
+        uses: actions/cache@v2
+        with:
+          path: .docker/maria-db
+          key: ${{ runner.os }}-${{ github.workflow }}-mariadb
+
       - name: Create Maria DB
         run: yarn build:database
 
@@ -83,6 +89,12 @@ jobs:
         with:
           path: node_modules
           key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Restore Database MariaDB
+        uses: actions/cache@v2
+        with:
+          path: .docker/maria-db
+          key: ${{ runner.os }}-${{ github.workflow }}-mariadb
 
       - name: Run Unit Test
         run: yarn test:unitary
