@@ -33,12 +33,6 @@ jobs:
           path: node_modules
           key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
 
-      - name: Cache database
-        uses: actions/cache@v2
-        with:
-          path: .docker/mariadb-data
-          key: ${{ runner.os }}-database
-
       - name: Build Image
         run: cd .docker && docker compose up -d
 

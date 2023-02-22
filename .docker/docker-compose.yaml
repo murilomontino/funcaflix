@@ -17,7 +17,6 @@ services:
       - funcap-networks
     volumes:
       - ./mariadb-data:/var/lib/mysql
-      - ./backup-database:/backup-database
     ports:
       - 3306:3306
     environment:
