@@ -2,6 +2,8 @@ name: Continuos Integration Pull Request V2
 
 on: [pull_request]
 
+permissions: write-all
+
 jobs:
   install:
     name: Installing Packages
