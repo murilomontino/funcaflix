@@ -123,6 +123,7 @@
     "prepare": "husky install",
     "commit": "git-cz",
     "test:unitary": "cross-env NODE_ENV=test vitest --t Unitary",
+    "build:database": "ts-node -r tsconfig-paths/register server/core/scripts/build-database.ts",
     "test": "cross-env NODE_ENV=test vitest --ui --watch --t Unitary",
     "test:all": "cross-env NODE_ENV=test vitest --ui --watch",
     "test:integration": "cross-env NODE_ENV=test vitest --ui --watch --t Integration",

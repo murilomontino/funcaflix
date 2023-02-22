@@ -33,7 +33,7 @@ const LoadingComponent = () => {
 	)
 }
 
-export default function ProfilePage() {
+const ProfilePage = () => {
 	const {
 		query: { username },
 	} = useRouter()
@@ -54,3 +54,5 @@ export default function ProfilePage() {
 		/>
 	)
 }
+
+export default ProfilePage

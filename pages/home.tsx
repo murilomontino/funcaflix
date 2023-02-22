@@ -18,7 +18,7 @@ import HomeScreen from '@/screens/home-screen'
 
 const EM_BREVE = false
 
-export default function App({
+const App = ({
 	books,
 	tvPrograms,
 	newestProducts,
@@ -26,7 +26,7 @@ export default function App({
 	profiles,
 	audiovisual,
 	events,
-}) {
+}) => {
 	if (EM_BREVE)
 		return (
 			<React.Fragment>
@@ -123,3 +123,5 @@ export const getStaticProps: GetStaticProps = async (context) => {
 		revalidate: 60 * 60 * 24,
 	}
 }
+
+export default App
