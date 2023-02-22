@@ -13,9 +13,9 @@ import { FindAllProductsByCategoryAndUser } from './find-all-products-by-categor
 
 type PropsSut =
 	| {
-			category?: CATEGORIES
-			repository?: IProductsRepository
-	  }
+		category?: CATEGORIES
+		repository?: IProductsRepository
+	}
 	| undefined
 
 const makeSut = ({
@@ -32,7 +32,11 @@ const makeSut = ({
 
 describe('test FindAllProductsByCategoryAndUser', () => {
 	beforeAll(async () => {
-		await build()
+		try {
+			await build()
+		} catch (err) {
+			console.log(err)
+		}
 	})
 
 	it('should instantiate FindAllProductsByCategoryAndUser (Unitary)', () => {

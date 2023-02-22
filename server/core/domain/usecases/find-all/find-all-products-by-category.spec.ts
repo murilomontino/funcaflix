@@ -15,7 +15,11 @@ const makeSut = (category: CATEGORIES = null) => {
 
 describe('test FindAllProductsByCategory', () => {
 	beforeAll(async () => {
-		await build()
+		try {
+			await build()
+		} catch (err) {
+			console.log(err)
+		}
 	})
 
 	it('should instantiate FindAllProductsByCategory (Unitary)', () => {

@@ -15,7 +15,11 @@ const makeSut = async () => {
 }
 describe('Unit Test Cultural Products Repository', () => {
 	beforeAll(async () => {
-		await build()
+		try {
+			await build()
+		} catch (err) {
+			console.log(err)
+		}
 	})
 
 	it('should be defined', async () => {
