@@ -34,4 +34,4 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
 
       - name: Run Unit Test
-        run: yarn test
+        run: yarn test:unitary
