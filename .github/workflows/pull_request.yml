@@ -22,6 +22,7 @@ jobs:
   db-create:
     name: Docker Image Database
     runs-on: ubuntu-latest
+    needs: install
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -41,26 +42,6 @@ jobs:
       - name: Build Image
         run: cd .docker && docker compose up -d --build
 
-  db-build:
-    name: Create MariaDB
-    needs: [db-create, install]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      # In this step, this action saves a list of existing images,
-      # the cache is created without them in the post run.
-      # It also restores the cache if it exists.
-      - name: Restore Cache Docker Images
-        uses: satackey/action-docker-layer-caching@v0.0.11
-        # Ignore the failure of a step and avoid terminating the job.
-        continue-on-error: true
-        with:
-          key: foo-docker-cache-8350e5a3e24c153df2275c9f80692773-mariadb
-          restore-keys: |
-            foo-docker-cache-8350e5a3e24c153df2275c9f80692773-
-
       - name: Restore node_modules
         uses: actions/cache@v2
         with:
@@ -70,7 +51,7 @@ jobs:
       - name: Cache Database MariaDB
         uses: actions/cache@v2
         with:
-          path: .docker/maria-db
+          path: .docker/mariadb-data
           key: ${{ runner.os }}-database-test-mariadb
 
       - name: Create Maria DB
