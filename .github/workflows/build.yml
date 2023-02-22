@@ -8,7 +8,6 @@ jobs:
   next-build:
     name: Run Next Build
     runs-on: [self-hosted]
-    needs: testing
     steps:
       - name: Checkout
         uses: actions/checkout@v3
