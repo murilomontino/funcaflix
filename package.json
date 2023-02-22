@@ -122,9 +122,9 @@
   "scripts": {
     "prepare": "husky install",
     "commit": "git-cz",
-    "test": "cross-env NODE_ENV=test vitest --ui --watch --t Unitary",
-    "test:all": "cross-env NODE_ENV=test vitest --ui --watch",
-    "test:integration": "cross-env NODE_ENV=test vitest --ui --watch --t Integration",
+    "test": "cross-env NODE_ENV=test vitest --watch --t Unitary",
+    "test:all": "cross-env NODE_ENV=test vitest --watch",
+    "test:integration": "cross-env NODE_ENV=test vitest --watch --t Integration",
     "start": "cross-env NODE_ENV=production ts-node -r tsconfig-paths/register fork.ts",
     "start:server": "cross-env NODE_ENV=production ts-node -r tsconfig-paths/register index.ts",
     "dev": "cross-env NODE_ENV=development ts-node -r tsconfig-paths/register index.ts",
