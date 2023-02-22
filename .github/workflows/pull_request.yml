@@ -61,7 +61,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: .docker/mariadb-data
-          key: ${{ runner.os }}-database-{{ env.host }}-mariadb
+          key: ${{ runner.os }}-database-mapacultural-mariadb
 
       - name: Create Maria DB
         run: yarn build:database
@@ -84,7 +84,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: .docker/maria-db
-          key: ${{ runner.os }}-database-test-mariadb
+          key: ${{ runner.os }}-database-mapacultural-mariadb
 
       - name: Run Unit Test
         run: yarn test:unitary
