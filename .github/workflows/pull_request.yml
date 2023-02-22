@@ -29,7 +29,8 @@ jobs:
       # In this step, this action saves a list of existing images,
       # the cache is created without them in the post run.
       # It also restores the cache if it exists.
-      - uses: satackey/action-docker-layer-caching@v0.0.11
+      - name: Cache Docker Images
+        uses: satackey/action-docker-layer-caching@v0.0.11
         # Ignore the failure of a step and avoid terminating the job.
         continue-on-error: true
         with:
@@ -48,8 +49,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Restore Docker
-        uses: actions/cache@v2
+      # In this step, this action saves a list of existing images,
+      # the cache is created without them in the post run.
+      # It also restores the cache if it exists.
+      - name: Restore Cache Docker Images
+        uses: satackey/action-docker-layer-caching@v0.0.11
+        # Ignore the failure of a step and avoid terminating the job.
+        continue-on-error: true
         with:
           key: foo-docker-cache-${{ github.workflow }}-mariadb
           restore-keys: |
