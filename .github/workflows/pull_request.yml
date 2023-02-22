@@ -10,6 +10,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
       - name: Cache node_modules
         uses: actions/cache@v2
         with:
@@ -27,6 +31,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Restore node_modules
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
       # In this step, this action saves a list of existing images,
       # the cache is created without them in the post run.
       # It also restores the cache if it exists.
@@ -41,12 +54,6 @@ jobs:
 
       - name: Build Image
         run: cd .docker && docker compose up -d --build
-
-      - name: Restore node_modules
-        uses: actions/cache@v2
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
 
       - name: Cache Database MariaDB
         uses: actions/cache@v2
