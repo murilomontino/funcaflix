@@ -38,7 +38,7 @@ jobs:
             foo-docker-cache-${{ github.workflow }}-
 
       - name: Build Image
-        run: cd .docker && docker compose up --build
+        run: cd .docker && docker compose up -d --build
 
   db-build:
     name: Create MariaDB
