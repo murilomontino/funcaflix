@@ -44,12 +44,9 @@ jobs:
         with:
           path: node_modules
           key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
-      # In this step, this action saves a list of existing images,
-      # the cache is created without them in the post run.
-      # It also restores the cache if it exists.
+
       - name: Cache Docker Images
         uses: satackey/action-docker-layer-caching@v0.0.11
-        # Ignore the failure of a step and avoid terminating the job.
         continue-on-error: true
         with:
           key: foo-docker-cache-8350e5a3e24c153df2275c9f80692773-mariadb
@@ -57,7 +54,7 @@ jobs:
             foo-docker-cache-8350e5a3e24c153df2275c9f80692773-
 
       - name: Build Image
-        run: cd .docker && docker compose up -d --build
+        run: cd .docker && docker compose up -d --build && cd ..
 
       - name: Cache Database MariaDB
         uses: actions/cache@v2
