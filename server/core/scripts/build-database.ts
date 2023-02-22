@@ -1,6 +1,5 @@
 import { config } from 'dotenv'
 import { build } from 'mapacultural-database'
-import { exit } from 'process'
 
 async function main() {
 	await build().catch((error) => {
@@ -10,6 +9,6 @@ async function main() {
 
 config()
 
-main().then(() => {
-	exit(0)
+main().finally(() => {
+	process.exit(0)
 })
