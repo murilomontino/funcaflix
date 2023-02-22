@@ -34,9 +34,9 @@ jobs:
         # Ignore the failure of a step and avoid terminating the job.
         continue-on-error: true
         with:
-          key: foo-docker-cache-${{ github.workflow }}-mariadb
+          key: foo-docker-cache-8350e5a3e24c153df2275c9f80692773-mariadb
           restore-keys: |
-            foo-docker-cache-${{ github.workflow }}-
+            foo-docker-cache-8350e5a3e24c153df2275c9f80692773-
 
       - name: Build Image
         run: cd .docker && docker compose up -d --build
@@ -57,9 +57,9 @@ jobs:
         # Ignore the failure of a step and avoid terminating the job.
         continue-on-error: true
         with:
-          key: foo-docker-cache-${{ github.workflow }}-mariadb
+          key: foo-docker-cache-8350e5a3e24c153df2275c9f80692773-mariadb
           restore-keys: |
-            foo-docker-cache-${{ github.workflow }}-
+            foo-docker-cache-8350e5a3e24c153df2275c9f80692773-
 
       - name: Restore node_modules
         uses: actions/cache@v2
@@ -71,7 +71,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: .docker/maria-db
-          key: ${{ runner.os }}-${{ github.workflow }}-mariadb
+          key: ${{ runner.os }}-database-test-mariadb
 
       - name: Create Maria DB
         run: yarn build:database
@@ -94,7 +94,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: .docker/maria-db
-          key: ${{ runner.os }}-${{ github.workflow }}-mariadb
+          key: ${{ runner.os }}-database-test-mariadb
 
       - name: Run Unit Test
         run: yarn test:unitary
