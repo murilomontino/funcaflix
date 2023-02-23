@@ -39,11 +39,17 @@ jobs:
           node-version: 16
           cache: "yarn"
 
-      - name: Cache node_modules
-        uses: actions/cache@v2
+      - uses: actions/cache@v2
+        name: Cached node_modules
+        id: yarn-cache
         with:
-          path: node_modules
-          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+          path: |
+            **/node_modules
+            **/.eslintcache
+            ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
 
       - name: Install Dependencies
         run: yarn install
@@ -84,11 +90,17 @@ jobs:
           node-version: 16
           cache: "yarn"
 
-      - name: Restore node_modules
-        uses: actions/cache@v2
+      - uses: actions/cache@v2
+        name: Restore node_modules
+        id: yarn-cache
         with:
-          path: node_modules
-          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+          path: |
+            **/node_modules
+            **/.eslintcache
+            ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
 
       - name: Restore Docker Images
         uses: satackey/action-docker-layer-caching@v0.0.11
@@ -117,11 +129,17 @@ jobs:
           node-version: 16
           cache: "yarn"
 
-      - name: Restore node_modules
-        uses: actions/cache@v2
+      - uses: actions/cache@v2
+        name: Restore node_modules
+        id: yarn-cache
         with:
-          path: node_modules
-          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+          path: |
+            **/node_modules
+            **/.eslintcache
+            ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
 
       - name: Restore Docker Images
         uses: satackey/action-docker-layer-caching@v0.0.11
