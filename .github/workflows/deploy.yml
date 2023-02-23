@@ -14,10 +14,8 @@ jobs:
 
       - name: List Arquivos da Rota
         run: |
-          cd $PATH_RELATIVE
+          cd ${{ env.PATH_RELATIVE }}
           ls
-    env:
-      PATH_RELATIVE: ${{ env.PATH_RELATIVE }}
 
   # next-build:
   #   name: Run Next Build
