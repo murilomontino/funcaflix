@@ -1,6 +1,8 @@
 name: CI - Deploy
 
-on: [pull_request]
+on:
+  pull_request:
+    branches: ["homologacao"]
 
 permissions: write-all
 
@@ -8,7 +10,7 @@ jobs:
   install:
     name: List Folders
     env:
-      PATH_RELATIVE: ${{ vars.PATH_RELATIVE }}
+      PATH_RELATIVE: ${{ secrets.PATH_RELATIVE }}
     runs-on: [self-hosted]
     steps:
       - name: Checkout
