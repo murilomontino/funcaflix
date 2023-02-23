@@ -79,8 +79,8 @@ jobs:
           path: .docker/mariadb-data
           key: ${{ runner.os }}-database-mapacultural-mariadb
 
-      - name: Create Maria DB
-        run: node server/core/scripts/build-database.js
+      # - name: Create Maria DB
+      #   run: node server/core/scripts/build-database.js
 
   testing:
     name: Run Unit Test
