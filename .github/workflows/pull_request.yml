@@ -54,7 +54,7 @@ jobs:
       - name: Install Dependencies
         run: yarn install
 
-  db-create:
+  db-build:
     name: Docker Image Database
     runs-on: ubuntu-latest
     steps:
@@ -71,6 +71,34 @@ jobs:
 
       - name: Build Image
         run: docker compose up -d --build
+
+  db-create:
+    name: Maria DB Sync
+    needs: [install, db-build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Restore Docker Images
+        uses: satackey/action-docker-layer-caching@v0.0.11
+        continue-on-error: true
+        with:
+          key: foo-docker-cache-8350e5a3e24c153df2275c9f80692773-mariadb
+          restore-keys: |
+            foo-docker-cache-8350e5a3e24c153df2275c9f80692773-
+
+      - uses: actions/cache@v2
+        name: Restore node_modules
+        id: yarn-cache
+        with:
+          path: |
+            **/node_modules
+            **/.eslintcache
+            ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
 
       - name: Create Maria DB
         run: yarn build:database
