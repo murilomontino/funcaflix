@@ -16,31 +16,29 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Entrando em pasta de Homologacao
-        run: |
-          cd "$PATH_RELATIVE"
-
       - name: Git Pull
         run: |
-          git pull
-          git checkout homologacao
+          cd "$PATH_RELATIVE" && git pull
+
+      - name: Git Checkout
+        run: |
+          cd "$PATH_RELATIVE" && git checkout homologacao
 
       - name: Install Packaging
         run: |
-          yarn install
+          cd "$PATH_RELATIVE" && yarn install
 
       - name: Next Build
         run: |
-          yarn build
+          cd "$PATH_RELATIVE" && yarn build
 
       - name: Execute Deploy in Service PM2
         run: |
-          pm2 start ecosystem.homologacao.config.js
+          cd "$PATH_RELATIVE" && pm2 start ecosystem.homologacao.config.js
 
       - name: Stop Deploy
         run: |
-          pm2 stop homologacao
-          pm2 delete homologacao
+          pm2 stop homologacao && pm2 delete homologacao
 
   # next-build:
   #   name: Run Next Build
