@@ -3,6 +3,7 @@ name: CI - Deploy
 on:
   pull_request:
     branches: ["homologacao"]
+    types: ["closed"]
 
 permissions: write-all
 
