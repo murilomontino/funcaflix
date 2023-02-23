@@ -52,7 +52,6 @@ const nextConfig = ((phase) => {
     },
     experimental: {
       forceSwcTransforms: true
-
     },
     generateBuildId: async () => {
       if (process.env.BUILD_ID) {
