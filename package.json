@@ -27,7 +27,7 @@
     "formik": "^2.2.9",
     "helmet": "^5.1.0",
     "jquery": "^3.6.1",
-    "mapacultural-database": "^1.0.11",
+    "mapacultural-database": "^1.0.12",
     "mariadb": "^3.0.0",
     "moment": "^2.29.1",
     "moti": "^0.17.1",

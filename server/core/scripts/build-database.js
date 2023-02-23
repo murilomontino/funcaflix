@@ -2,18 +2,26 @@ require('dotenv').config()
 
 const { build } = require('mapacultural-database')
 
-function main() {
-	build()
-		.then(() => {
-			process.exit(0)
-		})
-		.catch((error) => {
-			console.log(error)
-		})
+async function __main__() {
+	return new Promise((resolve, reject) => {
+		build()
+			.then(() => {
+				console.log('Database built successfully')
+				resolve()
+			})
+			.catch((err) => {
+				console.log('Error building database')
+				console.log(err)
+				reject(err)
+			})
+	})
 }
 
-main()
-
-setTimeout(() => {
-	process.exit(1)
-}, [1000000])
+__main__()
+	.then(() => {
+		console.log('Exiting...')
+		process.exit(0)
+	})
+	.catch((err) => {
+		process.exit(1)
+	})
