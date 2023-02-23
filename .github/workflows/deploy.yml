@@ -5,11 +5,11 @@ on: [pull_request]
 permissions: write-all
 
 env:
-  PATH_RELATIVE: ${{ secrets.PATH_RELATIVE }}
+  PATH_RELATIVE: ${{ env.PATH_RELATIVE }}
 
 jobs:
   install:
-    name: Installing Packages
+    name: List Folders
     runs-on: [self-hosted]
     steps:
       - name: Checkout
