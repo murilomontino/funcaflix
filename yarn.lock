@@ -10615,10 +10615,10 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-mapacultural-database@^1.0.14:
-  version "1.0.14"
-  resolved "https://registry.yarnpkg.com/mapacultural-database/-/mapacultural-database-1.0.14.tgz#65a79980cb02365309725e252f1a3af1823c570e"
-  integrity sha512-h4W+EvXJT775WuvzeQJmBMzfNnwNk7t32dDAzsZPMA95LSQSBSMFsxf1R+EIUJcFIynrnOjkqxkOf2Uk4CxnMw==
+mapacultural-database@^1.0.15:
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/mapacultural-database/-/mapacultural-database-1.0.15.tgz#d49f2b84e3720191bebf13897f0dc1a5243595f8"
+  integrity sha512-fc4ftH9stM21yqA0gZtHSZxQju9dW9DVetXvmBDbFaXqxVRRXb5/jLoqg8cEHWwFZQ+qkUoabYeqr/evKWPvHw==
   dependencies:
     dotenv "^16.0.1"
     mariadb "^3.0.0"
