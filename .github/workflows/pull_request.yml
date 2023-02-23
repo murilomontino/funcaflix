@@ -109,12 +109,6 @@ jobs:
           restore-keys: |
             foo-docker-cache-8350e5a3e24c153df2275c9f80692773-
 
-      - name: Cache Database MariaDB
-        uses: actions/cache@v2
-        with:
-          path: .docker/mariadb-data
-          key: ${{ runner.os }}-database-mapacultural-mariadb
-
       - name: Docker Compose UP Maria DB
         run: cd .docker && docker compose up -d
 
@@ -147,12 +141,6 @@ jobs:
           key: foo-docker-cache-8350e5a3e24c153df2275c9f80692773-mariadb
           restore-keys: |
             foo-docker-cache-8350e5a3e24c153df2275c9f80692773-
-
-      - name: Cache Database MariaDB
-        uses: actions/cache@v2
-        with:
-          path: .docker/mariadb-data
-          key: ${{ runner.os }}-database-mapacultural-mariadb
 
       - name: Docker Compose UP Maria DB
         run: cd .docker && docker compose up -d
