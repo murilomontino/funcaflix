@@ -1,12 +1,15 @@
-name: CI - Next Build
+name: CI - Deploy
 
 on: [pull_request]
+env:
+  PATH_RELATIVE: ${{ vars.PATH_RELATIVE }}
 
 permissions: write-all
 
 jobs:
   install:
     name: List Folders
+
     runs-on: [self-hosted]
     steps:
       - name: Checkout
@@ -14,7 +17,7 @@ jobs:
 
       - name: List Arquivos da Rota
         run: |
-          cd ${{ vars.PATH_RELATIVE }}
+          cd $PATH_RELATIVE
           ls
 
   # next-build:

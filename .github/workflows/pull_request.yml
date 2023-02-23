@@ -1,4 +1,4 @@
-name: Continuos Integration Pull Request V2
+name: CI Pull Request
 
 on: [pull_request]
 
