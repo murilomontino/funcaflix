@@ -99,6 +99,9 @@ jobs:
           path: .docker/mariadb-data
           key: ${{ runner.os }}-database-mapacultural-mariadb
 
+      - name: Docker Compose UP Maria DB
+        run: cd .docker && docker compose up -d
+
       - name: Create Maria DB
         run: yarn build:database
 
