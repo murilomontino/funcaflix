@@ -119,7 +119,7 @@ jobs:
         run: cd .docker && docker compose up -d
 
       - name: Run Unit Test
-        run: yarn test:unitary
+        run: cd .. && yarn test:unitary
 
   next-build-homolog:
     name: Run Next Build Homolog
@@ -158,4 +158,4 @@ jobs:
         run: cd .docker && docker compose up -d
 
       - name: Run Next Build
-        run: yarn build:homolog
+        run: cd .. && yarn build:homolog
