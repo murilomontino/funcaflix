@@ -4,9 +4,6 @@ on: [pull_request]
 
 permissions: write-all
 
-env:
-  PATH_RELATIVE: ${{ env.PATH_RELATIVE }}
-
 jobs:
   install:
     name: List Folders
@@ -19,6 +16,8 @@ jobs:
         run: |
           cd $PATH_RELATIVE
           ls
+    env:
+      PATH_RELATIVE: ${{ env.PATH_RELATIVE }}
 
   # next-build:
   #   name: Run Next Build
