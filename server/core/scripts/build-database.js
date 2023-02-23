@@ -5,8 +5,7 @@ const { build } = require('mapacultural-database')
 async function __main__() {
 	return new Promise((resolve, reject) => {
 		build()
-			.then(() => {
-				console.log('Database built successfully')
+			.then(({ models }) => {
 				resolve()
 			})
 			.catch((err) => {
@@ -20,7 +19,9 @@ async function __main__() {
 __main__()
 	.then(() => {
 		console.log('Exiting...')
-		process.exit(0)
+		setTimeout(() => {
+			process.exit(0)
+		}, 5000)
 	})
 	.catch((err) => {
 		process.exit(1)

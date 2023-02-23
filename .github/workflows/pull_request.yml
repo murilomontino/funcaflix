@@ -72,8 +72,8 @@ jobs:
       - name: Build Image
         run: docker compose up -d --build
 
-      # - name: Create Maria DB
-      #   run: node server/core/scripts/build-database.js
+      - name: Create Maria DB
+        run: yarn build:database
 
   testing:
     name: Run Unit Test
