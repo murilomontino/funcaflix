@@ -111,7 +111,7 @@ jobs:
             foo-docker-cache-8350e5a3e24c153df2275c9f80692773-
 
       - name: Docker Compose UP Maria DB
-        run: cd .docker && docker compose up -d
+        run: docker compose up -d
 
       - name: Run Unit Test
         run: yarn test:unitary
@@ -150,7 +150,7 @@ jobs:
             foo-docker-cache-8350e5a3e24c153df2275c9f80692773-
 
       - name: Docker Compose UP Maria DB
-        run: cd .docker && docker compose up -d
+        run: docker compose up -d
 
       - name: Run Next Build
         run: yarn build:homolog
