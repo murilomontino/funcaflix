@@ -11,34 +11,34 @@ import { ContainerLogo, ContainerBackground } from './styles'
 import { useResources } from '@/hooks/utils/use-resources'
 
 type Props = {
-  children: React.ReactNode | React.FC | React.Component | JSX.Element
+	children: React.ReactNode | React.FC | React.Component | JSX.Element
 }
 
 const TemplateAdminProduct = ({ children }: Props) => {
-  const { isFontReady } = useResources()
+	const { isFontReady } = useResources()
 
-  const TEXT_SIZE = useScaledSize(1)
-  const WIDTH_LOGO = useScaledSize(3)
+	const TEXT_SIZE = useScaledSize(1)
+	const WIDTH_LOGO = useScaledSize(3)
 
-  if (!isFontReady) return null
+	if (!isFontReady) return null
 
-  return (
-    <ContainerBackground>
-      <>
-        <Header />
-        <ContainerLogo>
-          {isFontReady ? (
-            <HeaderLogo />
-          ) : (
-            <SkeletonHeadLogo width={WIDTH_LOGO} textSize={TEXT_SIZE} />
-          )}
-        </ContainerLogo>
-        {children}
+	return (
+		<ContainerBackground>
+			<>
+				<Header />
+				<ContainerLogo>
+					{isFontReady ? (
+						<HeaderLogo />
+					) : (
+						<SkeletonHeadLogo width={WIDTH_LOGO} textSize={TEXT_SIZE} />
+					)}
+				</ContainerLogo>
+				{children}
 
-        <Footer />
-      </>
-    </ContainerBackground>
-  )
+				<Footer />
+			</>
+		</ContainerBackground>
+	)
 }
 
 export default TemplateAdminProduct

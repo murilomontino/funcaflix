@@ -26,10 +26,10 @@ export const Container = styledNative.View`
 `
 
 export const Details = styled.div`
-  display: flex;
-  flex: 4;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  margin-left: 16px;
+	display: flex;
+	flex: 4;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+	margin-left: 16px;
 `

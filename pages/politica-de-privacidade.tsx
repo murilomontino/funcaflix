@@ -3,6 +3,12 @@ import React from 'react'
 
 import PrivacyPolicyScreen from '@/screens/privacy-policy-screen'
 
-export default function CityPage() {
-  return <PrivacyPolicyScreen />
+const PrivacyPolicy = () => {
+	return (
+		<React.Fragment>
+			<PrivacyPolicyScreen />
+		</React.Fragment>
+	)
 }
+
+export default PrivacyPolicy

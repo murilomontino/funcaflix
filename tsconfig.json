@@ -5,7 +5,6 @@
     "module": "CommonJS",
     "types": [
       "node",
-      "jest"
     ],
     "allowJs": true,
     "strict": false,
@@ -24,7 +23,8 @@
     "paths": {
       "@/*": [
         "./source/*",
-        "./backend/core/*"
+        "server/core/*",
+        "server/app/*"
       ],
       "@/database": [
         "./database.ts"
@@ -35,13 +35,16 @@
       "@/types/*": [
         "./types/*"
       ],
+      "@/__mocks__": [
+        "./__mocks__/index.ts"
+      ],
     },
     "isolatedModules": true,
     "incremental": true
   },
   "include": [
-    "backend/**/*",
-    "app",
+    "server/**/*",
+    "server/app",
     "source",
     "pages",
     "types"

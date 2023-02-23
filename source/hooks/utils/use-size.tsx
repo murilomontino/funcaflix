@@ -5,33 +5,33 @@ import { useDimensions } from 'react-native-web-hooks'
 import theme from '@/theme'
 
 export const useSize = () => {
-  const web = Platform.OS === 'web'
-  const { window, screen } = useDimensions()
+	const web = Platform.OS === 'web'
+	const { window, screen } = useDimensions()
 
-  const { width, height } = web ? window : screen
+	const { width, height } = web ? window : screen
 
-  const SCREEN_SMALLER_THAN_LARGE_SIZE = useMemo(
-    () => width < theme.CONSTANTS.SCREEN.LARGE,
-    [width]
-  )
+	const SCREEN_SMALLER_THAN_LARGE_SIZE = useMemo(
+		() => width < theme.CONSTANTS.SCREEN.LARGE,
+		[width]
+	)
 
-  const size = useMemo(
-    () => ({
-      width,
-      height,
-    }),
-    [width, height]
-  )
+	const size = useMemo(
+		() => ({
+			width,
+			height,
+		}),
+		[width, height]
+	)
 
-  const SCREEN_SMALLER_THAN_MEDIUM_SIZE = useMemo(
-    () => width < theme.CONSTANTS.SCREEN.MEDIUM,
-    [width]
-  )
+	const SCREEN_SMALLER_THAN_MEDIUM_SIZE = useMemo(
+		() => width < theme.CONSTANTS.SCREEN.MEDIUM,
+		[width]
+	)
 
-  return {
-    size,
-    web,
-    SCREEN_SMALLER_THAN_LARGE_SIZE,
-    SCREEN_SMALLER_THAN_MEDIUM_SIZE,
-  }
+	return {
+		size,
+		web,
+		SCREEN_SMALLER_THAN_LARGE_SIZE,
+		SCREEN_SMALLER_THAN_MEDIUM_SIZE,
+	}
 }

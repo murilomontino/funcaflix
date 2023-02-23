@@ -7,26 +7,33 @@ import { GetStaticProps } from 'next/types'
 
 import OpportunitiesScreen from '@/screens/opportunities-screen'
 
-import { GetterProjects } from '../../backend/core/domain/entities'
+import { GetterProjects } from '../../server/core/domain/entities'
 
 type Props = {
-  opportunities: GetterProjects[]
+	opportunities: GetterProjects[]
 }
 
 export default function Opportunities({ opportunities = [] }: Props) {
-  return <OpportunitiesScreen opportunities={opportunities} />
+	return (
+		<React.Fragment>
+			<OpportunitiesScreen opportunities={opportunities} />
+		</React.Fragment>
+	)
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  await build()
+	await build()
 
-  const opportunitiesOrErr = await new FindAllOpportunities().execute({ status: [1, 2] })
-  const opportunities = opportunitiesOrErr.isLeft() && opportunitiesOrErr.extract()
+	const opportunitiesOrErr = await new FindAllOpportunities().execute({
+		status: [1, 2],
+	})
+	const opportunities =
+		opportunitiesOrErr.isLeft() && opportunitiesOrErr.extract()
 
-  return {
-    props: {
-      opportunities: opportunities || [],
-    },
-    revalidate: 60 * 60 * 24,
-  }
+	return {
+		props: {
+			opportunities: opportunities || [],
+		},
+		revalidate: 60 * 60 * 24,
+	}
 }

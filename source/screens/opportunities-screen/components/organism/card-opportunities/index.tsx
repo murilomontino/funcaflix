@@ -7,38 +7,36 @@ import AboutDescription from '@/components/molecule/card-about-description'
 import CardBasicInformation from '@/components/molecule/card-basic-information'
 
 import FooterCard from '../../molecules/footer-card'
-import { ContainerInformation, ContainerDate, Text } from './styles'
 
 type Props = {
-  item: GetterProjects
+	item: GetterProjects
 }
 
 const CardOpportunities = ({ item }: Props) => {
+	const dateStartFormatted = new Date(item.dateStart).toLocaleDateString(
+		'pt-BR',
+		{
+			timeZone: 'UTC',
+		}
+	)
+	const dateEndFormatted = new Date(item.dateEnd).toLocaleDateString('pt-BR', {
+		timeZone: 'UTC',
+	})
 
-  const dateStartFormatted = new Date(item.dateStart).toLocaleDateString('pt-BR', { timeZone: 'UTC' })
-  const dateEndFormatted = new Date(item.dateEnd).toLocaleDateString('pt-BR', { timeZone: 'UTC' })
+	return (
+		<React.Fragment>
+			<Card endpoint="project" item={item}>
+				<CardBasicInformation title={item.nameProject} />
 
-  return (
-    <Card
-      endpoint='project'
-      item={item}
-    >
-      <CardBasicInformation title={item.nameProject} >
-        <ContainerInformation>
-          <ContainerDate>
-            <Text>Data de Inicio:</Text>
-            <Text>{dateStartFormatted}</Text>
-          </ContainerDate>
-          <ContainerDate>
-            <Text>Data de Fim:</Text>
-            <Text>{dateEndFormatted}</Text>
-          </ContainerDate>
-        </ContainerInformation>
-      </CardBasicInformation>
-      <AboutDescription about={item.aboutProject} />
-      <FooterCard item={item} />
-    </Card>
-  )
+				<AboutDescription about={item.aboutProject} />
+				<FooterCard
+					company={item.company}
+					endDate={dateEndFormatted}
+					startDate={dateStartFormatted}
+				/>
+			</Card>
+		</React.Fragment>
+	)
 }
 
 export default CardOpportunities

@@ -1,3 +1,4 @@
+import React from 'react'
 
 import type { IGetterBooks } from '@/types/getters'
 
@@ -7,21 +8,24 @@ import CardBasicInformation from '@/components/molecule/card-basic-information'
 
 import BookFooter from '../../molecules/book-footer'
 
-
-
 type Props = {
-  item: IGetterBooks
+	item: IGetterBooks
 }
 
 const CardBooks = ({ item }: Props) => {
-
-  return (
-    <Card item={item as any}>
-      <CardBasicInformation title={item.title} subTitle={item.subTitle} author={item.author} />
-      <AboutDescription about={item.synopsis} />
-      <BookFooter item={item} />
-    </Card>
-  )
+	return (
+		<React.Fragment>
+			<Card item={item as any}>
+				<CardBasicInformation
+					title={item.title}
+					subTitle={item.subTitle}
+					author={item.author}
+				/>
+				<AboutDescription about={item.synopsis} />
+				<BookFooter item={item} />
+			</Card>
+		</React.Fragment>
+	)
 }
 
 export default CardBooks

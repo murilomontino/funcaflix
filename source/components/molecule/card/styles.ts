@@ -1,31 +1,25 @@
-import styled from 'styled-components/native'
+import CardBootstrap from 'react-bootstrap/Card'
+
+import styled from 'styled-components'
 
 type Props = {
-  color: string
+	color: string
 }
 
-export const Card = styled.View<Props>`
-  flex: 1;
-  flex-direction: row;
-  padding: 12px;
-  margin-horizontal: 20px;
-  margin-vertical: 8px;
-  border-left-width: 12px;
-  border-color: ${({ color }) => color || 'transparent'};
-  min-height: 300px;
-  height: 400px;
-  max-height: 400px;
-  background-color: #fff;
-  elevation: 5;
-  shadow-color: #fff;
-  shadow-off-set: {
-    width: 1px;
-    height: 2px;
-  }
-  shadow-opacity: 0.4;
-  shadow-radius: 4px;
+export const Card = styled(CardBootstrap) <Props>`
+	border-color: ${({ color }) => color || 'transparent'};
+	min-height: 300px;
+	height: 400px;
+	max-height: 450px;
+	width: 97vw !important;
 
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
+	@media (max-width: 768px) {
+		max-height: fit-content !important;
+		height: fit-content !important;
+	}
+`
+
+export const ContainerIMG = styled.div`
+	padding: 1rem;
+	max-width: fit-content;
 `

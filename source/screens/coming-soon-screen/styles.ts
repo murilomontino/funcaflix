@@ -12,11 +12,11 @@ export const ContainerBackground = styledWeb.div`
 `
 
 export const ContainerLogo = styled.View`
-  margin-top: ${theme.CONSTANTS.HEADER_HIGHT}px;
-  align-self: center;
+	margin-top: ${theme.CONSTANTS.HEADER_HIGHT}px;
+	align-self: center;
 `
 export const Container = styled.View`
-  padding: 20px;
+	padding: 20px;
 `
 
 export const LinkAnchor = styledWeb.a`
