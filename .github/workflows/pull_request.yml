@@ -100,6 +100,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
+      - name: Restore Image
+        run: docker compose up -d
+
       - name: Create Maria DB
         run: yarn build:database
 
