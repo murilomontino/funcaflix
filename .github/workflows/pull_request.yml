@@ -171,5 +171,5 @@ jobs:
           restore-keys: |
             foo-docker-cache-8350e5a3e24c153df2275c9f80692773-
 
-      - name: Run Unit Test
+      - name: Run Next Build
         run: yarn build
