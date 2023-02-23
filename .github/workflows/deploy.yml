@@ -1,22 +1,41 @@
-name: Deploy Mapa Cultural
+name: CI - Next Build
 
-on:
-  pull_request:
-    branches:
-      - main
+on: [pull_request]
+
+permissions: write-all
 
 jobs:
-  build:
-    name: Build
-    runs-on: ubuntu-latest
+  install:
+    name: Installing Packages
+    runs-on: [self-hosted]
     steps:
-      - name: executing remote ssh commands using password
-        uses: appleboy/ssh-action@v0.1.7
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          port: ${{ secrets.PORT }}
-          script: |
-            whoami
-            ls -al
+          node-version: 16
+          cache: "yarn"
+
+      - name: Cache node_modules
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+
+  # next-build:
+  #   name: Run Next Build
+  #   needs: install
+  #   runs-on: [self-hosted]
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v3
+
+  #     - name: Restore node_modules
+  #       uses: actions/cache@v2
+  #       with:
+  #         path: node_modules
+  #         key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+
+  #     - name: Run Next Build
+  #       run: yarn build
