@@ -10,6 +10,10 @@ function main() {
 		.catch((error) => {
 			throw error
 		})
+
+	setTimeout(() => {
+		process.exit(1)
+	}, [1000000])
 }
 
 main()
