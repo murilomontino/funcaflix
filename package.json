@@ -27,7 +27,7 @@
     "formik": "^2.2.9",
     "helmet": "^5.1.0",
     "jquery": "^3.6.1",
-    "mapacultural-database": "^1.0.10",
+    "mapacultural-database": "^1.0.11",
     "mariadb": "^3.0.0",
     "moment": "^2.29.1",
     "moti": "^0.17.1",
@@ -132,6 +132,7 @@
     "dev": "cross-env NODE_ENV=development ts-node -r tsconfig-paths/register index.ts",
     "dev:api": "cross-env NODE_ENV=development API_ONLY=true nodemon -r tsconfig-paths/register index.ts",
     "build": "cross-env NODE_ENV=production next build",
+    "build:homolog": "cross-env NODE_ENV=homolog next build",
     "coverage": "vitest run --coverage",
     "lint": "next lint . --ext .js,.jsx,.ts,.tsx,.json .",
     "dead-code": "ts-prune --error"
