@@ -10,7 +10,7 @@ jobs:
   install:
     name: List Folders
     env:
-      PATH_RELATIVE: ${{ secrets.PATH_RELATIVE }}
+      PATH_RELATIVE: /opt/app/homologacao
     runs-on: [self-hosted]
     steps:
       - name: Checkout
