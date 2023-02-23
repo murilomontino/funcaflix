@@ -12,16 +12,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: "yarn"
-
-      - name: Cache node_modules
-        uses: actions/cache@v2
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+      - name: List Arquivos da Rota
+        run: |
+          cd ${{ secret.PATH_RELATIVE }}
+          ls
 
   # next-build:
   #   name: Run Next Build
