@@ -1,13 +1,12 @@
-import { config } from 'dotenv'
-import { build } from 'mapacultural-database'
+require('dotenv').config()
+
+const { build } = require('mapacultural-database')
 
 async function main() {
 	await build().catch((error) => {
 		throw error
 	})
 }
-
-config()
 
 main().finally(() => {
 	process.exit(0)
