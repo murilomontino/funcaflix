@@ -8,12 +8,12 @@ function main() {
 			process.exit(0)
 		})
 		.catch((error) => {
-			throw error
+			console.log(error)
 		})
-
-	setTimeout(() => {
-		process.exit(1)
-	}, [1000000])
 }
 
 main()
+
+setTimeout(() => {
+	process.exit(1)
+}, [1000000])
