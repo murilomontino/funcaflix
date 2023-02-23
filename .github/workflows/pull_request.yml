@@ -82,7 +82,6 @@ jobs:
       - name: Restore node_modules
         uses: actions/cache@v2
         with:
-          uses: "node16"
           path: node_modules
           key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
 
@@ -94,14 +93,13 @@ jobs:
           restore-keys: |
             foo-docker-cache-8350e5a3e24c153df2275c9f80692773-
 
+      - name: Docker Compose UP Maria DB
+        run: cd .docker && docker compose up -d
+
       - name: Create Maria DB
-        with:
-          uses: "node16"
         run: yarn build:database
 
       - name: Run Unit Test
-        with:
-          uses: "node16"
         run: yarn test:unitary
 
   next-build-homolog:
@@ -131,12 +129,11 @@ jobs:
           restore-keys: |
             foo-docker-cache-8350e5a3e24c153df2275c9f80692773-
 
+      - name: Docker Compose UP Maria DB
+        run: cd .docker && docker compose up -d
+
       - name: Create Maria DB
-        with:
-          uses: "node16"
         run: yarn build:database
 
       - name: Run Next Build
-        with:
-          uses: "node16"
         run: yarn build:homolog
