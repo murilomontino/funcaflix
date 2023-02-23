@@ -73,11 +73,7 @@ jobs:
       - name: Build Image
         run: cd .docker && docker compose up -d --build
 
-      - name: Cache Database MariaDB
-        uses: actions/cache@v2
-        with:
-          path: .docker/mariadb-data
-          key: ${{ runner.os }}-database-mapacultural-mariadb
+      - run: cd ..
 
       # - name: Create Maria DB
       #   run: node server/core/scripts/build-database.js
