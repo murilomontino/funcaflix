@@ -92,9 +92,7 @@ const TabPaneEvents = ({ events }: EventProps) => {
 							>
 								<ReactTooltip />
 
-								<div
-									className={`d-flex w-100 row justify-content-around ${styles['row-customize']}`}
-								>
+								<div className={`d-flex w-100 row justify-content-around `}>
 									<div
 										className="d-flex col p-2 w-30"
 										style={{
