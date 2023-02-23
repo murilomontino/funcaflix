@@ -70,9 +70,7 @@ jobs:
             foo-docker-cache-8350e5a3e24c153df2275c9f80692773-
 
       - name: Build Image
-        run: cd .docker && docker compose up -d --build
-
-      - run: cd ..
+        run: docker compose up -d --build
 
       # - name: Create Maria DB
       #   run: node server/core/scripts/build-database.js
