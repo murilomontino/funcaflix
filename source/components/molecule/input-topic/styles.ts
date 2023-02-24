@@ -2,23 +2,22 @@ import theme from '@/theme'
 import styled from 'styled-components/native'
 
 export const Container = styled.View`
-  flex: 1;
-  min-height: fit-content;
-  flex-direction: row;
-  justify-content: center;
-  margin: 8px;
-  align-content: center;
+	flex: 1;
+	min-height: fit-content;
+	flex-direction: row;
+	justify-content: center;
+	margin: 8px;
+	align-content: center;
 
-  //outlineOffset: ? NumberOrString;
-  //outlineStyle: ? string;
+	//outlineOffset: ? NumberOrString;
+	//outlineStyle: ? string;
 `
 export const Input = styled.TextInput`
-  flex: 4;
-  color: ${theme.COLORS.BORDER_BUTTON};
-  background-color: ${theme.COLORS.BACKGROUND_INPUT};
-  font-weight: 500;
-  padding: 8px;
-  border-radius: 2px;
-  border-color: ${theme.COLORS.BORDER_BUTTON};
+	flex: 4;
+	color: ${theme.COLORS.BORDER_BUTTON};
+	background-color: ${theme.COLORS.BACKGROUND_INPUT};
+	font-weight: 500;
+	padding: 8px;
+	border-radius: 2px;
+	border-color: ${theme.COLORS.BORDER_BUTTON};
 `
-

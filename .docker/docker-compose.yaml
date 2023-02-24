@@ -17,11 +17,11 @@ services:
       - funcap-networks
     volumes:
       - ./mariadb-data:/var/lib/mysql
-      - ./backup-database:/backup-database
     ports:
       - 3306:3306
     environment:
       MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: test
 
   phpmyadmin:
     image: phpmyadmin

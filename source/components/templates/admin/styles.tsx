@@ -9,12 +9,12 @@ export const ContainerBackground = styledWeb.div`
 `
 
 export const ContainerLogo = styled.View`
-  flex: 1;
-  margin-top: ${theme.CONSTANTS.HEADER_HIGHT}px;
-  max-height: 150px;
+	flex: 1;
+	margin-top: ${theme.CONSTANTS.HEADER_HIGHT}px;
+	max-height: 150px;
 `
 export const Container = styled.View`
-  z-index: 3;
+	z-index: 3;
 `
 
 export const ContainerChildren = styledWeb.div`

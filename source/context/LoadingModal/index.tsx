@@ -4,48 +4,48 @@ import { View, ActivityIndicator, Modal } from 'react-native'
 import styles from '@/global/styles'
 
 type Context = {
-  loading: boolean
-  showLoading: () => void
-  hideLoading: () => void
+	loading: boolean
+	showLoading: () => void
+	hideLoading: () => void
 }
 
 const LoadingContext = createContext<Context>({} as Context)
 
 type Props = {
-  children: React.ReactNode
+	children: React.ReactNode
 }
 
 const LoadingContextProvider = ({ children }: Props) => {
-  const [loading, setLoading] = useState(false)
+	const [loading, setLoading] = useState(false)
 
-  const showLoading = () => setLoading(true)
-  const hideLoading = () => setLoading(false)
+	const showLoading = () => setLoading(true)
+	const hideLoading = () => setLoading(false)
 
-  const LoadingModal = () => {
-    return (
-      <Modal visible={loading} transparent>
-        <View style={styles.containerCentered}>
-          <ActivityIndicator color={'blue'} size={'large'} />
-        </View>
-      </Modal>
-    )
-  }
-  return (
-    <LoadingContext.Provider
-      value={{
-        loading,
-        showLoading,
-        hideLoading,
-      }}
-    >
-      {children}
-      <LoadingModal />
-    </LoadingContext.Provider>
-  )
+	const LoadingModal = () => {
+		return (
+			<Modal visible={loading} transparent>
+				<View style={styles.containerCentered}>
+					<ActivityIndicator color={'blue'} size={'large'} />
+				</View>
+			</Modal>
+		)
+	}
+	return (
+		<LoadingContext.Provider
+			value={{
+				loading,
+				showLoading,
+				hideLoading,
+			}}
+		>
+			{children}
+			<LoadingModal />
+		</LoadingContext.Provider>
+	)
 }
 
 export default LoadingContextProvider
 
 export const useLoading = (): Context => {
-  return useContext(LoadingContext)
+	return useContext(LoadingContext)
 }

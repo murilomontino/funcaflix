@@ -5,54 +5,56 @@ import { build } from 'mapacultural-database'
 import { GetStaticProps } from 'next/types'
 
 const OpportunitiesId = ({ staticOpportunity }) => {
-  if (!staticOpportunity) {
-    return <div>Loading...</div>
-  }
+	if (!staticOpportunity) {
+		return <div>Loading...</div>
+	}
 
-  return <>{JSON.stringify(staticOpportunity, null, 2)}</>
+	return <>{JSON.stringify(staticOpportunity, null, 2)}</>
 }
 
 export default OpportunitiesId
 
 export const getStaticPaths = async () => {
-  await build()
+	await build()
 
-  const opportunities = await new FindAllOpportunities().execute({ status: [1, 2] })
+	const opportunities = await new FindAllOpportunities().execute({
+		status: [1, 2],
+	})
 
-  if (opportunities.isRight()) {
-    return {
-      paths: [],
-      fallback: false,
-    }
-  }
+	if (opportunities.isRight()) {
+		return {
+			paths: [],
+			fallback: false,
+		}
+	}
 
-  const paths = opportunities.value.map((opportunity) => ({
-    params: { id: opportunity.id?.toString() || '-1' },
-  }))
+	const paths = opportunities.value.map((opportunity) => ({
+		params: { id: opportunity.id?.toString() || '-1' },
+	}))
 
-  return { paths, fallback: false }
+	return { paths, fallback: false }
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  await build()
+	await build()
 
-  if (!params?.id) {
-    return {
-      props: {
-        staticOpportunity: null,
-      },
-    }
-  }
-  const opportunityEither = await new FindByPKOpportunities().execute(null, {
-    id: params.id?.toString(),
-  })
+	if (!params?.id) {
+		return {
+			props: {
+				staticOpportunity: null,
+			},
+		}
+	}
+	const opportunityEither = await new FindByPKOpportunities().execute(null, {
+		id: params.id?.toString(),
+	})
 
-  const opportunity = opportunityEither.isLeft() ? opportunityEither.value : {}
+	const opportunity = opportunityEither.isLeft() ? opportunityEither.value : {}
 
-  return {
-    props: {
-      staticOpportunity: opportunity,
-    },
-    revalidate: 60 * 60 * 24,
-  }
+	return {
+		props: {
+			staticOpportunity: opportunity,
+		},
+		revalidate: 60 * 60 * 24,
+	}
 }

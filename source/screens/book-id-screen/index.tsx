@@ -8,34 +8,32 @@ import InfoBook from './organism/info-book'
 import { Container } from './styles'
 
 type Props = {
-  book: IGetterBooks
+	book: IGetterBooks
 }
 
 const ScreenBookID = ({ book }: Props) => {
+	const [pdf, setPDF] = useState(null)
+	const [isLoading, setIsLoading] = useState(true)
 
-  const [pdf, setPDF] = useState(null)
-  const [isLoading, setIsLoading] = useState(true)
+	if (!book) return null
 
-  if (!book) return null
+	useEffect(() => {
+		if (book.pdf) {
+			setPDF(book.pdf)
+			setIsLoading(false)
+		}
+	}, [])
 
-  useEffect(() => {
-    if (book.pdf) {
-      setPDF(book.pdf)
-      setIsLoading(false)
-    }
-  }, [])
+	if (isLoading) {
+		return <div>Loading...</div>
+	}
 
-
-  if (isLoading) {
-    return <div>Loading...</div>
-  }
-
-  return (
-    <Container>
-      <div>{book?.pdf && <PdfViewer id={pdf} />}</div>
-      <InfoBook book={book} />
-    </Container>
-  )
+	return (
+		<Container>
+			<div>{book?.pdf && <PdfViewer id={pdf} />}</div>
+			<InfoBook book={book} />
+		</Container>
+	)
 }
 
 export default ScreenBookID

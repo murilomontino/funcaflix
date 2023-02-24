@@ -1,0 +1,59 @@
+name: CI - Deploy
+
+on:
+  pull_request:
+    branches: ["homologacao"]
+    types: ["closed"]
+
+permissions: write-all
+
+jobs:
+  install:
+    name: Deploy in Homologacao
+    env:
+      PATH_RELATIVE: /opt/app/homologacao
+    runs-on: [self-hosted]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Git Pull
+        run: |
+          cd "$PATH_RELATIVE" && git pull
+
+      - name: Git Checkout
+        run: |
+          cd "$PATH_RELATIVE" && git checkout homologacao
+
+      - name: Install Packaging
+        run: |
+          cd "$PATH_RELATIVE" && yarn install
+
+      - name: Next Build
+        run: |
+          cd "$PATH_RELATIVE" && yarn build
+
+      - name: Execute Deploy in Service PM2
+        run: |
+          cd "$PATH_RELATIVE" && pm2 start ecosystem.homologacao.config.js
+
+      - name: Stop Deploy
+        run: |
+          pm2 stop homologacao && pm2 delete homologacao
+
+  # next-build:
+  #   name: Run Next Build
+  #   needs: install
+  #   runs-on: [self-hosted]
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v3
+
+  #     - name: Restore node_modules
+  #       uses: actions/cache@v2
+  #       with:
+  #         path: node_modules
+  #         key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+
+  #     - name: Run Next Build
+  #       run: yarn build
