@@ -51,3 +51,7 @@ backup
 .docker/backup-database
 coverage
 html
+certs/all
+certs/client
+certs/server
+certs/*.pem
