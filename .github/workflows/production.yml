@@ -2,7 +2,7 @@ name: CI - Deploy
 
 on:
   pull_request:
-    branches: ["homologacao"]
+    branches: ["master"]
     types: ["closed"]
 
 permissions: write-all
@@ -13,10 +13,10 @@ concurrency:
 
 jobs:
   install:
-    name: Deploy in Homologacao
+    name: Service in Production
     env:
-      PATH_RELATIVE: /opt/app/homologacao
-    runs-on: [self-hosted]
+      PATH_RELATIVE: /var/www/html/funcaflix
+    runs-on: [self-hosted, prod]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -24,10 +24,6 @@ jobs:
       - name: Git Pull
         run: |
           cd "$PATH_RELATIVE" && git pull
-
-      - name: Git Checkout
-        run: |
-          cd "$PATH_RELATIVE" && git checkout homologacao
 
       - name: Install Packaging
         run: |
@@ -37,13 +33,13 @@ jobs:
         run: |
           cd "$PATH_RELATIVE" && yarn build
 
-      - name: Execute Deploy in Service PM2
+      - name: Stop Service
         run: |
-          cd "$PATH_RELATIVE" && pm2 start ecosystem.homologacao.config.js
+          pm2 stop funcaflix && pm2 delete funcaflix
 
-      - name: Stop Deploy
+      - name: Execute Service in Service PM2
         run: |
-          pm2 stop homologacao && pm2 delete homologacao
+          cd "$PATH_RELATIVE" && pm2 start ecosystem.config.js
 
   # next-build:
   #   name: Run Next Build
