@@ -32,8 +32,8 @@ const httpServer = (express: Express): ServerHTTP => {
  * @returns A server object
  */
 const httpsServer = (express: Express): ServerHTTPS => {
-	const KEY = path.resolve(process.cwd(), 'cert', 'localhost.key')
-	const CERT = path.resolve(process.cwd(), 'cert', 'localhost.crt')
+	const KEY = path.resolve(process.cwd(), 'certs', 'cert.pem')
+	const CERT = path.resolve(process.cwd(), 'certs', 'privkey.pem')
 
 	const options = {
 		key: KEY,
