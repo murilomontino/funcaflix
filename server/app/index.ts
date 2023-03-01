@@ -9,6 +9,7 @@ import { createServer as CreateServerHTTPS } from 'https'
 import { build } from 'mapacultural-database'
 import next from 'next'
 
+import path from 'path'
 import Middleware from './middleware'
 import NextjsExpressRouter from './nextjs_express_router'
 import ServerIO from './socket-io'
@@ -32,10 +33,10 @@ const httpServer = (express: Express): ServerHTTP => {
  * @returns A server object
  */
 const httpsServer = (express: Express): ServerHTTPS => {
-	const path = process.cwd() + '/certs/'
+	const PATH = path.resolve(process.cwd(), 'certs', 'server')
 	const options = {
-		key: fs.readFileSync(path + 'privkey.key'),
-		cert: fs.readFileSync(path + 'cert.pem'),
+		key: fs.readFileSync(PATH + 'privkey.key'),
+		cert: fs.readFileSync(PATH + 'cert.pem'),
 	}
 	console.log(
 		`Server running in HTTPS --- ${process.env.NODE_ENV} --- on port ${process.env.EXPRESS_PORT}`
