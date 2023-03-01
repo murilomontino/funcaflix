@@ -1,127 +1,120 @@
-import type { GetStaticProps } from 'next'
 import React from 'react'
 
-import { FindAllOpportunities, FindAllProductsByCategory } from '@/domain/usecases'
-
+import { makeUseCaseFindAllEventsByFinancialResources } from '@/composers/events-composers/make-get-all-events-by-financial-resources-composer'
 import { GetterProjects } from '@/domain/entities'
-import LeiAldirBlankScreen from '@/screens/lei-aldir-blanc-screen'
-import { CATEGORIES } from '@/types/constants'
-import { IGetterProduct } from '@/types/getters'
+import { SequelizeProductsRepository } from '@/domain/repositories/products-repository'
+import { FindAllProductsByFinancialResource } from '@/domain/usecases'
+import { CATEGORIES, FINANCIAL_RESOURCES } from '@/types/constants'
+import { IGetterEvent, IGetterProduct } from '@/types/getters'
 import { build } from 'mapacultural-database'
+import type { GetStaticProps } from 'next'
+
+import LeiAldirBlankScreen from '@/screens/lei-aldir-blanc-screen'
 
 type StaticProps = {
-    staticBooks: IGetterProduct[]
-    staticTvProgramsPlaylist: IGetterProduct[]
-    staticOpportunities: GetterProjects[]
-    staticWorkshops: IGetterProduct[]
-    staticEvents: IGetterProduct[]
+	books: IGetterProduct[]
+	audiovisual: IGetterProduct[]
+	opportunities: GetterProjects[]
+	workshops: IGetterProduct[]
+	events: IGetterEvent[]
 }
 
 const LeiAldirBlank = ({
-    staticBooks,
-    staticOpportunities,
-    staticEvents,
-    staticTvProgramsPlaylist,
-    staticWorkshops
+	books,
+	opportunities,
+	events,
+	audiovisual,
+	workshops,
 }: StaticProps) => {
-    const key = React.useId();
-    return (
-        <LeiAldirBlankScreen
-            key={key}
-            opportunities={staticOpportunities}
-            books={staticBooks}
-            events={staticEvents}
-            // participation={staticParticipation}
-            tvProgramsPlaylist={staticTvProgramsPlaylist}
-            workshops={staticWorkshops}
-        />
-    )
+	const key = React.useId()
+	return (
+		<LeiAldirBlankScreen
+			key={key}
+			opportunities={opportunities}
+			books={books}
+			events={events}
+			// participation={staticParticipation}
+			tvProgramsPlaylist={audiovisual}
+			workshops={workshops}
+		/>
+	)
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-    await build()
+	await build()
 
-    const promiseBooksOrErr = new FindAllProductsByCategory().execute({}, {
-        category: CATEGORIES.LITERATURE,
-        where: {
-            financialResource: 61,
-        }
-    })
+	const EventsUseCase = makeUseCaseFindAllEventsByFinancialResources()
 
-    const promiseWorkshopsOrErr = new FindAllProductsByCategory().execute({}, {
-        category: CATEGORIES.WORKSHOP,
-        where: {
-            financialResource: 61,
-        }
-    })
+	const repository = new SequelizeProductsRepository()
 
-    const promiseEventsOrErr = new FindAllProductsByCategory().execute({}, {
-        category: CATEGORIES.EVENT,
-        where: {
-            financialResource: 61,
-        }
-    })
+	const promiseBooks = new FindAllProductsByFinancialResource(repository)
+		.defineCategory(CATEGORIES.LITERATURE)
+		.execute(null, {
+			financialResource: FINANCIAL_RESOURCES['lei-aldir-blanc'],
+		})
 
-    // const promiseParticipationOrErr = new FindAllProductsByCategory().execute({}, {
-    //     category: CATEGORIES.PARTICIPATION,
-    //     where: {
-    //         financialResource: 61,
-    //     }
-    // })
+	const promiseAudioVisual = new FindAllProductsByFinancialResource(repository)
+		.defineCategory(CATEGORIES.AUDIOVISUAL)
+		.execute(null, {
+			financialResource: FINANCIAL_RESOURCES['lei-aldir-blanc'],
+		})
 
-    const promiseOpportunitiesOrErr = new FindAllOpportunities().execute({
-        status: [1, 2],
-        params: {
-            where: {
-                idUser: 12110,
-            }
-        }
-    })
+	// const promiseOpportunities = new FindAllOpportunities().execute({
+	// 	status: [1, 2],
+	// 	params: {
+	// 		where: {
+	// 			idUser: 12110,
+	// 		},
+	// 	},
+	// })
 
+	const promiseWorkshopsOrErr = new FindAllProductsByFinancialResource(
+		repository
+	)
+		.defineCategory(CATEGORIES.WORKSHOP)
+		.execute(null, {
+			financialResource: FINANCIAL_RESOURCES['lei-aldir-blanc'],
+		})
 
-    const promiseAudioVisualOrErr = new FindAllProductsByCategory().execute({}, {
-        category: CATEGORIES.AUDIOVISUAL,
-        limit: 10,
-        where: {
-            financialResource: 61,
-        }
-    })
+	const promiseEventsOrErr = EventsUseCase.execute(null, {
+		financialResources: FINANCIAL_RESOURCES['lei-aldir-blanc'],
+	})
 
-    const [
-        booksOrErr,
-        playlistOrErr,
-        opportunitiesOrErr,
-        workshopsOrErr,
-        eventsOrErr,
-        // participationOrErr,
-    ] = await Promise.all([
-        promiseBooksOrErr,
-        promiseAudioVisualOrErr,
-        promiseOpportunitiesOrErr,
-        promiseWorkshopsOrErr,
-        promiseEventsOrErr,
-        // promiseParticipationOrErr,
-    ])
+	const [
+		booksOrErr,
+		playlistOrErr,
+		workshopsOrErr,
+		eventsOrErr,
+		// opportunitiesOrErr,
+		// participationOrErr
+	] = await Promise.all([
+		promiseBooks,
+		promiseAudioVisual,
+		promiseWorkshopsOrErr,
+		promiseEventsOrErr,
+		// promiseOpportunities,
+		// promiseParticipationOrErr
+	])
 
-    const books = booksOrErr.isLeft() && booksOrErr.extract()
-    const playlist = playlistOrErr.isLeft() && playlistOrErr.extract()
-    const opportunities = opportunitiesOrErr.isLeft() && opportunitiesOrErr.extract()
-    const workshops = workshopsOrErr.isLeft() && workshopsOrErr.extract()
-    const events = eventsOrErr.isLeft() && eventsOrErr.extract()
-    // const participation = participationOrErr.isLeft() && participationOrErr.extract()
+	const books = booksOrErr.isLeft() && booksOrErr.extract()
+	const playlist = playlistOrErr.isLeft() && playlistOrErr.extract()
+	const workshops = workshopsOrErr.isLeft() && workshopsOrErr.extract()
+	const events = eventsOrErr.isLeft() && eventsOrErr.extract()
 
-    return {
-        props: {
-            staticBooks: books || [],
-            staticTvProgramsPlaylist: playlist || [],
-            staticOpportunities: opportunities || [],
-            staticWorkshops: workshops || [],
-            staticEvents: events || [],
-            // staticParticipation: participation || [],
-        },
-        revalidate: 60 * 60 * 24,
-    }
+	// const opportunities = opportunitiesOrErr.isLeft() && opportunitiesOrErr.extract()
+	// const participation = participationOrErr.isLeft() && participationOrErr.extract()
+
+	return {
+		props: {
+			books: books || [],
+			audiovisual: playlist || [],
+			opportunities: [],
+			workshops: workshops || [],
+			events: events || [],
+			// staticParticipation: participation || [],
+		},
+		revalidate: 60 * 60 * 24,
+	}
 }
-
 
 export default LeiAldirBlank

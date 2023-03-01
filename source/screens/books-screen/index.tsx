@@ -1,87 +1,77 @@
 import React, { useEffect, useState } from 'react'
+import Spinner from 'react-bootstrap/Spinner'
 import ReactInfiniteScroll from 'react-infinite-scroll-component'
-import { ActivityIndicator, StyleSheet, View } from 'react-native'
 
 import image from '@/public/images/literatura.jpg'
+import type { IGetterBooks } from '@/types/getters'
 
 import BreadCrumb from '@/components/organism/breadcrumb'
 
 import CardBooks from './components/organism/card-book'
 
-import colors from '@/global/colors'
-import constants from '@/global/constants'
 import { useResources } from '@/hooks/utils/use-resources'
-import type { IGetterBooks } from '@/types/getters'
 
 type Props = {
-  books: IGetterBooks[]
+	books: IGetterBooks[]
 }
 
 const ScreenBooks = ({ books }: Props) => {
-  const [loading, setLoading] = useState(true)
+	const [loading, setLoading] = useState(true)
 
-  const { isFontReady } = useResources()
+	const { isFontReady } = useResources()
 
-  const [data, setData] = useState(books.slice(0, 50))
+	const [data, setData] = useState(books.slice(0, 50))
 
-  const fetchMoreData = () => {
-    setData((state) => [...state, ...books.slice(state.length, state.length + 50)])
-  }
+	const fetchMoreData = () => {
+		setData((state) => [
+			...state,
+			...books.slice(state.length, state.length + 50),
+		])
+	}
 
-  useEffect(() => {
-    if (data) {
-      setLoading(false)
-    }
-  }, [data])
+	useEffect(() => {
+		if (data) {
+			setLoading(false)
+		}
+	}, [data])
 
-  const hasMore = data.length < books.length
+	const hasMore = data.length < books.length
 
-  if (loading || !isFontReady) {
-    return (
-      <View style={styles.container}>
-        <ActivityIndicator size="large" color={colors.white} />
-      </View>
-    )
-  }
+	if (loading || !isFontReady) {
+		return (
+			<React.Fragment>
+				<div className="overflow-hidden">
+					<div className="d-flex justify-content-center">
+						<Spinner animation="border" variant="primary" />
+					</div>
+				</div>
+			</React.Fragment>
+		)
+	}
 
-  return (
-    <View style={styles.container}>
-      <BreadCrumb title="Literatura" image={image} />
+	return (
+		<div>
+			<BreadCrumb title="Literatura" image={image} />
 
-      <ReactInfiniteScroll
-        dataLength={data.length}
-        next={fetchMoreData}
-        hasMore={hasMore}
-        loader={<h4>Loading...</h4>}
-        endMessage={
-          <p style={{ textAlign: 'center' }}>
-            <b>Yay! You have seen it all</b>
-          </p>
-        }
-      >
-        <div className="overflow-hidden">
-          {data.map((item, index) => (
-            <CardBooks item={item} key={index} />
-          ))}
-        </div>
-      </ReactInfiniteScroll>
-    </View>
-  )
+			<ReactInfiniteScroll
+				dataLength={data.length}
+				next={fetchMoreData}
+				hasMore={hasMore}
+				loader={<h4>Loading...</h4>}
+				endMessage={
+					<p style={{ textAlign: 'center' }}>
+						<b>Isso é tudo, Pessoal!</b>
+					</p>
+				}
+			>
+				<div className="overflow-hidden justify-content-center align-items-center">
+					{data.map((item, index) => (
+						<CardBooks item={item} key={index} />
+					))}
+				</div>
+			</ReactInfiniteScroll>
+		</div>
+	)
 }
 
 export default ScreenBooks
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginBottom: constants.footerHight,
-    backgroundColor: 'transparent',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  section: {
-    margin: 10,
-    padding: 10,
-    flexGrow: 1,
-  },
-})

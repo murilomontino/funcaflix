@@ -1,33 +1,38 @@
-"use strict";
+'use strict'
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.formatShortMonth = exports.formatMonth = void 0;
-exports.getFormatter = getFormatter;
+Object.defineProperty(exports, '__esModule', {
+	value: true,
+})
+exports.formatShortMonth = exports.formatMonth = void 0
+exports.getFormatter = getFormatter
 
-var _getUserLocale = _interopRequireDefault(require("get-user-locale"));
+var _getUserLocale = _interopRequireDefault(require('get-user-locale'))
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function _interopRequireDefault(obj) {
+	return obj && obj.__esModule ? obj : { default: obj }
+}
 
-var formatterCache = new Map();
+var formatterCache = new Map()
 
 function getFormatter(options) {
-  return function (locale, date) {
-    var localeWithDefault = locale || (0, _getUserLocale["default"])();
+	return function (locale, date) {
+		var localeWithDefault = locale || (0, _getUserLocale['default'])()
 
-    if (!formatterCache.has(localeWithDefault)) {
-      formatterCache.set(localeWithDefault, new Map());
-    }
+		if (!formatterCache.has(localeWithDefault)) {
+			formatterCache.set(localeWithDefault, new Map())
+		}
 
-    var formatterCacheLocale = formatterCache.get(localeWithDefault);
+		var formatterCacheLocale = formatterCache.get(localeWithDefault)
 
-    if (!formatterCacheLocale.has(options)) {
-      formatterCacheLocale.set(options, new Intl.DateTimeFormat(localeWithDefault, options).format);
-    }
+		if (!formatterCacheLocale.has(options)) {
+			formatterCacheLocale.set(
+				options,
+				new Intl.DateTimeFormat(localeWithDefault, options).format
+			)
+		}
 
-    return formatterCacheLocale.get(options)(date);
-  };
+		return formatterCacheLocale.get(options)(date)
+	}
 }
 /**
  * Changes the hour in a Date to ensure right date formatting even if DST is messed up.
@@ -39,25 +44,24 @@ function getFormatter(options) {
  * @param {Date} date Date.
  */
 
-
 function toSafeHour(date) {
-  var safeDate = new Date(date);
-  return new Date(safeDate.setHours(12));
+	var safeDate = new Date(date)
+	return new Date(safeDate.setHours(12))
 }
 
 function getSafeFormatter(options) {
-  return function (locale, date) {
-    return getFormatter(options)(locale, toSafeHour(date));
-  };
+	return function (locale, date) {
+		return getFormatter(options)(locale, toSafeHour(date))
+	}
 }
 
 var formatMonthOptions = {
-  month: 'long'
-};
+	month: 'long',
+}
 var formatShortMonthOptions = {
-  month: 'short'
-};
-var formatMonth = getSafeFormatter(formatMonthOptions);
-exports.formatMonth = formatMonth;
-var formatShortMonth = getSafeFormatter(formatShortMonthOptions);
-exports.formatShortMonth = formatShortMonth;
+	month: 'short',
+}
+var formatMonth = getSafeFormatter(formatMonthOptions)
+exports.formatMonth = formatMonth
+var formatShortMonth = getSafeFormatter(formatShortMonthOptions)
+exports.formatShortMonth = formatShortMonth

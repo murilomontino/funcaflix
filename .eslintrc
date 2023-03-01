@@ -8,12 +8,10 @@
 		}
 	},
 	"extends": [
-		"eslint:recommended",
-		"plugin:react/recommended",
-		"plugin:@typescript-eslint/recommended",
+		// "next/core-web-vitals",
+		"next",
 		"prettier"
 	],
-	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
 		"ecmaFeatures": {
 			"jsx": true
@@ -22,9 +20,7 @@
 		"sourceType": "module"
 	},
 	"plugins": [
-		"react",
-		"@typescript-eslint",
-		"plugin:prettier/recommended",
+		"prettier",
 		"eslint-plugin-import-helpers",
 		"unused-imports"
 	],
@@ -33,23 +29,32 @@
 			"error",
 			"unix"
 		],
-		"react/prop-types": 0,
+		"indent": "off",
+		"endOfLine": "off",
+		"arrow-body-style": "off",
+		"prefer-arrow-callback": "off",
+		"bracket-spacing": "off",
 		"prettier/prettier": [
 			"error",
 			{
+				"endOfLine": "auto",
 				"singleQuote": true,
-				"printWidth": 100,
+				"printWidth": 80,
+				"bracket-spacing": false,
+				"arrow-parens": "always",
 				"tabWidth": 2,
-				"useTabs": false,
+				"useTabs": true,
 				"semi": false,
-				"trailingComma": "es5",
-				"space-before-function-paren": [
-					"error",
-					"always"
-				]
+				"trailingComma": "es5"
 			}
 		],
+		"react/no-unescaped-entities": "off",
+		"@next/next/no-page-custom-font": "off",
+		"react/prop-types": 0,
 		"@typescript-eslint/no-extra-semi": [
+			"off"
+		],
+		"@typescript-eslint/ban-types": [
 			"off"
 		],
 		"no-console": "error",
@@ -64,6 +69,7 @@
 						"/^react/",
 						"/^react-native/"
 					],
+					"/^vitest/",
 					"/^@react/",
 					"/^expo/",
 					"/^redux/",
@@ -98,11 +104,14 @@
 		"unused-imports/no-unused-imports": "error"
 	},
 	"ignorePatterns": [
+		"coverage",
+		".docker",
 		"metro.config.js",
 		"babel.config.js",
 		"node_modules",
 		"jest.config.js",
 		"next.config.js",
-		"src/components/atom/react-date-picker/**/*"
+		"source/components/atom/react-date-picker/**/*",
+		"styles/**/*"
 	]
 }

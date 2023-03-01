@@ -1,57 +1,28 @@
-import { If } from '@/utils/tsx-controls'
 import React from 'react'
-import { View, Text, Platform } from 'react-native'
-import { useDimensions } from 'react-native-web-hooks'
-
-import { textStyles, viewStyles } from '../../../screens/books-screen/components/styles'
 
 type Props = {
-  title: string
-  author?: string
-  subTitle?: string
-  children?: React.ReactNode | React.ReactNode[] | JSX.Element | JSX.Element[]
+	title: string
+	author?: string
+	subTitle?: string
+	children?: React.ReactNode | React.ReactNode[] | JSX.Element | JSX.Element[]
 }
 
 const BookBasicInformation = ({ title, author, subTitle, children }: Props) => {
-
-  const web = Platform.OS === 'web'
-  const { window, screen } = useDimensions()
-  const size = web ? window : screen
-
-  return (
-    <View
-      style={[
-        viewStyles.viewHeader,
-        size.width < 1127 && {
-          justifyContent: 'center',
-          alignItems: 'center',
-        },
-      ]}
-    >
-      <View
-        style={[
-          viewStyles.viewAttributes,
-          {
-            alignItems: 'center',
-          },
-        ]}
-      >
-        <Text style={[textStyles.attrText, { fontWeight: '700', fontSize: 12 }]}>{title}</Text>
-        <If condition={!!subTitle}>
-          <Text style={[textStyles.attrText, { fontWeight: '700', fontSize: 12 }]}>
-           {"-"} {subTitle}
-          </Text>
-        </If>
-
-      </View>
-      <If condition={!!author}>
-        <View>
-          <Text style={textStyles.authorFooter}>{author}</Text>
-        </View>
-      </If>
-      {children}
-    </View>
-  )
+	return (
+		<div className="d-flex flex-column justify-content-between">
+			<div className="d-flex col flex-column justify-content-between mb-2">
+				<h6 className="text-center text-black-50 card-title font-size-20 font-Weight-600 m-2 text-uppercase">
+					<span>{title}</span>
+					<br />
+					<span className="d-inline-block text-truncate w-100">{subTitle}</span>
+				</h6>
+			</div>
+			<div className="d-flex col flex-column justify-content-between mb-2 text-black">
+				{author}
+			</div>
+			{children}
+		</div>
+	)
 }
 
 export default BookBasicInformation

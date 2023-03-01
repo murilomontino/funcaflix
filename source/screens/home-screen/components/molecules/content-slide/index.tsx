@@ -11,45 +11,54 @@ import scss from './styles.module.scss'
 import { useResources } from '@/hooks/utils/use-resources'
 
 type Props = {
-  title: string
-  link: string
-  description: string
+	title: string
+	link: string
+	description: string
 }
 
 const ContentSlide = ({ title, description, link }: Props) => {
-  const { isFontReady } = useResources()
+	const { isFontReady } = useResources()
 
-  if (!isFontReady) return null
+	if (!isFontReady) return null
 
-  return (
-    <Container fluid className={`position-relative ${scss['container']}`}>
-      <div className="slider-inner h-100">
-        <Row className="iq-ltr-direction h-100">
-          <Col xl="6" lg="12" md="12" className="w-100 h-100">
-            <div className={`channel-logo ${scss['container-logo']}`} data-iq-delay="0.5">
-              <Image src={Logo} className="c-logo" alt="Logo Funcap" height={30} width={30} />
-              <h6
-                style={{
-                  fontFamily: theme.FONTS.TITLE_BOLD,
-                }}
-              >
-                Funcap
-              </h6>
-            </div>
-            <div className={`${scss['container-text']}`}>
-              <h1
-                style={{
-                  fontFamily: theme.FONTS.TITLE_BOLD,
-                  marginBottom: '1rem',
-                }}
-                className="slider-text text-uppercase"
-                data-iq-gsap="onStart"
-                data-iq-position-x="-200"
-              >
-                {title}
-              </h1>
-              <div className="d-flex flex-wrap align-items-center">
-                {/*  <div
+	return (
+		<Container fluid className={`position-relative ${scss['container']}`}>
+			<div className="slider-inner h-100">
+				<Row className="iq-ltr-direction h-100">
+					<Col xl="6" lg="12" md="12" className="w-100 h-100">
+						<div
+							className={`channel-logo ${scss['container-logo']}`}
+							data-iq-delay="0.5"
+						>
+							<Image
+								src={Logo}
+								className="c-logo"
+								alt="Logo Funcap"
+								height={30}
+								width={30}
+							/>
+							<h6
+								style={{
+									fontFamily: theme.FONTS.TITLE_BOLD,
+								}}
+							>
+								Funcap
+							</h6>
+						</div>
+						<div className={`${scss['container-text']}`}>
+							<h1
+								style={{
+									fontFamily: theme.FONTS.TITLE_BOLD,
+									marginBottom: '1rem',
+								}}
+								className="slider-text text-uppercase"
+								data-iq-gsap="onStart"
+								data-iq-position-x="-200"
+							>
+								{title}
+							</h1>
+							<div className="d-flex flex-wrap align-items-center">
+								{/*  <div
                 className="slider-ratting d-flex align-items-center mr-4 mt-2 mt-md-3"
                 data-iq-gsap="onStart"
                 data-iq-position-x="-200"
@@ -84,24 +93,30 @@ const ContentSlide = ({ title, description, link }: Props) => {
                 <span className="ml-3">2 Seasons</span>
               </div> */}
 
-                <p data-iq-gsap="onStart" data-iq-position-y="80" data-iq-delay="0.8">
-                  {description.trim().length > 0 && description?.slice(0, 650).concat('...\n')}
-                </p>
-              </div>
-              <div
-                className="d-flex align-items-center r-mb-23 position-absolute bottom-3"
-                data-iq-gsap="onStart"
-                data-iq-position-y="80"
-                data-iq-delay="0.8"
-              >
-                <Link href={link}>
-                  <a className="btn btn-hover iq-button button-hover iq-border-radius-5">
-                    <i className="fa fa-play mr-2" aria-hidden="true"></i>Play Now
-                  </a>
-                </Link>
-              </div>
-            </div>
-            {/*   <div className="trending-list" data-wp_object-in="fadeInUp" data-delay-in="1.2">
+								<p
+									data-iq-gsap="onStart"
+									data-iq-position-y="80"
+									data-iq-delay="0.8"
+								>
+									{description.trim().length > 0 &&
+										description?.slice(0, 650).concat('...\n')}
+								</p>
+							</div>
+							<div
+								className="d-flex align-items-center r-mb-23 position-absolute bottom-3"
+								data-iq-gsap="onStart"
+								data-iq-position-y="80"
+								data-iq-delay="0.8"
+							>
+								<Link href={link}>
+									<a className="btn btn-hover iq-button button-hover iq-border-radius-5">
+										<i className="fa fa-play mr-2" aria-hidden="true"></i>Play
+										Now
+									</a>
+								</Link>
+							</div>
+						</div>
+						{/*   <div className="trending-list" data-wp_object-in="fadeInUp" data-delay-in="1.2">
               <div className="text-primary title starring">
                 Starring: <span className="text-body">Karen Gilchrist, James Earl Jones</span>
               </div>
@@ -129,8 +144,8 @@ const ContentSlide = ({ title, description, link }: Props) => {
               </a> 
             </div>
             */}
-          </Col>
-          {/* <a href="/" className={`video-open playbtn ${scss['button-play']}`}>
+					</Col>
+					{/* <a href="/" className={`video-open playbtn ${scss['button-play']}`}>
             <svg
               version="1.1"
               xmlns="http://www.w3.org/2000/svg"
@@ -166,10 +181,10 @@ const ContentSlide = ({ title, description, link }: Props) => {
             </svg>
             <span className="w-trailor">Assistir</span>
           </a> */}
-        </Row>
-      </div>
-    </Container>
-  )
+				</Row>
+			</div>
+		</Container>
+	)
 }
 
 export default ContentSlide

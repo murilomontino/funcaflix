@@ -10,110 +10,111 @@ import ImageNext from '@/components/atom/image-next'
 import Logo from '@/components/atom/logo-funcapflix'
 
 import { ContainerLogo, Title } from './styles'
+
 import { If } from '@/utils/tsx-controls'
 
 type Props = {
-  title: string
-  thumbnail: string
-  disabled?: boolean
-  width?: string
-  height?: string
-  button?: string
-  endpoint?: string
-  linkDetails?: string
-  imageStatic?: boolean
-  existLogo?: boolean
+	title: string
+	thumbnail: string
+	disabled?: boolean
+	width?: string
+	height?: string
+	button?: string
+	endpoint?: string
+	linkDetails?: string
+	imageStatic?: boolean
+	existLogo?: boolean
 }
 
 const imageLoader = ({ src, endpoint = '' }) => {
-  if (!src || src?.startsWith('Não')) {
-    return noCapa
-  }
+	if (!src || src?.startsWith('Não')) {
+		return noCapa
+	}
 
-  if (src?.startsWith('logo')) {
-    return LogoDefault
-  }
+	if (src?.startsWith('logo')) {
+		return LogoDefault
+	}
 
-  if (src && src.startsWith('http')) {
-    return src
-  }
+	if (src && src.startsWith('http')) {
+		return src
+	}
 
-  const uuid = src.replace('imagens/', '')
-  const URL = process.env._currentURL + 'images' + '/' + uuid
+	const uuid = src.replace('imagens/', '')
+	const URL = process.env._currentURL + 'images' + '/' + uuid
 
-  return URL
+	return URL
 }
 
 const CardSwipper = ({
-  title,
-  thumbnail,
-  endpoint,
-  disabled,
-  width = '100%',
-  height = '160px',
-  button = 'Assistir',
-  existLogo = true,
-  linkDetails = '/',
+	title,
+	thumbnail,
+	endpoint,
+	disabled,
+	width = '100%',
+	height = '160px',
+	button = 'Assistir',
+	existLogo = true,
+	linkDetails = '/',
 }: Props) => {
-  if (!thumbnail) {
-    return (
-      <div className="block-images position-relative">
-        <Skeleton height={height} width={width} />
-      </div>
-    )
-  }
+	if (!thumbnail) {
+		return (
+			<div className="block-images position-relative">
+				<Skeleton height={height} width={width} />
+			</div>
+		)
+	}
 
-  return (
-    <div className="block-images position-relative">
-      <div
-        className="img-box"
-        style={{
-          width: width,
-          height: height,
-        }}
-      >
-        <ImageNext
-          imageStatic={thumbnail?.startsWith('logo')}
-          image={imageLoader({ src: thumbnail, endpoint })}
-          layout="fill"
-          unblur
-          style={{
-            width: width,
-            height: height,
-          }}
-          alt={`thumbnail de ${title}`}
-        />
-      </div>
+	return (
+		<div className="block-images position-relative">
+			<div
+				className="img-box"
+				style={{
+					width: width,
+					height: height,
+				}}
+			>
+				<ImageNext
+					imageStatic={thumbnail?.startsWith('logo')}
+					image={imageLoader({ src: thumbnail, endpoint })}
+					layout="fill"
+					unblur
+					style={{
+						width: width,
+						height: height,
+					}}
+					alt={`thumbnail de ${title}`}
+				/>
+			</div>
 
-      <div
-        className="block-description"
-        style={{
-          left: 0,
-          width: '100%',
-        }}
-      >
-        <If condition={existLogo}>
-          <ContainerLogo>
-            <Logo size={1.5} />
-          </ContainerLogo>
-        </If>
-        <MotiView
-          animate={{
-            width: '100%',
-          }}
-          transition={{
-            type: 'timing',
-            delay: theme.EFFECT.DELAY,
-            duration: theme.EFFECT.DURATION,
-          }}
-          style={{
-            backgroundColor: 'rgba(0,0,0,0.3)',
-          }}
-        >
-          <Title>{title}</Title>
-        </MotiView>
+			<div
+				className="block-description"
+				style={{
+					left: 0,
+					width: '100%',
+				}}
+			>
+				<If condition={existLogo}>
+					<ContainerLogo>
+						<Logo size={1.5} />
+					</ContainerLogo>
+				</If>
+				<MotiView
+					animate={{
+						width: '100%',
+					}}
+					transition={{
+						type: 'timing',
+						delay: theme.EFFECT.DELAY,
+						duration: theme.EFFECT.DURATION,
+					}}
+					style={{
+						backgroundColor: 'rgba(0,0,0,0.3)',
+					}}
+				>
+					<Title>{title}</Title>
+				</MotiView>
 
-        {/*<h6 className="iq-title">
+				{/*<h6 className="iq-title">
           <a href={linkDetails}>{title}</a>
         </h6>
            <div className="movie-time d-flex align-items-center my-2 iq-ltr-direction">
@@ -121,28 +122,26 @@ const CardSwipper = ({
           <span className="text-white">2h 30m</span>
         </div> 
         */}
-        <div
-
-          className="ml-2 position-absolute"
-          style={{
-            width: 'fit-content',
-            bottom: '20px',
-          }}
-        >
-          <If condition={!disabled}>
-            <a
-              href={linkDetails}
-              role="button"
-              className="btn btn-hover iq-button button-hover iq-border-radius-5"
-            >
-              <i className="fa fa-play mr-1" aria-hidden="true"></i>
-              {button}
-            </a>
-          </If>
-
-        </div>
-      </div>
-      {/* <div className="block-social-info">
+				<div
+					className="ml-2 position-absolute"
+					style={{
+						width: 'fit-content',
+						bottom: '20px',
+					}}
+				>
+					<If condition={!disabled}>
+						<a
+							href={linkDetails}
+							role="button"
+							className="btn btn-hover iq-button button-hover iq-border-radius-5"
+						>
+							<i className="fa fa-play mr-1" aria-hidden="true"></i>
+							{button}
+						</a>
+					</If>
+				</div>
+			</div>
+			{/* <div className="block-social-info">
         <ul className="list-inline p-0 m-0 music-play-lists">
           <li className="share">
             <span>
@@ -192,8 +191,8 @@ const CardSwipper = ({
           </li>
         </ul>
       </div> */}
-    </div>
-  )
+		</div>
+	)
 }
 
 export default CardSwipper

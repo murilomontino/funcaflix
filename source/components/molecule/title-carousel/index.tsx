@@ -7,55 +7,55 @@ import { Title, Container, ContainerText, SubTitle } from './styles'
 import { useResources } from '@/hooks/utils/use-resources'
 
 type Props = {
-  title: string
-  animation?: boolean
-  lg?: boolean
-  md?: boolean
-  isButton?: boolean
-  link?: string
+	title: string
+	animation?: boolean
+	lg?: boolean
+	md?: boolean
+	isButton?: boolean
+	link?: string
 }
 
 const TitleCarousel = ({
-  title = 'Não Informado',
-  animation = true,
-  lg = false,
-  md = false,
-  isButton = true,
-  link = '#',
+	title = 'Não Informado',
+	animation = true,
+	lg = false,
+	md = false,
+	isButton = true,
+	link = '#',
 }: Props) => {
-  const [hovered, setHovered] = useState(false)
-  const { isFontReady } = useResources()
+	const [hovered, setHovered] = useState(false)
+	const { isFontReady } = useResources()
 
-  const handleHover = () => {
-    setHovered(true && animation)
-  }
+	const handleHover = () => {
+		setHovered(true && animation)
+	}
 
-  const handleLeave = () => {
-    setHovered(false && animation)
-  }
+	const handleLeave = () => {
+		setHovered(false && animation)
+	}
 
-  if (!isFontReady) return null
+	if (!isFontReady) return null
 
-  return (
-    <Container onMouseEnter={handleHover} onMouseLeave={handleLeave}>
-      <Link href={link} passHref>
-        <ContainerText disabled={!isButton}>
-          <Title lg={lg} md={md}>
-            {title}
-          </Title>
-          <SubTitle
-            animate={{
-              opacity: hovered ? 1 : 0,
-              translateX: hovered ? 0 : -20,
-            }}
-            transition={{ type: 'timing', delay: 0, duration: 100 }}
-          >
-            Ver Tudo
-          </SubTitle>
-        </ContainerText>
-      </Link>
-    </Container>
-  )
+	return (
+		<Container onMouseEnter={handleHover} onMouseLeave={handleLeave}>
+			<Link href={link} passHref>
+				<ContainerText disabled={!isButton}>
+					<Title lg={lg} md={md}>
+						{title}
+					</Title>
+					<SubTitle
+						animate={{
+							opacity: hovered ? 1 : 0,
+							translateX: hovered ? 0 : -20,
+						}}
+						transition={{ type: 'timing', delay: 0, duration: 100 }}
+					>
+						Ver Tudo
+					</SubTitle>
+				</ContainerText>
+			</Link>
+		</Container>
+	)
 }
 
 export default TitleCarousel

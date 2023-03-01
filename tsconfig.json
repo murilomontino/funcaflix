@@ -5,7 +5,6 @@
     "module": "CommonJS",
     "types": [
       "node",
-      "jest"
     ],
     "allowJs": true,
     "strict": false,
@@ -24,7 +23,8 @@
     "paths": {
       "@/*": [
         "./source/*",
-        "./backend/core/*"
+        "server/core/*",
+        "server/app/*"
       ],
       "@/database": [
         "./database.ts"
@@ -32,15 +32,22 @@
       "@/public/*": [
         "./public/*"
       ],
+      "@/types/*": [
+        "./types/*"
+      ],
+      "@/__mocks__": [
+        "./__mocks__/index.ts"
+      ],
     },
     "isolatedModules": true,
     "incremental": true
   },
   "include": [
-    "backend/**/*",
-    "app",
+    "server/**/*",
+    "server/app",
     "source",
-    "pages"
+    "pages",
+    "types"
   ],
   "ts-node": {
     "transpileOnly": true,
@@ -52,6 +59,7 @@
     "vitest.config.js",
     "next.config.ts",
     "source/components/atom/date-picker/react-date-picker/**/*",
+    ".docker"
   ],
   "extends": "expo/tsconfig.base",
   "rules": [

@@ -5,11 +5,11 @@ import axios from 'axios'
 export const path = process.env._currentURL
 
 const api = axios.create({
-  proxy: false,
-  baseURL: path,
-  headers: {
-    Authorization: `Api-key ${process.env.API_KEY}`,
-  },
+	proxy: false,
+	baseURL: path,
+	headers: {
+		Authorization: `Api-key ${process.env.API_KEY}`,
+	},
 })
 
 export default api

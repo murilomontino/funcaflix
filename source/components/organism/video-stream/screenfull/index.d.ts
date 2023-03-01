@@ -1,13 +1,13 @@
 export type RawEventNames = {
-	readonly requestFullscreen: string;
-	readonly exitFullscreen: string;
-	readonly fullscreenElement: string;
-	readonly fullscreenEnabled: string;
-	readonly fullscreenchange: string;
-	readonly fullscreenerror: string;
-};
+	readonly requestFullscreen: string
+	readonly exitFullscreen: string
+	readonly fullscreenElement: string
+	readonly fullscreenEnabled: string
+	readonly fullscreenchange: string
+	readonly fullscreenerror: string
+}
 
-export type EventName = 'change' | 'error';
+export type EventName = 'change' | 'error'
 
 /**
 Simple wrapper for cross-browser usage of the JavaScript [Fullscreen API](https://developer.mozilla.org/en/DOM/Using_full-screen_mode), which lets you bring the page or any element into fullscreen. Smoothens out the browser implementation differences, so you don't have to.
@@ -16,12 +16,12 @@ declare const screenfull: {
 	/**
 	Whether fullscreen is active.
 	*/
-	readonly isFullscreen: boolean;
+	readonly isFullscreen: boolean
 
 	/**
 	The element currently in fullscreen, otherwise `undefined`.
 	*/
-	readonly element: Element | undefined;
+	readonly element: Element | undefined
 
 	/**
 	Whether you are allowed to enter fullscreen. If your page is inside an `<iframe>` you will need to add a `allowfullscreen` attribute (+ `webkitallowfullscreen` and `mozallowfullscreen`).
@@ -35,12 +35,12 @@ declare const screenfull: {
 	}
 	```
 	*/
-	readonly isEnabled: boolean;
+	readonly isEnabled: boolean
 
 	/**
 	Exposes the raw properties (prefixed if needed) used internally.
 	*/
-	raw: RawEventNames;
+	raw: RawEventNames
 
 	/**
 	Make an element fullscreen.
@@ -94,14 +94,14 @@ declare const screenfull: {
 	});
 	```
 	*/
-	request(element?: Element, options?: FullscreenOptions): Promise<void>;
+	request(element?: Element, options?: FullscreenOptions): Promise<void>
 
 	/**
 	Brings you out of fullscreen.
 
 	@returns A promise that resolves after the element exits fullscreen.
 	*/
-	exit(): Promise<void>;
+	exit(): Promise<void>
 
 	/**
 	Requests fullscreen if not active, otherwise exits.
@@ -123,7 +123,7 @@ declare const screenfull: {
 	});
 	```
 	*/
-	toggle(element?: Element, options?: FullscreenOptions): Promise<void>;
+	toggle(element?: Element, options?: FullscreenOptions): Promise<void>
 
 	/**
 	Add a listener for when the browser switches in and out of fullscreen or when there is an error.
@@ -147,7 +147,7 @@ declare const screenfull: {
 	}
 	```
 	*/
-	on(name: EventName, handler: (event: Event) => void): void;
+	on(name: EventName, handler: (event: Event) => void): void
 
 	/**
 	Remove a previously registered event listener.
@@ -159,17 +159,17 @@ declare const screenfull: {
 	screenfull.off('change', callback);
 	```
 	*/
-	off(name: EventName, handler: (event: Event) => void): void;
+	off(name: EventName, handler: (event: Event) => void): void
 
 	/**
 	Alias for `.on('change', function)`.
 	*/
-	onchange(handler: (event: Event) => void): void;
+	onchange(handler: (event: Event) => void): void
 
 	/**
 	Alias for `.on('error', function)`.
 	*/
-	onerror(handler: (event: Event) => void): void;
-};
+	onerror(handler: (event: Event) => void): void
+}
 
-export default screenfull;
+export default screenfull

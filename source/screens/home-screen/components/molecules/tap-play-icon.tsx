@@ -7,21 +7,21 @@ import { AntDesign } from '@expo/vector-icons'
 import colors from '@/global/colors'
 
 const TapPlayIcon = () => {
-  const size = useScaledSize(1)
+	const size = useScaledSize(1)
 
-  return (
-    <AntDesign
-      name="play"
-      size={size}
-      color={colors.white}
-      style={{
-        zIndex: 10,
-        borderRadius: 45,
-        elevation: 10,
-        backgroundColor: 'transparent',
-      }}
-    />
-  )
+	return (
+		<AntDesign
+			name="play"
+			size={size}
+			color={colors.white}
+			style={{
+				zIndex: 10,
+				borderRadius: 45,
+				elevation: 10,
+				backgroundColor: 'transparent',
+			}}
+		/>
+	)
 }
 
 export default TapPlayIcon

@@ -1,0 +1,59 @@
+name: CI - Production
+
+on:
+  pull_request:
+    branches: ["master"]
+    types: ["closed"]
+
+permissions: write-all
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  install:
+    name: Service in Production
+    env:
+      PATH_RELATIVE: /var/www/html/funcaflix
+    runs-on: [self-hosted, prod]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Git Pull
+        run: |
+          cd "$PATH_RELATIVE" && git pull
+
+      - name: Install Packaging
+        run: |
+          cd "$PATH_RELATIVE" && yarn install
+
+      - name: Next Build
+        run: |
+          cd "$PATH_RELATIVE" && yarn build
+
+      - name: Stop Service
+        run: |
+          pm2 stop funcaflix && pm2 delete funcaflix
+
+      - name: Execute Service in Service PM2
+        run: |
+          cd "$PATH_RELATIVE" && pm2 start ecosystem.config.js
+
+  # next-build:
+  #   name: Run Next Build
+  #   needs: install
+  #   runs-on: [self-hosted]
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v3
+
+  #     - name: Restore node_modules
+  #       uses: actions/cache@v2
+  #       with:
+  #         path: node_modules
+  #         key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+
+  #     - name: Run Next Build
+  #       run: yarn build

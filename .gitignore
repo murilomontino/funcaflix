@@ -47,7 +47,13 @@ backup
 /.pnp
 .pnp.js
 # @end @expo/next-adapter
+.docker/mariadb-data
+.docker/backup-database
+coverage
+html
 certs/all
 certs/client
 certs/server
 certs/*.pem
+.husky
+make.sh
