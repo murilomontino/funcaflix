@@ -32,10 +32,10 @@ const httpServer = (express: Express): ServerHTTP => {
  * @returns A server object
  */
 const httpsServer = (express: Express): ServerHTTPS => {
-	const path = process.cwd() + '/cert/'
+	const path = process.cwd() + '/certs/'
 	const options = {
-		key: fs.readFileSync(path + 'localhost.key'),
-		cert: fs.readFileSync(path + 'localhost.crt'),
+		key: fs.readFileSync(path + 'privkey.key'),
+		cert: fs.readFileSync(path + 'cert.pem'),
 	}
 	console.log(
 		`Server running in HTTPS --- ${process.env.NODE_ENV} --- on port ${process.env.EXPRESS_PORT}`
