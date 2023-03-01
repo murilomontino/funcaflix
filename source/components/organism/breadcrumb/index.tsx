@@ -1,5 +1,5 @@
 import React from 'react'
-import { Col, Container, Row } from 'react-bootstrap'
+import { Container, Nav, Row } from 'react-bootstrap'
 
 import theme from '@/theme'
 
@@ -14,38 +14,34 @@ type Props = {
 const BreadCrumb = ({ title, image, children }: Props) => {
 	return (
 		<React.Fragment>
-			<div
-				className="iq-breadcrumb-one  iq-bg-over iq-over-dark-50"
-				style={{ backgroundImage: `url(${image})`, width: '100%', zIndex: 0 }}
+			<Container
+				fluid
+				className="iq-breadcrumb-one iq-bg-over iq-over-dark-50 card w-100 d-flex"
+				style={{ backgroundImage: `url(${image})`, zIndex: 0 }}
 			>
-				<Container fluid>
-					<Row className="align-items-center">
-						<Col sm="12">
-							<nav
-								aria-label="breadcrumb"
-								className="text-center iq-breadcrumb-two"
-							>
-								<h2
-									style={{
-										fontFamily: theme.FONTS.TITLE_BOLD,
-										color: theme.COLORS.TEXT,
-										textTransform: 'lowercase',
-										fontVariant: 'small-caps',
-										letterSpacing: 3,
-										fontWeight: 'bold',
-										marginBottom: 10,
-									}}
-								>
-									{title}
-								</h2>
-							</nav>
-						</Col>
-					</Row>
-				</Container>
+				<Row
+					className="position-relative w-100 align-items-end justify-content-center"
+					style={{
+						top: '96px',
+					}}
+				>
+					<Nav aria-label="breadcrumb" className="iq-breadcrumb-two d-flex">
+						<h1
+							className="text-lowercase text-white mb-2 small-caps font-bold font-size-40 "
+							style={{
+								fontFamily: theme.FONTS.TITLE_BOLD,
+								fontVariant: 'small-caps',
+								letterSpacing: 3,
+							}}
+						>
+							{title}
+						</h1>
+					</Nav>
+				</Row>
 
 				<If condition={!!children}>
 					<div
-						className="position-absolute w-100 h-100 top-0"
+						className="position-absolute w-100 h-100 top-0 p-2"
 						style={{
 							zIndex: 99,
 						}}
@@ -55,7 +51,7 @@ const BreadCrumb = ({ title, image, children }: Props) => {
 						</div>
 					</div>
 				</If>
-			</div>
+			</Container>
 		</React.Fragment>
 	)
 }

@@ -1,5 +1,9 @@
 import React from 'react'
-import { Col, Row } from 'reactstrap'
+import Col from 'react-bootstrap/Col'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+
+import Image from 'next/image'
 
 type Props = {
 	name: string
@@ -24,9 +28,9 @@ const CardProfile = ({
 
 	return (
 		<React.Fragment>
-			<div className="pt-4 mb-4 mb-lg-3 pb-lg-4">
-				<Row className="g-4 p-4">
-					<div className="col-auto">
+			<Container className="pt-4 mb-4 mb-lg-3 pb-lg-4">
+				<Row className=" p-4">
+					<Col className="col-auto">
 						<div
 							className="avatar-130"
 							style={{
@@ -34,13 +38,14 @@ const CardProfile = ({
 								width: '200px',
 							}}
 						>
-							<img
+							<Image
+								layout="fill"
 								src={avatarURL}
 								alt="user-img"
 								className="img-thumbnail rounded-circle"
 							/>
 						</div>
-					</div>
+					</Col>
 
 					<Col>
 						<div className="p-2">
@@ -56,7 +61,7 @@ const CardProfile = ({
 						</div>
 					</Col>
 				</Row>
-			</div>
+			</Container>
 		</React.Fragment>
 	)
 }

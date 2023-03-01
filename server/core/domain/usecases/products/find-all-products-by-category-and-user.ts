@@ -1,5 +1,6 @@
 import { IProductsRepository } from '@/domain/repositories/products-repository/products-repository.interface'
-import { isValid } from '@/helpers'
+import { isValidID } from '@/helpers'
+import { Transform } from '@/helpers/decorators/transform'
 import { left, PromiseEither, right } from '@/shared/either'
 import { CATEGORIES } from '@/types/constants'
 import { IGetterProduct } from '@/types/getters'
@@ -17,16 +18,17 @@ export class FindAllProductsByCategoryAndUser
 	constructor(
 		private readonly _category: CATEGORIES,
 		private readonly repository: IProductsRepository
-	) {}
+	) { }
 
 	get category(): CATEGORIES {
 		return this._category
 	}
 
+	@Transform(Number, ['idUser'])
 	async execute(_, params: Params): PromiseEither<IGetterProduct[], Error> {
 		const { idUser } = params
 
-		if (!isValid(idUser)) {
+		if (!isValidID(idUser)) {
 			return right(new MissingParamError({ parameter: 'idUser' }))
 		}
 
