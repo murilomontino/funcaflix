@@ -1,7 +1,6 @@
 import { Express } from 'express'
 /* eslint-disable @typescript-eslint/no-var-requires */
 import express from 'express'
-import fs from 'fs'
 import type { Server as ServerHTTP } from 'http'
 import { createServer as CreateServerHTTP } from 'http'
 import type { Server as ServerHTTPS } from 'https'
@@ -33,11 +32,14 @@ const httpServer = (express: Express): ServerHTTP => {
  * @returns A server object
  */
 const httpsServer = (express: Express): ServerHTTPS => {
-	const PATH = path.resolve(process.cwd(), 'certs', 'server')
+	const KEY = path.resolve(process.cwd(), 'certs', 'server', 'privkey.key')
+	const CERT = path.resolve(process.cwd(), 'certs', 'server', 'cert.pem')
+
 	const options = {
-		key: fs.readFileSync(PATH + 'privkey.key'),
-		cert: fs.readFileSync(PATH + 'cert.pem'),
+		key: KEY,
+		cert: CERT,
 	}
+
 	console.log(
 		`Server running in HTTPS --- ${process.env.NODE_ENV} --- on port ${process.env.EXPRESS_PORT}`
 	)
