@@ -1,6 +1,10 @@
 import React from 'react'
 import { Card, CardBody, Col, Row, Table } from 'reactstrap'
 
+import { IGetterProduct } from '@/types/getters'
+
+import SlideSwipper from '@/components/organism/slide-swipper'
+
 type OverviewProps = {
 	name: string
 	phone: string
@@ -11,6 +15,12 @@ type OverviewProps = {
 	acting: string
 	about: string
 	hashtags: string
+	items: {
+		audiovisuals: IGetterProduct[]
+		musics: IGetterProduct[]
+		workshops: IGetterProduct[]
+		literature: IGetterProduct[]
+	}
 }
 
 const TabPaneOverview = ({
@@ -23,6 +33,7 @@ const TabPaneOverview = ({
 	uf,
 	about,
 	acting,
+	items,
 }: OverviewProps) => {
 	return (
 		<React.Fragment>
@@ -98,6 +109,36 @@ const TabPaneOverview = ({
 						</p>
 					</CardBody>
 				</Card>
+			</Row>
+			<Row className="w-100 justify-content-center align-content-lg-center m-2">
+				<SlideSwipper
+					title="Literatura"
+					id="iq-literatura"
+					items={items?.literature}
+					height="280px"
+					link="literatura"
+					itemsPerView={6.5}
+					buttonText="Ler"
+				/>
+
+				<SlideSwipper
+					title="Oficinas"
+					id="iq-workshops"
+					height="200px"
+					items={items?.workshops}
+					buttonText="Ver"
+					allLink="workshops"
+				/>
+
+				<SlideSwipper
+					title="AudioVisual"
+					id="iq-audiovisual"
+					height="200px"
+					items={items?.audiovisuals}
+					buttonText="Assistir"
+					allLink="audiovisual"
+					link="video"
+				/>
 			</Row>
 		</React.Fragment>
 	)

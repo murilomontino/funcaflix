@@ -1,7 +1,8 @@
 {
   "version": "1.1.0",
   "private": true,
-  "name": "funcap.funcapflix-next",
+  "name": "funcaflix",
+  "author": "murilomontino",
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
     "@fontsource/roboto": "^4.5.7",
@@ -99,7 +100,7 @@
     "@vitest/ui": "^0.28.5",
     "cli-color": "^2.0.3",
     "commitizen": "^4.3.0",
-    "cz-conventional-changelog": "^3.3.0",
+    "cz-emoji-conventional": "^1.0.1",
     "eslint": "^8.8.0",
     "eslint-config-next": "13.0.5",
     "eslint-config-prettier": "^8.6.0",
@@ -134,12 +135,11 @@
     "build": "cross-env NODE_ENV=production next build",
     "build:homolog": "cross-env NODE_ENV=homolog next build",
     "coverage": "vitest run --coverage",
-    "lint": "next lint . --ext .js,.jsx,.ts,.tsx,.json .",
-    "dead-code": "ts-prune --error"
+    "lint": "next lint . --ext .js,.jsx,.ts,.tsx,.json ."
   },
   "config": {
     "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
+      "path": "./node_modules/cz-emoji-conventional"
     }
   }
 }

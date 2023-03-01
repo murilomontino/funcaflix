@@ -2,7 +2,11 @@ import React, { useState } from 'react'
 import ReactTooltip from 'react-tooltip'
 import { Col, Container, Row, TabContent, TabPane } from 'reactstrap'
 
-import { IGetterCulturalProfile, IGetterEvent } from '@/types/getters'
+import {
+	IGetterCulturalProfile,
+	IGetterEvent,
+	IGetterProduct,
+} from '@/types/getters'
 import { QRCodeSVG } from 'qrcode.react'
 
 import CardProfile from '@/components/molecule/card-profile'
@@ -18,10 +22,22 @@ import useSocialMediaValid from '@/hooks/use-social-media-valid'
 type ProfileScreenProps = {
 	profile: IGetterCulturalProfile
 	events: IGetterEvent[]
+	musics: IGetterProduct[]
+	audiovisuals: IGetterProduct[]
+	workshops: IGetterProduct[]
+	literature: IGetterProduct[]
 	username: string
 }
 
-const ProfileScreen = ({ profile, username, events }: ProfileScreenProps) => {
+const ProfileScreen = ({
+	profile,
+	username,
+	events,
+	audiovisuals,
+	literature,
+	musics,
+	workshops,
+}: ProfileScreenProps) => {
 	const {
 		about,
 		acting,
@@ -133,6 +149,7 @@ const ProfileScreen = ({ profile, username, events }: ProfileScreenProps) => {
 												segment={segment}
 												acting={acting}
 												hashtags={hashtags}
+												items={{ musics, audiovisuals, workshops, literature }}
 											/>
 										</TabPane>
 										<TabPane tabId="2">

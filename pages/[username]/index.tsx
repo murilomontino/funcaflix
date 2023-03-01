@@ -49,6 +49,10 @@ const ProfilePage = () => {
 	return (
 		<ScreenProfile
 			profile={data?.profile}
+			audiovisuals={data?.audiovisual}
+			musics={data?.musics}
+			literature={data?.literature}
+			workshops={data?.workshops}
 			username={username as string}
 			events={data?.events}
 		/>
