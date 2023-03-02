@@ -8,11 +8,11 @@ import { createServer as CreateServerHTTPS } from 'https'
 import { build } from 'mapacultural-database'
 import next from 'next'
 
+import fs from 'fs'
 import path from 'path'
 import Middleware from './middleware'
 import NextjsExpressRouter from './nextjs_express_router'
 import ServerIO from './socket-io'
-
 /**
  * It creates a server.
  * @param {Express} express - Express
@@ -32,12 +32,12 @@ const httpServer = (express: Express): ServerHTTP => {
  * @returns A server object
  */
 const httpsServer = (express: Express): ServerHTTPS => {
-	const KEY = path.resolve(process.cwd(), 'certs', 'cert.pem')
-	const CERT = path.resolve(process.cwd(), 'certs', 'privkey.pem')
+	const KEY = path.resolve(process.cwd(), 'certs', 'cert.crt')
+	const CERT = path.resolve(process.cwd(), 'certs', 'key.key')
 
 	const options = {
-		key: KEY,
-		cert: CERT,
+		key: fs.readFileSync(KEY),
+		cert: fs.readFileSync(CERT),
 	}
 
 	console.log(

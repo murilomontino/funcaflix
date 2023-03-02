@@ -57,3 +57,4 @@ certs/server
 certs/*.pem
 .husky
 make.sh
+*.crt
