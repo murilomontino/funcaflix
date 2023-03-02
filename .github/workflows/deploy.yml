@@ -85,8 +85,30 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v1.3
+        with:
+          envkey_URL: ${{ vars.URL }}
+          envkey_API_KEY: ${{ secrets.API_KEY }}
+          envkey_API_URL: ${{ vars.API_URL }}
+          envkey_EXPRESS_PORT: ${{ vars.EXPRESS_PORT }}
+
+          envkey_DATABASE: ${{ secrets.DATABASE }}
+          envkey_DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
+          envkey_DATABASE_USERNAME: ${{ vars.DATABASE_USERNAME }}
+          envkey_DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+          envkey_DATABASE_PORT: ${{ vars.DATABASE_PORT }}
+
+          envkey_PATH_PRODUCTS: ${{ vars.PATH_PRODUCTS }}
+          envkey_HASH_KEY: ${{ vars.HASH_KEY }}
+          envkey_ELECTION_PERIOD: ${{ vars.ELECTION_PERIOD }}
+
+          #directory: <directory_name> # optional
+          file_name: .env # optional (default: .env)
+          fail_on_empty: false # optional (default: false)
+
       - name: Run Unit Test
-        run: yarn test:unitary
+        run: yarn test:unitary:ci
 
   testing-integration:
     name: Run Unit Integration
@@ -102,6 +124,28 @@ jobs:
           node-version: 16.16.0
           cache: "yarn"
 
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v1.3
+        with:
+          envkey_URL: ${{ vars.URL }}
+          envkey_API_KEY: ${{ secrets.API_KEY }}
+          envkey_API_URL: ${{ vars.API_URL }}
+          envkey_EXPRESS_PORT: ${{ vars.EXPRESS_PORT }}
+
+          envkey_DATABASE: ${{ secrets.DATABASE }}
+          envkey_DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
+          envkey_DATABASE_USERNAME: ${{ vars.DATABASE_USERNAME }}
+          envkey_DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+          envkey_DATABASE_PORT: ${{ vars.DATABASE_PORT }}
+
+          envkey_PATH_PRODUCTS: ${{ vars.PATH_PRODUCTS }}
+          envkey_HASH_KEY: ${{ vars.HASH_KEY }}
+          envkey_ELECTION_PERIOD: ${{ vars.ELECTION_PERIOD }}
+
+          #directory: <directory_name> # optional
+          file_name: .env # optional (default: .env)
+          fail_on_empty: false # optional (default: false)
+
       - uses: actions/cache@v2
         name: Restore node_modules
         id: yarn-cache
@@ -115,7 +159,7 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: Run Integration Test
-        run: yarn test:integration
+        run: yarn test:integration:ci
 
   build:
     name: Run Next Build
@@ -142,6 +186,28 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
+
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v1.3
+        with:
+          envkey_URL: ${{ vars.URL }}
+          envkey_API_KEY: ${{ secrets.API_KEY }}
+          envkey_API_URL: ${{ vars.API_URL }}
+          envkey_EXPRESS_PORT: ${{ vars.EXPRESS_PORT }}
+
+          envkey_DATABASE: ${{ secrets.DATABASE }}
+          envkey_DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
+          envkey_DATABASE_USERNAME: ${{ vars.DATABASE_USERNAME }}
+          envkey_DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+          envkey_DATABASE_PORT: ${{ vars.DATABASE_PORT }}
+
+          envkey_PATH_PRODUCTS: ${{ vars.PATH_PRODUCTS }}
+          envkey_HASH_KEY: ${{ vars.HASH_KEY }}
+          envkey_ELECTION_PERIOD: ${{ vars.ELECTION_PERIOD }}
+
+          #directory: <directory_name> # optional
+          file_name: .env # optional (default: .env)
+          fail_on_empty: false # optional (default: false)
 
       - name: Run Next Build
         run: yarn build
