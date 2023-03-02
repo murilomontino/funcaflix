@@ -7,6 +7,8 @@ module.exports = {
 			script: 'yarn',
 			args: 'start:server',
 			watch: ['.next'],
+			max_memory_restart: "150M",
+			autorestart: true,
 			//instances: 'max',
 			//exec_mode: 'cluster',
 		},
