@@ -1,5 +1,4 @@
 import { Express } from 'express'
-/* eslint-disable @typescript-eslint/no-var-requires */
 import express from 'express'
 import fs from 'fs'
 import type { Server as ServerHTTP } from 'http'
@@ -8,6 +7,7 @@ import type { Server as ServerHTTPS } from 'https'
 import { createServer as CreateServerHTTPS } from 'https'
 import { build } from 'mapacultural-database'
 import next from 'next'
+import path from 'path'
 
 import Middleware from './middleware'
 import NextjsExpressRouter from './nextjs_express_router'
@@ -32,10 +32,17 @@ const httpServer = (express: Express): ServerHTTP => {
  * @returns A server object
  */
 const httpsServer = (express: Express): ServerHTTPS => {
-	const path = process.cwd() + '/cert/'
+	const cert = fs.readFileSync(
+		path.resolve(process.cwd(), 'certs', 'cert.crt'))
+
+	const key = fs
+		.readFileSync(
+			path.resolve(process.cwd(), 'certs', 'key.pem'), 'utf8')
+		.replace(/\\n/gm, '\n')
+
 	const options = {
-		key: fs.readFileSync(path + 'localhost.key'),
-		cert: fs.readFileSync(path + 'localhost.crt'),
+		key,
+		cert,
 	}
 	console.log(
 		`Server running in HTTPS --- ${process.env.NODE_ENV} --- on port ${process.env.EXPRESS_PORT}`
@@ -65,7 +72,7 @@ class Server {
 		await this.next.prepare()
 		await this.middleware.init()
 		await this.router.init()
-		this.server = httpServer(this.express)
+		this.server = httpsServer(this.express)
 		this.server.listen(process.env.EXPRESS_PORT || 3000)
 		this.io = new ServerIO(this.server)
 		await this.io.init()
@@ -75,7 +82,7 @@ class Server {
 	async startOnlyExpress() {
 		await this.middleware.init()
 		this.router.initApi()
-		this.server = httpServer(this.express)
+		this.server = httpsServer(this.express)
 		this.server.listen(process.env.EXPRESS_PORT || 3000)
 		await build()
 	}

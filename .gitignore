@@ -55,5 +55,5 @@ certs/all
 certs/client
 certs/server
 certs/*.pem
+certs/*.crt
 .husky
-make.sh

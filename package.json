@@ -124,7 +124,7 @@
     "prepare": "husky install",
     "commit": "git-cz",
     "test:unitary": "cross-env NODE_ENV=test vitest --t Unitary",
-    "build:database": "node server/core/scripts/build-database.js",
+    "build:database": "cross-env NODE_ENV=development node server/core/scripts/build-database.js",
     "test": "cross-env NODE_ENV=test vitest --ui --watch --t Unitary",
     "test:all": "cross-env NODE_ENV=test vitest --ui --watch",
     "test:integration": "cross-env NODE_ENV=test vitest --ui --watch --t Integration",
@@ -141,5 +141,8 @@
     "commitizen": {
       "path": "./node_modules/cz-emoji-conventional"
     }
+  },
+  "engines": {
+    "node": "16.16.0"
   }
 }
