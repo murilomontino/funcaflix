@@ -1,4 +1,4 @@
-name: CD - Production
+name: Continuous Delivery Production
 
 on:
   pull_request:

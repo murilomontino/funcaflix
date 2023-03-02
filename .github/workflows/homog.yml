@@ -1,4 +1,4 @@
-name: CI - Deploy
+name: Continuos Integration Homolog
 
 on: workflow_call
 

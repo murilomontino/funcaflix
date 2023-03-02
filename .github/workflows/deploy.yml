@@ -1,4 +1,4 @@
-name: CI - Pull Request
+name: Continuos Integration Deploy
 
 on: pull_request
 
@@ -86,26 +86,36 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: Make envfile
-        uses: SpicyPizza/create-envfile@v1.3
-        with:
-          envkey_URL: ${{ vars.URL }}
-          envkey_API_KEY: ${{ secrets.API_KEY }}
-          envkey_API_URL: ${{ vars.API_URL }}
-          envkey_EXPRESS_PORT: ${{ vars.EXPRESS_PORT }}
-
-          envkey_DATABASE: ${{ vars.DATABASE }}
-          envkey_DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
-          envkey_DATABASE_USERNAME: ${{ vars.DATABASE_USERNAME }}
-          envkey_DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
-          envkey_DATABASE_PORT: ${{ vars.DATABASE_PORT }}
-
-          envkey_PATH_PRODUCTS: ${{ vars.PATH_PRODUCTS }}
-          envkey_HASH_KEY: ${{ vars.HASH_KEY }}
-          envkey_ELECTION_PERIOD: ${{ vars.ELECTION_PERIOD }}
-
-          #directory: <directory_name> # optional
-          file_name: .env # optional (default: .env)
-          fail_on_empty: false # optional (default: false)
+        env:
+          URL: ${{ vars.URL }}
+          API_KEY: ${{ secrets.API_KEY }}
+          API_URL: ${{ vars.API_URL }}
+          EXPRESS_PORT: ${{ vars.EXPRESS_PORT }}
+          DATABASE: ${{ vars.DATABASE }}
+          DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
+          DATABASE_USERNAME: ${{ vars.DATABASE_USERNAME }}
+          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+          DATABASE_PORT: ${{ vars.DATABASE_PORT }}
+          PATH_PRODUCTS: ${{ vars.PATH_PRODUCTS }}
+          HASH_KEY: ${{ vars.HASH_KEY }}
+          ELECTION_PERIOD: ${{ vars.ELECTION_PERIOD }}
+        run: |
+          cat <<EOF > .env
+          URL=$URL
+          API_KEY=$API_KEY
+          API_URL=$API_URL
+          EXPRESS_PORT=$EXPRESS_PORT
+          DATABASE=$DATABASE
+          DATABASE_HOST=$DATABASE_HOST
+          DATABASE_USERNAME=$DATABASE_USERNAME
+          DATABASE_PASSWORD=$DATABASE_PASSWORD
+          DATABASE_PORT=$DATABASE_PORT
+          PATH_PRODUCTS=$PATH_PRODUCTS
+          HASH_KEY=$HASH_KEY
+          ELECTION_PERIOD=$ELECTION_PERIOD
+          EOF
+          echo "cat .env"
+          cat .env
 
       - name: Run Unit Test
         run: yarn test:unitary:ci
@@ -119,32 +129,42 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Make envfile
+        env:
+          URL: ${{ vars.URL }}
+          API_KEY: ${{ secrets.API_KEY }}
+          API_URL: ${{ vars.API_URL }}
+          EXPRESS_PORT: ${{ vars.EXPRESS_PORT }}
+          DATABASE: ${{ vars.DATABASE }}
+          DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
+          DATABASE_USERNAME: ${{ vars.DATABASE_USERNAME }}
+          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+          DATABASE_PORT: ${{ vars.DATABASE_PORT }}
+          PATH_PRODUCTS: ${{ vars.PATH_PRODUCTS }}
+          HASH_KEY: ${{ vars.HASH_KEY }}
+          ELECTION_PERIOD: ${{ vars.ELECTION_PERIOD }}
+        run: |
+          cat <<EOF > .env
+          URL=$URL
+          API_KEY=$API_KEY
+          API_URL=$API_URL
+          EXPRESS_PORT=$EXPRESS_PORT
+          DATABASE=$DATABASE
+          DATABASE_HOST=$DATABASE_HOST
+          DATABASE_USERNAME=$DATABASE_USERNAME
+          DATABASE_PASSWORD=$DATABASE_PASSWORD
+          DATABASE_PORT=$DATABASE_PORT
+          PATH_PRODUCTS=$PATH_PRODUCTS
+          HASH_KEY=$HASH_KEY
+          ELECTION_PERIOD=$ELECTION_PERIOD
+          EOF
+          echo "cat .env"
+          cat .env
+
       - uses: actions/setup-node@v3
         with:
           node-version: 16.16.0
           cache: "yarn"
-
-      - name: Make envfile
-        uses: SpicyPizza/create-envfile@v1.3
-        with:
-          envkey_URL: ${{ vars.URL }}
-          envkey_API_KEY: ${{ secrets.API_KEY }}
-          envkey_API_URL: ${{ vars.API_URL }}
-          envkey_EXPRESS_PORT: ${{ vars.EXPRESS_PORT }}
-
-          envkey_DATABASE: ${{ vars.DATABASE }}
-          envkey_DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
-          envkey_DATABASE_USERNAME: ${{ vars.DATABASE_USERNAME }}
-          envkey_DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
-          envkey_DATABASE_PORT: ${{ vars.DATABASE_PORT }}
-
-          envkey_PATH_PRODUCTS: ${{ vars.PATH_PRODUCTS }}
-          envkey_HASH_KEY: ${{ vars.HASH_KEY }}
-          envkey_ELECTION_PERIOD: ${{ vars.ELECTION_PERIOD }}
-
-          #directory: <directory_name> # optional
-          file_name: .env # optional (default: .env)
-          fail_on_empty: false # optional (default: false)
 
       - uses: actions/cache@v2
         name: Restore node_modules
@@ -170,6 +190,38 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Make envfile
+        env:
+          URL: ${{ vars.URL }}
+          API_KEY: ${{ secrets.API_KEY }}
+          API_URL: ${{ vars.API_URL }}
+          EXPRESS_PORT: ${{ vars.EXPRESS_PORT }}
+          DATABASE: ${{ vars.DATABASE }}
+          DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
+          DATABASE_USERNAME: ${{ vars.DATABASE_USERNAME }}
+          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+          DATABASE_PORT: ${{ vars.DATABASE_PORT }}
+          PATH_PRODUCTS: ${{ vars.PATH_PRODUCTS }}
+          HASH_KEY: ${{ vars.HASH_KEY }}
+          ELECTION_PERIOD: ${{ vars.ELECTION_PERIOD }}
+        run: |
+          cat <<EOF > .env
+          URL=$URL
+          API_KEY=$API_KEY
+          API_URL=$API_URL
+          EXPRESS_PORT=$EXPRESS_PORT
+          DATABASE=$DATABASE
+          DATABASE_HOST=$DATABASE_HOST
+          DATABASE_USERNAME=$DATABASE_USERNAME
+          DATABASE_PASSWORD=$DATABASE_PASSWORD
+          DATABASE_PORT=$DATABASE_PORT
+          PATH_PRODUCTS=$PATH_PRODUCTS
+          HASH_KEY=$HASH_KEY
+          ELECTION_PERIOD=$ELECTION_PERIOD
+          EOF
+          echo "cat .env"
+          cat .env
+
       - uses: actions/setup-node@v3
         with:
           node-version: 16.16.0
@@ -186,28 +238,6 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
-
-      - name: Make envfile
-        uses: SpicyPizza/create-envfile@v1.3
-        with:
-          envkey_URL: ${{ vars.URL }}
-          envkey_API_KEY: ${{ secrets.API_KEY }}
-          envkey_API_URL: ${{ vars.API_URL }}
-          envkey_EXPRESS_PORT: ${{ vars.EXPRESS_PORT }}
-
-          envkey_DATABASE: ${{ secrets.DATABASE }}
-          envkey_DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
-          envkey_DATABASE_USERNAME: ${{ vars.DATABASE_USERNAME }}
-          envkey_DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
-          envkey_DATABASE_PORT: ${{ vars.DATABASE_PORT }}
-
-          envkey_PATH_PRODUCTS: ${{ vars.PATH_PRODUCTS }}
-          envkey_HASH_KEY: ${{ vars.HASH_KEY }}
-          envkey_ELECTION_PERIOD: ${{ vars.ELECTION_PERIOD }}
-
-          #directory: <directory_name> # optional
-          file_name: .env # optional (default: .env)
-          fail_on_empty: false # optional (default: false)
 
       - name: Run Next Build
         run: yarn build
