@@ -1,4 +1,4 @@
-name: CI - Production
+name: CD - Production
 
 on:
   pull_request:
@@ -14,6 +14,7 @@ concurrency:
 jobs:
   install:
     name: Service in Production
+    if: github.event.pull_request.merged == true
     env:
       PATH_RELATIVE: /var/www/html/funcaflix
     runs-on: [self-hosted, prod]
