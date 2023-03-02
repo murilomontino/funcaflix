@@ -10589,10 +10589,10 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-mapacultural-database@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/mapacultural-database/-/mapacultural-database-1.1.0.tgz#561f2aac0a875b7e9b8cb1d82108980801be772d"
-  integrity sha512-oFBHhigXzhiaGfxYEzPiN0o8hY1yKdVmi7DbbjSZozAjP4mq613s4BI1oaFwJeLzAjfs/JHXsfilC/bMausPXw==
+mapacultural-database@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/mapacultural-database/-/mapacultural-database-1.1.2.tgz#ac2e0c03491a88cf2bc0d6691f894ed2e4bb1b98"
+  integrity sha512-k4soARbmPysJOcPSFtN1F5FOyo9B9ZUDN5QJYkO77n98GQf0BF420o/mc4r1MLqXJp+wQ/1xbcW8rxtSWJiK4w==
   dependencies:
     cross-env "^7.0.3"
     dotenv "^16.0.1"

@@ -1,9 +1,6 @@
-name: CI - Deploy
+name: Continuos Integration Deploy
 
-on:
-  pull_request:
-    branches: ["homologacao"]
-    types: ["closed"]
+on: pull_request
 
 permissions: write-all
 
@@ -12,52 +9,238 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  code-scan:
+    permissions:
+      contents: read # for actions/checkout to fetch code
+      security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
+      actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
+    runs-on: ubuntu-latest
+    name: Code Scanning
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v3
+
+      - name: nodejsscan Scan
+        id: njsscan
+        uses: ajinabraham/njsscan-action@7237412fdd36af517e2745077cedbf9d6900d711
+        with:
+          args: ". --sarif --output results.sarif || true"
+
+      - name: Upload njsscan report
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: results.sarif
+
   install:
-    name: Deploy in Homologacao
-    env:
-      PATH_RELATIVE: /opt/app/homologacao
-    runs-on: [self-hosted]
+    name: Installing Packages
+    environment: deploy
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Git Pull
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16.16.0
+          cache: "yarn"
+
+      - uses: actions/cache@v2
+        name: Cached node_modules
+        id: yarn-cache
+        with:
+          path: |
+            **/node_modules
+            **/.eslintcache
+            ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install Dependencies
+        run: yarn install
+
+  testing-units:
+    name: Run Unit Test
+    runs-on: ubuntu-latest
+    environment: deploy
+    needs: [install]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16.16.0
+          cache: "yarn"
+
+      - uses: actions/cache@v2
+        name: Restore node_modules
+        id: yarn-cache
+        with:
+          path: |
+            **/node_modules
+            **/.eslintcache
+            ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Make envfile
+        env:
+          URL: ${{ vars.URL }}
+          API_KEY: ${{ secrets.API_KEY }}
+          API_URL: ${{ vars.API_URL }}
+          EXPRESS_PORT: ${{ vars.EXPRESS_PORT }}
+          DATABASE: ${{ vars.DATABASE }}
+          DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
+          DATABASE_USERNAME: ${{ vars.DATABASE_USERNAME }}
+          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+          DATABASE_PORT: ${{ vars.DATABASE_PORT }}
+          PATH_PRODUCTS: ${{ vars.PATH_PRODUCTS }}
+          HASH_KEY: ${{ vars.HASH_KEY }}
+          ELECTION_PERIOD: ${{ vars.ELECTION_PERIOD }}
         run: |
-          cd "$PATH_RELATIVE" && git pull
+          cat <<EOF > .env
+          URL=$URL
+          API_KEY=$API_KEY
+          API_URL=$API_URL
+          EXPRESS_PORT=$EXPRESS_PORT
+          DATABASE=$DATABASE
+          DATABASE_HOST=$DATABASE_HOST
+          DATABASE_USERNAME=$DATABASE_USERNAME
+          DATABASE_PASSWORD=$DATABASE_PASSWORD
+          DATABASE_PORT=$DATABASE_PORT
+          PATH_PRODUCTS=$PATH_PRODUCTS
+          HASH_KEY=$HASH_KEY
+          ELECTION_PERIOD=$ELECTION_PERIOD
+          EOF
+          echo "cat .env"
+          cat .env
 
-      - name: Git Checkout
+      - name: Run Unit Test
+        run: yarn test:unitary:ci
+
+  testing-integration:
+    name: Run Unit Integration
+    environment: deploy
+    runs-on: ubuntu-latest
+    needs: [install]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Make envfile
+        env:
+          URL: ${{ vars.URL }}
+          API_KEY: ${{ secrets.API_KEY }}
+          API_URL: ${{ vars.API_URL }}
+          EXPRESS_PORT: ${{ vars.EXPRESS_PORT }}
+          DATABASE: ${{ vars.DATABASE }}
+          DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
+          DATABASE_USERNAME: ${{ vars.DATABASE_USERNAME }}
+          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+          DATABASE_PORT: ${{ vars.DATABASE_PORT }}
+          PATH_PRODUCTS: ${{ vars.PATH_PRODUCTS }}
+          HASH_KEY: ${{ vars.HASH_KEY }}
+          ELECTION_PERIOD: ${{ vars.ELECTION_PERIOD }}
         run: |
-          cd "$PATH_RELATIVE" && git checkout homologacao
+          cat <<EOF > .env
+          URL=$URL
+          API_KEY=$API_KEY
+          API_URL=$API_URL
+          EXPRESS_PORT=$EXPRESS_PORT
+          DATABASE=$DATABASE
+          DATABASE_HOST=$DATABASE_HOST
+          DATABASE_USERNAME=$DATABASE_USERNAME
+          DATABASE_PASSWORD=$DATABASE_PASSWORD
+          DATABASE_PORT=$DATABASE_PORT
+          PATH_PRODUCTS=$PATH_PRODUCTS
+          HASH_KEY=$HASH_KEY
+          ELECTION_PERIOD=$ELECTION_PERIOD
+          EOF
+          echo "cat .env"
+          cat .env
 
-      - name: Install Packaging
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16.16.0
+          cache: "yarn"
+
+      - uses: actions/cache@v2
+        name: Restore node_modules
+        id: yarn-cache
+        with:
+          path: |
+            **/node_modules
+            **/.eslintcache
+            ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Run Integration Test
+        run: yarn test:integration:ci
+
+  build:
+    name: Run Next Build
+    environment: deploy
+    runs-on: ubuntu-latest
+    needs: [testing-units, testing-integration]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Make envfile
+        env:
+          URL: ${{ vars.URL }}
+          API_KEY: ${{ secrets.API_KEY }}
+          API_URL: ${{ vars.API_URL }}
+          EXPRESS_PORT: ${{ vars.EXPRESS_PORT }}
+          DATABASE: ${{ vars.DATABASE }}
+          DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
+          DATABASE_USERNAME: ${{ vars.DATABASE_USERNAME }}
+          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+          DATABASE_PORT: ${{ vars.DATABASE_PORT }}
+          PATH_PRODUCTS: ${{ vars.PATH_PRODUCTS }}
+          HASH_KEY: ${{ vars.HASH_KEY }}
+          ELECTION_PERIOD: ${{ vars.ELECTION_PERIOD }}
         run: |
-          cd "$PATH_RELATIVE" && yarn install
+          cat <<EOF > .env
+          URL=$URL
+          API_KEY=$API_KEY
+          API_URL=$API_URL
+          EXPRESS_PORT=$EXPRESS_PORT
+          DATABASE=$DATABASE
+          DATABASE_HOST=$DATABASE_HOST
+          DATABASE_USERNAME=$DATABASE_USERNAME
+          DATABASE_PASSWORD=$DATABASE_PASSWORD
+          DATABASE_PORT=$DATABASE_PORT
+          PATH_PRODUCTS=$PATH_PRODUCTS
+          HASH_KEY=$HASH_KEY
+          ELECTION_PERIOD=$ELECTION_PERIOD
+          EOF
+          echo "cat .env"
+          cat .env
 
-      - name: Next Build
-        run: |
-          cd "$PATH_RELATIVE" && yarn build
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16.16.0
+          cache: "yarn"
 
-      - name: Execute Deploy in Service PM2
-        run: |
-          cd "$PATH_RELATIVE" && pm2 start ecosystem.homologacao.config.js
+      - uses: actions/cache@v2
+        name: Restore node_modules
+        id: yarn-cache
+        with:
+          path: |
+            **/node_modules
+            **/.eslintcache
+            ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
 
-      - name: Stop Deploy
-        run: |
-          pm2 stop homologacao && pm2 delete homologacao
+      - name: Run Next Build
+        run: yarn build
 
-  # next-build:
-  #   name: Run Next Build
-  #   needs: install
-  #   runs-on: [self-hosted]
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v3
-
-  #     - name: Restore node_modules
-  #       uses: actions/cache@v2
-  #       with:
-  #         path: node_modules
-  #         key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
-
-  #     - name: Run Next Build
-  #       run: yarn build
+      - name: Run Next Start
+        run: yarn start:server

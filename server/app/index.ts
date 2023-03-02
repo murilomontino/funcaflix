@@ -1,5 +1,4 @@
-import { Express } from 'express'
-import express from 'express'
+import express, { Express } from 'express'
 import fs from 'fs'
 import type { Server as ServerHTTP } from 'http'
 import { createServer as CreateServerHTTP } from 'http'

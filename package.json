@@ -28,7 +28,7 @@
     "formik": "^2.2.9",
     "helmet": "^5.1.0",
     "jquery": "^3.6.1",
-    "mapacultural-database": "^1.1.0",
+    "mapacultural-database": "^1.1.2",
     "mariadb": "^3.0.0",
     "moment": "^2.29.1",
     "moti": "^0.17.1",
@@ -123,19 +123,23 @@
   "scripts": {
     "prepare": "husky install",
     "commit": "git-cz",
-    "test:unitary": "cross-env NODE_ENV=test vitest --t Unitary",
+    "test:unitary:ci": "cross-env NODE_ENV=test vitest --t Unitary",
+    "test:integration:ci": "cross-env NODE_ENV=test vitest --t Integration",
     "build:database": "cross-env NODE_ENV=development node server/core/scripts/build-database.js",
     "test": "cross-env NODE_ENV=test vitest --ui --watch --t Unitary",
     "test:all": "cross-env NODE_ENV=test vitest --ui --watch",
     "test:integration": "cross-env NODE_ENV=test vitest --ui --watch --t Integration",
+    "prestart": "./certs/make.sh ./certs",
     "start": "cross-env NODE_ENV=production ts-node -r tsconfig-paths/register fork.ts",
+    "prestart:server": "./certs/make.sh ./certs",
     "start:server": "cross-env NODE_ENV=production ts-node -r tsconfig-paths/register index.ts",
     "dev": "cross-env NODE_ENV=development ts-node -r tsconfig-paths/register index.ts",
     "dev:api": "cross-env NODE_ENV=development API_ONLY=true nodemon -r tsconfig-paths/register index.ts",
     "build": "cross-env NODE_ENV=production next build",
     "build:homolog": "cross-env NODE_ENV=homolog next build",
     "coverage": "vitest run --coverage",
-    "lint": "next lint . --ext .js,.jsx,.ts,.tsx,.json ."
+    "lint": "next lint . --ext .js,.jsx,.ts,.tsx,.json .",
+    "dead-code": "ts-prune --no-emit --no-strict --srcDir ./server --srcDir ./source --ignoreFiles ./src/**/__tests__/**/*"
   },
   "config": {
     "commitizen": {
