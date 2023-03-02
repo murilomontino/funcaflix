@@ -32,12 +32,12 @@ const httpServer = (express: Express): ServerHTTP => {
  * @returns A server object
  */
 const httpsServer = (express: Express): ServerHTTPS => {
-	const KEY = path.resolve(process.cwd(), 'certs', 'cert.crt')
-	const CERT = path.resolve(process.cwd(), 'certs', 'key.key')
+	const cert = fs.readFileSync(path.resolve(process.cwd(), 'certs', 'cert.crt'))
+	const key = fs.readFileSync(path.resolve(process.cwd(), 'certs', 'key.pem'), 'utf8').replace(/\\n/gm, '\n')
 
 	const options = {
-		key: fs.readFileSync(KEY),
-		cert: fs.readFileSync(CERT),
+		key,
+		cert,
 	}
 
 	console.log(
