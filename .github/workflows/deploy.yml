@@ -57,7 +57,7 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: Install Dependencies
-        run: yarn ci
+        run: yarn install --frozen-lockfile
 
   testing-units:
     name: Run Unit Test
