@@ -39,6 +39,7 @@ const nextConfig = ((phase) => {
     //   '@motify/core',
     //   '@motify/components'
     // ],
+    staticPageGenerationTimeout: 3600,
     images: {
       /*  loader: 'akamai',
       path: '/', */

@@ -18,7 +18,6 @@ describe('Unit Test Cultural Profile Repository', () => {
 
 	beforeAll(async () => {
 		await database.sync()
-		console.log(process.env.DATABASE_HOST)
 	})
 
 	it('should instance of CulturalProfileRepositor (Unitary)', () => {
