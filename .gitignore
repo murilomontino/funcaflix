@@ -57,3 +57,4 @@ certs/server
 certs/*.pem
 certs/*.crt
 .husky
+dist
