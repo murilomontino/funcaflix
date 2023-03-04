@@ -4,7 +4,7 @@ export default defineConfig({
     entry: ['server'],
     target: 'node16.16',
     splitting: false,
-    sourcemap: true,
+    sourcemap: false,
     clean: true,
     outDir: 'dist',
 })
