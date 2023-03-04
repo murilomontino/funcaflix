@@ -58,3 +58,4 @@ certs/*.pem
 certs/*.crt
 .husky
 dist
+.env.*.local
