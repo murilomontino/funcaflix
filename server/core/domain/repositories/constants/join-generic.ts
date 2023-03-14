@@ -1,5 +1,3 @@
-import { TypesProducts } from '@/types'
-
 export const JOIN_ARTISTS = `
 	JOIN
 		artistas
@@ -56,7 +54,7 @@ export const JOIN_THUMBNAIL = ({
 		(
 				produtos.id = ${thumbnail}.produtoId
 			AND
-				${thumbnail}.tipo_de_arquivo = '${TypesProducts.CAPA}'
+				${thumbnail}.tipo_de_arquivo = '11'
 		)
 `
 
@@ -66,7 +64,7 @@ export const JOIN_DOC = ({
 	join,
 }: {
 	doc: string
-	type: TypesProducts
+	type: any
 	join?: JOIN_SEQUELIZE
 }) => `
 	${join} JOIN

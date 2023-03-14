@@ -6,11 +6,9 @@ module.exports = {
 			name: 'homologacao',
 			script: 'yarn',
 			args: 'start:server',
-			watch: ['.next'],
+			watch: ['.next', 'dist'],
 			max_memory_restart: "150M",
 			autorestart: true,
-			//instances: 'max',
-			//exec_mode: 'cluster',
 		},
 	],
 }

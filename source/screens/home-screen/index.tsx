@@ -5,12 +5,12 @@ import { IGetterCulturalProfile, IGetterEvent } from '@/types/getters'
 
 import CarouselSwipperProfiles from '@/components/molecule/carousel-swipper-profiles'
 import SlideSwipper from '@/components/organism/slide-swipper'
-
 import CardCarousel from './components/organisms/card-carousel'
 
 import useFilterThumbnail from '@/hooks/use-filter-thumbnail'
 import useMapMemoItems from '@/hooks/use-map-memo-items'
 
+import Advertisement from '@/components/molecule/advertisement'
 import mapOpportunityForProduct from '@/utils/map-opportunity-for-product'
 
 type Props = {
@@ -56,7 +56,8 @@ function HomeScreen({
 					marginTop: '-8vh',
 				}}
 			>
-				{/* <Advertisement /> */}
+				{/* <ParticipationButton /> */}
+				<Advertisement />
 				<CarouselSwipperProfiles
 					title="Perfis Culturais"
 					id="iq-perfis-culturais"

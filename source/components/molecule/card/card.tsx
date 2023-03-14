@@ -48,6 +48,7 @@ const CardDefault = ({ item, children, endpoint }: Props) => {
 				<Img
 					endpoint={endpoint}
 					image={thumbnail || DefaultImg}
+					className="shadow-tobias-ahlin"
 					style={{
 						objectFit: 'cover',
 						minWidth: 200,

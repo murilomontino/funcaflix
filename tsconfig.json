@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "jsx": "preserve",
     "target": "ESNext",
     "module": "CommonJS",
     "types": [
@@ -13,7 +12,8 @@
     "declaration": true,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
+    "esModuleInterop": false,
+    "jsx": "react",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "resolveJsonModule": true,

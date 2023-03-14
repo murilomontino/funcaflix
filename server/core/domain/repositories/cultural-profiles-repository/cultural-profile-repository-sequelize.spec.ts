@@ -1,57 +1,56 @@
-import { beforeAll, beforeEach, describe, expect, it } from 'vitest'
+import { beforeAll, describe, expect, it } from 'vitest'
 
 import { database } from 'mapacultural-database'
 
 import { CulturalProfileRepositorySequelize } from './cultural-profile-repository-sequelize'
 
+import { faker } from '@faker-js/faker'
+
+const makeSut = () => {
+	const sut = new CulturalProfileRepositorySequelize(database)
+
+	return {
+		sut
+	}
+}
+
 describe('Unit Test Cultural Profile Repository', () => {
-	let instance: CulturalProfileRepositorySequelize
 
 	beforeAll(async () => {
 		await database.sync()
 	})
 
-	beforeEach(() => {
-		instance = new CulturalProfileRepositorySequelize(database)
+	it('should instance of CulturalProfileRepositor (Unitary)', () => {
+		const { sut } = makeSut()
+		expect(sut).toBeInstanceOf(CulturalProfileRepositorySequelize)
 	})
 
-	it('should instance of CulturalProfileRepositor', () => {
-		expect(instance).toBeInstanceOf(CulturalProfileRepositorySequelize)
+	it('should return find all by city array object (Integration)', async () => {
+		const { sut } = makeSut()
+
+		const result = await sut.findAllByCity()
+		expect(result.isLeft()).toBeTruthy()
+		expect(result.extract()).toContainEqual({
+			city: expect.any(String),
+			items: expect.any(Array),
+		})
 	})
 
-	it('should return not error find all by city (Integration)', async () => {
-		const result = await instance.findAllByCity()
-		expect(result.isLeft()).toBeTruthy()
-	})
-	it('should return not error find all by segment (Integration)', async () => {
-		const result = await instance.findAllBySegment()
-		expect(result.isLeft()).toBeTruthy()
-	})
 	it('should return find all by segment array object (Integration)', async () => {
-		const result = await instance.findAllBySegment()
-		expect(result.value[0]).toEqual({
+		const { sut } = makeSut()
+
+		const result = await sut.findAllBySegment()
+		expect(result.isLeft()).toBeTruthy()
+		expect(result.extract()).toContainEqual({
 			segment: expect.any(String),
 			items: expect.any(Array),
 		})
 	})
+
 	it('should return find by id profile (Integration)', async () => {
-		const result = await instance.findById(1)
-		if (result.isRight()) {
-			return console.log(result.extract())
-		}
-
-		expect(result.value.id).toBeDefined()
-	})
-	it('should return find by id 400 profile (Integration)', async () => {
-		const result = await instance.findById(400)
-		if (result.isRight()) {
-			return console.log(result.extract())
-		}
-
-		expect(result.value.id).toBeDefined()
-	})
-	it('should return find by id 1129 profile (Integration)', async () => {
-		const result = await instance.findById(1129)
+		const { sut } = makeSut()
+		const id = faker.random.numeric(4, { bannedDigits: ['0'] })
+		const result = await sut.findById(Number(id))
 		if (result.isRight()) {
 			return console.log(result.extract())
 		}

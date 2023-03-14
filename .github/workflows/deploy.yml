@@ -57,7 +57,7 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: Install Dependencies
-        run: yarn install
+        run: yarn install --frozen-lockfile
 
   testing-units:
     name: Run Unit Test
@@ -242,5 +242,11 @@ jobs:
       - name: Run Next Build
         run: yarn build
 
-      - name: Run Next Start
-        run: yarn start:server
+  # homolog:
+  #   name: Homolog in Server Funcap
+  #   environment: deploy
+  #   runs-on: self-hosted
+  #   needs: [build]
+  #   steps:
+  #     - name: Homolog Funcaflix
+  #       uses: murilomontino/funcaflix/.github/workflows/homolog.yml
