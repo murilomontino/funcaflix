@@ -2,6 +2,7 @@
 // @generated: @expo/next-adapter@2.1.52
 import React from 'react'
 
+import { BookRepositorySequelize } from '@/domain/repositories'
 import { FindAllBooksUseCase } from '@/domain/usecases'
 import type { IGetterBooks } from '@/types/getters'
 import { build } from 'mapacultural-database'
@@ -19,16 +20,25 @@ export default function Literatura({ books }: Props) {
 		return <Loading />
 	}
 
-	return <ScreenBooks books={books} />
+	return (
+		<React.Fragment>
+			<ScreenBooks books={books} />
+		</React.Fragment>
+	)
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
 	await build()
-	const booksOrErr = await new FindAllBooksUseCase().execute()
+
+	const booksOrErr = await new FindAllBooksUseCase(
+		new BookRepositorySequelize()
+	).execute()
+
+	const booksEntities = booksOrErr.isLeft() ? booksOrErr.extract() : []
 
 	return {
 		props: {
-			books: booksOrErr.isLeft() ? booksOrErr.extract() : [],
+			books: booksEntities,
 		},
 		revalidate: 60 * 60 * 24,
 	}
