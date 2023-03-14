@@ -13,7 +13,7 @@ jobs:
     name: Deploy in Homologacao
     env:
       PATH_RELATIVE: /opt/app/homologacao
-    runs-on: [self-hosted]
+    runs-on: [self-hosted, homolog]
     steps:
       - name: Checkout
         uses: actions/checkout@v3

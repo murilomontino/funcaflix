@@ -68,10 +68,11 @@ class Server {
 	}
 
 	async start() {
+		const NODE_ENV = process.env.NODE_ENV
 		await this.next.prepare()
 		await this.middleware.init()
 		await this.router.init()
-		this.server = httpsServer(this.express)
+		this.server = NODE_ENV === 'production' ? httpsServer(this.express) : httpServer(this.express)
 		this.server.listen(process.env.EXPRESS_PORT || 3000)
 		this.io = new ServerIO(this.server)
 		await this.io.init()
