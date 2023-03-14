@@ -29,15 +29,19 @@ const ImageNext = ({
 	unblur = false,
 	imageStatic = false,
 	className,
+	alt,
 	...rest
 }: Props) => {
 	const [isLoading, setIsLoading] = useState(false)
 
 	return (
-		<>
+		<React.Fragment>
 			<Image
 				{...rest}
 				src={image}
+				alt={alt}
+				width={rest.width || 300}
+				height={rest.height || 300}
 				loader={!imageStatic && imageLoader}
 				className={`${isLoading && unblur ? 'unblur' : ''} ${className}`}
 				onLoadingComplete={() => setIsLoading(true)}
@@ -56,7 +60,7 @@ const ImageNext = ({
 					}
 				}
 			`}</style>
-		</>
+		</React.Fragment>
 	)
 }
 

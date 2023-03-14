@@ -24,10 +24,12 @@ const Profiles = {
 	fetchSegments: 'profiles/segments',
 }
 
-export default {
+const LINKS = {
 	OAuth,
 	TVPrograms,
 	Product,
 	Book,
 	Profiles,
 }
+
+export default LINKS

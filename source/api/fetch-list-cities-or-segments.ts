@@ -3,7 +3,7 @@ import { useQuery } from 'react-query'
 import api from '@/services'
 import requests from '@/services/config/requests'
 
-const fetchListCitiesOrSegments = () => {
+const useFetchListCitiesOrSegments = () => {
 	return useQuery(`profiles-list-cities-or-segments`, async () => {
 		const [citiesResponse, segmentsResponse] = await Promise.all([
 			api.get(requests.Profiles.fetchCities),
@@ -24,4 +24,4 @@ const fetchListCitiesOrSegments = () => {
 	})
 }
 
-export default fetchListCitiesOrSegments
+export default useFetchListCitiesOrSegments
