@@ -4,7 +4,7 @@ import { PromiseEither, left, right } from '@/shared/either'
 import { database } from 'mapacultural-database'
 
 import { BookRepository } from './book.interface'
-import { QUERY_ALL_BOOKS } from './queries'
+import { QUERY_ALL_BOOKS, QUERY_GETTER_ID_BOOK } from './queries'
 
 export class BookRepositorySequelize implements BookRepository {
 	findAll(): PromiseEither<GetterBook[], Error> {
@@ -22,7 +22,20 @@ export class BookRepositorySequelize implements BookRepository {
 			return left(books)
 		})
 	}
+
 	findById(id: string): PromiseEither<GetterBook, Error> {
-		throw new Error('Method not implemented.')
+		return database.transaction(async (transaction) => {
+			const [error, queryResult] = await promiseErrorHandler(
+				database.query(QUERY_GETTER_ID_BOOK(id), { transaction })
+			)
+
+			if (error) {
+				return right(error)
+			}
+
+			const [book] = queryResult[0]
+
+			return left(GetterBook.build(book as any))
+		})
 	}
 }

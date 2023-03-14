@@ -9,7 +9,7 @@ const Product = {
 }
 
 const Book = {
-	fetchByID: (id) => 'books/v2/' + id,
+	fetchByID: (id) => 'books/' + id,
 }
 
 const TVPrograms = {

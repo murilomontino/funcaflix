@@ -21,3 +21,9 @@ FROM
 export const QUERY_ALL_BOOKS = `
   ${QUERY_DEFAULT};
 `
+
+export const QUERY_GETTER_ID_BOOK = (id: string | number) => `
+    ${QUERY_DEFAULT}
+    WHERE 
+        l.id=${id};
+`

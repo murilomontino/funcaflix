@@ -7,9 +7,9 @@ type Props = {
 	children?: React.ReactNode | React.ReactNode[] | JSX.Element | JSX.Element[]
 }
 
-const BookBasicInformation = ({ title, author, subTitle, children }: Props) => {
+const CardBasicInformation = ({ title, author, subTitle, children }: Props) => {
 	return (
-		<div className="d-flex flex-column justify-content-between">
+		<div className="d-flex flex-column justify-content-between w-100">
 			<div className="d-flex col flex-column justify-content-between mb-2">
 				<h6 className="text-center text-black-50 card-title font-size-20 font-Weight-600 m-2 text-uppercase">
 					<span>{title}</span>
@@ -25,4 +25,4 @@ const BookBasicInformation = ({ title, author, subTitle, children }: Props) => {
 	)
 }
 
-export default BookBasicInformation
+export default CardBasicInformation
