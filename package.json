@@ -136,14 +136,13 @@
     "build:database": "cross-env NODE_ENV=development node server/core/scripts/build-database.js",
     "build": "tsup && next build",
     "build:homolog": "cross-env NODE_ENV=homolog next build",
-    "prestart": "./certs/make.sh ./certs && yarn build",
     "start": "cross-env NODE_ENV=production ts-node -r tsconfig-paths/register fork.js",
-    "prestart:server": "./certs/make.sh ./certs",
     "start:server": "cross-env NODE_ENV=production ts-node -r tsconfig-paths/register index.js",
     "dev": "cross-env NODE_ENV=development ts-node -r tsconfig-paths/register dev.ts",
     "dev:api": "cross-env NODE_ENV=development API_ONLY=true nodemon -r tsconfig-paths/register dev.ts",
     "lint": "next lint . --ext .js,.jsx,.ts,.tsx,.json .",
-    "dead-code": "ts-prune --no-emit --no-strict --srcDir ./server --srcDir ./source --ignoreFiles ./src/**/__tests__/**/*"
+    "dead-code": "ts-prune --no-emit --no-strict --srcDir ./server --srcDir ./source --ignoreFiles ./src/**/__tests__/**/*",
+    "production": "npm run build && pm2 start ecosystem.config.js"
   },
   "config": {
     "commitizen": {

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container } from 'react-bootstrap'
 
-import advertisement_02 from './advertisement-02.png'
+import ImageNext from '@/components/atom/image-next'
 
 const Advertisement = () => {
 	return (
@@ -14,20 +14,19 @@ const Advertisement = () => {
 						rel="noreferrer"
 					>
 						<div
-							className="w-100 p-2"
+							className="w-100 p-2 d-flex justify-content-center align-items-center"
 							style={{
 								height: '250px',
 								width: '100%',
 								zIndex: 999,
 							}}
 						>
-							<img
-								src={advertisement_02}
+							<ImageNext
+								image="jornada-do-usuario.png"
 								alt="Pesquisa de Jornada do Usuário"
-								className="w-100 h-100"
-								style={{
-									objectFit: 'contain',
-								}}
+								width={1200}
+								height={250}
+								objectFit="contain"
 							/>
 						</div>
 					</a>
