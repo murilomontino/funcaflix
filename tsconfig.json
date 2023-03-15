@@ -3,7 +3,7 @@
     "target": "ESNext",
     "module": "CommonJS",
     "types": [
-      "node",
+      "node"
     ],
     "allowJs": true,
     "strict": false,
@@ -12,8 +12,8 @@
     "declaration": true,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": false,
-    "jsx": "react",
+    "esModuleInterop": true,
+    "jsx": "preserve",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "resolveJsonModule": true,
@@ -37,7 +37,7 @@
       ],
       "@/__mocks__": [
         "./__mocks__/index.ts"
-      ],
+      ]
     },
     "isolatedModules": true,
     "incremental": true
@@ -50,7 +50,7 @@
     "types"
   ],
   "ts-node": {
-    "transpileOnly": true,
+    "transpileOnly": true
   },
   "exclude": [
     "node_modules/**/*",

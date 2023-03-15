@@ -1,27 +1,21 @@
-import { GetterBook } from '@/domain/entities'
-import promiseErrorHandler from '@/helpers/error-handler'
+import { BookRepository } from '@/domain/repositories/books-repository/book.interface'
 import { left, PromiseEither, right } from '@/shared/either'
 import { IGetterBooks } from '@/types/getters'
-import { database } from 'mapacultural-database'
 
 import { UseCase } from '../ports/use-case'
-import { QUERY_ALL_BOOKS } from './queries'
 
 export class FindAllBooksUseCase implements UseCase<unknown, IGetterBooks[]> {
+	constructor(private readonly repository: BookRepository) { }
+
 	async execute(): PromiseEither<IGetterBooks[], Error> {
-		return await database.transaction(async (transaction) => {
-			const [error, booksAndOptions] = await promiseErrorHandler(
-				database.query(QUERY_ALL_BOOKS, { transaction })
-			)
+		const booksOrErr = await this.repository.findAll()
 
-			console.log(error)
-			if (error) return right(error)
+		if (booksOrErr.isRight()) {
+			return right(booksOrErr.value)
+		}
 
-			const books = booksAndOptions[0].map((book: IGetterBooks) => {
-				return GetterBook.build(book).params()
-			})
+		const books = booksOrErr.value.map((book) => book.params())
 
-			return left(books)
-		})
+		return left(books)
 	}
 }

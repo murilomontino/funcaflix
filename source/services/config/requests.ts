@@ -9,7 +9,7 @@ const Product = {
 }
 
 const Book = {
-	fetchByID: (id) => 'books/v2/' + id,
+	fetchByID: (id) => 'books/' + id,
 }
 
 const TVPrograms = {
@@ -24,10 +24,12 @@ const Profiles = {
 	fetchSegments: 'profiles/segments',
 }
 
-export default {
+const LINKS = {
 	OAuth,
 	TVPrograms,
 	Product,
 	Book,
 	Profiles,
 }
+
+export default LINKS

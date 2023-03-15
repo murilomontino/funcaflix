@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import type { IGetterBooks } from '@/types/getters'
 
@@ -15,24 +15,24 @@ const ScreenBookID = ({ book }: Props) => {
 	const [pdf, setPDF] = useState(null)
 	const [isLoading, setIsLoading] = useState(true)
 
-	if (!book) return null
-
 	useEffect(() => {
 		if (book.pdf) {
 			setPDF(book.pdf)
 			setIsLoading(false)
 		}
-	}, [])
+	}, [book.pdf])
 
 	if (isLoading) {
 		return <div>Loading...</div>
 	}
 
 	return (
-		<Container>
-			<div>{book?.pdf && <PdfViewer id={pdf} />}</div>
-			<InfoBook book={book} />
-		</Container>
+		<React.Fragment>
+			<Container>
+				<div>{book?.pdf && <PdfViewer id={pdf} />}</div>
+				<InfoBook book={book} />
+			</Container>
+		</React.Fragment>
 	)
 }
 
