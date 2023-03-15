@@ -48,7 +48,8 @@ const nextConfig = ((phase) => {
       domains: [
         'i.ytimg.com',
         'localhost',
-        'loremflickr.com'
+        'loremflickr.com',
+        'mapacultural.funcap.se.gov.br'
       ]
     },
     experimental: {

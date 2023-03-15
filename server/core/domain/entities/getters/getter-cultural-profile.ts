@@ -6,8 +6,7 @@ import { GetterEntity } from './getter-entity'
 
 export class GetterCulturalProfiles
 	extends GetterEntity<IGetterCulturalProfile>
-	implements ICulturalProfile
-{
+	implements ICulturalProfile {
 	id: number | string
 	idUser: number | string
 	document: string
@@ -105,7 +104,11 @@ export class GetterCulturalProfiles
 	}
 
 	public defineAbout(about: string = null) {
-		this.about = about
+		if (typeof about === 'string') {
+			this.about = about?.toString()
+			return this
+		}
+		this.about = 'Não Informado Corretamente'
 		return this
 	}
 
