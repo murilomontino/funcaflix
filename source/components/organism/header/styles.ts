@@ -15,33 +15,33 @@ type Props = {
 	mobile: boolean
 }
 
-export const BarHeader = styledWeb.div<Props>`
-  display: flex;
-  position: fixed;
-  top: 0;
+export const BarHeader = styledWeb.header<Props>`
+	display: flex;
+	position: fixed;
+	top: 0;
 
-  width: 100%;
-  z-index: 1;
-  background-color: transparent;
-  -webkit-transition: 0.5s ease-in;
-  -moz-transition: 0.5s ease-in;
-  -o-transition: 0.5s ease-in;
-  transition: 0.5s ease-in;
+	width: 100%;
+	z-index: 1;
+	background-color: transparent;
+	-webkit-transition: 0.5s ease-in;
+	-moz-transition: 0.5s ease-in;
+	-o-transition: 0.5s ease-in;
+	transition: 0.5s ease-in;
 
-  ${({ mobile }) =>
+	${({ mobile }) =>
 		mobile &&
 		`
-    background-color: ${theme.COLORS.BAR_HEADER};
-  `}
+	background-color: ${theme.COLORS.BAR_HEADER};
+	`}
 
-  :hover {
-    background-color: ${theme.COLORS.BAR_HEADER};
-  }
+	:hover {
+	background-color: ${theme.COLORS.BAR_HEADER};
+	}
 `
 
 export const ContainerRow = styledWeb.div`
-  display: flex;
-  flex: 1;
-  flex-direction: row;
-  align-items: center;
+	display: flex;
+	flex: 1;
+	flex-direction: row;
+	align-items: center;
 `

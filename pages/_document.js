@@ -17,6 +17,24 @@ class CustomDocument extends Document {
 					<link rel="shortcut icon" src={favIcon} />
 					<link rel="icon" type="image/png" sizes="32x32" src={favIcon32x32} />
 					<link rel="icon" type="image/png" sizes="16x16" src={favIcon16x16} />
+					<script
+						src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+						integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+						crossorigin="anonymous"
+						async
+					></script>
+					<script
+						async
+						src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+						integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmIaUksdQRVvoxMfooAo"
+						crossorigin="anonymous"
+					></script>
+					<script
+						async
+						src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js"
+						integrity="sha384-4rqMd3v/7IovViw/iwLu7zpoLqy3GP7SwI9lqbBMVP7VlRQZfkEyjxgyTFtIXc1t"
+						crossorigin="anonymous"
+					></script>
 				</Head>
 				<body>
 					<React.Fragment>
@@ -29,15 +47,6 @@ class CustomDocument extends Document {
 	}
 }
 
-// Import the getInitialProps method and assign it to your component to ensure the react-native-web styles are used.
 CustomDocument.getInitialProps = getInitialProps
-
-// OR...
-
-CustomDocument.getInitialProps = async (props) => {
-	const result = await getInitialProps(props)
-	// Mutate result...
-	return result
-}
 
 export default CustomDocument

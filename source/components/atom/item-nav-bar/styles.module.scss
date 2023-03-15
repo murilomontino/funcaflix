@@ -1,0 +1,14 @@
+.dropdown {
+    :focus {
+        color: #f6f6f6 !important;
+    }
+
+    div {
+        background-color: rgba(0, 0, 0, 0.5) !important;
+
+        @media (max-width: 928px) {
+            background-color: rgba(0, 0, 0, 0.8) !important;
+        }
+
+    }
+}

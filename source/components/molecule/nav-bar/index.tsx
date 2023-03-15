@@ -1,36 +1,31 @@
 import React from 'react'
-import { View } from 'react-native'
 
 import ItemNavBar from '@/components/atom/item-nav-bar'
 
+import Items from './items'
+
+type FlexDirection = 'row' | 'column' | 'row-reverse' | 'column-reverse'
+
 type Props = {
-	flexDirection?:
-		| 'row'
-		| 'column'
-		| 'row-reverse'
-		| 'column-reverse'
-		| undefined
+	flexDirection?: FlexDirection
 }
 
 const NavBar: React.FC<Props> = ({ flexDirection = 'row' }) => {
 	return (
-		<View
-			style={{
-				flexDirection: flexDirection,
-				marginLeft: 16,
-			}}
-		>
-			<ItemNavBar title="LITERATURA" select={true} link="/literatura" />
-			<ItemNavBar title="AUDIOVISUAL" link="/audiovisual" />
-			<ItemNavBar title="PROGRAMAS DE TV" link="/programas-de-tv" />
-			{/* 
-        <ItemNavBar title="MÚSICAS" select={true} link="/musicas" disabled />
-        <ItemNavBar title="ARTES VISUAIS" link="/artes-visuais" disabled /> 
-        <ItemNavBar title="AGENDA" link="/agenda" disabled />
-      */}
-			<ItemNavBar title="PERFIS" link="/perfis-culturais" />
-			<ItemNavBar title="OPORTUNIDADES" link="/oportunidades" />
-		</View>
+		<React.Fragment>
+			<div className={`d-flex flex-${flexDirection} ms-3`}>
+				{Items.map((item, index) => {
+					return (
+						<ItemNavBar
+							title={item.title}
+							link={item.link}
+							key={index}
+							{...item}
+						/>
+					)
+				})}
+			</div>
+		</React.Fragment>
 	)
 }
 
