@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useMemo } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { Platform } from 'react-native'
 import { RFValue } from 'react-native-responsive-fontsize'
 import { useHover } from 'react-native-web-hooks'
@@ -16,7 +16,7 @@ import { BarHeader, Container, ContainerRow } from './styles'
 import { useSize } from '@/hooks/utils/use-size'
 
 const OrderHeader = ({ logoLeft }) => {
-	const [isLoading, setIsLoading] = useState(true)
+	const [isLoading, setIsLoading] = React.useState(true)
 
 	const height = useMemo(
 		() => (logoLeft ? RFValue(25) : RFValue(40)),
@@ -31,7 +31,7 @@ const OrderHeader = ({ logoLeft }) => {
 		if (Logo) {
 			setIsLoading(false)
 		}
-	}, [Logo])
+	}, [])
 
 	if (isLoading) {
 		return null
@@ -42,7 +42,12 @@ const OrderHeader = ({ logoLeft }) => {
 			<>
 				<ContainerRow>
 					<Link href="/">
-						<a style={{ textDecoration: 'none', marginLeft: '12px' }}>
+						<a
+							style={{
+								textDecoration: 'none',
+								marginLeft: '12px',
+							}}
+						>
 							<Image
 								src={Logo}
 								alt="Logo do Mapa Cultural"

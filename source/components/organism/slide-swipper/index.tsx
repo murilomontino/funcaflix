@@ -128,10 +128,24 @@ const CarouselSwipper = ({
 											nextEl: `#next-${id}`,
 										}}
 										breakpoints={{
-											320: { slidesPerView: itemsPerView - 3 },
-											550: { slidesPerView: itemsPerView - 2 },
-											991: { slidesPerView: itemsPerView - 1 },
-											1400: { slidesPerView: itemsPerView },
+											320: {
+												slidesPerView: itemsPerView - 3,
+												slidesPerGroup: itemsPerView - 3.5,
+											},
+											550: {
+												slidesPerView: itemsPerView - 2,
+												slidesPerGroup: itemsPerView - 2.5,
+											},
+
+											991: {
+												slidesPerView: itemsPerView - 1,
+												slidesPerGroup: itemsPerView - 1.5,
+											},
+
+											1400: {
+												slidesPerView: itemsPerView,
+												slidesPerGroup: itemsPerView - 0.5,
+											},
 										}}
 										loop={items.length > itemsPerView}
 										slidesPerView={4}

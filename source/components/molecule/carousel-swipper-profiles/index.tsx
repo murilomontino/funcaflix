@@ -56,9 +56,7 @@ const CarouselSwipperProfiles = ({
 								<div className="d-flex align-items-center justify-content-between">
 									<TitleCarousel
 										title={title}
-										link={`
-                    /perfis-culturais/${normalize}
-                  `}
+										link={`/perfis-culturais/${normalize}`}
 									/>
 								</div>
 							</When>
@@ -115,10 +113,22 @@ const CarouselSwipperProfiles = ({
 											nextEl: `#next-${id}`,
 										}}
 										breakpoints={{
-											320: { slidesPerView: 1.5 },
-											550: { slidesPerView: 3.5 },
-											991: { slidesPerView: 4.5 },
-											1400: { slidesPerView: 5.5 },
+											320: {
+												slidesPerView: 1.5,
+												slidesPerGroup: 1,
+											},
+											550: {
+												slidesPerView: 3.5,
+												slidesPerGroup: 3,
+											},
+											991: {
+												slidesPerView: 4.5,
+												slidesPerGroup: 4,
+											},
+											1400: {
+												slidesPerView: 5.5,
+												slidesPerGroup: 5,
+											},
 										}}
 										loop={profiles.length > itemsPerView}
 										slidesPerView={4.5}

@@ -1,75 +1,72 @@
-import React, { useRef } from 'react'
-import { StyleSheet, TouchableOpacity, FontVariant } from 'react-native'
-import { useHover } from 'react-native-web-hooks'
+import React from 'react'
+import Nav from 'react-bootstrap/Nav'
+import NavDropdown from 'react-bootstrap/NavDropdown'
 
-import theme from '@/theme'
 import Link from 'next/link'
 
-import { Text as StyledText } from './styles'
+import styles from './styles.module.scss'
 
 type Props = {
 	title: string
 	link?: string
 	select?: boolean
-	fontVariant?: FontVariant
 	passHref?: boolean
 	disabled?: boolean
+	items?: Array<{
+		title: string
+		link: string
+	}>
 }
 
 const ItemNavBar: React.FC<Props> = ({
 	title,
 	link,
-	select = true,
-	fontVariant = 'small-caps',
 	passHref = false,
 	disabled = false,
+	items,
 }) => {
-	const ref = useRef(null)
-	const hover = useHover(ref)
-
 	if (passHref) {
 		return (
 			<a href={link} style={{ textDecoration: 'none' }}>
-				<TouchableOpacity style={styles.buttonNav} disabled={disabled}>
-					<StyledText disabled={disabled} hover={hover} ref={ref}>
-						{/* Icone <a className de cadeado /> */}
-						{title}
-					</StyledText>
-				</TouchableOpacity>
+				<Nav.Link className="text-primary" disabled={disabled}>
+					<h6 className="small-caps font-Weight-700">{title}</h6>
+				</Nav.Link>
 			</a>
 		)
 	}
 
 	return (
-		<TouchableOpacity style={styles.buttonNav} disabled={disabled}>
-			<Link href={disabled ? '#' : link} passHref={passHref}>
-				<StyledText
-					disabled={disabled}
-					hover={hover}
-					ref={ref}
-					/*  style={[{ fontSize, fontVariant: [fontVariant] }, styles.textNav]} */
+		<Nav.Item>
+			{link && (
+				<Link href={disabled ? '#' : link} passHref={passHref}>
+					<Nav.Link
+						className={`text-primary p-2 mt-1 hover-effect-orange`}
+						disabled={disabled}
+					>
+						<h6 className="small-caps font-weight-700">{title}</h6>
+					</Nav.Link>
+				</Link>
+			)}
+
+			{!link && (
+				<NavDropdown
+					title={title}
+					id="basic-nav-dropdown"
+					className={`text-primary mt-1 hover-effect-orange small-caps font-weight-700 ${styles.dropdown}`}
 				>
-					{title}
-				</StyledText>
-			</Link>
-		</TouchableOpacity>
+					{items?.map((item, index) => {
+						return (
+							<Link href={item.link} key={index}>
+								<NavDropdown.Item href={item.link} className="text-primary">
+									{item.title}
+								</NavDropdown.Item>
+							</Link>
+						)
+					})}
+				</NavDropdown>
+			)}
+		</Nav.Item>
 	)
 }
 
 export default ItemNavBar
-
-const styles = StyleSheet.create({
-	textNav: {
-		color: theme.COLORS.TEXT_PRIMARY,
-		fontWeight: '700',
-	},
-	hoverText: {
-		color: '#ffbd03',
-		fontWeight: 'bold',
-	},
-	buttonNav: {
-		padding: 4,
-		marginHorizontal: 4,
-	},
-	selectText: {},
-})

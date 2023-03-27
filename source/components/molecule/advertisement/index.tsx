@@ -1,11 +1,13 @@
 import React from 'react'
-import { Container } from 'react-bootstrap'
+import Container from 'react-bootstrap/Container'
 
 import ImageNext from '@/components/atom/image-next'
+import ModalAdvertisement from '@/components/modals/modal-advertisement'
 
 const Advertisement = () => {
 	return (
 		<React.Fragment>
+			<ModalAdvertisement />
 			<section className={'overflow-hidden mb-5 position-relative'}>
 				<Container fluid>
 					<a
