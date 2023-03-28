@@ -3,8 +3,6 @@ import Skeleton from 'react-loading-skeleton'
 
 import LogoDefault from '@/public/logo-default.png'
 import noCapa from '@/public/no-capa.jpg'
-import theme from '@/theme'
-import { MotiView } from 'moti'
 
 import ImageNext from '@/components/atom/image-next'
 import Logo from '@/components/atom/logo-funcapflix'
@@ -100,21 +98,13 @@ const CardSwipper = ({
 							<Logo size={1.5} />
 						</ContainerLogo>
 					</If>
-					<MotiView
-						animate={{
-							width: '100%',
-						}}
-						transition={{
-							type: 'timing',
-							delay: theme.EFFECT.DELAY,
-							duration: theme.EFFECT.DURATION,
-						}}
+					<div
 						style={{
 							backgroundColor: 'rgba(0,0,0,0.3)',
 						}}
 					>
 						<Title>{title}</Title>
-					</MotiView>
+					</div>
 
 					<div
 						className="ml-2 position-absolute"

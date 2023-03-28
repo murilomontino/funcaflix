@@ -1,7 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react'
-import { Platform } from 'react-native'
-import { RFValue } from 'react-native-responsive-fontsize'
-import { useHover } from 'react-native-web-hooks'
+import { useEffect, useRef, useState } from 'react'
 
 import Logo from '@/public/logo-mapa-cultural.png'
 import Image from 'next/image'
@@ -9,66 +6,16 @@ import Link from 'next/link'
 
 import ButtonLogin from '@/components/atom/button-login'
 import ButtonOpenMenu from '@/components/atom/button-open-menu'
-import NavBar from '@/components/molecule/nav-bar'
-
-import { BarHeader, Container, ContainerRow } from './styles'
 
 import { useSize } from '@/hooks/utils/use-size'
 
 const OrderHeader = ({ logoLeft }) => {
-	const [isLoading, setIsLoading] = React.useState(true)
-
-	const height = useMemo(
-		() => (logoLeft ? RFValue(25) : RFValue(40)),
-		[logoLeft]
-	)
-	const width = useMemo(
-		() => (logoLeft ? RFValue(65) : RFValue(100)),
-		[logoLeft]
-	)
-
-	useEffect(() => {
-		if (Logo) {
-			setIsLoading(false)
-		}
-	}, [])
-
-	if (isLoading) {
-		return null
-	}
-
-	if (logoLeft) {
-		return (
-			<>
-				<ContainerRow>
-					<Link href="/">
-						<a
-							style={{
-								textDecoration: 'none',
-								marginLeft: '12px',
-							}}
-						>
-							<Image
-								src={Logo}
-								alt="Logo do Mapa Cultural"
-								height={height}
-								width={width}
-							/>
-						</a>
-					</Link>
-					<NavBar />
-				</ContainerRow>
-				<ButtonLogin />
-			</>
-		)
-	}
-
 	return (
 		<>
 			<ButtonOpenMenu />
 			<Link href="/">
 				<a style={{ textDecoration: 'none', margin: '12px' }}>
-					<Image src={Logo} alt="Mapa Cultural" height={height} width={width} />
+					<Image src={Logo} alt="Mapa Cultural" height={200} width={200} />
 				</a>
 			</Link>
 			<ButtonLogin textVisible={false} />
@@ -80,7 +27,6 @@ const Header = () => {
 	const { size, web } = useSize()
 	const [isScrolled, setIsScrolled] = useState(false)
 
-	const mobile = Platform.OS === 'android' || Platform.OS === 'ios'
 	function onScroll(window, _event): any {
 		const { scrollTop } = window.target.scrollingElement
 
@@ -100,33 +46,24 @@ const Header = () => {
 
 	const [sizeNavBar, setSizeNavBar] = useState(web ? false : true)
 	const ref = useRef()
-	const hovered = useHover(ref)
 
 	const { width } = size
-	web &&
-		useEffect(() => {
-			if (width < 1127) {
-				setSizeNavBar(true)
-			} else {
-				setSizeNavBar(false)
-			}
-		}, [width])
+	useEffect(() => {
+		if (width < 1127) {
+			setSizeNavBar(true)
+		} else {
+			setSizeNavBar(false)
+		}
+	}, [width])
 
 	// 1127
 
 	return (
-		<BarHeader mobile={mobile}>
-			<Container
-				ref={ref}
-				animate={{
-					opacity: hovered || !isScrolled ? 1 : 0.1,
-					shadowOpacity: hovered || !isScrolled ? 0.1 : 0,
-				}}
-				transition={{ type: 'timing', delay: 0, duration: 100 }}
-			>
+		<div className="position-fixed">
+			<div ref={ref}>
 				<OrderHeader logoLeft={!sizeNavBar} />
-			</Container>
-		</BarHeader>
+			</div>
+		</div>
 	)
 }
 

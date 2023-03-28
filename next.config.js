@@ -5,17 +5,11 @@
 
 require('dotenv').config()
 
-const {
-  withExpo
-} = require('@expo/next-adapter')
+
 const withPlugins = require('next-compose-plugins')
 const withFonts = require('next-fonts')
 const withImages = require('next-images')
-const withTM = require('next-transpile-modules')([
-  'moti',
-  '@motify/core',
-  '@motify/components'
-])
+
 
 /**
  * @type {import('next').NextConfig}
@@ -74,16 +68,10 @@ const nextConfig = ((phase) => {
 
 const config = withPlugins(
   [
-    withTM,
     withFonts,
     withImages,
-    [
-      withExpo,
-      {
-        projectRoot: __dirname,
-      }
-    ]
   ],
-  nextConfig)
+  nextConfig
+)
 
 module.exports = config

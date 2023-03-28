@@ -1,14 +1,14 @@
 import theme from '@/theme'
-import { MotiText } from 'moti'
-import styled from 'styled-components/native'
+import styled from 'styled-components'
 
-export const ContainerLogo = styled.View`
+export const ContainerLogo = styled.div`
+	display: flex;
 	position: absolute;
 	top: 0;
 	left: 0;
 	padding: 0.7rem;
 `
-export const Title = styled(MotiText)`
+export const Title = styled.p`
 	color: #f2f2f2;
 	z-index: 5;
 	text-align: center;

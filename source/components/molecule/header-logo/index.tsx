@@ -1,9 +1,6 @@
-import React from 'react'
-import { useScaledSize } from 'react-native-web-hooks'
-
 import LogoFuncap from '@/components/atom/logo-funcapflix'
 
-import { ContainerTitle, TitleLogo, Container, ContainerLogo } from './styles'
+import { Container, ContainerLogo, ContainerTitle, TitleLogo } from './styles'
 
 import { useSize } from '@/hooks/utils/use-size'
 
@@ -22,8 +19,8 @@ const HeaderLogo = ({
 }: Props) => {
 	const { size } = useSize()
 
-	const TEXT_SIZE = useScaledSize(textSize)
-	const SUB_TITLE_SIZE = useScaledSize(textSize - 1.1)
+	const TEXT_SIZE = '1rem'
+	const SUB_TITLE_SIZE = '1.5rem'
 
 	return (
 		<Container

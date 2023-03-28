@@ -7,8 +7,6 @@ import Advertisement from '@/components/molecule/advertisement'
 import CarouselSwipperProfiles from '@/components/molecule/carousel-swipper-profiles'
 import SlideSwipper from '@/components/organism/slide-swipper'
 
-import CardCarousel from './components/organisms/card-carousel'
-
 import useFilterThumbnail from '@/hooks/use-filter-thumbnail'
 import useMapMemoItems from '@/hooks/use-map-memo-items'
 
@@ -50,7 +48,6 @@ function HomeScreen({
 
 	return (
 		<React.Fragment>
-			<CardCarousel items={newestProductsMemo} />
 			<div
 				className="container-fluid"
 				style={{

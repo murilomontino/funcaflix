@@ -1,14 +1,17 @@
-import { useMemo } from 'react'
-import { Platform } from 'react-native'
-import { useDimensions } from 'react-native-web-hooks'
+import { useEffect, useMemo, useState } from 'react'
 
 import theme from '@/theme'
 
 export const useSize = () => {
-	const web = Platform.OS === 'web'
-	const { window, screen } = useDimensions()
+	const [width, setWidth] = useState(0)
+	const [height, setHeight] = useState(0)
 
-	const { width, height } = web ? window : screen
+	useEffect(() => {
+		if (window) {
+			setWidth(window.innerWidth)
+			setHeight(window.innerHeight)
+		}
+	}, [])
 
 	const SCREEN_SMALLER_THAN_LARGE_SIZE = useMemo(
 		() => width < theme.CONSTANTS.SCREEN.LARGE,
@@ -30,7 +33,7 @@ export const useSize = () => {
 
 	return {
 		size,
-		web,
+		web: true,
 		SCREEN_SMALLER_THAN_LARGE_SIZE,
 		SCREEN_SMALLER_THAN_MEDIUM_SIZE,
 	}

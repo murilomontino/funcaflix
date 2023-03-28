@@ -40,7 +40,13 @@
       ]
     },
     "isolatedModules": true,
-    "incremental": true
+    "incremental": true,
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "noEmit": true
   },
   "include": [
     "server/**/*",
@@ -61,7 +67,6 @@
     "source/components/atom/date-picker/react-date-picker/**/*",
     ".docker"
   ],
-  "extends": "expo/tsconfig.base",
   "rules": [
     {
       "react/prop-types": 0

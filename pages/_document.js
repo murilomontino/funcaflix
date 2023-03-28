@@ -1,6 +1,5 @@
 import React from 'react'
 
-import { getInitialProps } from '@expo/next-adapter/document'
 import Document, { Head, Html, Main, NextScript } from 'next/document'
 
 import favIcon16x16 from '../public/favicon-16x16.png'
@@ -12,7 +11,7 @@ class CustomDocument extends Document {
 		return (
 			<Html>
 				<Head>
-					<title>FUNCAP - Mapa Cultural de Sergipe</title>
+					<title>Funcaflix</title>
 					<meta httpEquiv="X-UA-Compatible" content="IE=edge" />
 					<link rel="shortcut icon" src={favIcon} />
 					<link rel="icon" type="image/png" sizes="32x32" src={favIcon32x32} />
@@ -46,7 +45,5 @@ class CustomDocument extends Document {
 		)
 	}
 }
-
-CustomDocument.getInitialProps = getInitialProps
 
 export default CustomDocument

@@ -2,7 +2,6 @@ import React from 'react'
 
 import DrawerProvider from './DrawerMenu'
 import LoadingContextProvider from './LoadingModal'
-import ToastContextProvider from './ToastModal'
 
 type Props = {
 	children: React.ReactNode
@@ -11,9 +10,7 @@ type Props = {
 const RootContext = ({ children }: Props) => {
 	return (
 		<LoadingContextProvider>
-			<ToastContextProvider>
-				<DrawerProvider>{children}</DrawerProvider>
-			</ToastContextProvider>
+			<DrawerProvider>{children}</DrawerProvider>
 		</LoadingContextProvider>
 	)
 }

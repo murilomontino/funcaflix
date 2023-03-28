@@ -1,7 +1,5 @@
 import theme from '@/theme'
-import { MotiText } from 'moti'
-import styledWeb from 'styled-components'
-import styled from 'styled-components/native'
+import styled from 'styled-components'
 
 type TitleProps = {
 	lg?: boolean
@@ -10,7 +8,7 @@ type TitleProps = {
 	xs?: boolean
 }
 
-export const Title = styled.Text<TitleProps>`
+export const Title = styled.h2<TitleProps>`
 	font-size: 1rem;
 	color: #fff;
 	text-align: left;
@@ -23,7 +21,7 @@ export const Title = styled.Text<TitleProps>`
 	${({ md }) => md && `font-size: 2rem;`}
 `
 
-export const SubTitle = styled(MotiText)`
+export const SubTitle = styled.h4`
 	font-size: 0.8rem;
 	align-self: center;
 	color: #54b9c5;
@@ -33,7 +31,7 @@ export const SubTitle = styled(MotiText)`
 	text-transform: uppercase;
 `
 
-export const ContainerText = styled.TouchableOpacity`
+export const ContainerText = styled.button`
 	flex-direction: row;
 	padding: 6px;
 	background-color: ${theme.COLORS.BACKGROUND_TITLE};
@@ -42,11 +40,11 @@ export const ContainerText = styled.TouchableOpacity`
 	align-self: center;
 `
 
-export const Container = styledWeb.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  align-self: center;
-  width: 100%;
+export const Container = styled.div`
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	align-self: center;
+	width: 100%;
 `

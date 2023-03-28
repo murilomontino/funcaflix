@@ -1,5 +1,4 @@
 // @generated: @expo/next-adapter@2.1.52
-import React from 'react'
 
 import { CulturalProfileRepositorySequelize } from '@/domain/repositories'
 import {
@@ -13,7 +12,6 @@ import { CATEGORIES } from '@/types/constants'
 import { build, database } from 'mapacultural-database'
 import { GetStaticProps } from 'next/types'
 
-import ComingSoon from '@/screens/coming-soon-screen'
 import HomeScreen from '@/screens/home-screen'
 
 const EM_BREVE = false
@@ -27,13 +25,6 @@ const App = ({
 	audiovisual,
 	events,
 }) => {
-	if (EM_BREVE)
-		return (
-			<React.Fragment>
-				<ComingSoon />
-			</React.Fragment>
-		)
-
 	return (
 		<HomeScreen
 			books={books}
