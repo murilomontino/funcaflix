@@ -40,7 +40,7 @@ const ImageNext = ({
 			<Image
 				{...props}
 				src={image}
-				alt={alt}
+				alt={alt.toString() || 'Imagem não encontrada'}
 				width={width || 300}
 				height={height || 300}
 				loader={!imageStatic && imageLoader}

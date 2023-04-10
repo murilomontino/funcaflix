@@ -3,7 +3,6 @@ import React from 'react'
 import { GetterProduct, GetterProjects } from '@/domain/entities'
 import { IGetterCulturalProfile, IGetterEvent } from '@/types/getters'
 
-import Advertisement from '@/components/molecule/advertisement'
 import CarouselSwipperProfiles from '@/components/molecule/carousel-swipper-profiles'
 import SlideSwipper from '@/components/organism/slide-swipper'
 
@@ -57,7 +56,6 @@ function HomeScreen({
 					marginTop: '-8vh',
 				}}
 			>
-				<Advertisement />
 				<CarouselSwipperProfiles
 					title="Perfis Culturais"
 					id="iq-perfis-culturais"
