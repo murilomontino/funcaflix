@@ -8,7 +8,7 @@ module.exports = {
 			args: 'start',
 			max_memory_restart: '150M',
 			autorestart: true,
-			watch: ['.next', 'dist'],
+			watch: ['source', 'pages'],
 		},
 	],
 }
