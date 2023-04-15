@@ -7,11 +7,11 @@ config()
 
 const server = new Server(process.env.EXPRESS_PORT)
 
-const begin = async () => {
+export const begin = async () => {
 	await server.start()
 }
 
-const beginOnlyAPI = async () => {
+export const beginOnlyAPI = async () => {
 	await server.startOnlyExpress()
 }
 
