@@ -31,12 +31,10 @@ const httpServer = (express: Express): ServerHTTP => {
  * @returns A server object
  */
 const httpsServer = (express: Express): ServerHTTPS => {
-	const cert = fs.readFileSync(
-		path.resolve(process.cwd(), 'certs', 'cert.crt'))
+	const cert = fs.readFileSync(path.resolve(process.cwd(), 'certs', 'cert.crt'))
 
 	const key = fs
-		.readFileSync(
-			path.resolve(process.cwd(), 'certs', 'key.pem'), 'utf8')
+		.readFileSync(path.resolve(process.cwd(), 'certs', 'key.pem'), 'utf8')
 		.replace(/\\n/gm, '\n')
 
 	const options = {
@@ -72,7 +70,10 @@ class Server {
 		await this.next.prepare()
 		await this.middleware.init()
 		await this.router.init()
-		this.server = NODE_ENV === 'production' ? httpsServer(this.express) : httpServer(this.express)
+		this.server =
+			NODE_ENV === 'production'
+				? httpsServer(this.express)
+				: httpServer(this.express)
 		this.server.listen(process.env.EXPRESS_PORT || 3000)
 		this.io = new ServerIO(this.server)
 		await this.io.init()
