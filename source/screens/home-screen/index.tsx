@@ -49,7 +49,6 @@ function HomeScreen({
 
 	return (
 		<React.Fragment>
-			<CardCarousel items={newestProductsMemo} />
 			<div
 				className="container-fluid"
 				style={{
